@@ -1,0 +1,36 @@
+% !TEX root = ../master.tex
+\clearpage
+\chapter*{List of Acronyms}
+\addcontentsline{toc}{chapter}{List of Acronyms}
+
+%Verwendung:
+%		\ac{Abk.}   --> fügt die Abkürzung ein, beim ersten Aufruf wird zusätzlich automatisch die ausgeschriebene Version davor eingefügt bzw. in einer Fußnote (hierfür muss in header.tex \usepackage[printonlyused,footnote]{acronym} stehen) dargestellt
+%		\acs{Abk.}   -->  fügt die Abkürzung ein
+%		\acf{Abk.}   --> fügt die Abkürzung UND die Erklärung ein
+%		\acl{Abk.}   --> fügt nur die Erklärung ein
+%		\acp{Abk.}  --> gibt Plural aus (angefügtes 's'); das zusätzliche 'p' funktioniert auch bei obigen Befehlen
+%	siehe auch: http://golatex.de/wiki/%5Cacronym
+
+\begin{acronym}
+	\acro{API}{application programming interface}
+	\acro{BIA}[BI\&A]{Business Intelligence \& Analytics}
+	\acro{CDH}{Cloudera Distribution Including Apache Hadoop}
+	\acro{CPU}{central processing unit}
+	\acro{DHBW}{Baden-Württemberg Cooperative State Univerity (Duale Hochschule Baden-Württemberg)}
+	\acro{DNS}{Domain Name System}
+	\acro{FQDN}{fully qualified domain name}
+	\acro{GB}{gigabyte}
+	\acro{HDFS}{Hadoop Distributed File System}
+	\acro{HDP}{Hortonworks Data Platform}
+	\acro{IP}{internet protocol}
+	\acro{IT}{information technology}
+	\acro{LTS}{long term support}
+	\acro{JDK}{Java Development Kit}
+	\acro{NCDC}{National Climatic Data Center}
+	\acro{NTP}{Network Time Protocol}
+	\acro{VM}{virtual machine}
+	\acro{RAM}{random access memory}
+	\acro{SSH}{secure shell}
+	\acro{THP}{Transparent Hugh Pages}
+	\acro{YARN}{Yet Another Resource Negotiator}
+\end{acronym}
