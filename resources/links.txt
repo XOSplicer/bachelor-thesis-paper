@@ -38,3 +38,5 @@ https://patents.google.com/patent/US5034986A/en?q=~patent%2fUS5387768A
 https://www.engr.uconn.edu/msl/paper/JinSun/OptimizationOfGroupElevatorSchedulingTASE2010.pdf
 https://beta.vu.nl/nl/Images/werkstuk-beers_tcm235-431096.pdf
 https://www.researchgate.net/publication/3331983_Optimal_Dispatching_Control_for_Elevator_Systems_During_Up_Peak_Traffic
+
+https://www.sciencedirect.com/science/article/pii/S0360132313003272
