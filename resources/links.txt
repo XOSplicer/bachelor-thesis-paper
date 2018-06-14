@@ -40,3 +40,7 @@ https://beta.vu.nl/nl/Images/werkstuk-beers_tcm235-431096.pdf
 https://www.researchgate.net/publication/3331983_Optimal_Dispatching_Control_for_Elevator_Systems_During_Up_Peak_Traffic
 
 https://www.sciencedirect.com/science/article/pii/S0360132313003272
+
+https://stackoverflow.com/questions/10168686/image-processing-algorithm-improvement-for-coca-cola-can-recognition
+https://en.wikipedia.org/wiki/Generalised_Hough_transform
+https://en.wikipedia.org/wiki/Fast_Fourier_transform#Multidimensional_FFTs
