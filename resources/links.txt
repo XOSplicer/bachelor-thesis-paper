@@ -38,3 +38,13 @@ https://patents.google.com/patent/US5034986A/en?q=~patent%2fUS5387768A
 https://www.engr.uconn.edu/msl/paper/JinSun/OptimizationOfGroupElevatorSchedulingTASE2010.pdf
 https://beta.vu.nl/nl/Images/werkstuk-beers_tcm235-431096.pdf
 https://www.researchgate.net/publication/3331983_Optimal_Dispatching_Control_for_Elevator_Systems_During_Up_Peak_Traffic
+
+https://www.sciencedirect.com/science/article/pii/S0360132313003272
+
+https://stackoverflow.com/questions/10168686/image-processing-algorithm-improvement-for-coca-cola-can-recognition
+https://en.wikipedia.org/wiki/Generalised_Hough_transform
+https://en.wikipedia.org/wiki/Fast_Fourier_transform#Multidimensional_FFTs
+
+http://www.oea.org.lb/Library/Files/Arabic/Downloads/Reports/%D9%86%D8%AF%D9%88%D8%A7%D8%AA%20%D9%88%D9%85%D8%A4%D8%AA%D9%85%D8%B1%D8%A7%D8%AA/Elevator%20Traffic%20Analysis.pdf
+
+https://en.wikipedia.org/wiki/Generalised_Hough_transform
