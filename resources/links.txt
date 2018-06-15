@@ -50,3 +50,5 @@ http://www.oea.org.lb/Library/Files/Arabic/Downloads/Reports/%D9%86%D8%AF%D9%88%
 https://en.wikipedia.org/wiki/Generalised_Hough_transform
 
 https://www.wiley.com/en-us/The+Vertical+Transportation+Handbook%2C+4th+Edition-p-9780470919736
+
+https://docs.opencv.org/3.3.0/db/d5c/tutorial_py_bg_subtraction.html
