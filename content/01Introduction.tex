@@ -2,60 +2,85 @@
 \chapter{Introduction}
 \label{chap:intro}
 
-\section{Computer Vision and Elevators}
+%\section{Computer Vision and Elevators}
 
-%\begin{figure}
-%\begin{equation}
-%f(x)=x^2
-%\label{eqn:e2}
-%\end{equation}
-%\caption{Quadratic Function}
-%\end{figure}
+The usage of elevator constructions to lift goods and people vertically dates back a long history and gained significant importance since the industrialization.
+Nowadays modern high-rise buildings would not be sustainable without elevation systems appropriate to handle large amount of business people on their way to and from the office. 
+The issue of optimizing the throughput of passengers and reducing the their waiting time is of everyday economic interest since it is critical for the business people using it to use their time most efficiently. 
+Therefore the topic of movement optimization for elevators is under active academic research with direct impact for manufacturers.
+Such optimizations of the control mechanism depend on many parameters including timings of the system, the traffic patterns of the passengers and the kind of input mechanisms to detect passengers and terminal destination.
 
-% \lipsum[1-10]
-\autocite{reddy2013foreground}
+In this thesis a possibility to enhance this control mechanism by utilizing computer-based camera vision is proposed.
+Currently the general trend of computer vision is emerging in many fields with real-world applications
+and techniques of varying complexities are employed to support a broad range of use cases. 
+In industrial systems camera data is used to control and inspect production processes. 
+When monitoring solutions for public or private places are considered such use cases include among others surveillance, tracking,
+smart home, and statistical applications.
+Especially in \enquote{smart} environments video data is combined with other sensory data to gain insight into behavioral patterns and trigger actions in that environment.
+
+Here the possibilities are explored to which extend
+computer vision can be used to improve the movement control of elevators by estimating the free spacial volume in the elevator cabins and how much space the passengers waiting for the car would take up.
+This could allow for a better utilization of the cabins and an improved passenger-to-car mapping with reduced waiting times for passengers.
+
+\section{Contexta and Motivation}
+
+This bachelor thesis is conducted in the \emph{Digital Service Innovation} team at \emph{DXC Technology}.
+The team is focused helping clients to develop novel, digitized business models.
+The team is actively involved in the \emph{Startup Autobahn} program organized by \emph{Plug and Play}.
+The program provides a business platform to connect technology start-ups and global industry corporations
+by running a 100 day cycle in which demo projects can be conducted to test out how the start-ups can work with the companies and how their technologies can be used.
+
+The idea for this thesis evolved in this context as DXC got interested in a start-up that deals with computer vision and found a client in the elevator industry to perform an evaluation project on the matter together.
+However first the start-up disconnected and soon the client backed out of the project.
+But still DXC is keen to follow the idea and find new partners and clients to engage with it.
+Therefore this project is nevertheless relevant for the team even though there is no immediate financial benefit associated with it, 
+but rather it opens up opportunities for new partnerships and client engagements when suitable technology partners are found.
+According to \textcite[][p.~4]{unger2015aufzuege} the four biggest companies in the elevator business are \emph{Otis, Kone, Schindler und Thyssen} which therefore are potential clients to benefit from the ideas proposed in this thesis.
+
+
 
 TODO
-- general intro to why camera vision is gaining importance in public places for survialance, statistics, monitoring live reactrion. 
-- iot mevement with cameras and many other sensors
-- and why elevator movement is an topic of economic interest.
-- there is a lot of research in the topic utilizing theoretical multivariable model optimization, simulational approaches and heuristical approaches in real world ["copy" to sota and ref papers]
+- genauere beschreibung? Julia fragen
+- andere paper referenzieren vorheriger research? ("academic context")
 
-
-\section{Context}
-
-- andere paper referenzieren vorheriger research?
-- DXC Startup autobahn 
-- startup abgesprungen
-
-TODO
-
-\section{Motivation}
-
-
-TODO
-
-where does the problem come from?
-why is this work relevant?
-volume detectoin might hold the opportunity to further improve efficiency with the degree of usage on elevators
-limited by 80\% rule ??, unused capacity
-also detection of bigger items such as janitors cars might be useful
-
-possibly in scope: detect emergencies if person is laiing down, maybe not
 
 \section{Goals and Boundaries}
 
-TODO Problem Statement (maybe own section)
+As the project time for this thesis is limited, the scope needs to be specified and concrete questions to answer help to narrow down the research that is actually required.
+Those provide a guidance in the process of determining the methods employed in later investigation steps.
+In general two main research questions are identified:
 
-TODO scope and non-scope
+\begin{itemize}
+    \item Which computer vision techniques can be used to detect persons and objects within an elevator car and in front of the lift and estimate their spacial volume?
+    \item How can the information acquired by a system that uses such methods constitute to the optimization of algorithms that control the movement plan for elevators?
+\end{itemize}
+
+To contribute to this general questions it is useful to also evaluate some secondary questions:
+
+\begin{itemize}
+    \item The volume of what kind of other objects are except for humans are interesting for this topic?
+    \item Under which circumstances is it useful to integrate such a system into an elevator system?
+    \item To which extend can the usage lead to improvements in utilization, waiting time, ride time and economic effort?
+    \item Which of the named optimization goals are targetable by this kind of analysis and are they desired from a passenger perspective?
+\end{itemize}
+
+In order to answer those questions an explicit plan to follow is laid out in chapter \ref{chap:design} which is executed and implemented in chapter \ref{chap:impl}. 
+This will also determine which analysis, implementation and evaluation actions are taken.
+
+Additionally to keeping the project size manageable it is necessary to explicitly exclude aspects from the  investigation. 
+Especially it is of no interest to track and identify individual persons and analyze their behavior. 
+Even though some kind of surveillance could be established this way, it is not desired for this thesis.
+Furthermore considerations about market potential for the solution and how it can be targeted to customers are performed. 
+
 
 \section{Structure of this Document}
 
-TODO
+This thesis is structured into multiple chapters that first build a general understanding of the problem and the technologies needed to solve it and leads to an final implementation.
 
 \begin{itemize}
-    \item Chapter \ref{chap:sota}
-    \item Chapter \ref{chap:design}
-    \item Chapter \ref{chap:impl}
-    \item Chapter \ref{chap:concl}
+    \item This chapter gives an introduction into the topic and outlines the problem statement which is worked on in the thesis.
+    \item Chapter \ref{chap:sota} describes the current state of the art in the fields of elevator control and movement optimization, as well as the basics of image processing that are needed for the conduct of this project. It lays out which methods, technologies and tools can be used to approach the problems in this project.
+    \item Chapter \ref{chap:design} explains the methods used to conduct research for the project and plans a concept for the solution. (TODO refine when method is settled)
+    \item Chapter \ref{chap:impl} describes how the proposed solutions is implemented and tested. The solution is reflected upon from a functional and economic perspective  (TODO describe when method is settled)
+    \item Chapter \ref{chap:concl} gives a short summary of the conduced method and the outcomes of the project. The findings are discussed and the execution of the project is reflected upon. Finally an outlook into future developments in the field and the opportunities and follow-up actions for DXC Technology and the Digital Service Innovation Team are outlined.
 \end{itemize}
