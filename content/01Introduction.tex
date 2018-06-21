@@ -46,32 +46,33 @@ TODO
 
 \section{Goals and Boundaries}
 
-As the project time for this thesis is limited, the scope needs to be specified and concrete questions to answer by it  
-
+As the project time for this thesis is limited, the scope needs to be specified and concrete questions to answer help to narrow down the research that is actually required.
+Those provide a guidance in the process of determining the methods employed in later investigation steps.
 In general two main research questions are identified:
 
 \begin{itemize}
-    \item Which techniques can be used to detect persons and objects within an elevator car and in front of the lift and estimate their spacial volume?
+    \item Which computer vision techniques can be used to detect persons and objects within an elevator car and in front of the lift and estimate their spacial volume?
     \item How can the information acquired by a system that uses such methods constitute to the optimization of algorithms that control the movement plan for elevators?
 \end{itemize}
 
 TODO what will be done to reach this questions
 
-% To contribute to this general questions it is useful to also evaluate some secondary questions:
+To contribute to this general questions it is useful to also evaluate some secondary questions:
 
-
-
+\begin{itemize}
+    \item Under which circumstances is it useful to integrate such a system into an elevator system?
+    \item To which extend can the usage lead to improvements in utilization, waiting time, ride time and economic effort
+\end{itemize}
 
 TODO Problem Statement (maybe own section)
--zu beantwoten: was soll eigentlich gemacht werden und welche ergebnisse werden erwartet?
+
 -möglich, aber nicht alles sinnvoll: 
 -- analyse: ist es überhaubt sinnvoll die volumen zu messen, (wie genau?)
 -- implementierung: volumenerkennung
 -- evaluierung: echte videos? echte steuerung?
 -- vorschlag für einbringen der daten in movement planing
--- simulation: testen der vorgeschlagenen regeln mit und ohne volumen in einer programmatischen simulation und herausfinden, ob das überhaub relevant ist
+-- simulation: testen der vorgeschlagenen regeln mit und ohne volumen in einer programmatischen simulation und herausfinden, ob das überhaub relevant ist (nein)
 -- unter welchen vorraussetzungen kann es überhaubt sinnvoll sein, so ein system einzusetzn.
--- wie kann volumen mittels cv geschätzt werden, ist das in einem aufzug und davor möglich, mit welchen methoden?
 - volume detectoin might hold the opportunity to further improve efficiency with the degree of usage on elevators
 - limited by 80\% oder auch 60-70\% rule \autocite[][p.~194]{unger2015aufzuege} ??, unused capacity (referece)
  
