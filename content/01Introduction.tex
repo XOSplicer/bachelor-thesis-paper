@@ -70,22 +70,21 @@ Additionally to keeping the project size manageable it is necessary to explicitl
 Especially it is of no interest to track and identify individual persons and analyze their behavior.
 Furthermore considerations about market potential for the solution and how it can be targeted to customers are performed. 
 
--möglich, aber nicht alles sinnvoll: 
--- analyse: ist es überhaubt sinnvoll die volumen zu messen, (wie genau?)
--- implementierung: volumenerkennung
--- evaluierung: echte videos? echte steuerung?
--- vorschlag für einbringen der daten in movement planing
--- simulation: testen der vorgeschlagenen regeln mit und ohne volumen in einer programmatischen simulation und herausfinden, ob das überhaub relevant ist (nein)
--- unter welchen vorraussetzungen kann es überhaubt sinnvoll sein, so ein system einzusetzn.
-- volume detectoin might hold the opportunity to further improve efficiency with the degree of usage on elevators
-- limited by 80\% oder auch 60-70\% rule \autocite[][p.~194]{unger2015aufzuege} ??, unused capacity (referece)
- 
-- also detection of bigger items such as janitors cars, baby buggies  might be useful
+%-möglich, aber nicht alles sinnvoll: 
+%-- analyse: ist es überhaubt sinnvoll die volumen zu messen, (wie genau?)
+%-- implementierung: volumenerkennung
+%-- evaluierung: echte videos? echte steuerung?
+%-- vorschlag für einbringen der daten in movement planing
+%-- simulation: testen der vorgeschlagenen regeln mit und ohne %volumen in einer programmatischen simulation und herausfinden, ob das überhaub relevant ist (nein)
+%-- unter welchen vorraussetzungen kann es überhaubt sinnvoll sein, so ein system einzusetzn.
+%- volume detectoin might hold the opportunity to further improve efficiency with the degree of usage on elevators
+%- limited by 80\% oder auch 60-70\% rule \autocite[][p.~194]{unger2015aufzuege} ??, unused capacity (referece)
+%- also detection of bigger items such as janitors cars, baby buggies  might be useful
 
-TODO scope and non-scope
+% TODO scope and non-scope
 
-- possibly not in scope: detect emergencies if person is laiing down, maybe not, tracking und idetifizeirung einzelnen persoenen
-- zuordnung person-fahrtwunsch-car, oder doch?
+%b- possibly not in scope: detect emergencies if person is laiing down, maybe not, tracking und idetifizeirung einzelnen persoenen
+% - zuordnung person-fahrtwunsch-car, oder doch?
 
 
 \section{Structure of this Document}
@@ -93,7 +92,7 @@ TODO scope and non-scope
 This thesis is structured into multiple chapters that first build a general understanding of the problem and the technologies needed to solve it and leads to an final implementation.
 
 \begin{itemize}
-    \item gives an introduction into the topic and 
+    \item This chapter gives an introduction into the topic and outlines the problem statement which is worked on in the thesis.
     \item Chapter \ref{chap:sota} describes the current state of the art in the fields of elevator control and movement optimization, as well as the basics of image processing that are needed for the conduct of this project. It lays out which methods, technologies and tools can be used to approach the problems in this project.
     \item Chapter \ref{chap:design} explains the methods used to conduct research for the project and plans a concept for the solution. (TODO refine when method is settled)
     \item Chapter \ref{chap:impl} describes how the proposed solutions is implemented and tested. The solution is reflected upon from a functional and economic perspective  (TODO describe when method is settled)
