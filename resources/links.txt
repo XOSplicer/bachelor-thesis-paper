@@ -56,3 +56,4 @@ https://docs.opencv.org/3.3.0/db/d5c/tutorial_py_bg_subtraction.html
 https://www.researchgate.net/profile/Marja_Liisa_Siikonen2
 http://adsimulo.com/en/
 https://toolbox.kone.com/de_DE#building
+http://journals.sagepub.com/doi/abs/10.1177/0143624413504422
