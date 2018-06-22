@@ -58,3 +58,4 @@ http://adsimulo.com/en/
 https://toolbox.kone.com/de_DE#building
 http://journals.sagepub.com/doi/abs/10.1177/0143624413504422
 https://books.google.co.uk/books?id=799zCgAAQBAJ&pg=PT664&lpg=PT664&dq=lift+traffic+simulator&source=bl&ots=PlZy3WaMWJ&sig=uexZSBPm1H24sQI8FVJwwNM12zA&hl=de&sa=X&ved=0ahUKEwiH-r7tp-fbAhXJs1QKHZwpCuk4ChDoAQhUMAU#v=onepage&q=lift%20traffic%20simulator&f=false
+https://www.pyimagesearch.com/2016/03/28/measuring-size-of-objects-in-an-image-with-opencv/
