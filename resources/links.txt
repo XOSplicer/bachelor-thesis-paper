@@ -61,3 +61,4 @@ https://books.google.co.uk/books?id=799zCgAAQBAJ&pg=PT664&lpg=PT664&dq=lift+traf
 https://www.pyimagesearch.com/2016/03/28/measuring-size-of-objects-in-an-image-with-opencv/
 
 https://patents.google.com/patent/US8020672B2/en
+https://www.peters-research.com/index.php?option=com_content&view=article&id=43%253Aunderstanding-the-benefits-and-limitations-of-destination-dispatch&catid=3%253Apapers&Itemid=1
