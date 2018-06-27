@@ -62,3 +62,5 @@ https://www.pyimagesearch.com/2016/03/28/measuring-size-of-objects-in-an-image-w
 
 https://patents.google.com/patent/US8020672B2/en
 https://www.peters-research.com/index.php?option=com_content&view=article&id=43%253Aunderstanding-the-benefits-and-limitations-of-destination-dispatch&catid=3%253Apapers&Itemid=1
+
+https://docs.opencv.org/3.1.0/da/de9/tutorial_py_epipolar_geometry.html
