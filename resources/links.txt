@@ -66,3 +66,5 @@ https://www.peters-research.com/index.php?option=com_content&view=article&id=43%
 https://docs.opencv.org/3.1.0/da/de9/tutorial_py_epipolar_geometry.html
 
 https://docs.opencv.org/2.4/doc/tutorials/imgproc/shapedescriptors/hull/hull.html
+
+http://www.cvg.reading.ac.uk/PETS2009/
