@@ -70,3 +70,5 @@ https://docs.opencv.org/2.4/doc/tutorials/imgproc/shapedescriptors/hull/hull.htm
 http://www.cvg.reading.ac.uk/PETS2009/
 http://www.cvg.reading.ac.uk/PETS2009/data/website/a.html
 ftp://ftp.cs.rdg.ac.uk/pub/PETS2009/Crowd_PETS09_dataset/a_data/Crowd_PETS09/
+
+https://books.google.co.uk/books?id=jMRc3Sy8qakC&printsec=frontcover&hl=de&source=gbs_ge_summary_r#v=onepage&q&f=false
