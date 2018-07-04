@@ -83,6 +83,9 @@
 
 \pagestyle{scrheadings}
 
+\begingroup
+\setcounter{tocdepth}{1}
+
 %	Abbildungsverzeichnis
 \listoffigures
 
@@ -95,13 +98,15 @@
 % 	Algorithmenverzeichnis
 \listofalgorithms
 
+\endgroup
+
 % 	Abkürzungsverzeichnis (siehe Datei acronyms.tex!)
 \input{adds/acronyms}
 
 \input{adds/symbols.tex}
 
 % TODO remove this
-\input{adds/litreview}
+% \input{adds/litreview}
 
 %----------------------------------------
 % Start des Textteils der Arbeit
