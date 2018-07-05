@@ -91,16 +91,22 @@ According to multiple sources, three general patterns are present in office buil
 \begin{itemize}
     \item \textbf{Up-peak traffic} In the morning the majority of passengers constitutes to an incoming traffic.
     They arrive at the entrance lobby and travel to different upper floors to fill the building.
+    The lift cars potentially need to stop at every level and return to the lobby without passengers to pick up new ones. 
+    This reduces the utilized capacity and puts a high load on the elevator system to convoy all passengers in time.
     \item \textbf{Down-peak traffic} In the evening the majority of the passengers are leaving the building and travel from arbitrary upper floors to the main lobby.
     Most of the passengers constitute to outgoing traffic.
+    The elevator system needs to pick up passengers at every level. 
+    Reverse to the up-peak traffic, the cars are empty when returning from the lobby.
+    Similar to the up-peak traffic this situation induces a high stress on the system.
     \item \textbf{Inter-floor traffic} All other traffic that is neither incoming nor outgoing can be considered inter-floor traffic. Passengers that travel from one floor to another but are not entering or leaving the building are the majority in this situation.
 \end{itemize}
 
 Figure \ref{fig:sota:trafficpatterns} depicts the former mentioned traffic components.
-Figure \ref{fig:sota:traffictimes} shows an example of how the traffic components contribute to overall traffic in an office building. 
+Figure \ref{fig:sota:traffictimes} shows an example of how the traffic components contribute to overall traffic in an office building. A clear peak of incoming traffic in the morning and outgoing traffic in the evening are visible.
 This information can be used to model simulations and predict traffic in various circumstances.
+It has significant impact on the scheduling principles employed for each situation in order to improve the efficiency of an elevator system.
 
-\begin{figure}[htb]
+\begin{figure}[hbt]
 	\centering
 	\includegraphics[width=0.8\textwidth, keepaspectratio]{resources/trafficpatterns}
 	\caption[]{\label{fig:sota:trafficpatterns} Typical categories of passenger traffic: Incoming, Outgoing and Inter-floor.
