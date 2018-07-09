@@ -139,15 +139,16 @@ TODO
 
 TODO
 
-TODO
-\autocite[][p.~10]{beers2015arrivals}
-\autocite[][p.~7]{hakonen2003simulation}
-\autocite[][pp.8-9]{siikonen1997models}
-\autocite[][p.~194]{unger2015aufzuege}
-
 TODO used to model
 
 are linked together and influence each other
+some are perceived as part of the service quality by the passengers.
+
+% General cite:
+%\autocite[][p.~10]{beers2015arrivals}
+%\autocite[][p.~7]{hakonen2003simulation}
+%\autocite[][pp.8-9]{siikonen1997models}
+%\autocite[][p.~194]{unger2015aufzuege}
 
 \begin{itemize}
 
@@ -183,23 +184,31 @@ are linked together and influence each other
         \autocite[][p.~194]{unger2015aufzuege}\autocite[][p.~7]{hakonen2003simulation}
     
     \item The \textbf{interval time} 
-    describes the time between departures of any cabin from the lobby 
-    and influences the time a passenger hat to wait at the lobby.
-    \autocite[][pp.8-9]{siikonen1997models}
+        describes the time between departures of any cabin from the lobby 
+        and influences the time a passenger hat to wait at the lobby.
+        \autocite[][pp.8-9]{siikonen1997models}
     
     \item The \textbf{hall call time} 
-    describes the time between the issuing of an hall call by a passenger and the cancellation of the call. The call is canceled when an elevator is scheduled to serve the call floor and hence deaccelerates to stop at the TODO - call time / hall call time / call waiting time
+        describes the time between the issuing of an hall call by a passenger and the cancellation of the call. 
+        The call is canceled when an elevator is scheduled to serve the call floor and hence decelerates to stop at the floor.
+        \autocite[][pp.8-9]{siikonen1997models} 
     
-    \item The number of \textbf{total stops} TODO - total stops
-    
-    \item The \textbf{energy consumption} per ride or per time interval is an measure of economic interest. However it does not influence the perceived service quality.
-    
-    \item \textbf{capacity utilization} TODO - capacity utilization in space and weight (economic)
-        (usualy one cabin is only used 60-80\% could be lower if objects in it)
+    \item The number of \textbf{total stops}
+        necessary to serve an specified amount of passengers (or within an given time frame) is an indicator for the efficiency of the scheduling algorithm.
         \autocite[][p.~194]{unger2015aufzuege}
-        \autocite[][p.~7]{hakonen2003simulation}
-        influenced by empty rides
-        directly influences the different times
+    
+    \item The \textbf{energy consumption} 
+        per ride or per time interval is an measure of economic interest. 
+        However it does not influence the perceived service quality.
+    
+    \item The \textbf{capacity utilization} 
+        of the cabins in spacial and weight dimensions is an interesting metric to observe, 
+        since usually only 60-80\% of the capacity is used at a time. 
+        \autocite[][p.~194]{unger2015aufzuege}
+        \autocite[][p.~7]{hakonen2003simulation} 
+        This utilization can be even lower when large objects are present.
+        The average utilization is further influenced by empty rides.
+        
 \end{itemize}
 
 For each of the metrics it is common to calculate statistical figures, such as average, mean, minimum, maximum and standard deviation, which also can differ depending on the traffic situation.
