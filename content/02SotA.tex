@@ -147,35 +147,53 @@ TODO
 
 TODO used to model
 
+are linked together and influence each other
+
 \begin{itemize}
+
     \item The \textbf{passenger waiting time} 
         describes the amount of time between the arrival of a passenger at the landing floor 
         and their entry into the elevator cabin. 
         \autocite[][p.~7]{hakonen2003simulation}\autocite[][pp.8-9]{siikonen1997models}
+        
     \item The \textbf{passenger ride time} 
         measures the time between the entering of a passenger into the cabin 
         and them exiting the cabin on the destination floor. 
     \autocite[][pp.8-9]{siikonen1997models}
+    
     \item The \textbf{total journey time}, 
         also called \emph{total service time} \autocite[][p.~10]{beers2015arrivals} or \emph{time to destination},
         describes the total time a passenger spends in the system 
         and is calculated by the sum of waiting and ride time.
         \autocite[][pp.8-9]{siikonen1997models}
-    \item \textbf{Handling capacity} TODO - handling capacity = 5min in uppeak \autocite[][pp.8-9]{siikonen1997models}
-    \item \textbf{Round trip time} TODO - round trip time
+        
+    \item The \textbf{round trip time} 
+        describes the time it takes for a single elevator to collect passengers at the lobby,
+        deliver them to the upper floors and return to the lobby. 
+        This measure is critical in the up-peak traffic.
+        \autocite[][pp.8-9]{siikonen1997models}
+        
+    \item \textbf{Handling capacity}, also called \enph{5-minute interval}\autocite[][p.~194]{unger2015aufzuege}, describes the number that can be transported at maximum into the upper most floor during up-peak traffic. TODO - handling capacity = 5min in uppeak \autocite[][pp.8-9]{siikonen1997models} 60-80\%, depends on rtt
+    
     \item \textbf{Interval time} TODO - interval
-    \item \textbf{Hall call time} TODO - call time / hall call time / call waiting time
+    
+    \item \textbf{hall call time} TODO - call time / hall call time / call waiting time
+    
     \item \textbf{5 minute interval} TODO - 5min interval \autocite[][p.~194]{unger2015aufzuege}
-    \item \textbf{Total stops} TODO - total stops
-        \item \textbf{Energy consumption} TODO - energy consumption (economic)
-    \item \textbf{Capacity utilization} TODO - capacity utilization in space and weight (economic)
+    
+    \item \textbf{total stops} TODO - total stops
+    
+    \item \textbf{energy consumption} TODO - energy consumption (economic)
+    
+    \item \textbf{capacity utilization} TODO - capacity utilization in space and weight (economic)
         (usualy one cabin is only used 60-80\% could be lower if objects in it)
         \autocite[][p.~194]{unger2015aufzuege}
         \autocite[][p.~7]{hakonen2003simulation}
         influenced by empty rides
+        directly influences the different times
 \end{itemize}
 
-For each of the metrics it is common to calculate statistical figures, such as average, mean, minimum, maximum and standard deviation.
+For each of the metrics it is common to calculate statistical figures, such as average, mean, minimum, maximum and standard deviation, which also can differ depending on the traffic situation.
 These calculations can be based on theoretical consideration about the physical parameters of the system \autocite[][p.~194]{unger2015aufzuege}, simulations or heuristical observations in real buildings.
  
 
