@@ -148,9 +148,19 @@ TODO
 TODO used to model
 
 \begin{itemize}
-    \item The \textbf{Passenger waiting time} describes the amount of time between the arrival of a passenger at the landing floor and  
-    \item \textbf{Passenger ride time} TODO - passenger travel (riding) time
-    \item \textbf{Total journey time} TODO  - total service / journey time / time to destination
+    \item The \textbf{passenger waiting time} 
+        describes the amount of time between the arrival of a passenger at the landing floor 
+        and their entry into the elevator cabin. 
+        \autocite[][p.~7]{hakonen2003simulation}\autocite[][pp.8-9]{siikonen1997models}
+    \item The \textbf{passenger ride time} 
+        measures the time between the entering of a passenger into the cabin 
+        and them exiting the cabin on the destination floor. 
+    \autocite[][pp.8-9]{siikonen1997models}
+    \item The \textbf{total journey time}, 
+        also called \emph{total service time} \autocite[][p.~10]{beers2015arrivals} or \emph{time to destination},
+        describes the total time a passenger spends in the system 
+        and is calculated by the sum of waiting and ride time.
+        \autocite[][pp.8-9]{siikonen1997models}
     \item \textbf{Handling capacity} TODO - handling capacity = 5min in uppeak \autocite[][pp.8-9]{siikonen1997models}
     \item \textbf{Round trip time} TODO - round trip time
     \item \textbf{Interval time} TODO - interval
@@ -166,7 +176,7 @@ TODO used to model
 \end{itemize}
 
 For each of the metrics it is common to calculate statistical figures, such as average, mean, minimum, maximum and standard deviation.
-These calculations can be based on theoretical consideration \autocite[][p.~194]{unger2015aufzuege}, simulations or heuristical observations in real buildings.
+These calculations can be based on theoretical consideration about the physical parameters of the system \autocite[][p.~194]{unger2015aufzuege}, simulations or heuristical observations in real buildings.
  
 
 
