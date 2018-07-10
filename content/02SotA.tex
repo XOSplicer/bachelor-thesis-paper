@@ -50,12 +50,22 @@ In order to gain an understanding of how an elevator system is controlled,
 it is useful to look at the components a general system includes.
 To do so, the mechanisms involved in a typical elevator ride 
 from a passenger perspective shall be outlined.
+Figure \ref{fig:sota:systemcomponents} gives an general overview over the involved logical components and their connections.
+
+\begin{figure}[hbt]
+	\centering
+	\includegraphics[width=0.8\textwidth, keepaspectratio]{resources/systemcomponets}
+	\caption{\label{fig:sota:systemcomponents} General components of an elevator control system. Based on and adapted from \autocite[][pp.~4,16]{xang2016trafficlist} and \autocite[][pp.~6,10]{siikonen1997models}}
+\end{figure}
 
 When a passenger wants to take the elevator from one floor to another,
-they press a button on the \emph{floor call panel} and issue a \emph{hall call} to the system.
+they press a button on the \emph{floor call panel} and issue a \emph{hall call} (or \emph{reservation call}) to the system.
 This hall call signals to the system that an elevator needs to pick them up.
 The button pressed might be a simple push button, but can also be more complex 
 and capture information about the direction or destination of travel.
+Even before the passenger presses the panel button, \emph{additional sensors} 
+on the floor can detect their intent to use the elevator and gather more information about them.
+This can include camera systems, badge scanners, 
 
 
 TODO
@@ -76,12 +86,6 @@ explain call types and typical system behavior
 \autocite[][pp.~12-13]{strobl1999controller}
 \autocite[][pp.~6,10]{siikonen1997models}
 \autocite[][pp.~4,16]{xang2016trafficlist}
-
-\begin{figure}[hbt]
-	\centering
-	\includegraphics[width=0.8\textwidth, keepaspectratio]{resources/systemcomponets}
-	\caption{\label{fig:sota:traffictimes} General components of an elevator control system. Based on and adapted from \autocite[][pp.~4,16]{xang2016trafficlist} and \autocite[][pp.~6,10]{siikonen1997models}}
-\end{figure}
 
 \subsection{System Classifications}
 TODO
