@@ -66,9 +66,18 @@ and capture information about the direction or destination of travel.
 Even before the passenger presses the panel button, \emph{additional sensors} 
 on the floor can detect their intent to use the elevator and gather more information about them.
 This can include among others camera systems \autocite[][]{lin2011control}, badge scanners, or \enquote{smart home} installations \autocite[][]{kwon2014sensor}.
-In a multi-elevator system the hall call is registered by the \emph{group controller} and stays active until it is deleted when an elevator serves it by picking up the passenger.
-In case of a single-elevator system no group controller is necessa
+In a multi-elevator system the hall call is registered by the \emph{group controller} and stays active until it is deleted when an cabin picks up the passenger.
+The group controller \emph{schedules and dispatches} an elevator move to the respective floor and serve the call.
+In case of a single-elevator system no group controller is necessary.
+Different scheduling algorithms can be used to determine which cabin should serve which hall call next.
+The dispatch signal is picked up by the \emph{elevator controller} of the respective cabin, which then instructs the \emph{drive} system to move the elevator along the shaft to the respective floor by actuating the motors.
 
+Once a cabin stops at the floor, it opens its \emph{door} and the passenger enter the elevator.
+To select their destination floor, they use the \emph{cabin call panel}.
+
+
+
+interdependency scheduling of hall call / cabin call
 
 TODO
 drive system: - shaft and movement mechanism  motors -- motor control (cabin dispatch)
