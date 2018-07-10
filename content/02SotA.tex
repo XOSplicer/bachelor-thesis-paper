@@ -76,30 +76,16 @@ Once a cabin stops at the floor, it opens its \emph{door} and the passenger ente
 To select their destination floor, they use the \emph{cabin call panel}.
 This \emph{car call} (or \emph{destination call}) is passed to the group controller, 
 which schedules the elevator to move to the destination floor at some time.
+The group controller needs therefore to consider hall calls, as well as car calls in its scheduling algorithm
 Before the elevator starts to move, the door closes again, if no obstacle is detected by the \emph{door sensor}.
 Until the elevator serves the destination floor, the car call stays active.
 \emph{Additional sensors} inside the cabin provide more information about the passengers inside.
-This can inlcude among others a weight scale to measure the total weight utilization, or a camera system 
+This can inlcude among others a weight scale to measure the total weight utilization, or a kind of camera system \autocite[][]{xang2016trafficlist}.
 Further more the position of each elevator is known to the group controller.
 
 
-
-interdependency scheduling of hall call / cabin call
-
 TODO
-drive system: - shaft and movement mechanism  motors -- motor control (cabin dispatch)
-- car / cabin / convoyance
-- doors -- door control
-- in cabin panel
-- panel on each floor
-- advanced cabin sensory
-- advanced floor sensory
-- door sensors
-- control electronic per elevator
 -- security system
-- group controller
-
-explain call types and typical system behavior
 
 \autocite[][pp.~12--13]{strobl1999controller}
 \autocite[][pp.~6--10]{siikonen1997models}
