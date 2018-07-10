@@ -55,14 +55,14 @@ Figure \ref{fig:sota:systemcomponents} gives an general overview over the involv
 \begin{figure}[hbt]
 	\centering
 	\includegraphics[width=0.8\textwidth, keepaspectratio]{resources/systemcomponets}
-	\caption{\label{fig:sota:systemcomponents} General components of an elevator control system. Based on and adapted from \textcite[][pp.~4,16]{xang2016trafficlist} and \textcite[][pp.~6,10]{siikonen1997models}}
+	\caption{\label{fig:sota:systemcomponents} General components of an elevator control system. Based on and adapted from \textcite[][pp.~4,16]{xang2016trafficlist} and \textcite[][pp.10]{siikonen1997models}}
 \end{figure}
 
 When a passenger wants to take the elevator from one floor to another,
 they press a button on the \emph{floor call panel} and issue a \emph{hall call} (or \emph{reservation call}) to the system.
 This hall call signals to the system that an elevator needs to pick them up.
 The button pressed might be a simple push button, but can also be more complex 
-and capture information about the direction or destination of travel.
+and capture information about the direction or destination of travel \autocite[][pp.~89--93]{unger2015aufzuege}.
 Even before the passenger presses the panel button, \emph{additional sensors} 
 on the floor can detect their intent to use the elevator and gather more information about them.
 This can include among others camera systems \autocite[][]{lin2011control}, badge scanners, or \enquote{smart home} installations \autocite[][]{kwon2014sensor}.
@@ -74,6 +74,13 @@ The dispatch signal is picked up by the \emph{elevator controller} of the respec
 
 Once a cabin stops at the floor, it opens its \emph{door} and the passenger enter the elevator.
 To select their destination floor, they use the \emph{cabin call panel}.
+This \emph{car call} (or \emph{destination call}) is passed to the group controller, 
+which schedules the elevator to move to the destination floor at some time.
+Before the elevator starts to move, the door closes again, if no obstacle is detected by the \emph{door sensor}.
+Until the elevator serves the destination floor, the car call stays active.
+\emph{Additional sensors} inside the cabin provide more information about the passengers inside.
+This can inlcude among others a weight scale to measure the total weight utilization, or a camera system 
+Further more the position of each elevator is known to the group controller.
 
 
 
@@ -94,8 +101,8 @@ drive system: - shaft and movement mechanism  motors -- motor control (cabin dis
 
 explain call types and typical system behavior
 
-\autocite[][pp.~12-13]{strobl1999controller}
-\autocite[][pp.~6,10]{siikonen1997models}
+\autocite[][pp.~12--13]{strobl1999controller}
+\autocite[][pp.~6--10]{siikonen1997models}
 \autocite[][pp.~4,16]{xang2016trafficlist}
 \autocite[][]{lin2011control}
 
@@ -250,7 +257,7 @@ Many of them are linked together and influence each other.
 For each of the metrics it is common to calculate statistical figures, such as average, mean, minimum, maximum and standard deviation, which also can differ depending on the traffic situation.
 These calculations can be based on theoretical consideration about the physical parameters of the system \autocite[][p.~194]{unger2015aufzuege}, simulations or heuristical observations in real buildings.
  
-
+TODO optmization for waiting time or ride time (-> increases handeling capacity) \autocite[][p.~10]{siikonen1997models} 
 
 
 \subsection{Simulational Optimization Approaches}
