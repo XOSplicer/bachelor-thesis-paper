@@ -243,10 +243,9 @@ Many of them are linked together and influence each other.
 For each of the metrics it is common to calculate statistical figures, such as average, mean, minimum, maximum and standard deviation, which also can differ depending on the traffic situation.
 These calculations can be based on theoretical consideration about the physical parameters of the system \autocite[][p.~194]{unger2015aufzuege}, simulations or heuristical observations in real buildings.
  
-When the group controller schedules the elevators in a system, the order of dispatch 
- 
-TODO optmization for waiting time or ride time (-> increases handeling capacity) \autocite[][p.~10]{siikonen1997models} 
-
+When the group controller schedules the elevators in a system, the order of dispatches influences the metrics listed above.
+The elevator allocations are calculated by optimization of a cost function which takes the metrics in consideration.
+Usually the waiting time is optimized, but also the ride time can be optimized in order to increase the handling capacity. \autocite[][p.~10]{siikonen1997models} 
 
 \subsection{Simulational Optimization Approaches}
 TODO
