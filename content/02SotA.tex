@@ -59,7 +59,7 @@ Figure \ref{fig:sota:systemcomponents} gives an general overview over the involv
 \end{figure}
 
 When a passenger wants to take the elevator from one floor to another,
-they press a button on the \emph{floor call panel} and issue a \emph{hall call} (or \emph{reservation call}) to the system.
+they press a button on the \emph{floor call panel} and issue a \emph{hall call} (or \emph{reservation call}) to the system \autocite[][pp.~6--10]{siikonen1997models}.
 This hall call signals to the system that an elevator needs to pick them up.
 The button pressed might be a simple push button, but can also be more complex 
 and capture information about the direction or destination of travel \autocite[][pp.~89--93]{unger2015aufzuege}.
@@ -74,7 +74,7 @@ The dispatch signal is picked up by the \emph{elevator controller} of the respec
 
 Once a cabin stops at the floor, it opens its \emph{door} and the passenger enter the elevator.
 To select their destination floor, they use the \emph{cabin call panel}.
-This \emph{car call} (or \emph{destination call}) is passed to the group controller, 
+This \emph{car call} (or \emph{destination call}) \autocite[][pp.~6--10]{siikonen1997models} is passed to the group controller, 
 which schedules the elevator to move to the destination floor at some time.
 The group controller needs therefore to consider hall calls, as well as car calls in its scheduling algorithm
 Before the elevator starts to move, the door closes again, if no obstacle is detected by the \emph{door sensor}.
@@ -85,6 +85,7 @@ Further more the position of each elevator is known to the group controller.
 
 \subsection{System Classifications}
 
+Elevators come in different 
 
 TODO
 - by amount of elevators TODO how many elevators parallel
