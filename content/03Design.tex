@@ -7,21 +7,32 @@ TODO forcast
 
 \section{Employed Methodology}
 TODO
-come back to research questions an look onto what strategy is used to answer them
--- implementierung: volumenerkennung
--- evaluierung: echte videos? echte steuerung?
--- vorschlag für einbringen der daten in movement planing
--- simulation: testen der vorgeschlagenen regeln mit und ohne volumen in einer programmatischen simulation und herausfinden, ob das überhaub relevant ist (nein)
+
 
 - volume detectoin might hold the opportunity to further improve efficiency with the degree of usage on elevators
 - limited by 80\% oder auch 60-70\% rule \autocite[][p.~194]{unger2015aufzuege} ??, unused capacity (referece)
 - also detection of bigger items such as janitors cars, baby buggies  might be useful
 
+come back to research questions an look onto what strategy is used to answer them
+
 design science research / constructive research
 
 two fold:
 1. design and implementation of system to gather volume data of passengers
-2. integration of volume passenger data into existing scheduling
+ - find current system architecture
+ - define positions to integrate new components
+ - define what information should come out of the system
+ (eg passenger nnumbers, position, tracking, volume, other objects)
+ - find and choose standard algorithms for passenger detection and volume estimation in visual system (taken from fundamentals)
+ - match algorithm and hardware setup possibilities
+ - implement detection system
+ - test detection system exemplary by filming an elevator cabin and the outside (detection system not yet influencing the elevator system)
+ 
+2. integration of volume passenger data into existing scheduling algorithm
+ - define suitable elevator configuration that can benefit from solution (taken from fundamentals) 
+ - find standard algorithm for this configuration (taken from fundamentals)
+ - find an integration point for the data gathered by 1.
+ - compare the two algorithms effectiveness by running a simulation with the same parameters for both to check if it is even relevant to use this advanced information
 
 \section{Requirements}
 TODO
