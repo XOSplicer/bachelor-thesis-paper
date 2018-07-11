@@ -91,14 +91,15 @@ Therefore they can be classified in various dimensions.
 
 The first observation to make is the number of shafts and cabins in the system.
 The main difference comes in the scheduling complexity regarding single-cabin versus multi-cabin systems.
-Sinlge-elevator 
+Systems with multiple elevators need a group controller to decide which cabin serves which hall call.
+This decision can be non-trivial as laid out in section \vref{sec:sota:strategies}.
+When only one cabin is used, the scheduling becomes more straightforward.
+In small residential buildings an single cabin might be sufficient.
+However in buildings with larger passenger amounts, such as office buildings, a multi-elevator setup can become necessary increase the handling capacity.
 
 
 
 TODO
-- by amount of elevators TODO how many elevators parallel
--- single elevator system without group controller
--- multi elevator system with group controller
 - by type of sensory to haul the car
 -- single button
 -- direction button
@@ -163,10 +164,11 @@ TODO layout the figures
 TODO or use \textcite[][p.~12]{sorsa2005destination} as broader image 
 
 \subsection{Control Strategies}
+\label{sec:sota:strategies}
 TODO
 
 
-single elevator  vs m
+single elevator  vs multi elevator
 
 \autocite[][pp.~3--4,10]{beers2015arrivals}
 - stopping policies / strategies
