@@ -76,29 +76,27 @@
 %\pagestyle{empty}
 \renewcommand*{\chapterpagestyle}{scrheadings}
 \pagestyle{scrheadings}
-\setcounter{tocdepth}{2} % TODO adapt if toc too long
+%\setcounter{tocdepth}{2} % TODO adapt if toc too long
 \tableofcontents
 \clearpage
 \endgroup
 
-\pagestyle{scrheadings}
 
+% TODO enable these
+\pagestyle{scrheadings}
+%\setcounter{tocdepth}{2}
 %	Abbildungsverzeichnis
 \listoffigures
-
 %	Tabellenverzeichnis
-\listoftables
-
+%\listoftables
 %	Listingsverzeichnis
-\lstlistoflistings
-
+%\lstlistoflistings
 % 	Algorithmenverzeichnis
-\listofalgorithms
-
+%\listofalgorithms
 % 	Abkürzungsverzeichnis (siehe Datei acronyms.tex!)
-\input{adds/acronyms}
-
-\input{adds/symbols.tex}
+%\input{adds/acronyms}
+%   Symbolverzeichnis
+%\input{adds/symbols}
 
 % TODO remove this
 \input{adds/litreview}

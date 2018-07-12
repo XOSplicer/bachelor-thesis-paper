@@ -3,7 +3,7 @@
 \chapter*{Commented Bibliography}
 \addcontentsline{toc}{chapter}{Commented Bibliography (Temporary)}
 
-\newcommand{\parstartcite}[1]{\textbf{\citeauthor{#1}} \textsf{\citetitle{#1}} \newline}
+\newcommand{\parstartcite}[1]{\textbf{\citeauthor{#1}} \textsf{\citetitle{#1}} \autocite{#1} \newline}
 
 \parstartcite{beyeler2017opencvml} is a an advanced, hands-on book about Machine Lerning with OpenCV.
 OpenCV machine learning connects the fundamental theoretical principles
@@ -12,6 +12,7 @@ on asking and answering the right questions.
 This book walks you through the key elements of OpenCV
 and its powerful machine learning classes,
 while demonstrating how to get to grips with a range of models that tackle real world problems.
+\emph{Only relevant if ML is used.}
 
 
 \parstartcite{crawford2017opencvpythonvideo} is a video course for OpenCV beginners that introduces basic usage of OpenCV 3 with Python 3. 
@@ -23,6 +24,13 @@ Then comes the real power of OpenCV: object, facial, and feature detection.
 
 
 \parstartcite{rusu2011pointcloud}
+PCL presents an advanced
+and extensive approach to the subject of 3D perception, and
+it’s meant to provide support for all the common 3D building
+blocks that applications need. The library contains state of the
+art algorithms for: filtering, feature estimation, surface
+reconstruction, registration, model fitting and segmentation.
+\emph{Interesting when 3D reconstruction is needed.}
 
 \parstartcite{levine1989microwave}
 Early work on computer vision that uses a single camera setup to measure the volume of baked goods in real time. Used formula is $V = (\pi/4) \times A^2/h$, where area and height are constructed from pixel area and height with a calibration measurement.
@@ -68,12 +76,26 @@ Usage of a histogram to normalize an image.
 \parstartcite{sun2010groupelevator}
 
 \parstartcite{beers2015arrivals}
+The paper performs a simulation of passenger flow and elevator control 
+and deducts a method for an optimized waiting time when data about passenger 
+arrivals is added to the system.
+Besides the passenger waiting time, the riding time and the service time are measured. These
+three together form the results from the passengers’ perspective. For the elevator’s
+perspective the performance metrics are the number of stops, the maximum number of
+passengers in the elevator and the energy consumption. The movement of the elevator is
+simulated as well as the arrival of the passengers. A set of rules about the movement of the
+elevator is called a policy. In this paper 2 different policies with different settings are evaluated
+for both up-peak and down-peak traffic. Several realistic scenarios are simulated. In all
+scenarios the building consist 11 floors and one elevator with unlimited capacity.
+\emph{Very relevant for method of simulation, consideration of addidional information, and nice state of the art chapter.}
 
 \parstartcite{kwon2014sensor}
-
-\parstartcite{zhou2018monitoring}
 Usage of smart home sensors to detect behavior patterns in a apartment in order to predict the call and usage of an elevator. Improved waiting time by issuing a reservation call earlier.
 \emph{Medium relevant for its up-to-dateness.}
+
+\parstartcite{zhou2018monitoring}
+Introduces a high-level overview how IoT can be used to monitor a complete elevator system.
+\emph{Mildly relevant.}
 
 \parstartcite{siikonen1997models}
 
@@ -94,7 +116,6 @@ Stackoverflow answer that illustrates multiview geometry Reconstruction with 2D 
 
 \parstartcite{siikonen1993simulation}
 
-
 \parstartcite{hakonen2008simulation}
 
 \parstartcite{hakonen2004optimization}
@@ -106,18 +127,35 @@ Stackoverflow answer that illustrates multiview geometry Reconstruction with 2D 
 \parstartcite{horejsi2011dispatch}
 
 \parstartcite{sapkal2017volume}
+Proposes an method for volume estimation without the need for 3D reconstruction.
+The method needs 2--3 images and incorporates edge
+detection, image segmentation, and feature extraction to
+identify the object and find its dimensions, after which,
+the object is broken down into infinitesimally slices along
+the horizontal axis and volume is calculated for each
+slice. The addition of all volumes of these slices results in
+the estimated volume of the object.
+An calibration object is needed.
+The method assumes a round object and each horizontal slice area is approximated by 
+$V_{slice} = \pi \times \frac{a}{2} \times \frac{b}{2} \times \delta{}h$ 
+where $a$ and $b$ are the diameters of the object from  two sides and $\delta{}h$ is the height of the slice.
+\emph{Relevant for simple volume estimation.}
 
 \parstartcite{lin2011control}
 
 \parstartcite{zhang2016door}
 
 \parstartcite{xang2016trafficlist}
+Patent by Otis describing an elevator system compromising a passenger tracking system that uses multiple 2D and 3D sensors to capture depth data within the cabin and in the lobbies. The system tracks each objects and its various measurements and detects objects as well as passengers. The passengers are tracked along their trip to their destination to generate a traffic list.
+It not only patents the system but also the method of doing so.
+\emph{Highly relevant, since it describes exactly what could be done in a broader approach.}
+
 
 \parstartcite{sorsa2005destination}
 
 \parstartcite{axelsson2013strategies}
 Bachelor essay that describes elevator control strategies including
-Collective control, zone approach, search-based non-greedy, rule-based and genetic algorithms. A collective control and zone approach algorithm is compared by running a discrete elevator simulation for up and down peak scenarios based on a fixed model of a building. \emph{Relevant for simulational approach and overview over trategies.}
+Collective control, zone approach, search-based non-greedy, rule-based and genetic algorithms. A collective control and zone approach algorithm is compared by running a discrete elevator simulation for up and down peak scenarios based on a fixed model of a building. \emph{Relevant for simulational approach and overview over strategies.}
 
 \parstartcite{suzuki1994number}
 
@@ -127,4 +165,14 @@ Supports the findings of \textcite{axelsson2013strategies} by performing a simil
 \parstartcite{khomytskyi2016simulation}
 
 \parstartcite{omar2013simulation}
+
+\parstartcite{hakonen2003simulation}
+Describes the Building Simulator software employed at Kone and how it is used to simulate tall buildings.
+\emph{Medium relevant for possible design considerations in the simulation.}
+
+\parstartcite{martin1983volume}
+Describes a method to estimate the bounding hull in a multi-view scenario
+which only needs binary images.
+Precondititon is a known camera setup.
+\emph{Highly relevant for volume estimation since it yields the outer dimensions.}
 
