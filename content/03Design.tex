@@ -28,9 +28,6 @@ Communication of the project for both technology-oriented as well as management-
 
 Figure \ref{fig:design:designscience} displays the steps that are found in the process of design science research. 
 Those are the steps that guide the execution of this thesis.
-
-TODO below are "suggestin, development and evaluation planned steps" awareness has been covered before? TODO has it?
-
 Looking back to the original research questions (see section \vref{sec:intro:goals}) two focuses have been identified for this thesis:
 
 \begin{itemize}
@@ -38,13 +35,16 @@ Looking back to the original research questions (see section \vref{sec:intro:goa
     \item How can the information acquired by a system that uses such methods constitute to the optimization of algorithms that control the movement plan for elevators?
 \end{itemize}
 
+
+
 To answer the two questions, the conducted research is therefore twofold.
 The first part involves the design and experimental implementation of a system to gather passengers volume data in elevators.
 The second part deals with the integration of this information into a scheduling algorithm.
+Outlined below are the steps that are taken to
+suggest a tentative design for each, develop the artifacts and evaluate them.
 
-TODO ref back to steps done in chapter 1- 3
-
-TODO enums below describe suggestion and dev and evaluation
+For the  design and implementation of a vision system to gather volume data of passengers,
+the following steps are performed:
 
 \begin{enumerate}
     \item Find a typical or actual elevator control system architecture and define the positions to integrate the necessary components for an vision system into it.
@@ -55,7 +55,7 @@ TODO enums below describe suggestion and dev and evaluation
     \item Evaluate the results of the test for the functionality and effectiveness of the employed system.
 \end{enumerate}
 
-TODO
+For the integration of the  passenger data into existing scheduling algorithm the following steps are performed:
 
 \begin{enumerate}
     \item Define a suitable elevator configuration that could possibly benefit from the information that the vision system can provide. 
@@ -67,6 +67,9 @@ TODO
 
 TODO
 
+TODO ref back to steps done in chapter 1- 3
+TODO the relevance
+TODO below are "suggestin, development and evaluation planned steps" awareness has been covered before? TODO has it?
 
 
 
@@ -104,25 +107,7 @@ theoretical relevance and contribution to theoretical body are not conducted
 \end{figure}
 
 
-come back to research questions an look onto what strategy is used to answer them
 
-twofold:
-1. design and implementation of system to gather volume data of passengers
- - find current system architecture
- - define positions to integrate new components
- - define what information should come out of the system
- (eg passenger numbers, position, tracking, volume, other objects)
- - find and choose standard algorithms for passenger detection and volume estimation in visual system (taken from fundamentals)
- - match algorithm and hardware setup possibilities
- - implement detection system
- - test detection system exemplary by filming an elevator cabin and the outside (detection system not yet influencing the elevator system)
- 
-2. integration of volume passenger data into existing scheduling algorithm
- - define suitable elevator configuration that can benefit from solution (taken from fundamentals) 
- - find standard algorithm for this configuration (taken from fundamentals)
- - find an integration point for the data gathered by 1.
- - compare the two algorithms effectiveness by running a simulation with the same parameters for both to check if it is even relevant to use this advanced information
- 
  TODO: mapping between upper, theoretical description of method and  lower actual conduction.
  
  
