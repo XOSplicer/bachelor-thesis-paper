@@ -89,7 +89,7 @@ Elevator systems come in different configurations with different purposes.
 Depending on their use cases different technical implementations can chosen.
 Therefore they can be classified in various dimensions.
 
-The first observation to make is the number of shafts and cabins in the system.
+The first observation to make is the \textbf{number of shafts and cabins} in the system.
 The main difference comes in the scheduling complexity regarding single-cabin versus multi-cabin systems.
 Systems with multiple elevators need a group controller to decide which cabin serves which hall call.
 This decision can be non-trivial as laid out in section \vref{sec:sota:strategies}.
@@ -97,7 +97,14 @@ When only one cabin is used, the scheduling becomes more straightforward.
 In small residential buildings an single cabin might be sufficient.
 However in buildings with larger passenger amounts, such as office buildings, a multi-elevator setup can become necessary increase the handling capacity.
 
-Next is the classification by the type of objects or people that is transported in the system
+Next is the classification by the \textbf{type of objects or people} that are transported in the system. Especially important is the distinction of the purpose of the elevator system regarding whether people and / or large objects can be conveyed.
+
+\begin{itemize}
+    \item \textbf{Only people}
+    \item \textbf{Large goods and people}
+    \item \textbf{Only small goods}
+    \item \textbf{Only large goods}
+\end{itemize}
 
 TODO
 - by type of sensory to haul the car
@@ -110,7 +117,6 @@ TODO
 -- heavy / large goods +  peoply
 -- small goods + no people (eg in a restaurant kitchen) 
 -- only goods, no people, no car call possible
--- not all types are relevant, only the ones for business buildings are considered
 - by type of drive system
 - amount of floors and lobbies (skylobby)
 
