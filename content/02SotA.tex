@@ -1,8 +1,9 @@
 % !TEX root = ../master.tex
 \chapter{Fundamentals}
 \label{chap:sota}
-
-TODO forcast on chapter
+In this chapter the state of the art of the technologies and concepts used in this thesis are outlined.
+A broad overview over object detection using computer vision and the control of elevator systems is given.
+This forms the basis to further explore the problem and find possible solutions in the chapters afterwards.
 
 \section{Computer Vision}
 
@@ -167,6 +168,13 @@ According to multiple sources, three general patterns are present in office buil
     \item \textbf{Inter-floor traffic} All other traffic that is neither incoming nor outgoing can be considered inter-floor traffic. Passengers that travel from one floor to another but are not entering or leaving the building are the majority in this situation.
 \end{itemize}
 
+\begin{figure}[hbt]
+	\centering
+	\includegraphics[width=0.8\textwidth, keepaspectratio]{resources/traffictimes}
+	\caption{\label{fig:sota:traffictimes} Exemplary traffic component profile for an office building.
+	Reprinted from \textcite[][p.~14]{siikonen1997models}}
+\end{figure}
+
 %Figure \ref{fig:sota:trafficpatterns} depicts the former mentioned traffic components.
 Figure \ref{fig:sota:traffictimes} shows an example of how the traffic components contribute to overall traffic in an office building. A clear peak of incoming traffic in the morning and outgoing traffic in the evening are visible.
 This information can be used to model simulations and predict traffic in various circumstances.
@@ -178,14 +186,6 @@ It has significant impact on the scheduling principles employed for each situati
 %	\caption[]{\label{fig:sota:trafficpatterns} Typical categories of passenger traffic: Incoming, Outgoing and Inter-floor.
 %	Reprinted from \textcite[][p.~259]{siikonen1993simulation}}
 %\end{figure}
-
-\begin{figure}[hbt]
-	\centering
-	\includegraphics[width=0.8\textwidth, keepaspectratio]{resources/traffictimes}
-	\caption{\label{fig:sota:traffictimes} Exemplary traffic component profile for an office building.
-	Reprinted from \textcite[][p.~14]{siikonen1997models}}
-\end{figure}
-
 
 % TODO or use \textcite[][p.~12]{sorsa2005destination} as broader image 
 
