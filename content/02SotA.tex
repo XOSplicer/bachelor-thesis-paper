@@ -1,8 +1,9 @@
 % !TEX root = ../master.tex
 \chapter{Fundamentals}
 \label{chap:sota}
-
-TODO forcast on chapter
+In this chapter the state of the art of the technologies and concepts used in this thesis are outlined.
+A broad overview over object detection using computer vision and the control of elevator systems is given.
+This forms the basis to further explore the problem and find possible solutions in the chapters afterwards.
 
 \section{Computer Vision}
 
@@ -89,7 +90,7 @@ Elevator systems come in different configurations with different purposes.
 Depending on their use cases different technical implementations can chosen.
 Therefore they can be classified in various dimensions.
 
-The first observation to make is the number of shafts and cabins in the system.
+The first observation to make is the \textbf{number of shafts and cabins} in the system.
 The main difference comes in the scheduling complexity regarding single-cabin versus multi-cabin systems.
 Systems with multiple elevators need a group controller to decide which cabin serves which hall call.
 This decision can be non-trivial as laid out in section \vref{sec:sota:strategies}.
@@ -97,25 +98,51 @@ When only one cabin is used, the scheduling becomes more straightforward.
 In small residential buildings an single cabin might be sufficient.
 However in buildings with larger passenger amounts, such as office buildings, a multi-elevator setup can become necessary increase the handling capacity.
 
-Next is the classification by the type of objects or people that is transported in the system
+Next is the classification by the \textbf{type of objects or people} that are transported in the system. Especially important is the distinction of the purpose of the elevator system regarding whether people and / or large objects can be conveyed.
+\textcite[][pp.~141--158]{unger2015aufzuege} describes the properties of the most common types:
 
-TODO
-- by type of sensory to haul the car
--- single button
--- direction button
--- destination control
--- camera system
-- by type of transported goods and people \autocite[][pp.~141--158]{unger2015aufzuege}
--- only persons (nice insides, eg glass)
--- heavy / large goods +  peoply
--- small goods + no people (eg in a restaurant kitchen) 
--- only goods, no people, no car call possible
--- not all types are relevant, only the ones for business buildings are considered
-- by type of drive system
-- amount of floors and lobbies (skylobby)
+\begin{itemize}
+    \item Cabins that carry \textbf{only people} 
+    typically have a premium interior decoration, such as glass, mirrors or stainless steel.
+    Usually also cargo can be transported, but large goods might damage the cabin.
+    Examples for a building that uses such elevators are office buildings, residential buildings or hotels.
+    
+    \item Elevators for \textbf{large cargo and people} 
+    have a more simple interior that is more resistant to damage by lifting carts. 
+    However security measures regarding the doors are taken, such that the elevator is also safe to use by people. 
+    Typically a high payload weight and dimension can be moved.
+    Examples for the usage of this type are factories, storage buildings or hospitals. 
+    
+    \item Lifts that carry \textbf{only small cargo} can be found for example in restaurant kitchens to transport dishes.
+    The cabin is not used by people and the system is controlled purely from outside call panels. 
+    Due to the size restriction only a smaller weight needs to be transported.
+    
+    \item Cabins that convey \textbf{only large cargo} but no people can only be controlled from the outside call panel and have fewer safety restrictions, even though the cabin can be entered for loading and unloading. 
+\end{itemize}
 
-TODO additional travel information: how many people inside and outside, up / down / floor select inside / outside, everyone presses?, video? 
-destination control system
+This excerpt of the list is far from complete and \textcite[][pp.~141--158]{unger2015aufzuege} lists even more types, 
+such as lifts for wheel chairs, the never-stopping paternoster or elevators on construction sites.
+However these are not in the scope of this thesis and are not further considered.
+
+Another interesting distinction to consider is the \textbf{amount of floors} that is served by an elevator system.
+The amount of floors influences the heeded handling capacity of the system.
+The more floors there are, the more people need to travel a potentially longer distance.
+While a building with only a few floors can be handled by a single elevator,
+buildings with up to 40 stories require the use of elevator groups.
+When more than 40 floors need to be served, 
+introducing a \emph{sky lobby} can be beneficial, 
+where a fast shuttle transports passengers between the main lobby and the sky lobby. Passengers can then switch the elevator to reach their final destination \autocite[][p.~9]{hakonen2003simulation}.
+
+%
+%TODO
+%- by type of sensory to haul the car
+%-- single button
+%-- direction button
+%-- destination control
+%-- camera system
+
+%TODO additional travel information: how many people inside and outside, up / down / floor %select inside / outside, everyone presses?, video? 
+%destination control system
 
 
 \subsection{Passenger Traffic Patterns}
@@ -141,6 +168,13 @@ According to multiple sources, three general patterns are present in office buil
     \item \textbf{Inter-floor traffic} All other traffic that is neither incoming nor outgoing can be considered inter-floor traffic. Passengers that travel from one floor to another but are not entering or leaving the building are the majority in this situation.
 \end{itemize}
 
+\begin{figure}[hbt]
+	\centering
+	\includegraphics[width=0.8\textwidth, keepaspectratio]{resources/traffictimes}
+	\caption{\label{fig:sota:traffictimes} Exemplary traffic component profile for an office building.
+	Reprinted from \textcite[][p.~14]{siikonen1997models}}
+\end{figure}
+
 %Figure \ref{fig:sota:trafficpatterns} depicts the former mentioned traffic components.
 Figure \ref{fig:sota:traffictimes} shows an example of how the traffic components contribute to overall traffic in an office building. A clear peak of incoming traffic in the morning and outgoing traffic in the evening are visible.
 This information can be used to model simulations and predict traffic in various circumstances.
@@ -153,15 +187,7 @@ It has significant impact on the scheduling principles employed for each situati
 %	Reprinted from \textcite[][p.~259]{siikonen1993simulation}}
 %\end{figure}
 
-\begin{figure}[hbt]
-	\centering
-	\includegraphics[width=0.8\textwidth, keepaspectratio]{resources/traffictimes}
-	\caption{\label{fig:sota:traffictimes} Exemplary traffic component profile for an office building.
-	Reprinted from \textcite[][p.~14]{siikonen1997models}}
-\end{figure}
-
-TODO layout the figures
-TODO or use \textcite[][p.~12]{sorsa2005destination} as broader image 
+% TODO or use \textcite[][p.~12]{sorsa2005destination} as broader image 
 
 \subsection{Control Strategies}
 \label{sec:sota:strategies}
@@ -183,6 +209,8 @@ single elevator  vs multi elevator
 - genetic algorithm
 
 
+- sequential (eg hospital)
+
 
 
 \subsection{Performance Criteria}
@@ -202,48 +230,48 @@ Many of them are linked together and influence each other.
 
     \item The \textbf{passenger waiting time} 
         describes the amount of time between the arrival of a passenger at the landing floor 
-        and their entry into the elevator cabin. 
-        \autocite[][p.~7]{hakonen2003simulation}\autocite[][pp.8-9]{siikonen1997models}
+        and their entry into the elevator cabin 
+        \autocite[][p.~7]{hakonen2003simulation}\autocite[][pp.8-9]{siikonen1997models}.
         
     \item The \textbf{passenger ride time} 
         measures the time between the entering of a passenger into the cabin 
-        and them exiting the cabin on the destination floor. 
-    \autocite[][pp.8-9]{siikonen1997models}
+        and them exiting the cabin on the destination floor
+    \autocite[][pp.8-9]{siikonen1997models}.
     
     \item The \textbf{total journey time}, 
         also called \emph{total service time} \autocite[][p.~10]{beers2015arrivals} or \emph{time to destination},
         describes the total time a passenger spends in the system 
-        and is calculated by the sum of waiting and ride time.
-        \autocite[][pp.8-9]{siikonen1997models}
+        and is calculated by the sum of waiting and ride time
+        \autocite[][pp.8-9]{siikonen1997models}.
         
     \item The \textbf{round trip time} 
         describes the time it takes for a single elevator to collect passengers at the lobby,
         deliver them to the upper floors and return to the lobby. 
-        This measure is critical in the up-peak traffic.
-        \autocite[][pp.8-9]{siikonen1997models}
+        This measure is critical in the up-peak traffic
+        \autocite[][pp.8-9]{siikonen1997models}.
         
     \item The \textbf{handling capacity}, 
         also called \emph{5-minute interval}
         \autocite[][p.~194]{unger2015aufzuege},
-        describes the maximum number of passengers that can be transported (into the upper most floor) during up-peak traffic.
-        \autocite[][pp.8-9]{siikonen1997models}
+        describes the maximum number of passengers that can be transported (into the upper most floor) during up-peak traffic
+        \autocite[][pp.8-9]{siikonen1997models}.
         It is dependent on the round trip time.
-        In theoretical considerations a maximum utilization of 60-80\% of the capacity is used for this scenario. 
-        \autocite[][p.~194]{unger2015aufzuege}\autocite[][p.~7]{hakonen2003simulation}
+        In theoretical considerations a maximum utilization of 60-80\% of the capacity is used for this scenario
+        \autocite[][p.~194]{unger2015aufzuege}\autocite[][p.~7]{hakonen2003simulation}.
     
     \item The \textbf{interval time} 
         describes the time between departures of any cabin from the lobby 
-        and influences the time a passenger hat to wait at the lobby.
-        \autocite[][pp.8-9]{siikonen1997models}
+        and influences the time a passenger hat to wait at the lobby
+        \autocite[][pp.8-9]{siikonen1997models}.
     
     \item The \textbf{hall call time} 
         describes the time between the issuing of an hall call by a passenger and the cancellation of the call. 
-        The call is canceled when an elevator is scheduled to serve the call floor and hence decelerates to stop at the floor.
-        \autocite[][pp.8-9]{siikonen1997models} 
+        The call is canceled when an elevator is scheduled to serve the call floor and hence decelerates to stop at the floor
+        \autocite[][pp.8-9]{siikonen1997models}. 
     
     \item The number of \textbf{total stops}
-        necessary to serve an specified amount of passengers (or within a given time frame) is an indicator for the efficiency of the scheduling algorithm.
-        \autocite[][p.~194]{unger2015aufzuege}
+        necessary to serve an specified amount of passengers (or within a given time frame) is an indicator for the efficiency of the scheduling algorithm
+        \autocite[][p.~194]{unger2015aufzuege}.
     
     \item The \textbf{energy consumption} 
         per ride or per time interval is an measure of economic interest. 
@@ -251,9 +279,9 @@ Many of them are linked together and influence each other.
     
     \item The \textbf{capacity utilization} 
         of the cabins in spacial and weight dimensions is an interesting metric to observe, 
-        since usually only 60-80\% of the capacity is used at a time. 
+        since usually only 60-80\% of the capacity is used at a time 
         \autocite[][p.~194]{unger2015aufzuege}
-        \autocite[][p.~7]{hakonen2003simulation} 
+        \autocite[][p.~7]{hakonen2003simulation}.
         This utilization can be even lower when large objects are present.
         The average utilization is further influenced by empty rides.
         

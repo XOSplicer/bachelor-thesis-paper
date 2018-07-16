@@ -1,90 +1,121 @@
 % !TEX root = ../master.tex
 \chapter{Design and Methodology}
 \label{chap:design}
-TODO forcast
-
-
+This chapter describes which research method is used to design a solution 
+that answers the initial questions posed in the first chapter.
+The considerations that contribute to the design of this solution are outlined 
+and form the foundation for its implementation in the next chapter.
 
 \section{Employed Methodology}
-TODO
 
-
-general method:
-design science research / constructive research
-\url{https://en.wikipedia.org/wiki/Constructive_research}
-\autocite[][pp.67--100]{dresh2015designresearch}, esp. fig 4.14 p.~10, 83 (steps: problem awareness, suggestion, development, evaluation, conclusion with outputs: proposal, design, artifact, performance measure, results)
-but with focus on "practical utility"
-therefore:
-1. fuzzy sources: manual literature review that lead to fundamentals
-2. theoretical body of knowlede: cullected in fundamentals
-3. relevant problem: 
-    - volume detectoin might hold the opportunity to further improve efficiency with the degree of usage on elevators
-    - limited by 80\% oder auch 60-70\% rule \autocite[][p.~194]{unger2015aufzuege} ??, unused capacity (referece)
-    - also detection of bigger items such as janitors cars, baby buggies  might be useful
-4. solution construction: using engineering methods
-    also:    
-    - set objectives and tasks: see research questions
-    - identify process model
-    - select case execution
-    - interview case organization
-    - prepare simulation / test
-    - run simulation / test
-    - interpret simulation /test results
-    - give feedback
-5. practical relevance: interpretation of test results and considerations of marketing and economic value and need of the solution
-
-theoretical relevance and contribution to theoretical body are not conducted
+Preceding to the practical part of this thesis, 
+the method to follow along shall be laid out here.
+One suitable method is the general concept of \emph{design science research}, also known as \emph{constructive research}, 
+since it involves the development and evaluation of artifacts to solve domain specific problems.
+It therefore conveys a improved practical relevance in comparison to purely descriptive research methods,
+while the outcomes still create scientific knowledge
+\autocite[][p.~v]{dresh2015designresearch}.
+The conducted research must design an artifact, such as a construct, model or method, that solves a relevant problem in a specific field, which is evaluated regarding its utility, quality and efficacy.
+The performed research should be based on rigorous scientific methods and contribute to the current theoretical body of knowledge.
+The conducted design process must take into account the practical environment it is executed in and use the available resources.
+A conclusion of the project for both technology-oriented as well as management-oriented audiences should be presented in the end
+\autocite[][p.~70]{dresh2015designresearch}.
 
 \begin{figure}[hbt]
 	\centering
-	\includegraphics[width=1.0\textwidth, keepaspectratio]{resources/Rasvan_constructive_research_diagram}
-	\caption{\label{fig:design:constructiveresearch} Elements of constructive research. Source:
-	\url{https://en.wikipedia.org/wiki/File:Rasvan_constructive_research_diagram.gif}}
+	\includegraphics[width=0.8\textwidth, keepaspectratio]{resources/designscienceresearchoutputs.jpg}
+	\caption{\label{fig:design:designscience} Process steps and outputs of design science research. Reprinted from \textcite[][p.~83]{dresh2015designresearch}}
 \end{figure}
 
+Figure \ref{fig:design:designscience} displays the steps that are found in the process of design science research. 
+Those are the steps that guide the execution of this thesis.
+The awareness and relevance for the given problem has already been given in section \vref{sec:into:context}.
+Looking back to the original research questions (see section \vref{sec:intro:goals}) two focuses have been identified for this thesis:
 
-come back to research questions an look onto what strategy is used to answer them
+\begin{itemize}
+    \item Which computer vision techniques can be used to detect persons and objects within an elevator car and in front of the lift and estimate their spacial volume?
+    \item How can the information acquired by a system that uses such methods constitute to the optimization of algorithms that control the movement plan for elevators?
+\end{itemize}
 
-twofold:
-1. design and implementation of system to gather volume data of passengers
- - find current system architecture
- - define positions to integrate new components
- - define what information should come out of the system
- (eg passenger numbers, position, tracking, volume, other objects)
- - find and choose standard algorithms for passenger detection and volume estimation in visual system (taken from fundamentals)
- - match algorithm and hardware setup possibilities
- - implement detection system
- - test detection system exemplary by filming an elevator cabin and the outside (detection system not yet influencing the elevator system)
- 
-2. integration of volume passenger data into existing scheduling algorithm
- - define suitable elevator configuration that can benefit from solution (taken from fundamentals) 
- - find standard algorithm for this configuration (taken from fundamentals)
- - find an integration point for the data gathered by 1.
- - compare the two algorithms effectiveness by running a simulation with the same parameters for both to check if it is even relevant to use this advanced information
- 
- TODO: mapping between upper, theoretical description of method and  lower actual conduction.
- 
- 
- TODO rework the nexts sections according to the method defined above, also: which is design, which is implementation?
 
-\section{Requirements}
+To answer the two questions, the conducted research is therefore twofold.
+The first part involves the design and experimental implementation of a system to gather passengers volume data in elevators.
+The second part deals with the integration of this information into a scheduling algorithm.
+Outlined below are the steps that are taken to
+suggest a tentative design for each, develop the artifacts and evaluate them.
+
+For the  design and implementation of a vision system to gather volume data of passengers,
+the following steps are performed:
+
+\begin{enumerate}
+    \item Find a typical or actual elevator control system architecture and define the positions to integrate the necessary components for an vision system into it.
+    \item Define the exact type and structure of the information that the vision system should be able to detect.
+    \item Find an algorithmic approach to  passenger detection and volume estimation that is suitable to generate the required data.
+    \item Match the approach with an possible hardware setup to perform tests with it.
+    \item Test the proposed detection system in an real world experiment that includes  exemplary footage from within an cabin and of a lobby.
+    \item Evaluate the results of the test for the functionality and effectiveness of the employed system.
+\end{enumerate}
+
+For the integration of the  passenger data into existing scheduling algorithm the following steps are performed:
+
+\begin{enumerate}
+    \item Define a suitable elevator configuration that could possibly benefit from the information that the vision system can provide. 
+    Find a typical or actual control algorithm that is used for such a configuration.
+    \item Adapt the scheduling algorithm to use the additional information.
+    \item Compare the two versions of the algorithm in order to determine their effectiveness regarding a suitable metric.
+    A simulation is used to perform this comparison.
+\end{enumerate}
+
+%\begin{figure}[hbt]
+%	\centering
+%	\includegraphics[width=1.0\textwidth, keepaspectratio]{resources/Rasvan_constructive_research_diagram}
+%	\caption{\label{fig:design:constructiveresearch} Elements of constructive research. Source:
+%	\url{https://en.wikipedia.org/wiki/File:Rasvan_constructive_research_diagram.gif}}
+%\end{figure}
+ 
+\section{Visual System}
+TODO
+\subsection{Proposal for Integration into Elevator Control System Architecture}
+TODO
+for hardware setup
+- no additional sensory
+- add cv system (computer) and multiple cams inside each cabin
+- add cv system (computer) and multiple or one cam outside on each floor
+\subsection{Output Data Definition}
+TODO
+- for each objects weather it is a person or an cargo object
+- for each persons a volume description approximated by an inner and outer ellipse (or simple: circle) as the ground area and a height
+- for the cargo objects an approximation as a ground area and a height, possible area types: convex hull most outer circumfence projected to the ground OR estimation by surrounding rectangle
+- total number of passengers and cargo objects inside and in-front
+\subsection{Detection Technique}
+TODO
+\subsection{Test Arrangement and Validation Strategy}
 TODO
 
-\autocite[][]{xang2016trafficlist} has done tehe same and patentet it :(
-
-\section{Conduction of Method}
-TODO the method determines which steps to take
-TODO, choose possible approach from sota
-
-\section{Proposed Solution}
-TODO next two are included?
-
-\section{Architectural Plan}
-TODO necessary? yes
-
-\section{Algorithmic Approach}
-TODO necessary? yes
-
-\section{Validation Strategy}
-
+\section{Scheduling Algorithm}
 TODO
+\subsection{Suitable Elevator Configuration}
+TODO
+- a greater impact could be expected when there is a mixture in traffic including both persons and cargo objects such. 
+- looking back at the categorization of elevators a cargo lift that also conveys people would fulfill this
+- imaginable real world scenarios: hospital where also patient beds are moved (which should have an empty elevator and be prioritized) OR mutlistory storage buildings where  OR
+\subsection{Adaption of Scheduling Algorithm}
+TODO
+\subsection{Preparation for Simulation and Validation Strategy}
+TODO
+ 
+
+%\section{Requirements}
+%TODO
+%\autocite[][]{xang2016trafficlist} has done tehe same and patentet it :(
+%\section{Conduction of Method}
+%TODO the method determines which steps to take
+%TODO, choose possible approach from sota
+%\section{Proposed Solution}
+%TODO next two are included?
+%\section{Architectural Plan}
+%TODO necessary? yes
+%\section{Algorithmic Approach}
+%TODO necessary? yes
+%\section{Validation Strategy}
+%TODO
