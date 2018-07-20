@@ -142,30 +142,45 @@ simulation parameters:
 \textbf{Description}    & \multicolumn{1}{l}{\textbf{Value}}   & \textbf{Unit}   \\
 \hline
 \multicolumn{3}{l}{\textbf{Building data}} \\
-Number of floors & 10 &        \\
+Number of floors & 8 &        \\
 Interfloor distances & 3.5 & $m$\\
-& & \\
+%& & \\
+\hline
 \multicolumn{3}{l}{\textbf{Lift data}}     \\
 Number of lifts & 1 & \\
-Rated weight load & & $kg$\\
-Rated passenger capacity & & \\
-Flight time between floors & & $s$\\
-Rated Speed & & $ms^{-1}$ \\
-Rated Acceleration & & $m s^{-1}$ \\
-Door opening time & & $s$\\
-Door closing time & & $s$\\
-& & \\
+Rated weight load & 5000 & $kg$\\
+Rated passenger capacity & 65 & \\
+Rated Speed & 1.6 & $ms^{-1}$ \\
+Door opening time & 1.5 & $s$\\
+Door closing time & 1.5 & $s$\\
+Flight time single floor & 5 & $s$\\
+%& & \\
+\hline
 \multicolumn{3}{l}{\textbf{Passenger Data}}\\
 Arrival rates for floors & & $s \rightarrow s^{-1}$\\
-Transfer time into / out of car & & $s$\\
+Transfer time into / out of car & 2 & $s$\\
 Floor bias & & \\
-& & \\
+%& & \\
+\hline
+\multicolumn{3}{l}{\textbf{Cargo Data}}\\
+Arrival rates for floors & & $s \rightarrow s^{-1}$\\
+Weight distribution & & $kg \rightarrow $\\
+Space need distribution & &
+Transfer time into / out of car & 5 & $s$\\
+Floor bias & None & \\
+%& & \\
+\hline
 \multicolumn{3}{l}{\textbf{Simulation Parameters}}\\
 Simulation Period & & \\
-Time slice & & \\
+Time slice & 0.1 & $s$\\
 Number of simulations & & \\
 \end{tabular}
 \end{table}
+
+data from eg. \url{https://www.kone.de/aufzug-aufzuege.aspx} \url{https://www.kone.de/neubau/aufzug-aufzuege/lastenaufzug-bettenaufzug-transys/}
+and also \autocite[][p.~349]{barney2016handbook}
+
+which data to use: \autocite[][p.~347]{barney2016handbook}
 
 TODO
  
