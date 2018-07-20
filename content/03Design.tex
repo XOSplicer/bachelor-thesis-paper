@@ -153,21 +153,21 @@ Rated passenger capacity & 65 & \\
 Rated Speed & 1.6 & $ms^{-1}$ \\
 Door opening time & 1.5 & $s$\\
 Door closing time & 1.5 & $s$\\
-Flight time single floor & 5 & $s$\\
+Flight time single floor & 8 & $s$\\
 %& & \\
 \hline
 \multicolumn{3}{l}{\textbf{Passenger Data}}\\
-Arrival rates for floors & & $s \rightarrow s^{-1}$\\
+Arrival rates for floors & uniform & $ \mathbb{N} \times s \rightarrow s^{-1}$\\
 Transfer time into / out of car & 2 & $s$\\
 Floor bias & unbiased & $ \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{R} $ \\
 %& & \\
 \hline
 \multicolumn{3}{l}{\textbf{Cargo Data}}\\
-Arrival rates for floors & & $s \rightarrow s^{-1}$\\
-Weight distribution & & $kg \rightarrow \mathbb{R}$\\
-Space need distribution & & $m \times m \times m \rightarrow \mathbb{R}$\\
+Arrival rates for floors & uniform & $\mathbb{N} \times s \rightarrow s^{-1}$\\
+Weight distribution & see below & $kg \rightarrow \mathbb{R}$\\
+Space need distribution & see below  & $m \times m \times m \rightarrow \mathbb{R} $\\
 Transfer time into / out of car & 5 & $s$\\
-Floor bias & unbiased &  \\
+Floor bias & unbiased & $ \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{R} $ \\
 %& & \\
 \hline
 \multicolumn{3}{l}{\textbf{Simulation Parameters}}\\
