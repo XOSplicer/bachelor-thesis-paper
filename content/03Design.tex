@@ -106,38 +106,12 @@ TODO
 - when large cargo is there: sequential control
 - consideration: what to do to switch between collective and seqential control?
 \subsection{Preparation for Simulation and Validation Strategy}
-simulation configuration:
+
+TODO simulation configuration:
 \autocite[][p.~347]{barney2016handbook}
-building data
-(office building)
-    - number of floors:
-    - interfloor distance:
-    - no express jump
-lift data:
-(cargo lift)
-    - number of lifts: 1
-    - rated load:
-    - car capacity allowed
-    - car floor area
-    - rated speed
-    - time between floors
-    - door opening time
-    - door closing time
-    - acceleration
-passenger data:
-(persons and caro)
-    - building / floor population
-    - transfer time into/outof car
-    - arival rates for floors
-    - floor bias
-simulation parameters:
-    - simualtion period
-    - time slices (tick rate)
-    -  number of simulations
-    - output format
-    - output measures
-    
+
 \begin{table}[]
+\centering
 \begin{tabular}{lrl}
 \textbf{Description}    & \multicolumn{1}{l}{\textbf{Value}}   & \textbf{Unit}   \\
 \hline
@@ -165,7 +139,7 @@ Floor bias & unbiased & $ \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{R} $ 
 \multicolumn{3}{l}{\textbf{Cargo Data}}\\
 Arrival rates for floors & uniform & $\mathbb{N} \times s \rightarrow s^{-1}$\\
 Weight distribution & see below & $kg \rightarrow \mathbb{R}$\\
-Space need distribution & see below  & $m \times m \times m \rightarrow \mathbb{R} $\\
+Volume distribution & see below  & $m \times m \times m \rightarrow \mathbb{R} $\\
 Transfer time into / out of car & 5 & $s$\\
 Floor bias & unbiased & $ \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{R} $ \\
 %& & \\
@@ -175,6 +149,7 @@ Simulation Period & 3600 & $s$\\
 Time slice & 0.1 & $s$\\
 Number of simulations & 100 & \\
 \end{tabular}
+\caption{\label{tab:design:simulationconfig} Configuration for the performed elevator control simulations}
 \end{table}
 
 data from eg. \url{https://www.kone.de/aufzug-aufzuege.aspx} \url{https://www.kone.de/neubau/aufzug-aufzuege/lastenaufzug-bettenaufzug-transys/}
@@ -183,6 +158,7 @@ and also \autocite[][p.~349]{barney2016handbook}
 which data to use: \autocite[][p.~347]{barney2016handbook}
 
 TODO
+TODO define measurements to take
  
 
 %\section{Requirements}
