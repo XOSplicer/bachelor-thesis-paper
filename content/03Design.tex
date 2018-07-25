@@ -98,11 +98,69 @@ TODO
 TODO
 - a greater impact could be expected when there is a mixture in traffic including both persons and cargo objects such. 
 - looking back at the categorization of elevators a cargo lift that also conveys people would fulfill this
-- imaginable real world scenarios: hospital where also patient beds are moved (which should have an empty elevator and be prioritized) OR mutlistory storage buildings where  OR
+- imaginable real world scenarios: hospital where also patient beds are moved (which should have an empty elevator and be prioritized) OR multistory storage buildings where also people use it OR auxiliary lifts in office buildings that carry the janitor cars and other cargo regularly (typically only lift available)
+- standard collective control or sequential control
 \subsection{Adaption of Scheduling Algorithm}
 TODO
+- when no large cargo is there: collective control
+- when large cargo is there: sequential control
+- consideration: what to do to switch between collective and seqential control?
 \subsection{Preparation for Simulation and Validation Strategy}
+
+TODO simulation configuration:
+\autocite[][p.~347]{barney2016handbook}
+
+\begin{table}[]
+\centering
+\begin{tabular}{lrl}
+\textbf{Description} \hspace{5cm}   & \multicolumn{1}{l}{\textbf{Value}}   & \textbf{Unit}   \\
+\hline
+\multicolumn{3}{l}{\textbf{Building data}} \\
+Number of floors & 8 &        \\
+Interfloor distances & 3.5 & $m$\\
+%& & \\
+\hline
+\multicolumn{3}{l}{\textbf{Lift data}}     \\
+Number of lifts & 1 & \\
+Rated weight load & 5000 & $kg$\\
+Rated passenger capacity & 65 & \\
+Rated Speed & 1.6 & $ms^{-1}$ \\
+Door opening time & 1.5 & $s$\\
+Door closing time & 1.5 & $s$\\
+Flight time single floor & 8 & $s$\\
+%& & \\
+\hline
+\multicolumn{3}{l}{\textbf{Passenger Data}}\\
+Arrival rates for floors & TODO & $ \mathbb{N} \times s \rightarrow s^{-1}$\\
+Weight distribution & see below & $kg \rightarrow \mathbb{R}$\\
+Volume distribution & see below  & $m \times m \times m \rightarrow \mathbb{R} $\\
+Transfer time into / out of car & 2 & $s$\\
+Floor bias & unbiased & $ \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{R} $ \\
+%& & \\
+\hline
+\multicolumn{3}{l}{\textbf{Cargo Data}}\\
+Arrival rates for floors & TODO & $\mathbb{N} \times s \rightarrow s^{-1}$\\
+Weight distribution & see below & $kg \rightarrow \mathbb{R}$\\
+Volume distribution & see below  & $m \times m \times m \rightarrow \mathbb{R} $\\
+Transfer time into / out of car & 5 & $s$\\
+Floor bias & unbiased & $ \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{R} $ \\
+%& & \\
+\hline
+\multicolumn{3}{l}{\textbf{Simulation Parameters}}\\
+Simulation Period & 1 & $h$\\
+Time slice & 0.1 & $s$\\
+Number of simulations & 100 & \\
+\end{tabular}
+\caption{\label{tab:design:simulationconfig} General configuration for the comparative simulation}
+\end{table}
+
+data from eg. \url{https://www.kone.de/aufzug-aufzuege.aspx} \url{https://www.kone.de/neubau/aufzug-aufzuege/lastenaufzug-bettenaufzug-transys/}
+and also \autocite[][p.~349]{barney2016handbook}
+
+which data to use: \autocite[][p.~347]{barney2016handbook}
+
 TODO
+TODO define measurements to take
  
 
 %\section{Requirements}

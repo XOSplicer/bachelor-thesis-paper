@@ -191,9 +191,47 @@ It has significant impact on the scheduling principles employed for each situati
 
 \subsection{Control Strategies}
 \label{sec:sota:strategies}
+
+Elevator control strategies deal with the assignment of hall calls and car calls to elevator rides in order to derive a stopping schedule for the cabins in the system.
+The way this schedule is set up affects
+the performances regarding the criteria laid out in section \label{sota:sec:perf}.
+An appropriate control algorithm must be chosen in order to optimize for performance criteria
+depending on the type of elevator system, it's use purpose and the current passenger traffic.
+Depending on the type of elevator system different control strategies are used, some of which are listed below.
+
+\paragraph{Sequential Control}
+In contrast to the strategies below, 
+this strategy is only applicable to a single-lift system.
+The system answers hall calls in the order they arrive 
+and executes the car call with priority before moving on to serve the next hall call.
+This way only one ride is performed a time and the calls are executed in sequence. This method is also called \emph{single call automatic control} or \emph{non-collective control}.
+Drawbacks of this strategy are a increased passenger waiting time and an decreased handling capacity.
+However for cargo lifts, this can beneficial if only on cargo item can fit the cabin at a time
+\autocite[][p.~238]{barney2016handbook}.
+
+\paragraph{Collective Control}
+This is the \enquote{most common form of automatic control} \autocite[][p.~237]{barney2016handbook}.
+Hall calls are answered in the order of the floors they originate from rather than their temporal order.
+On the way up and down the cabin collects all the hall calls and deliver car calls also following the floor order.
+Different variations of this approach are available, where the direction of the hall call is ignored, only downward calls are collected only upwards calls are collected, or the call direction is considered for collection in both directions.
+This approach can be expended to a elevator system with group control, such that a hall call is answered by the first cabin to pass the floor in the desired direction \autocite[][p.~238]{barney2016handbook}.
+When all cabins are idle, the nearest available is assigned to a call. Hence this strategy is also called \emph{nearest car}
+\autocite[][p.~244]{barney2016handbook}.
+
+\paragraph{Zone Approach}
+
+
+
+
+TODO: more types
+
+\paragraph{Parking Policies}
+
+
+
+
+
 TODO
-
-
 single elevator  vs multi elevator
 
 \autocite[][pp.~3--4,10]{beers2015arrivals}
@@ -203,17 +241,16 @@ single elevator  vs multi elevator
 
 \autocite[][pp.~3--6]{axelsson2013strategies}
 - collective control
-- zoneing
+- zoneing / sectors
 - search based
 - rule based
 - genetic algorithm
 
 
-- sequential (eg hospital)
-
 
 
 \subsection{Performance Criteria}
+\label{sota:sec:perf}
 
 In order to evaluate the performance of an elevator system some metrics about it are commonly considered.
 They are used to check if a planned system fulfills the requirements that the expected traffic poses. 
