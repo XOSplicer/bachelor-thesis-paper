@@ -141,7 +141,7 @@ Flight time single floor & 8 & $s$\\
 %& & \\
 \hline
 \multicolumn{3}{l}{\textbf{Passenger Data}}\\
-Arrival rates for floors & TODO & $ \mathbb{N} \times s \rightarrow s^{-1}$\\
+Arrival rates for floors & $ (f, t) \rightarrow \frac{5}{300} $ & $ \mathbb{N} \times s \rightarrow s^{-1}$\\
 Weight and volume distribution & see below & $kg \times m \times m \times m \rightarrow \mathbb{R}$\\
 %Volume distribution & see below  & $m \times m \times m \rightarrow \mathbb{R} $\\
 Transfer time into / out of car & 2 & $s$\\
@@ -149,7 +149,7 @@ Floor bias & unbiased & $ \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{R} $ 
 %& & \\
 \hline
 \multicolumn{3}{l}{\textbf{Cargo Data}}\\
-Arrival rates for floors & TODO & $\mathbb{N} \times s \rightarrow s^{-1}$\\
+Arrival rates for floors & $ (f, t) \rightarrow \frac{5}{300} $ & $\mathbb{N} \times s \rightarrow s^{-1}$\\
 Weight and volume distribution & see below & $kg \times m \times m \times m \rightarrow \mathbb{R}$\\
 %Volume distribution & see below  & $m \times m \times m \rightarrow \mathbb{R} $\\
 Transfer time into / out of car & 5 & $s$\\
@@ -163,6 +163,11 @@ Number of simulations & 100 & \\
 \end{tabular}
 \caption{\label{tab:design:simulationconfig} General configuration for the comparative simulation}
 \end{table}
+
+TODO
+The arrival rate is constant over the whole time (should this be adapted for several runs?)
+therefore in each simulation step the arrival rate is poisson ditributed
+
 
 data from eg. \url{https://www.kone.de/aufzug-aufzuege.aspx} \url{https://www.kone.de/neubau/aufzug-aufzuege/lastenaufzug-bettenaufzug-transys/}
 and also \autocite[][p.~349]{barney2016handbook}
