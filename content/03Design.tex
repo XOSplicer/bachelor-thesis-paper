@@ -98,19 +98,18 @@ TODO
 Since the camera system is suitable to detect passengers as well as cargo objects,
 it seems reasonable to apply the passenger information 
 to a scheduling algorithm of an elevator system which conveys both of them.
+This hold the opportunity to have a bigger impact the performance of the system, 
+in contrast to applying it to a passenger-only lift.
+
 Looking back at the categorization of elevators, cargo lifts meet this specification.
 Typically an office building has one or multiple cargo lifts depending on its size,
-but grouping them is uncommon.
+but grouping them is uncommon \autocite[][p.~167]{barney2016handbook}.
 A weight capacity of at least 1,600 kg is typical \autocite[][p.~167]{barney2016handbook},
-but also capacities of 5,000 kg are possible \autocite[][]{kone2017overview}
+but also capacities of 5,000 kg are possible \autocite[][]{kone2017overview}.
+Typical application areas for cargo lifts are hospitals, where patients and beds are moved,
+auxiliary lifts in office buildings and multi-story industrial buildings.
+The typical control algorithm is collective control or sequential control \autocite[][pp.~238,~244]{barney2016handbook}.
 
-
-
-TODO
-- a greater impact could be expected when there is a mixture in traffic including both persons and cargo objects such. 
-- looking back at the categorization of elevators a cargo lift that also conveys people would fulfill this
-- imaginable real world scenarios: hospital where also patient beds are moved (which should have an empty elevator and be prioritized) OR multistory storage buildings where also people use it OR auxiliary lifts in office buildings that carry the janitor cars and other cargo regularly (typically only lift available)
-- standard collective control or sequential control
 \subsection{Adaption of Scheduling Algorithm}
 TODO
 - when no large cargo is there: collective control
