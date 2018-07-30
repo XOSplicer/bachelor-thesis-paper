@@ -81,3 +81,4 @@ http://www.columbia.edu/~cs2035/courses/ieor4405.S13/p14.pdf
 https://books.google.de/books?id=LDWjiMZ0_wsC&pg=PA71&lpg=PA71&dq=%22logisch-deduktives+schlie%C3%9Fen%22&source=bl&ots=0O9W3vErFw&sig=vxjjboqmFstHNKEkGbS8S-UCQsI&hl=de&sa=X&ved=0ahUKEwju6dqjxs_VAhVG7xQKHVrgAZ4Q6AEIJjAA#v=onepage&q=%22logisch-deduktives%20schlie%C3%9Fen%22&f=false 
 
 https://link.springer.com/article/10.1007%2Fs11576-007-0064-z?LI=true 
+https://blogs.mathworks.com/loren/2009/12/16/carving-a-dinosaur/
