@@ -88,3 +88,4 @@ https://docs.opencv.org/3.4.1/d2/dbd/tutorial_distance_transform.html
 
 https://codereview.stackexchange.com/questions/189816/3d-connected-component-in-cython
 https://pdfs.semanticscholar.org/363c/f3eb04c43932a97f2e48d8e2099b3783cd96.pdf
+https://github.com/infr/falldetector-public/blob/master/thesis.md
