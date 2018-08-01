@@ -70,14 +70,17 @@ TODO
 
 TODO
 \subsubsection{Feature Based Scene Reconstruction} 
-
+alternative full 3d reconstruction of each point
 TODO
 
 \subsubsection{Silhouette Based Volume Reconstruction}
 TODO
-Volume Intersection (photoconsitency is given with an additive approach)
+Volume Intersection (photoconsitency is given with an additive approach that uses polyhederons and backrpojection to generate intersection cones)
 \autocite[][]{}
-Space Carving (substractive technique)
+
+
+
+Space Carving (substractive technique that begins with a full voxel scene. the surface oof the scene is carved away pixel per pixel untill all surface voxels  are photoconsistent)
 \autocite[][]{kutulakos1999spacecarving}
 
 TODO
@@ -87,7 +90,8 @@ interpolation of depth information by combinding views
 bounding / section box
 convex hull in 3d by mask
 Space Carving with silhouettes
-alternative full 3d reconstruction of each point
+simple voxel substraction method
+
 \ref{fig:sota:mulitviewtop}
 
 \begin{figure}[hbt]
