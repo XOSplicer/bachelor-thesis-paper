@@ -102,15 +102,26 @@ TODO
             minimum height = 2.5em, 
             minimum width = 2.5em, 
             text width=10em, 
-            text centered
+            text centered,
+            thick
         },
+        to/.style = {
+            ->,
+            shorten >=1pt,
+            thick,
+            font=\sffamily\footnotesize
+        }
     }
     \begin{tikzpicture}[auto, node distance=2cm]
         \node (cap) [box] {Video Capture};
-        \node (pre) [box, below of=cap] {Preprocessing};
-        \node (mask) [box, below of=pre] {Foreground Masking};
-        \node (space) [box, below of=mask] {Volume Reconstruction};
-        \node ()
+        \node (pre) [box, right = of cap] {Preprocessing};
+        \node (mask) [box, below = of pre] {Foreground Masking};
+        \node (space) [box, below = of mask] {Volume Reconstruction};
+        \node (calib) [box, left = of space] {Camera Calibration Data};
+        \node (blob) [box, below = of space] {3D Blob Detection};
+        \node (meas) [box, below = of blob] {Blob Classification};
+        
+        \draw(cap) edge[->] (pre);
     \end{tikzpicture}
     \caption{Volume detection technique}
     \label{fig:design:volumedetection}
