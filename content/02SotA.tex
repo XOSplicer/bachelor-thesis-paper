@@ -19,7 +19,6 @@ To gain domain knowledge about the content of the image, this data can be proces
 This data can then be used to make decisions about the objects in the image.
 Since the methods of each layer operate on data of the lower layer, a complex computer vision system employs methods from all three fields.  
 
-\ref{fig:sota:imageengineering}
 \begin{figure}[hbt]
 	\centering
 	\includegraphics[width=0.8\textwidth, keepaspectratio]{08_Chapter01_fig1-4}
@@ -32,21 +31,20 @@ Image data can be captured with different systems which produce image data of va
 It consists of information that can be visualized in any manner, such as still picture in color or grey-scale, a video, or a volumetric scan \autocite[][Chap.~1]{zhang2017imageprocessing}.
 In general an image can be though of as a function $f: D \rightarrow V$, 
 where $D$ is the domain of the location of an point in the image 
-and $V$ is the domain of the properties of the real world represented by this point.
-Typical examples for $ D $ are two dimensional images where the points are of the form $ (x, y) $, three dimensional images with points of the form $ (x, y, z) $ or videos with points of the form $ (x, y, t) $ where $ t $ is the time dimension.
+and $V$ is the domain of the properties of the real world represented at this point.
+Typical examples for $ D $ are two dimensional images where the points are of the form $ (x, y) $, three dimensional images with points of the form $ (x, y, z) \in \mathbb{R}^2 $ or videos with points of the form $ (x, y, t) \in \mathbb{R}^3 $ where $ t $ is the time dimension.
 Typical examples for $ V $ are grey-scale images where the luminosity is described as a value in $ \mathbb{R} $ or a colored image where the color is describes as a red-green-blue $ (r, g, b) \in \mathbb{R}^3 $.
 
 For digital images $V$ and $D$ are discrete with upper and lower limits.
 In two dimensions a image point a a discrete position $ (y, x) \in \mathbb{N}^2 $ is called a \emph{pixel},
 in three dimensions a point $ (x, y, z) \in \mathbb{N}^3 $ is called a \emph{voxel}.
-In order to store such an image on a computer a \emph{matrix representation} from the can be chosen.
-For two dimensional images this matrix is element of $ D^{X \times Y} $
+In order to store such an image on a computer a \emph{matrix representation} can be chosen.
+Examples:
+For two dimensional images this matrix is element of $ V^{X \times Y} $ where $ X $ and $ Y $ describe the width and height of the image. For three dimension $ V^{X \times Y \times Z} $ can be used where $X Y Z$ describe the length of the image in each spatial direction. 
+A discrete (digital) two dimensional \ac{RGB} color image can be represented as an element of $ \mathbb{N}^{X \times Y \times 3} $.
 
+ TODO
 \autocite[][Chap.~1]{zhang2017imageprocessing}
-
-digital images can be represented as a matrix of dimensions XxYxZxN
-where XYZ are dimension of diretions, and N is the number of value dimensions
-
 
 %\subsection{Convolution Kernel}
 
