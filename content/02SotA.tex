@@ -33,18 +33,15 @@ It consists of information that can be visualized in any manner, such as still p
 In general an image can be though of as a function $f: D \rightarrow V$, 
 where $D$ is the domain of the location of an point in the image 
 and $V$ is the domain of the properties of the real world represented by this point.
-Typical 
+Typical examples for $ D $ are two dimensional images where the points are of the form $ (x, y) $, three dimensional images with points of the form $ (x, y, z) $ or videos with points of the form $ (x, y, t) $ where $ t $ is the time dimension.
+Typical examples for $ V $ are grey-scale images where the luminosity is described as a value in $ \mathbb{R} $ or a colored image where the color is describes as a red-green-blue $ (r, g, b) \in \mathbb{R}^3 $.
 
 For digital images $V$ and $D$ are discrete with upper and lower limits.
 In two dimensions a image point a a discrete position $ (y, x) \in \mathbb{N}^2 $ is called a \emph{pixel},
 in three dimensions a point $ (x, y, z) \in \mathbb{N}^3 $ is called a \emph{voxel}.
+In order to store such an image on a computer a \emph{matrix representation} from the can be chosen.
+For two dimensional images this matrix is element of $ D^{X \times Y} $
 
-
-pixel position and values
-TODO greyscale 2d f(x, y) RxR->R
-greyscale 3d f(x, y, z) RxRxR-> R
-greyscale 2d + time f(x, y, z) RxRxR -> R
-colored 2d f(x, y) RxR -> RxRxR
 \autocite[][Chap.~1]{zhang2017imageprocessing}
 
 digital images can be represented as a matrix of dimensions XxYxZxN
