@@ -30,7 +30,14 @@ Since the methods of each layer operate on data of the lower layer, a complex co
 \subsection{Image Representation}
 Image data can be captured with different systems which produce image data of various dimensions.
 It consists of information that can be visualized in any manner, such as still picture in color or grey-scale, a video, or a volumetric scan \autocite[][Chap.~1]{zhang2017imageprocessing}.
-In general an image can be though of as a function $f: D \rightarrow V$, where $D$ is the 
+In general an image can be though of as a function $f: D \rightarrow V$, 
+where $D$ is the domain of the location of an point in the image 
+and $V$ is the domain of the properties of the real world represented by this point.
+Typical 
+
+For digital images $V$ and $D$ are discrete with upper and lower limits.
+In two dimensions a image point a a discrete position $ (y, x) \in \mathbb{N}^2 $ is called a \emph{pixel},
+in three dimensions a point $ (x, y, z) \in \mathbb{N}^3 $ is called a \emph{voxel}.
 
 
 pixel position and values
