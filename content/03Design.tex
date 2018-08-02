@@ -107,21 +107,28 @@ TODO
         },
         to/.style = {
             ->,
+            >=stealth',
             shorten >=1pt,
             thick,
             font=\sffamily\footnotesize
         }
     }
-    \begin{tikzpicture}[auto, node distance=2cm]
+    \begin{tikzpicture}[auto, node distance=3em]
         \node (cap) [box] {Video Capture};
         \node (pre) [box, right = of cap] {Preprocessing};
         \node (mask) [box, below = of pre] {Foreground Masking};
         \node (space) [box, below = of mask] {Volume Reconstruction};
         \node (calib) [box, left = of space] {Camera Calibration Data};
         \node (blob) [box, below = of space] {3D Blob Detection};
-        \node (meas) [box, below = of blob] {Blob Classification};
-        
-        \draw(cap) edge[->] (pre);
+        \node (meas) [box, below = of blob] {Blob Measurement};
+        \node (class) [box, below = of meas] {Blob Classification};
+        \draw [to] (cap) -- (pre);
+        \draw [to] (pre) -- (mask);
+        \draw [to] (mask) -- (space);
+        \draw [to] (space) -- (blob);
+        \draw [to] (calib) -- (space);
+        \draw [to] (blob) -- (meas);
+        \draw [to] (meas) -- (class);
     \end{tikzpicture}
     \caption{Volume detection technique}
     \label{fig:design:volumedetection}
