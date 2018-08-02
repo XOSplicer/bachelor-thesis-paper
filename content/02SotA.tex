@@ -9,6 +9,7 @@ This forms the basis to further explore the problem and find possible solutions 
 
 The field of computer vision tries to establish methods and algorithms 
 that extract useful information out of image data to be used by machines. 
+\textcite{zhang2017imageprocessing} defines three abstraction layers that these methods operate o
 
 TODO
 
@@ -29,7 +30,7 @@ TODO greyscale 2d f(x, y) RxR->R
 greyscale 3d f(x, y, z) RxRxR-> R
 greyscale 2d + time f(x, y, z) RxRxR -> R
 colored 2d f(x, y) RxR -> RxRxR
-\autocite[][Chap.~1]{zhang2017imageprocesssing}
+\autocite[][Chap.~1]{zhang2017imageprocessing}
 
 digital images can be represented as a matrix of dimensions XxYxZxN
 where XYZ are dimension of diretions, and N is the number of value dimensions
@@ -70,10 +71,18 @@ TODO
 
 TODO
 \subsubsection{Feature Based Scene Reconstruction} 
-alternative full 3d reconstruction of each point
+stereo vision
+of full 3d reconstruction of each point
 TODO
 
 key concept: photoconsistency : a voxel is photoconsitent when 
+
+\begin{figure}[hbt]
+	\centering
+	\includegraphics[width=1.0\textwidth, keepaspectratio]{resources/multiview}
+	\caption{\label{fig:sota:mulitviewtop}Concept of depth reconstruction in a 2D multi-view situation.
+	Based on and adapted from \textcite[][]{sonaten2011volume}}
+\end{figure}
 
 \subsubsection{Silhouette Based Volume Reconstruction}
 
@@ -82,7 +91,8 @@ as a binary mask describing the areas of the image in which the object is presen
 The edges of this areas describe the contours of the object.
 The silhouette can be obtained by image segmentation of the original image \autocite[][Chap.~2]{zhang2017imageanalysis}.
 Depending on the camera perspective different portions of the object are visible.
- 
+This can be used to reconstruct an image of $N+1$ spatial dimensions from images of $N$ spatial dimensions.
+
 
 
 shape from silhouette creates visual hull (no concavities)
@@ -108,14 +118,6 @@ simple voxel substraction method
 visual hull 
 
 
-\ref{fig:sota:mulitviewtop}
-
-\begin{figure}[hbt]
-	\centering
-	\includegraphics[width=1.0\textwidth, keepaspectratio]{resources/multiview}
-	\caption{\label{fig:sota:mulitviewtop}Concept of depth reconstruction in a 2D multi-view situation.
-	Based on and adapted from \textcite[][]{sonaten2011volume}}
-\end{figure}
 
 \begin{figure}[hbt]
 	\centering
@@ -287,7 +289,7 @@ An appropriate control algorithm must be chosen in order to optimize for perform
 depending on the type of elevator system, it's use purpose and the current passenger traffic.
 Depending on the type of elevator system different control strategies are used, some of which are listed below.
 
-\paragraph{Sequential Control}
+\subsubsection{Sequential Control}
 In contrast to the strategies below, 
 this strategy is only applicable to a single-lift system.
 The system answers hall calls in the order they arrive 
@@ -297,7 +299,7 @@ Drawbacks of this strategy are a increased passenger waiting time and an decreas
 However for cargo lifts, this can beneficial if only on cargo item can fit the cabin at a time
 \autocite[][p.~238]{barney2016handbook}.
 
-\paragraph{Collective Control}
+\subsubsection{Collective Control}
 This is the \enquote{most common form of automatic control} \autocite[][p.~237]{barney2016handbook}.
 Hall calls are answered in the order of the floors they originate from rather than their temporal order.
 On the way up and down the cabin collects all the hall calls and deliver car calls also following the floor order.
@@ -306,7 +308,7 @@ This approach can be expended to a elevator system with group control, such that
 When all cabins are idle, the nearest available is assigned to a call. Hence this strategy is also called \emph{nearest car}
 \autocite[][p.~244]{barney2016handbook}.
 
-\paragraph{Zone Approach}
+\subsubsection{Zone Approach}
 In this approach the floors of the building are divided into static, continuous zones also called \emph{sectors} \autocite[][p.~247]{barney2016handbook}. 
 Typically there are is one zone per elevator in the group. 
 Each lift in the group serves hall calls from only one sector
@@ -321,13 +323,7 @@ This approach is useful when the traffic is evenly distributed across the buildi
 The static zone approach can be extended to a dynamic sector approach where the sectors are not limited by static floor numbers but by the position of the elevators \autocite[][p.~250]{barney2016handbook}.
 
 
-\paragraph{Parking Policies}
-
-\paragraph{}
-
-
-
-
+\subsubsection{Parking Policies}
 
 TODO
 single elevator  vs multi elevator
