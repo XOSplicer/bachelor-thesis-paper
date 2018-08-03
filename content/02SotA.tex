@@ -49,7 +49,10 @@ The value of a pixel can then be obtained using the function $ f_M: \mathbb{N}^2
 
 \subsubsection{Convolution Kernel}
 
-A key concept in image processing is the application of an \emph{convolution matrix} to an image, which is also known as a \emph{kernel}.
+A key concept in image processing is the application of an \emph{convolution matrix} to an image, which is also known as a \emph{kernel}. 
+It is a small matrix with the same dimensions as the image it is applied to. For \ac{2D} images $ 3 \times 3 $ or $5 \times 5 $ kernels are used. 
+To apply the kernel to the image, they are convoluted.
+This is done by 
 
 \begin{figure}[h!]
 \begin{equation}
@@ -82,13 +85,12 @@ A key concept in image processing is the application of an \emph{convolution mat
     1 & 1 & 1
     \end{bmatrix}
 \end{equation}
-\caption{Examples for kernels: Gaussian blur filter, Sobel filter in X direction, Sobel filter in Y direction, Laplace filter}
+\caption{Examples for kernels left to rigth: Gaussian blur filter, Sobel filter in X direction, Sobel filter in Y direction, Laplace filter}
 \end{figure}
 
 
 TODO
-
-%\subsubsection{Foreground Mask}
+\subsubsection{Background Substraction}
 
 TODO
 
