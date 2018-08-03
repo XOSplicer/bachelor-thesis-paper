@@ -47,21 +47,18 @@ The value of a pixel can then be obtained using the function $ f_F: \mathbb{N}^2
 
 \subsection{2D Object Detection}
 
-\subsubsection{Convolution Kernel}
+\subsubsection{Convolution Kernels}
 
 A key concept in image processing is the application of an \emph{convolution matrix} to an image, which is also known as a \emph{kernel}. 
 It is a small matrix with the same dimensions as the image it is applied to. 
 For \ac{2D} images $ 3 \times 3 $ or $5 \times 5 $ kernels are used. 
-To apply the kernel $ K $ to the image $ F $, they are convoluted.
+To apply the kernel to the image, they are convoluted.
 This is done for each pixel individually by \enquote{overlaying} the kernel with its center onto it. 
 Then the sum of the element-wise multiplication of the kernel and the overlaid area of the image is calculated in order to determine the resulting pixel value in the output image.
+For a \ac{2D} image $ F \in \mathbb{N}^{X \times Y} $ the convolution $ H \in \mathbb{N}^{X \times Y} $ using the kernel $ K \in \mathbb{N}^{M_i \times M_j} $ is calculated with the formula
+$ H_{x,y} = \sum_{i=0}^{M-1} \sum_{j=0}^{N-1} F_{x+1-a_i, x+j-a_j}K_{i,j} $ \autocite[][]{opencv2018kernel}.
 
-$$
-
-\autocite[][]{opencv2018kernel}
-
-
-Can be used to find local features such as edges, or to blur or sharpen the image
+Convolution kernels can be used to apply local 
 
 \begin{figure}[h!]
 \begin{equation}
@@ -87,7 +84,7 @@ Can be used to find local features such as edges, or to blur or sharpen the imag
     -1 & -2 & -1
     \end{bmatrix}
     ;
-    {D^2}_{xy} = 
+    D_{xy}^{2} = 
     \begin{bmatrix}
     1 & 1 & 1 \\
     1 & -8 & 1 \\
