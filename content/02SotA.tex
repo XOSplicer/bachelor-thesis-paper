@@ -41,8 +41,8 @@ in three dimensions a point $ (x, y, z) \in \mathbb{N}^3 $ is called a \emph{vox
 In order to store such an image on a computer a \emph{matrix representation} can be chosen.
 Examples:
 For two dimensional images this matrix is element of $ V^{X \times Y} $, where $ X $ and $ Y $ describe the width and height of the image \autocite[][Chap.~1]{zhang2017imageprocessing}. For three dimension $ V^{X \times Y \times Z} $ can be used, where $X Y Z$ describe the length of the image in each spatial direction. 
-A discrete (digital) two dimensional \ac{RGB} color image can be represented as a matrix  $ M \in \mathbb{N}^{X \times Y \times 3} $.
-The value of a pixel can then be obtained using the function $ f_M: \mathbb{N}^2 \rightarrow \mathbb{N}^3 ; (x, y) \mapsto f(x,y) = M_{x,y} $.
+A discrete (digital) two dimensional \ac{RGB} color image can be represented as a matrix  $ F \in \mathbb{N}^{X \times Y \times 3} $.
+The value of a pixel can then be obtained using the function $ f_F: \mathbb{N}^2 \rightarrow \mathbb{N}^3 ; (x, y) \mapsto f(x,y) = F_{x,y} $.
 
 
 \subsection{2D Object Detection}
@@ -50,9 +50,18 @@ The value of a pixel can then be obtained using the function $ f_M: \mathbb{N}^2
 \subsubsection{Convolution Kernel}
 
 A key concept in image processing is the application of an \emph{convolution matrix} to an image, which is also known as a \emph{kernel}. 
-It is a small matrix with the same dimensions as the image it is applied to. For \ac{2D} images $ 3 \times 3 $ or $5 \times 5 $ kernels are used. 
-To apply the kernel to the image, they are convoluted.
-This is done by 
+It is a small matrix with the same dimensions as the image it is applied to. 
+For \ac{2D} images $ 3 \times 3 $ or $5 \times 5 $ kernels are used. 
+To apply the kernel $ K $ to the image $ F $, they are convoluted.
+This is done for each pixel individually by \enquote{overlaying} the kernel with its center onto it. 
+Then the sum of the element-wise multiplication of the kernel and the overlaid area of the image is calculated in order to determine the resulting pixel value in the output image.
+
+$$
+
+\autocite[][]{opencv2018kernel}
+
+
+Can be used to find local features such as edges, or to blur or sharpen the image
 
 \begin{figure}[h!]
 \begin{equation}
