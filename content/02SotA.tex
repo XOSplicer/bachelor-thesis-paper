@@ -113,22 +113,22 @@ It can also be used to sharpen an image.
 \end{figure}
 
 \subsubsection{Background Subtraction}
-Background subtraction used to detect areas of interest in an video.
+Background subtraction used to detect areas of interest in a video.
 Especially in a static camera setup, everything that moves can be considered the foreground and everything that stays static is the background. 
 To do so, a model of the background without any moving objects is needed.
 It acts as a reference frame to compare the current frame of a video against.
 
 If an image is available, that only shows the background of a scene,
 \emph{static background subtraction} can be used.
-In this method the current frame of the video and the background are blurred 
+In this method, the current frame of the video and the background are blurred 
 and the element-wise absolute difference between the images is calculated.
-If the absolute difference for a pixel is higher than a specified threshold, the the pixel is considered part of the foreground.
+If the absolute difference for a pixel is higher than a specified threshold, then the pixel is considered part of the foreground.
 This method uses the given background image as a static model for the background and does not update the model if the background changes.
 
 When no pure background image is available 
 or if the background can change over time, e.g. by different lighting,
-the background model needs to be adapted regularly.
-\textcite[][]{piccardi2004background} presents an overview over techniques used to create such a model, 
+the background model needs to be regularly adapted.
+\textcite[][]{piccardi2004background} presents an overview of techniques used to create such a model, 
 whereas here only a subset is presented:
 
 \begin{itemize}
@@ -146,7 +146,7 @@ whereas here only a subset is presented:
     
 \end{itemize}
 
-Since video images can contain pixel level noise, it is useful convert color video to grey-scale and to blur the images before applying the background substraction.
+Since video images can contain pixel level noise, it is useful convert color video to grey-scale and to blur the images before applying the background subtraction.
 
 \subsubsection{Blob Detection}
 
