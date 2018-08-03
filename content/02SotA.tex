@@ -126,8 +126,13 @@ whereas here only a subset is presented:
 
 \begin{itemize}
     
-    \item \textbf{Running Gaussian average} For each pixel in the video image $ I $ a running average is calculated, that is updated in each frame by the formula $ \mu{}_t = \alpha{}I_t + (1 - \alpha)\mu{}_{t-1} $, where $ \alpha $ is an weight that determines how fast the model is updated. The variance $ \sigma{}_t $ is calculated similarly. A pixel in $ I_t $ is considered foreground if $ |I_t - \mu{}_t| > k\sigma{}_t $ holds, where $ k $ is a parameter that determines the threshold sensitivity of the algorithm.
-    \item \textbf{Mixture of Gaussians} 
+    \item \textbf{Running Gaussian average} For each pixel in the grey-scale video image $ I $ a running average is calculated, that is updated in each frame by the formula $ \mu{}_t = \alpha{}I_t + (1 - \alpha)\mu{}_{t-1} $, where $ \alpha $ is an weight that determines how fast the model is updated. The variance $ \sigma{}_t $ is calculated similarly. A pixel in $ I_t $ is considered foreground if $ |I_t - \mu{}_t| > k\sigma{}_t $ holds, where $ k $ is a parameter that determines the threshold sensitivity of the algorithm.
+    \item \textbf{Mixture of Gaussians} Instead of assuming a single value likelyhood distribution for each pixel, multiple Gaussian distributions are used in this method introduced \textcite[][]{stauffer1999background}. 
+    When using $ K $ distributions this enables the distinction of $ K $ types of background and foreground, which improves the detection rate in outdoor scenes where trees might be present.
+    
+    
+    
+    improved forms exists and are used eg \autocite[][]{chan2011background}
     
 \end{itemize}
 
