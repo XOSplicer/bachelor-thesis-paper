@@ -55,13 +55,23 @@ For \ac{2D} images $ 3 \times 3 $ or $5 \times 5 $ kernels are used.
 To apply the kernel to the image, they are convoluted.
 This is done for each pixel individually by \enquote{overlaying} the kernel with its center onto it. 
 Then the sum of the element-wise multiplication of the kernel and the overlaid area of the image is calculated in order to determine the resulting pixel value in the output image.
-For a \ac{2D} image $ F \in \mathbb{N}^{X \times Y} $ the convolution $ H \in \mathbb{N}^{X \times Y} $ using the kernel $ K \in \mathbb{N}^{M_i \times M_j} $ is calculated with the formula
-$ H_{x,y} = \sum_{i=0}^{M-1} \sum_{j=0}^{N-1} F_{x+1-a_i, x+j-a_j}K_{i,j} $ \autocite[][]{opencv2018kernel}.
+For a \ac{2D} image $ F \in \mathbb{N}^{X \times Y} $ the convolution $ H \in \mathbb{N}^{X \times Y} $ using the kernel $ K \in \mathbb{N}^{M_i \times M_j} $ is calculated with the formula in figure \ref{eq:sota:convolution}:
+\begin{figure}[h!]
+\begin{equation*}
+H_{x,y} = \sum_{i=0}^{M-1} \sum_{j=0}^{N-1} F_{x+1-a_i, x+j-a_j}K_{i,j}
+\end{equation*}
+\caption{Application of an 2D convolution kernel. Reprinted from the \textcite[][]{opencv2018kernel}}
+\label{eq:sota:convolution}
+\end{figure}
 
-Convolution kernels can be used to apply local 
+%$ H_{x,y} = \sum_{i=0}^{M-1} \sum_{j=0}^{N-1} F_{x+1-a_i, x+j-a_j}K_{i,j} $ \autocite[][]{opencv2018kernel}.
+
+Convolution kernels can be used to find local features in an image or apply general local operation.
+This includes blurring with the Gaussian filter, and edge detection with the Sobel filter in X and Y direction or with the Laplace filter (see figure \ref{eq:sota:kernels}).
+It can also be used to sharpen an image. 
 
 \begin{figure}[h!]
-\begin{equation}
+\begin{equation*}
     G = 
     \dfrac{1}{16}
     \begin{bmatrix}
@@ -90,12 +100,11 @@ Convolution kernels can be used to apply local
     1 & -8 & 1 \\
     1 & 1 & 1
     \end{bmatrix}
-\end{equation}
+\end{equation*}
 \caption{Examples for kernels left to rigth: Gaussian blur filter, Sobel filter in X direction, Sobel filter in Y direction, Laplace filter}
+\label{eq:sota:kernels}
 \end{figure}
 
-
-TODO
 \subsubsection{Background Substraction}
 
 TODO
