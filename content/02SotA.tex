@@ -126,17 +126,16 @@ whereas here only a subset is presented:
 
 \begin{itemize}
     
-    \item \textbf{Running Gaussian average} For each pixel in the grey-scale video image $ I $ a running average $ \mu{}_t$ is calculated, that is updated in each frame by the formula $ \mu{}_t = \alpha{}I_t + (1 - \alpha)\mu{}_{t-1} $, where $ \alpha $ is an weight that determines how fast the model is updated. The variance $ \sigma{}_t $ is calculated similarly. A pixel in $ I_t $ is considered foreground if $ |I_t - \mu{}_t| > k\sigma{}_t $ holds, where $ k $ is a parameter that determines the threshold sensitivity of the algorithm.
+    \item \textbf{Running Gaussian average} For each pixel $ I $  in the grey-scale video image a running average $ \mu{}_t$ is calculated, that is updated in each frame by the formula $ \mu{}_t = \alpha{}I_t + (1 - \alpha)\mu{}_{t-1} $, where $ \alpha $ is an weight that determines how fast the model is updated. The variance $ \sigma{}_t $ is calculated similarly. A pixel $ I_t $ is considered foreground if $ |I_t - \mu{}_t| > k\sigma{}_t $ holds, where $ k $ is a parameter that determines the threshold sensitivity of the algorithm.
     \item \textbf{Mixture of Gaussians} Instead of assuming a single value likelihood distribution for each pixel, multiple Gaussian distributions are used in this method introduced \textcite[][]{stauffer1999background}. 
-    When using $ K $ distributions this enables the distinction of $ K $ types of background and foreground, which improves the detection rate in outdoor scenes where trees might be present. 
-    For each of the $ K $ distributions the peak amplitude $ \omega{}_{i,t} $, average $ \mu{}_{i,t} $ and variance $ \sigma{}_{i,t} $.
-    The 
-    The distribution parameters are updated using a running calculation (as above) when a new pixel value is a accepted by it. 
-    If no distribution accepts the value, the distribution with the lowest $ $
-    
-    
-    
-    improved forms exists and are used eg \autocite[][]{chan2011background}
+    When using $ K $ distributions this enables the distinction of $ K $ types of background and foreground, which improves the detection rate in outdoor scenes where e.g. trees might be present. 
+    For each of the $ K $ distributions the peak amplitude $ \omega{}_{i,t} $, average $ \mu{}_{i,t} $ and variance $ \sigma{}_{i,t} $ are stored.
+    The distributions are ranked by the ratio $ \omega{}_{i,t} / \sigma{}_{i, t}$, since more narrow distributions are assumed to belong to a background classification.
+    The distributions are checked in order of their rank to accept a pixel value when $ (I_t - \mu{}_{i,t})/\sigma{}_{i,t} > 2.5 $ holds.
+    If $ \omega{}_{t} $ of the first accepting distribution is higher than a threshold, the pixel is considered background.
+    The distribution parameters are updated using a running calculation (as above) when a new pixel value is a accepted by it.
+    If no distribution accepts the value, the distribution with the lowest ranked is replaced by a new distribution centered around the new value with a high variance.
+    Improved forms of this algorithm exist, like \autocite[][]{chan2011background}, and are currently used.
     
 \end{itemize}
 
