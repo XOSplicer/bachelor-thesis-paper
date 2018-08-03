@@ -166,9 +166,12 @@ convex hull
 \subsubsection{Camera Calibration}
 
 \begin{figure}[h!]
+\centering
 \begin{equation*}
     s m' = A[R|t]M'
-    
+    \hspace{2em}
+    \Longleftrightarrow{}
+    \hspace{2em}
     s 
     \begin{bmatrix}
         u \\
@@ -198,9 +201,20 @@ convex hull
         t_3
     \end{bmatrix}
 \end{equation*}
-\caption{Camera calibration with internal and external parameters}
+\caption{Camera calibration with internal and external parameters. Reprinted from the \textcite{opencv2018calibration}}
 \label{eq:sota:camcalib}
 \end{figure}
+
+\begin{itemize}
+    \item $ s $ is the scale factor for image
+    \item $ (X, Y, Z) $ is the 3D point in world space
+    \item $ (u,v) $ is the projected point in the image
+    \item $ A $ is the internal camera matrix
+    \item $ (c_x, c_y) $ is the principle point at image center
+    \item $ f_x, f_y $ are the focal lengths in pixel units
+    \item $ R $ is the external rotation matrix
+    \item $ t $ is the external translation matrix
+\end{itemize}
 
 TODO
 
