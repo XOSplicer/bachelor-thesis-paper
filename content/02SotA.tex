@@ -165,6 +165,43 @@ convex hull
 
 \subsubsection{Camera Calibration}
 
+\begin{figure}[h!]
+\begin{equation*}
+    s m' = A[R|t]M'
+    
+    s 
+    \begin{bmatrix}
+        u \\
+        v \\
+        1
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        f_x & 0 & c_x \\
+        0 & f_y & c_y \\
+        0 & 0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        r_{11} & r_{12} & r_{13} \\
+        r_{21} & r_{22} & r_{23} \\
+        r_{31} & r_{32} & r_{33}
+    \end{bmatrix}
+    \begin{bmatrix}
+        X \\
+        Y \\
+        Z \\
+    \end{bmatrix}
+    +
+    \begin{bmatrix}
+        t_1 \\
+        t_2 \\
+        t_3
+    \end{bmatrix}
+\end{equation*}
+\caption{Camera calibration with internal and external parameters}
+\label{eq:sota:camcalib}
+\end{figure}
+
 TODO
 
 \subsubsection{Single View Estimation}
