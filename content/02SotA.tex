@@ -44,6 +44,8 @@ For two dimensional images this matrix is element of $ V^{X \times Y} $, where $
 A discrete (digital) two dimensional \ac{RGB} color image can be represented as a matrix  $ F \in \mathbb{N}^{X \times Y \times 3} $.
 The value of a pixel can then be obtained using the function $ f_F: \mathbb{N}^2 \rightarrow \mathbb{N}^3 ; (x, y) \mapsto f(x,y) = F_{x,y} $.
 
+\subsubsection{OpenCV Computer Vision Library}
+
 
 \subsection{2D Object Detection}
 
@@ -106,6 +108,8 @@ It can also be used to sharpen an image.
 \subsubsection{Background Subtraction}
 Background subtraction used to detect areas of interest in an video.
 Especially in a static camera setup, everything that moves can be considered the foreground and everything that stays static is the background. 
+To do so, a model of the background without any moving objects is needed.
+It acts as a reference frame to compare the current frame of a video against.
 
 If an image is available, that only shows the background of a scene,
 \emph{static background subtraction} can be used.
@@ -114,14 +118,15 @@ and the element-wise absolute difference between the images is calculated.
 If the absolute difference for a pixel is higher than a specified threshold, the the pixel is considered part of the foreground.
 This method uses the given background image as a static model for the background and does not update the model if the background changes.
 
-When no pure background image is ava
-
-
-Overview for video based: \autocite[][]{piccardi2004background}
+When no pure background image is available 
+or if the background can change over time, e.g. by different lighting,
+the background model needs to be adapted regularly.
+\textcite[][]{piccardi2004background} presents an overview over techniques used to create such a model:
 
 \begin{itemize}
     
-    \item \textbf{Running Gaussian average}
+    \item \textbf{Running Gaussian average} For each pixel in the video image $ I $ a running average is calculated, that is updated in each frame by the formula $ \mu{}_t = \alpha{}I_t + (1 - \alpha)\mu{}_{t-i} $, where $ \alpha $ sii 
+    
     %\item \textbf{Mean filtering}
     %\item \textbf{Temporal median filter}
     \item \textbf{Mixture of Gaussians}
