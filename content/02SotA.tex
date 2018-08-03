@@ -58,13 +58,11 @@ Then the sum of the element-wise multiplication of the kernel and the overlaid a
 For a \ac{2D} image $ F \in \mathbb{N}^{X \times Y} $ the convolution $ H \in \mathbb{N}^{X \times Y} $ using the kernel $ K \in \mathbb{N}^{M_i \times M_j} $ is calculated with the formula in figure \ref{eq:sota:convolution}:
 \begin{figure}[h!]
 \begin{equation*}
-H_{x,y} = \sum_{i=0}^{M-1} \sum_{j=0}^{N-1} F_{x+1-a_i, x+j-a_j}K_{i,j}
+H_{x,y} = \sum_{i=0}^{M_i-1} \sum_{j=0}^{M_j-1} F_{x+1-a_i, x+j-a_j}K_{i,j}
 \end{equation*}
 \caption{Application of an 2D convolution kernel. Reprinted from the \textcite[][]{opencv2018kernel}}
 \label{eq:sota:convolution}
 \end{figure}
-
-%$ H_{x,y} = \sum_{i=0}^{M-1} \sum_{j=0}^{N-1} F_{x+1-a_i, x+j-a_j}K_{i,j} $ \autocite[][]{opencv2018kernel}.
 
 Convolution kernels can be used to find local features in an image or apply general local operation.
 This includes blurring with the Gaussian filter, and edge detection with the Sobel filter in X and Y direction or with the Laplace filter (see figure \ref{eq:sota:kernels}).
@@ -105,7 +103,7 @@ It can also be used to sharpen an image.
 \label{eq:sota:kernels}
 \end{figure}
 
-\subsubsection{Background Substraction}
+\subsubsection{Background Subtraction}
 
 TODO
 
