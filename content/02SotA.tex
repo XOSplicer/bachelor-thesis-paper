@@ -40,17 +40,21 @@ In two dimensions a image point a discrete position $ (y, x) \in \mathbb{N}^2 $ 
 in three dimensions a point $ (x, y, z) \in \mathbb{N}^3 $ is called a \emph{voxel}.
 In order to store such an image on a computer a \emph{matrix representation} can be chosen.
 Examples:
-For two dimensional images this matrix is element of $ V^{X \times Y} $, where $ X $ and $ Y $ describe the width and height of the image. For three dimension $ V^{X \times Y \times Z} $ can be used, where $X Y Z$ describe the length of the image in each spatial direction. 
-A discrete (digital) two dimensional \ac{RGB} color image can be represented as an element of $ \mathbb{N}^{X \times Y \times 3} $.
+For two dimensional images this matrix is element of $ V^{X \times Y} $, where $ X $ and $ Y $ describe the width and height of the image \autocite[][Chap.~1]{zhang2017imageprocessing}. For three dimension $ V^{X \times Y \times Z} $ can be used, where $X Y Z$ describe the length of the image in each spatial direction. 
+A discrete (digital) two dimensional \ac{RGB} color image can be represented as a matrix  $ M \in \mathbb{N}^{X \times Y \times 3} $.
+The value of a pixel can then be obtained using the function $ f_M: \mathbb{N}^2 \rightarrow \mathbb{N}^3 ; (x, y) \mapsto f(x,y) = M_{x,y} $.
 
- TODO
-\autocite[][Chap.~1]{zhang2017imageprocessing}
+
 
 %\subsection{Convolution Kernel}
 
 TODO
 
 \subsection{2D Object Detection}
+
+\subsubsection{Convolution Kernel}
+
+
 
 TODO
 
