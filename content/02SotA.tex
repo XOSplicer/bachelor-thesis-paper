@@ -65,6 +65,7 @@ To apply the kernel to the image, they are convoluted.
 This is done for each pixel individually by \enquote{overlaying} the kernel with its center onto it. 
 Then the sum of the element-wise multiplication of the kernel and the overlaid area of the image is calculated in order to determine the resulting pixel value in the output image.
 For a \ac{2D} image $ F \in \mathbb{N}^{X \times Y} $ the convolution $ H \in \mathbb{N}^{X \times Y} $ using the kernel $ K \in \mathbb{N}^{M_i \times M_j} $ is calculated with the formula in figure \ref{eq:sota:convolution}:
+
 \begin{figure}[h!]
 \begin{equation*}
 H_{x,y} = \sum_{i=0}^{M_i-1} \sum_{j=0}^{M_j-1} F_{x+1-a_i, x+j-a_j}K_{i,j}
@@ -165,6 +166,8 @@ convex hull
 
 \subsubsection{Camera Calibration}
 
+Since 
+
 \begin{figure}[h!]
 \centering
 \begin{equation*}
@@ -200,6 +203,7 @@ convex hull
 \label{eq:sota:camcalib}
 \end{figure}
 
+\begin{samepage}
 \begin{itemize}
     \item $ s $ is the scale factor for image
     \item $ (X, Y, Z) $ is the 3D point in world space
@@ -210,17 +214,17 @@ convex hull
     \item $ R $ is the external rotation matrix
     \item $ t $ is the external translation vector
 \end{itemize}
-
-
+\end{samepage}
 
 Furthermore there exists \emph{distortion} in a real camera images.
 Distortion is visible in the effect where straight lines appear curved in the image representation.
-There exists two kinds of distortion that can occur, namely radial and tangential distortion. \autocite[][Fig.~2]{weng1992distortion}
+There exists two kinds of distortion that can occur, namely radial and tangential distortion \autocite[][Fig.~2]{weng1992distortion}.
 Radial distortion makes points appear closer together or further apart depending on their distance to the image center. 
-It is visible as a \enqoute{barrel} or \enqoute{pillow} effect on rectangular lines. 
+It is visible as a \enquote{barrel} or \enquote{pillow} effect on rectangular lines. 
 Tangential distortion causes a rotation of the image depending on the distance and angle of a point to the image center.
 The amount and type of distortion is part of the internal camera parameters.
-Just as the matrix of intrinsic parameters, the parameters for the distortion can be calculated from images of structures with known dimensions.
+Just as the matrix of intrinsic parameters, the parameters for the distortion can be calculated from images of structures with known dimensions
+\autocite{opencv2018calibration}.
 
 
 TODO
