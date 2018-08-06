@@ -185,20 +185,15 @@ convex hull
         0 & 0 & 1
     \end{bmatrix}
     \begin{bmatrix}
-        r_{11} & r_{12} & r_{13} \\
-        r_{21} & r_{22} & r_{23} \\
-        r_{31} & r_{32} & r_{33}
+        r_{11} & r_{12} & r_{13} & t_1 \\
+        r_{21} & r_{22} & r_{23} & t_2 \\
+        r_{31} & r_{32} & r_{33} & t_3
     \end{bmatrix}
     \begin{bmatrix}
         X \\
         Y \\
         Z \\
-    \end{bmatrix}
-    +
-    \begin{bmatrix}
-        t_1 \\
-        t_2 \\
-        t_3
+        1
     \end{bmatrix}
 \end{equation*}
 \caption{Camera calibration with internal and external parameters. Reprinted from the \textcite{opencv2018calibration}}
@@ -210,7 +205,7 @@ convex hull
     \item $ (X, Y, Z) $ is the 3D point in world space
     \item $ (u,v) $ is the projected point in the image
     \item $ A $ is the internal camera matrix
-    \item $ (c_x, c_y) $ is the principle point at image center
+    \item $ (c_x, c_y) $ is the principle point in the world space seen at the image center
     \item $ f_x, f_y $ are the focal lengths in pixel units
     \item $ R $ is the external rotation matrix
     \item $ t $ is the external translation matrix
@@ -232,7 +227,7 @@ key concept: photoconsistency : a voxel is photoconsitent when
 	\centering
 	\includegraphics[width=1.0\textwidth, keepaspectratio]{resources/multiview}
 	\caption{\label{fig:sota:mulitviewtop}Concept of depth reconstruction in a 2D multi-view situation.
-	Based on and adapted from \textcite[][]{sonaten2011volume}}
+	Adapted from \textcite[][]{sonaten2011volume}}
 \end{figure}
 
 \subsubsection{Silhouette Based Volume Reconstruction}
@@ -297,7 +292,7 @@ Figure \ref{fig:sota:systemcomponents} gives an general overview over the involv
 \begin{figure}[hbt]
 	\centering
 	\includegraphics[width=0.8\textwidth, keepaspectratio]{resources/systemcomponets}
-	\caption{\label{fig:sota:systemcomponents} General components of an elevator control system. Based on and adapted from \textcite[][pp.~4,16]{xang2016trafficlist} and  \textcite[][p.~10]{siikonen1997models}}
+	\caption{\label{fig:sota:systemcomponents} General components of an elevator control system. Adapted from \textcite[][pp.~4,16]{xang2016trafficlist} and  \textcite[][p.~10]{siikonen1997models}}
 \end{figure}
 
 When a passenger wants to take the elevator from one floor to another,
