@@ -223,33 +223,33 @@ The internal camera matrix $ A $ can be calculated from multiple images of an ob
 For example an chessboard can be used, which is photographed from different positions and angles. 
 
 The external parameter for rotation and translation can not be found from one camera alone.
-In a mulit-camera setup they 
+In a multi-camera setup they 
 
 \begin{figure}[h!]
 \centering
 \begin{equation*}
     R
     =
-    R_z(\gamma)R_y(\beta)R_x(\alpha)
+    R_z(\alpha)R_y(\beta)R_x(\gamma)
     =
     \begin{bmatrix}
-    cos \gamma & - sin \gamma & 0 \\
-    sin \gamma & cos \gamma & 0 \\
-    0 & 0 & 1 \\
+    cos \alpha{} & - sin \alpha{} & 0 \\
+    sin \alpha{} & cos \alpha{} & 0 \\
+    0 & 0 & 1 
     \end{bmatrix}
     \begin{bmatrix}
-    cos \beta & 0 & sin \beta \\
+    cos \beta{} & 0 & sin \beta{} \\
     0 & 1 & 0 \\
-    - sin \beta & 0 & cos \beta \\
+    - sin \beta{} & 0 & cos \beta{}
     \end{bmatrix}
     \begin{bmatrix}
     1 & 0 & 0 \\
-    0 & cos \alpha & - sin \alpha \\
-    0 & sin \alpha & cos \alpha \\
+    0 & cos \gamma{} & - sin \gamma{} \\
+    0 & sin \gamma{} & cos \gamma{} 
     \end{bmatrix}
 \end{equation*}
-\caption{External rotation }
-\label{eq:sota:camcalib}
+\caption{External rotation matrix from rotation along the yaw, pitch and roll angles \alpha{}, \beta{} and \gamma{} }
+\label{eq:sota:rotation}
 \end{figure}
 
 Furthermore there exists \emph{distortion} in a real camera images.
