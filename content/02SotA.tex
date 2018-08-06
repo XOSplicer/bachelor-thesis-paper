@@ -164,7 +164,7 @@ convex hull
 
 \subsection{3D Volume Estimation}
 
-\subsubsection{Camera Calibration}
+\subsubsection{Camera Projection and Calibration}
 
 Since camera lenses use a perspective projection to produce images, 
 there are several considerations needed when working with \ac{3D} scenes that are captured.
@@ -175,6 +175,8 @@ To perform the projection the position of the point seen on the \emph{image plan
 The image plane is the section of the scene that is seen by the camera in the distance of the focal length.
 Figure \ref{fig:sota:camerprojection} shows how this projection can be visualized.
 Note that the Z axis is pointing into the real world space in the direction the camera is looking to.
+Since this projection is dependent on the focal length of the camera and the principal point, which is seen in the center of the image, it can be described as the intrinsic camera matrix $ A $ in the equation in figure \ref{eq:sota:camcalib}.
+When world space and camera space coordinates are not the same, i.e. the camera is rotated or translated, there exists an additional rotation and translation matrix $ [R|t] $ that describes these external projection parameters.
 
 \begin{figure}[hbt]
     \centering
@@ -239,7 +241,11 @@ For example an chessboard can be used, which is photographed from different posi
 
 The external parameter for rotation and translation can not be found from one camera alone.
 In a multi-camera setup they can be found by triangulation of multiple points in multiple images that show the same scene from different angles.
-If this triangulation is not possible because 
+If this triangulation is not possible because the points used for triangulation are not visible from all camera perspective, the rotation matrix an the translation vector can be found out by measuring the real world.
+The rotation matrix can be calculated by measuring the relative rotation angles of the cameras to each other.
+The equation in figure \ref{eq:sota:rotation} can be used to determine the combined rotation matrix when the rotation around the yaw, pitch and roll angles are known. 
+Yaw pitch and roll describe the rotation around the Z, Y and X axis respectively.
+The translation vector can be found by measuring the distance of the cameras to each other.
 
 \begin{figure}[h!]
 \centering
@@ -269,7 +275,7 @@ If this triangulation is not possible because
 \end{figure}
 
 Furthermore real lenses introduce optical aberrations and 
-there exists \emph{distortion} in a real camera images.
+there exists \emph{distortion} in camera images.
 Distortion is visible in the effect where straight lines appear curved in the image representation.
 There exists two kinds of distortion that can occur, namely radial and tangential distortion \autocite[][Fig.~2]{weng1992distortion}.
 Radial distortion makes points appear closer together or further apart depending on their distance to the image center. 
@@ -278,9 +284,6 @@ Tangential distortion causes a rotation of the image depending on the distance a
 The amount and type of distortion is part of the internal camera parameters.
 Just as the matrix of intrinsic parameters, the parameters for the distortion can be calculated from images of structures with known dimensions
 \autocite{opencv2018calibration}.
-
-
-TODO
 
 \subsubsection{Single View Estimation}
 
