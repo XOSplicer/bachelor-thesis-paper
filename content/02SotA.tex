@@ -168,15 +168,19 @@ convex hull
 
 Since camera lenses use a perspective projection to produce images, 
 there are several considerations needed when working with \ac{3D} scenes that are captured.
-The perspective 
-
+The points in the 3D scene can be described as coordinates in the \emph{world space}.
+In the perspective projection these points are seen from a single point in the camera, 
+which is the sensor in a real camera.
+To perform the projection the position of the point seen on the \emph{image plane} is calculated.
+The image plane is the section of the scene that is seen by the camera in the distance of the focal length.
+Figure \ref{fig:sota:camerprojection} shows how this projection can be visualized.
 Note that the Z axis is pointing into the real world space in the direction the camera is looking to.
 
-\begin{figure}
+\begin{figure}[hbt]
     \centering
     \includegraphics[width=0.8\textwidth, keepaspectratio]{opencv_pinhole_camera_model}
-    \caption{Caption}
-    \label{fig:sota}
+        \caption{Camera model to illustrate perspective projection of a 3D scene onto the image plane (grey). Reprinted from the \textcite{opencv2018calibration}}
+    \label{fig:sota:camerprojection}
 \end{figure}
 
 \begin{figure}[h!]
@@ -234,7 +238,8 @@ The internal camera matrix $ A $ can be calculated from multiple images of an ob
 For example an chessboard can be used, which is photographed from different positions and angles. 
 
 The external parameter for rotation and translation can not be found from one camera alone.
-In a multi-camera setup they 
+In a multi-camera setup they can be found by triangulation of multiple points in multiple images that show the same scene from different angles.
+If this triangulation is not possible because 
 
 \begin{figure}[h!]
 \centering
