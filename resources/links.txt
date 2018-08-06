@@ -81,3 +81,12 @@ http://www.columbia.edu/~cs2035/courses/ieor4405.S13/p14.pdf
 https://books.google.de/books?id=LDWjiMZ0_wsC&pg=PA71&lpg=PA71&dq=%22logisch-deduktives+schlie%C3%9Fen%22&source=bl&ots=0O9W3vErFw&sig=vxjjboqmFstHNKEkGbS8S-UCQsI&hl=de&sa=X&ved=0ahUKEwju6dqjxs_VAhVG7xQKHVrgAZ4Q6AEIJjAA#v=onepage&q=%22logisch-deduktives%20schlie%C3%9Fen%22&f=false 
 
 https://link.springer.com/article/10.1007%2Fs11576-007-0064-z?LI=true 
+https://blogs.mathworks.com/loren/2009/12/16/carving-a-dinosaur/
+https://docs.opencv.org/3.2.0/d1/dc5/tutorial_background_subtraction.html
+https://github.com/xocoatzin/Voxel-Carving/blob/master/src/main.cpp
+https://docs.opencv.org/3.4.1/d2/dbd/tutorial_distance_transform.html
+
+https://codereview.stackexchange.com/questions/189816/3d-connected-component-in-cython
+https://pdfs.semanticscholar.org/363c/f3eb04c43932a97f2e48d8e2099b3783cd96.pdf
+https://github.com/infr/falldetector-public/blob/master/thesis.md
+https://scikit-image.org/

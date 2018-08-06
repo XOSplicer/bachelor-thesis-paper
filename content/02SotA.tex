@@ -7,9 +7,18 @@ This forms the basis to further explore the problem and find possible solutions 
 
 \section{Computer Vision}
 
-TODO
+The field of computer vision tries to establish methods and algorithms 
+that extract useful information out of image data to be used by machines. 
+The field has a broad range of applications and is influenced by various subjects such as methematics, physics and computer science.
+Therefore \textcite{zhang2017imageprocessing} coined the term of \emph{image engineering} to localize the methods that deal with obtaining data from images. 
+\textcite{zhang2017imageprocessing} defines three abstraction layers that these methods operate on (see figure \ref{fig:sota:imageengineering}).
+\emph{Image processing} deals with the \enquote{manipulation of an image to produce another (improved) image} \autocite[][]{zhang2017imageprocessing}. 
+It includes image capturing, representation and reconstruction.
+\emph{Image analysis} is concerned with the extraction of higher level data from the image which described the objects and features present in the image.
+To gain domain knowledge about the content of the image, this data can be processed by the means of \emph{image understanding}. 
+This data can then be used to make decisions about the objects in the image.
+Since the methods of each layer operate on data of the lower layer, a complex computer vision system employs methods from all three fields.  
 
-\ref{fig:sota:imageengineering}
 \begin{figure}[hbt]
 	\centering
 	\includegraphics[width=0.8\textwidth, keepaspectratio]{08_Chapter01_fig1-4}
@@ -17,33 +26,260 @@ TODO
 	Reprinted from \textcite[][Chapter~1]{zhang2017imageprocessing}}
 \end{figure}
 
-\subsection{Object Detection}
+\subsection{Image Representation}
+Image data can be captured with different systems which produce image data of various dimensions.
+It consists of information that can be visualized in any manner, such as still picture in color or grey-scale, a video, or a volumetric scan \autocite[][Chap.~1]{zhang2017imageprocessing}.
+In general an image can be though of as a function $f: D \rightarrow V$, 
+where $D$ is the domain of the location of an point in the image 
+and $V$ is the domain of the properties of the real world represented at this point.
+Typical examples for $ D $ are two dimensional images where the points are of the form $ (x, y) $, three dimensional images with points of the form $ (x, y, z) \in \mathbb{R}^3 $ or videos with points of the form $ (x, y, t) \in \mathbb{R}^3 $ where $ t $ is the time dimension.
+Typical examples for $ V $ are grey-scale images where the luminosity is described as a value in $ \mathbb{R} $ or a colored image where the color is describes as a red-green-blue $ (r, g, b) \in \mathbb{R}^3 $.
+
+For digital images $V$ and $D$ are discrete with upper and lower limits.
+In two dimensions a image point a discrete position $ (y, x) \in \mathbb{N}^2 $ is called a \emph{pixel},
+in three dimensions a point $ (x, y, z) \in \mathbb{N}^3 $ is called a \emph{voxel}.
+In order to store such an image on a computer a \emph{matrix representation} can be chosen.
+Examples:
+For two dimensional images this matrix is element of $ V^{X \times Y} $, where $ X $ and $ Y $ describe the width and height of the image \autocite[][Chap.~1]{zhang2017imageprocessing}. For three dimension $ V^{X \times Y \times Z} $ can be used, where $X Y Z$ describe the length of the image in each spatial direction. 
+A discrete (digital) two dimensional \ac{RGB} color image can be represented as a matrix  $ F \in \mathbb{N}^{X \times Y \times 3} $.
+The value of a pixel can then be obtained using the function $ f_F: \mathbb{N}^2 \rightarrow \mathbb{N}^3 ; (x, y) \mapsto f(x,y) = F_{x,y} $.
+
+\subsection{OpenCV Computer Vision Library}
+OpenCV (Open Computer Vision Library) is a free (as in freedom) and open-source library,
+which collects many common functionalities for advanced computer vision.
+It is written in performant C/C++ and offers \ac{API} bindings for C++, Python and Java on Windows, Linux, Mac OS, iOS and Android \autocite[][]{opencv2018opencv}.
+It features algorithms that operate on all three layers of image engineering as defined by Zhang 
+and can be used to implement complex visual systems. 
+Its documentation is extensive and offers practical examples for a lot of problems it solves.
+
+
+
+\subsection{2D Object Detection}
+
+\subsubsection{Convolution Kernels}
+
+A key concept in image processing is the application of an \emph{convolution matrix} to an image, which is also known as a \emph{kernel}. 
+It is a small matrix with the same dimensions as the image it is applied to. 
+For \ac{2D} images $ 3 \times 3 $ or $5 \times 5 $ kernels are used. 
+To apply the kernel to the image, they are convoluted.
+This is done for each pixel individually by \enquote{overlaying} the kernel with its center onto it. 
+Then the sum of the element-wise multiplication of the kernel and the overlaid area of the image is calculated in order to determine the resulting pixel value in the output image.
+For a \ac{2D} image $ F \in \mathbb{N}^{X \times Y} $ the convolution $ H \in \mathbb{N}^{X \times Y} $ using the kernel $ K \in \mathbb{N}^{M_i \times M_j} $ is calculated with the formula in figure \ref{eq:sota:convolution}:
+\begin{figure}[h!]
+\begin{equation*}
+H_{x,y} = \sum_{i=0}^{M_i-1} \sum_{j=0}^{M_j-1} F_{x+1-a_i, x+j-a_j}K_{i,j}
+\end{equation*}
+\caption{Application of an 2D convolution kernel. Reprinted from the \textcite[][]{opencv2018kernel}}
+\label{eq:sota:convolution}
+\end{figure}
+
+Convolution kernels can be used to find local features in an image or apply general local operation.
+This includes blurring with the Gaussian filter, and edge detection with the Sobel filter in X and Y direction or with the Laplace filter (see figure \ref{eq:sota:kernels}).
+It can also be used to sharpen an image. 
+
+\begin{figure}[h!]
+\begin{equation*}
+    G = 
+    \dfrac{1}{16}
+    \begin{bmatrix}
+    1 & 2 & 1 \\
+    2 & 4 & 2 \\
+    1 & 2 & 1
+    \end{bmatrix}
+    ;
+    G_x = 
+    \begin{bmatrix}
+    1 & 0 & -1 \\
+    2 & 0 & -2 \\
+    1 & 0 & -1
+    \end{bmatrix}
+    ;
+    G_y = 
+    \begin{bmatrix}
+    1 & 2 & 1 \\
+    0 & 0 & 0 \\
+    -1 & -2 & -1
+    \end{bmatrix}
+    ;
+    D_{xy}^{2} = 
+    \begin{bmatrix}
+    1 & 1 & 1 \\
+    1 & -8 & 1 \\
+    1 & 1 & 1
+    \end{bmatrix}
+\end{equation*}
+\caption{Examples for kernels left to rigth: Gaussian blur filter, Sobel filter in X direction, Sobel filter in Y direction, Laplace filter}
+\label{eq:sota:kernels}
+\end{figure}
+
+\subsubsection{Background Subtraction}
+Background subtraction used to detect areas of interest in a video.
+Especially in a static camera setup, everything that moves can be considered the foreground and everything that stays static is the background. 
+To do so, a model of the background without any moving objects is needed.
+It acts as a reference frame to compare the current frame of a video against.
+
+If an image is available, that only shows the background of a scene,
+\emph{static background subtraction} can be used.
+In this method, the current frame of the video and the background are blurred 
+and the element-wise absolute difference between the images is calculated.
+If the absolute difference for a pixel is higher than a specified threshold, then the pixel is considered part of the foreground.
+This method uses the given background image as a static model for the background and does not update the model if the background changes.
+
+When no pure background image is available 
+or if the background can change over time, e.g. by different lighting,
+the background model needs to be regularly adapted.
+\textcite[][]{piccardi2004background} presents an overview of techniques used to create such a model, 
+whereas here only a subset is presented:
+
+\begin{itemize}
+    
+    \item \textbf{Running Gaussian average} For each pixel $ I $  in the grey-scale video image a running average $ \mu{}_t$ is calculated, that is updated in each frame by the formula $ \mu{}_t = \alpha{}I_t + (1 - \alpha)\mu{}_{t-1} $, where $ \alpha $ is an weight that determines how fast the model is updated. The variance $ \sigma{}_t $ is calculated similarly. A pixel $ I_t $ is considered foreground if $ |I_t - \mu{}_t| > k\sigma{}_t $ holds, where $ k $ is a parameter that determines the threshold sensitivity of the algorithm.
+    \item \textbf{Mixture of Gaussians} Instead of assuming a single value likelihood distribution for each pixel, multiple Gaussian distributions are used in this method introduced \textcite[][]{stauffer1999background}. 
+    When using $ K $ distributions this enables the distinction of $ K $ types of background and foreground, which improves the detection rate in outdoor scenes where e.g. leafs and branches of trees might be present. 
+    For each of the $ K $ distributions the peak amplitude $ \omega{}_{i,t} $, average $ \mu{}_{i,t} $ and variance $ \sigma{}_{i,t} $ are stored.
+    The distributions are ranked by the ratio $ \omega{}_{i,t} / \sigma{}_{i, t}$, since more narrow distributions are assumed to belong to a background classification.
+    The distributions are checked in order of their rank to accept a pixel value when $ (I_t - \mu{}_{i,t})/\sigma{}_{i,t} > 2.5 $ holds.
+    If $ \omega{}_{t} $ of the first accepting distribution is higher than a threshold, the pixel is considered background.
+    The distribution parameters are updated using a running calculation (as above) when a new pixel value is a accepted by it.
+    If no distribution accepts the value, the distribution with the lowest ranked is replaced by a new distribution centered around the new value with a high variance.
+    Improved forms of this algorithm exist, like \autocite[][]{chan2011background}, and are currently used.
+    
+\end{itemize}
+
+Since video images can contain pixel level noise, it is useful convert color video to grey-scale and to blur the images before applying the background subtraction.
+
+\subsubsection{Blob Detection}
 
 TODO
-edge detection, outline detection
+
+\subsubsection{Convex Hull}
+
+TODO
+edge detection, outline detection, silouettes, contours
 foreground background mask from video image
 background substraction
+convex hull
 
-\subsection{Volume Estimation}
+
+\subsection{3D Volume Estimation}
+
+\subsubsection{Camera Calibration}
+
+\begin{figure}[h!]
+\centering
+\begin{equation*}
+    s m' = A[R|t]M'
+    \hspace{2em}
+    \Longleftrightarrow{}
+    \hspace{2em}
+    s 
+    \begin{bmatrix}
+        u \\
+        v \\
+        1
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        f_x & 0 & c_x \\
+        0 & f_y & c_y \\
+        0 & 0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        r_{11} & r_{12} & r_{13} & t_1 \\
+        r_{21} & r_{22} & r_{23} & t_2 \\
+        r_{31} & r_{32} & r_{33} & t_3
+    \end{bmatrix}
+    \begin{bmatrix}
+        X \\
+        Y \\
+        Z \\
+        1
+    \end{bmatrix}
+\end{equation*}
+\caption{Camera calibration with internal and external parameters. Reprinted from the \textcite{opencv2018calibration}}
+\label{eq:sota:camcalib}
+\end{figure}
+
+\begin{itemize}
+    \item $ s $ is the scale factor for image
+    \item $ (X, Y, Z) $ is the 3D point in world space
+    \item $ (u,v) $ is the projected point in the image
+    \item $ A $ is the internal camera matrix
+    \item $ (c_x, c_y) $ is the principle point in the world space seen at the image center
+    \item $ f_x, f_y $ are the focal lengths in pixel units
+    \item $ R $ is the external rotation matrix
+    \item $ t $ is the external translation vector
+\end{itemize}
+
+TODO
+
+\subsubsection{Single View Estimation}
+
+TODO
+\subsubsection{Feature Based Scene Reconstruction} 
+stereo vision
+of full \ac{3D} reconstruction of each point
+TODO
+
+key concept: photoconsistency : a voxel is photoconsitent when 
+
+\begin{figure}[hbt]
+	\centering
+	\includegraphics[width=1.0\textwidth, keepaspectratio]{resources/multiview}
+	\caption{\label{fig:sota:mulitviewtop}Concept of depth reconstruction in a 2D multi-view situation.
+	Adapted from \textcite[][]{sonaten2011volume}}
+\end{figure}
+
+\subsubsection{Silhouette Based Volume Reconstruction}
+
+The \emph{silhouette} of an object within an image is intuitively defined 
+as a binary mask describing the areas of the image in which the object is present. 
+The edges of this areas describe the contours of the object.
+The silhouette can be obtained by image segmentation of the original image \autocite[][Chap.~2]{zhang2017imageanalysis}.
+Depending on the camera perspective different portions of the object are visible.
+This can be used to reconstruct an image of $N+1$ spatial dimensions from images of $N$ spatial dimensions.
+
+
+
+shape from silhouette creates visual hull (no concavities)
+\autocite[][]{laurentini1994hull}
+
+TODO
+Volume Intersection (photoconsitency is given with an additive approach that uses polyhederons and backrpojection to generate intersection cones)
+\autocite[][]{}
+
+simple voxel substraction by removing all voxels that are not in all silhouetts
+
+Space Carving (substractive technique that begins with a full voxel scene. the surface oof the scene is carved away pixel per pixel untill all surface voxels  are photoconsistent)
+\autocite[][]{kutulakos1999spacecarving}
 
 TODO
 single view, multiview, depth sensors
 estimation by pixel area
 interpolation of depth information by combinding views
 bounding / section box
-full 3d reconstruction
-\ref{fig:sota:mulitviewtop}
+convex hull in 3d by mask
+Space Carving with silhouettes
+simple voxel substraction method
+visual hull 
+
+
 
 \begin{figure}[hbt]
 	\centering
-	\includegraphics[width=1.0\textwidth, keepaspectratio]{resources/multiview}
-	\caption{\label{fig:sota:mulitviewtop}Concept of depth reconstruction in a 2D multi-view situation.
-	Based on and adapted from \textcite[][]{sonaten2011volume}}
+	\includegraphics[width=0.6\textwidth, keepaspectratio]{resources/volume_intersection_bottino}
+	\caption{\label{fig:sota:volumeintersection} Volume intersection of cones from silhouettes.
+	Reprinted from \textcite[][]{bottino2001silhouette}}
 \end{figure}
 
-
 \section{Elevator Control}
-TODO shor introtuction, definition and what are important aspects about it
+
+When looking at elevator systems that are installed in buildings
+one property that is noticeable to the passenger, except for the physical properties, is the way the elevators are moved in order to pick up and deliver the passengers to their destination.
+The algorithms used to control this movement influence how long the passenger needs to wait for a cabin and how long their journey takes.
+Therefore it affects the perceived quality of the system.
+However in buildings with an increased traffic demand, it is necessary to use elevator systems with multiple cabins and more complex control strategies.
+In this section the general principles about those control strategies are laid out.
 
 \subsection{System Components}
 
@@ -56,7 +292,7 @@ Figure \ref{fig:sota:systemcomponents} gives an general overview over the involv
 \begin{figure}[hbt]
 	\centering
 	\includegraphics[width=0.8\textwidth, keepaspectratio]{resources/systemcomponets}
-	\caption{\label{fig:sota:systemcomponents} General components of an elevator control system. Based on and adapted from \textcite[][pp.~4,16]{xang2016trafficlist},  \textcite[][pp.10]{siikonen1997models}}
+	\caption{\label{fig:sota:systemcomponents} General components of an elevator control system. Adapted from \textcite[][pp.~4,16]{xang2016trafficlist} and  \textcite[][p.~10]{siikonen1997models}}
 \end{figure}
 
 When a passenger wants to take the elevator from one floor to another,
@@ -199,7 +435,7 @@ An appropriate control algorithm must be chosen in order to optimize for perform
 depending on the type of elevator system, it's use purpose and the current passenger traffic.
 Depending on the type of elevator system different control strategies are used, some of which are listed below.
 
-\paragraph{Sequential Control}
+\subsubsection{Sequential Control}
 In contrast to the strategies below, 
 this strategy is only applicable to a single-lift system.
 The system answers hall calls in the order they arrive 
@@ -209,7 +445,7 @@ Drawbacks of this strategy are a increased passenger waiting time and an decreas
 However for cargo lifts, this can beneficial if only on cargo item can fit the cabin at a time
 \autocite[][p.~238]{barney2016handbook}.
 
-\paragraph{Collective Control}
+\subsubsection{Collective Control}
 This is the \enquote{most common form of automatic control} \autocite[][p.~237]{barney2016handbook}.
 Hall calls are answered in the order of the floors they originate from rather than their temporal order.
 On the way up and down the cabin collects all the hall calls and deliver car calls also following the floor order.
@@ -218,30 +454,33 @@ This approach can be expended to a elevator system with group control, such that
 When all cabins are idle, the nearest available is assigned to a call. Hence this strategy is also called \emph{nearest car}
 \autocite[][p.~244]{barney2016handbook}.
 
-\paragraph{Zone Approach}
+\subsubsection{Zone Approach}
+In this approach the floors of the building are divided into static, continuous zones also called \emph{sectors} \autocite[][p.~247]{barney2016handbook}. 
+Typically there are is one zone per elevator in the group. 
+Each lift in the group serves hall calls from only one sector
+while also delivering passengers to floors outside of this zone
+\autocite[][pp.~3--6]{axelsson2013strategies}.
+The order of serving of the hall calls is based on the collective control.
+A lift is currently outside of its zone, 
+the zone can be served by lifts from sectors above and below it.
 
+The distribution of zones can be chosen based by the amount of passengers on each floor.
+This approach is useful when the traffic is evenly distributed across the building, such as in interfloor traffic. It can be complemented with controls for special condition to react to peak-traffic \autocite[][p.~247]{barney2016handbook}.
+The static zone approach can be extended to a dynamic sector approach where the sectors are not limited by static floor numbers but by the position of the elevators \autocite[][p.~250]{barney2016handbook}.
 
+\subsubsection{Cost-function based approches}
 
-
-TODO: more types
-
-\paragraph{Parking Policies}
-
-
-
-
+\subsubsection{Parking Policies}
 
 TODO
 single elevator  vs multi elevator
+TODO: more types
 
 \autocite[][pp.~3--4,10]{beers2015arrivals}
-- stopping policies / strategies
 - parking polcies
 - call allocation
 
 \autocite[][pp.~3--6]{axelsson2013strategies}
-- collective control
-- zoneing / sectors
 - search based
 - rule based
 - genetic algorithm
@@ -331,7 +570,7 @@ When the group controller schedules the elevators in a system, the order of disp
 The elevator allocations are calculated by optimization of a cost function which takes the metrics in consideration.
 Usually the waiting time is optimized, but also the ride time can be optimized in order to increase the handling capacity. \autocite[][p.~10]{siikonen1997models} 
 
-\subsection{Simulational Optimization Approaches}
+\subsection{Optimization Approaches by Simulation}
 TODO
 model building etc: here is a lot of research in the topic utilizing theoretical multivariable model optimization, simulational approaches and heuristical approaches in real world (refs?)
 

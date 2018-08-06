@@ -80,7 +80,15 @@ TODO
 for hardware setup
 - no additional sensory
 - add cv system (computer) and multiple cams inside each cabin
-- add cv system (computer) and multiple or one cam outside on each floor
+- add cv system (computer) and multiple or one cam outside on each floor (nope, only inside)
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth, keepaspectratio]{systemcomponets_with_visual}
+    \caption{Elevator system extended with visual system (addition to figure \ref{fig:sota:systemcomponents})}
+    \label{fig:design:systeminteration}
+\end{figure}
+
 \subsection{Output Data Definition}
 TODO
 - for each objects weather it is a person or an cargo object
@@ -88,6 +96,52 @@ TODO
 - for the cargo objects an approximation as a ground area and a height, possible area types: convex hull most outer circumfence projected to the ground OR estimation by surrounding rectangle
 - total number of passengers and cargo objects inside and in-front
 \subsection{Detection Technique}
+1. Background substraction  to create forground mask
+2. space carving to generate voxel representation from different views
+3. find distinct items in voxelspace and classify as human or other
+
+\begin{figure}
+    \centering
+    \tikzset{
+        box/.style = {
+            draw, 
+            rectangle, 
+            rounded corners, 
+            minimum height = 2.5em, 
+            minimum width = 2.5em, 
+            text width=10em, 
+            text centered,
+            thick
+        },
+        to/.style = {
+            ->,
+            >=stealth',
+            shorten >=1pt,
+            thick,
+            font=\sffamily\footnotesize
+        }
+    }
+    \begin{tikzpicture}[auto, node distance=3em]
+        \node (cap) [box] {Video Capture};
+        \node (pre) [box, right = of cap] {Preprocessing};
+        \node (mask) [box, below = of pre] {Foreground Masking};
+        \node (space) [box, below = of mask] {Volume Reconstruction};
+        \node (calib) [box, left = of space] {Camera Calibration Data};
+        \node (blob) [box, below = of space] {3D Blob Detection};
+        \node (meas) [box, below = of blob] {Blob Measurement};
+        \node (class) [box, below = of meas] {Blob Classification};
+        \draw [to] (cap) -- (pre);
+        \draw [to] (pre) -- (mask);
+        \draw [to] (mask) -- (space);
+        \draw [to] (space) -- (blob);
+        \draw [to] (calib) -- (space);
+        \draw [to] (blob) -- (meas);
+        \draw [to] (meas) -- (class);
+    \end{tikzpicture}
+    \caption{Volume detection technique}
+    \label{fig:design:volumedetection}
+\end{figure}
+
 TODO
 \subsection{Test Arrangement and Validation Strategy}
 TODO
@@ -95,11 +149,22 @@ TODO
 \section{Scheduling Algorithm}
 TODO
 \subsection{Suitable Elevator Configuration}
-TODO
-- a greater impact could be expected when there is a mixture in traffic including both persons and cargo objects such. 
-- looking back at the categorization of elevators a cargo lift that also conveys people would fulfill this
-- imaginable real world scenarios: hospital where also patient beds are moved (which should have an empty elevator and be prioritized) OR multistory storage buildings where also people use it OR auxiliary lifts in office buildings that carry the janitor cars and other cargo regularly (typically only lift available)
-- standard collective control or sequential control
+Since the camera system is suitable to detect passengers as well as cargo objects,
+it seems reasonable to apply the passenger information 
+to a scheduling algorithm of an elevator system which conveys both of them.
+This hold the opportunity to have a bigger impact the performance of the system, 
+in contrast to applying it to a passenger-only lift.
+
+Looking back at the categorization of elevators, cargo lifts meet this specification.
+Typically an office building has one or multiple cargo lifts depending on its size,
+but grouping them is uncommon \autocite[][p.~167]{barney2016handbook}.
+A weight capacity of at least 1,600 kg is typical \autocite[][p.~167]{barney2016handbook},
+but also capacities of 5,000 kg are possible \autocite[][]{kone2017overview}.
+Typical application areas for cargo lifts are hospitals, where patients and beds are moved,
+auxiliary lifts in office buildings and multi-story industrial buildings.
+The typical control algorithm is collective control or sequential control \autocite[][pp.~238,~244]{barney2016handbook}.
+For this comparison the sequential control will be taken as a baseline.
+
 \subsection{Adaption of Scheduling Algorithm}
 TODO
 - when no large cargo is there: collective control
@@ -124,24 +189,24 @@ Interfloor distances & 3.5 & $m$\\
 Number of lifts & 1 & \\
 Rated weight load & 5000 & $kg$\\
 Rated passenger capacity & 65 & \\
-Rated Speed & 1.6 & $ms^{-1}$ \\
+Rated Speed & 1.0 & $ms^{-1}$ \\
 Door opening time & 1.5 & $s$\\
 Door closing time & 1.5 & $s$\\
 Flight time single floor & 8 & $s$\\
 %& & \\
 \hline
 \multicolumn{3}{l}{\textbf{Passenger Data}}\\
-Arrival rates for floors & TODO & $ \mathbb{N} \times s \rightarrow s^{-1}$\\
-Weight distribution & see below & $kg \rightarrow \mathbb{R}$\\
-Volume distribution & see below  & $m \times m \times m \rightarrow \mathbb{R} $\\
+Arrival rates for floors & $ (f, t) \rightarrow \frac{5}{300} $ & $ \mathbb{N} \times s \rightarrow s^{-1}$\\
+Weight and volume distribution & see below & $kg \times m \times m \times m \rightarrow \mathbb{R}$\\
+%Volume distribution & see below  & $m \times m \times m \rightarrow \mathbb{R} $\\
 Transfer time into / out of car & 2 & $s$\\
 Floor bias & unbiased & $ \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{R} $ \\
 %& & \\
 \hline
 \multicolumn{3}{l}{\textbf{Cargo Data}}\\
-Arrival rates for floors & TODO & $\mathbb{N} \times s \rightarrow s^{-1}$\\
-Weight distribution & see below & $kg \rightarrow \mathbb{R}$\\
-Volume distribution & see below  & $m \times m \times m \rightarrow \mathbb{R} $\\
+Arrival rates for floors & $ (f, t) \rightarrow \frac{5}{300} $ & $\mathbb{N} \times s \rightarrow s^{-1}$\\
+Weight and volume distribution & see below & $kg \times m \times m \times m \rightarrow \mathbb{R}$\\
+%Volume distribution & see below  & $m \times m \times m \rightarrow \mathbb{R} $\\
 Transfer time into / out of car & 5 & $s$\\
 Floor bias & unbiased & $ \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{R} $ \\
 %& & \\
@@ -154,13 +219,28 @@ Number of simulations & 100 & \\
 \caption{\label{tab:design:simulationconfig} General configuration for the comparative simulation}
 \end{table}
 
+TODO
+The arrival rate is constant over the whole time (should this be adapted for several runs?)
+therefore in each simulation step the arrival rate is poisson ditributed
+
+TODO: define cargo ites, passangers etc
+
 data from eg. \url{https://www.kone.de/aufzug-aufzuege.aspx} \url{https://www.kone.de/neubau/aufzug-aufzuege/lastenaufzug-bettenaufzug-transys/}
 and also \autocite[][p.~349]{barney2016handbook}
 
 which data to use: \autocite[][p.~347]{barney2016handbook}
 
+
+To evaluate the simulations, several measurements are taken to compare the scheduling algorithms.
+These are the total passengers as well as cargo items in the traffic within the simulation period, the total number of stops, the total number of passengers and cargo items delivered, the waiting time and the ride time.  
+For the each of the measures the minimum, maximum and average values are calculated over all the simulation runs.  
+
 TODO
 TODO define measurements to take
+- total stops
+- total passangers / cargo delivered
+- waiting time per passenger / cargo
+- ride time per passanger / cargo
  
 
 %\section{Requirements}
