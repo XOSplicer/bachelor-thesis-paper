@@ -203,9 +203,12 @@ Since
 \label{eq:sota:camcalib}
 \end{figure}
 
+The equation in figure \ref{eq:sota:camcalib} depicts how a point in the world coordinate system can be mapped to the image plane of a camera. 
+The following list explains the mentioned coefficients:
+
 \begin{samepage}
 \begin{itemize}
-    \item $ s $ is the scale factor for image
+    \item $ s $ is the scale factor for image, such that the z axis of the image plane is 1
     \item $ (X, Y, Z) $ is the 3D point in world space
     \item $ (u,v) $ is the projected point in the image
     \item $ A $ is the internal camera matrix
@@ -215,6 +218,11 @@ Since
     \item $ t $ is the external translation vector
 \end{itemize}
 \end{samepage}
+
+The internal camera matrix $ A $ can be calculated from multiple images of an object with known structure and dimensions, called a \emph{calibration pattern} \textcite{opencv2018calibration}. 
+For example an chessboard can be used, which is photographed from different positions and angles. 
+
+The external 
 
 Furthermore there exists \emph{distortion} in a real camera images.
 Distortion is visible in the effect where straight lines appear curved in the image representation.
