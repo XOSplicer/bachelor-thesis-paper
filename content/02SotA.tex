@@ -291,7 +291,8 @@ Just as the matrix of intrinsic parameters, the parameters for the distortion ca
 When the geometric shape of an \ac{3D} object is roughly known beforehand and only its exact outline and scale varies, it is possible to estimate its volume from its outline in a single image.
 The assumption here is that the volume scales with the area, that the object covers on the image \autocite{levine1989microwave} \autocite[][]{wang2017apple} \autocite[][]{sapkal2017volume} .
 Therefore a reference object with known dimensions is necessary to calculate the scale against.
-It should be noted, that this approach does not generalize to \ac{3D} objects of unknown shape.
+This approach avoids the need to multiple cameras and a \ac{3D} calibration
+However it does notgeneralize to \ac{3D} objects of unknown shape.
 
 \subsubsection{Feature Based Scene Reconstruction} 
 stereo vision
