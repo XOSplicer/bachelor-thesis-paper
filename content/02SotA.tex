@@ -152,11 +152,18 @@ Since video images can contain pixel level noise, it is useful convert color vid
 
 \subsubsection{Blob Detection}
 
-first explain contour detection
+what is a blob
+
+first explain contour (what are contours: outlines of connected areas in a binary mask) detection by border following \autocite[][]{suzuki1985border}
+
+
 
 \autocite[][]{opencv2018blob}
+operates on binary masked image
 \begin{enumerate}
-    \item 
+    \item Find the contours present in the image and calculate their centers
+    \item Group these centers based on a threshold for the distance for their location
+    \item From these groups, find overall center and estimate area and radius of the blob
 \end{enumerate}
 
 TODO
