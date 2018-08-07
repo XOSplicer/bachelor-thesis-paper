@@ -349,21 +349,18 @@ the visual hull also is convex.
 Furthermore the silhouette does not include information about parts of the object whose visibility is obstructed from a certain perspective.
 Therefore the visual hull can not describe the shape of  part of the object, that are not visible in any silhouette.
 
-
-There are several methods for silhouette based shape reconstruction:
-
-\paragraph{Volume Intersection}
-TODO
-Volume Intersection (photoconsitency is given with an additive approach that uses polyhederons and backrpojection to generate intersection cones)
-\autocite[][]{}
-Visual cone intersect
-
 \begin{figure}[hbt]
 	\centering
 	\includegraphics[width=0.6\textwidth, keepaspectratio]{resources/volume_intersection_bottino}
 	\caption{\label{fig:sota:volumeintersection} Volume intersection of cones from silhouettes.
 	Reprinted from \textcite[][]{bottino2001silhouette}}
 \end{figure}
+
+Figure \ref{fig:sota:volumeintersection} visualizes how the visual hull is created from two silhouettes. 
+Since the cameras that capture the silhouette are perspective,
+cones are used for the projection of it into the object space.
+The intersection of those cones creates the visual hull.
+There are several methods to implement silhouette based shape reconstruction:
 
 \paragraph{Standard Voxel Based Method}
 simple voxel substraction by removing all voxels that are not in all silhouetts
@@ -376,7 +373,7 @@ volumes remain part of the final shape.
 
 
 \paragraph{Space Carving}
-Space Carving (substractive technique that begins with a full voxel scene. the surface oof the scene is carved away pixel per pixel untill all surface voxels  are photoconsistent)
+Space Carving (substractive technique that begins with a full voxel scene. the surface oof the scene is carved away pixel per pixel untill all surface voxels  are photoconsistent, this also provides the possibility to determine the color of the shape)
 \autocite[][]{kutulakos1999spacecarving}
 
 
