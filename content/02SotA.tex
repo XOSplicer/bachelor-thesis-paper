@@ -352,31 +352,10 @@ Therefore the visual hull can not describe the shape of  part of the object, tha
 There are several methods for silhouette based shape reconstruction:
 
 \paragraph{Volume Intersection}
-
-\paragraph{Standard Voxel Based Method}
-
-\paragraph{Space Carving}
-
 TODO
 Volume Intersection (photoconsitency is given with an additive approach that uses polyhederons and backrpojection to generate intersection cones)
 \autocite[][]{}
-
-simple voxel substraction by removing all voxels that are not in all silhouetts
-
-Space Carving (substractive technique that begins with a full voxel scene. the surface oof the scene is carved away pixel per pixel untill all surface voxels  are photoconsistent)
-\autocite[][]{kutulakos1999spacecarving}
-
-TODO
-single view, multiview, depth sensors
-estimation by pixel area
-interpolation of depth information by combinding views
-bounding / section box
-convex hull in 3d by mask
-Space Carving with silhouettes
-simple voxel substraction method
-visual hull 
-
-
+Visual cone intersect
 
 \begin{figure}[hbt]
 	\centering
@@ -384,6 +363,31 @@ visual hull
 	\caption{\label{fig:sota:volumeintersection} Volume intersection of cones from silhouettes.
 	Reprinted from \textcite[][]{bottino2001silhouette}}
 \end{figure}
+
+\paragraph{Standard Voxel Based Method}
+simple voxel substraction by removing all voxels that are not in all silhouetts
+– First the object space is split up into a 3D
+grid of voxels.
+– Each voxel is intersected with each
+silhouette volume.
+– Only voxels that lie inside all silhouette
+volumes remain part of the final shape.
+
+
+\paragraph{Space Carving}
+Space Carving (substractive technique that begins with a full voxel scene. the surface oof the scene is carved away pixel per pixel untill all surface voxels  are photoconsistent)
+\autocite[][]{kutulakos1999spacecarving}
+
+
+
+
+
+TODO
+single view, multiview, depth sensors
+interpolation of depth information by combinding views
+bounding / section box
+convex hull in 3d by mask
+
 
 \section{Elevator Control}
 
