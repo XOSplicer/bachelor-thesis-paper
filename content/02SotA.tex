@@ -260,7 +260,7 @@ The following list explains the mentioned coefficients:
 
 The internal camera matrix $ A $ can be calculated from multiple images of an object with known structure and dimensions, called a \emph{calibration pattern} \textcite{opencv2018calibration}. 
 For example an chessboard can be used, which is photographed from different positions and angles. 
-The corners of the chessboard squares are used determine how a straight line is projected i the camera in order to approximate the internal ca
+The corners of the chessboard squares are used determine how a straight line is projected in the camera in order to approximate the internal camera matrix.
 
 The external parameter for rotation and translation can not be found from one camera alone.
 In a multi-camera setup they can be found by triangulation of multiple points in multiple images that show the same scene from different angles.
@@ -336,9 +336,13 @@ key concept: photoconsistency : a voxel is photoconsitent when
 The \emph{silhouette} of an object within an image is intuitively defined 
 as a binary mask describing the areas of the image in which the object is present. 
 The edges of this areas describe the contours of the object.
-The silhouette can be obtained by image segmentation of the original image \autocite[][Chap.~2]{zhang2017imageanalysis}.
+The silhouette can be obtained by image segmentation of the original image \autocite[][Chap.~2]{zhang2017imageanalysis}, such as by background substraction.
 Depending on the camera perspective different portions of the object are visible.
-This can be used to reconstruct an image of $N+1$ spatial dimensions from images of $N$ spatial dimensions.
+Only the outline of the object from this perspective is visible.
+This implies that is is not possible to capture concave parts of an object.
+
+Silhouettes from multiple perspectives can be used to reconstruct an \ac{3D} image from \ac{2D} images of an object.
+The reconstructed \ac{3D} shape does not represent the real geometry of the object but produces the same silhouettes from
 
 
 
