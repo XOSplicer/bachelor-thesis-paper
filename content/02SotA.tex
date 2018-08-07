@@ -341,13 +341,21 @@ Depending on the camera perspective different portions of the object are visible
 Only the outline of the object from this perspective is visible.
 This implies that is is not possible to capture concave parts of an object.
 
-Silhouettes from multiple perspectives can be used to reconstruct an \ac{3D} image from \ac{2D} images of an object.
-The reconstructed \ac{3D} shape does not represent the real geometry of the object but produces the same silhouettes from
+Silhouettes from multiple perspectives can be used to reconstruct the \ac{3D} shape of an object from \ac{2D} images of said object.
+The reconstructed \ac{3D} shape does not represent the real geometry of the object, but produces the same silhouettes as the real object when seen from the angles it was reconstructed from.
+The shape that is constructed from the silhouettes is called \emph{visual hull}, a term introduced by \textcite[][]{laurentini1994hull}.
+Since the silhouette does not include information about concavities,
+the visual hull also is convex. 
+Furthermore the silhouette does not include information about parts of the object whose visibility is obstructed from a certain perspective.
+Therefore the visual hull can not describe the shape of  part of the object, that are not visible in any silhouette.
 
+There are several methods for silhouette based shape reconstruction:
 
+\paragraph{Volume Intersection}
 
-shape from silhouette creates visual hull (no concavities)
-\autocite[][]{laurentini1994hull}
+\paragraph{Standard Voxel Based Method}
+
+\paragraph{Space Carving}
 
 TODO
 Volume Intersection (photoconsitency is given with an additive approach that uses polyhederons and backrpojection to generate intersection cones)
