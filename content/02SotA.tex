@@ -78,6 +78,9 @@ H_{x,y} = \sum_{i=0}^{M_i-1} \sum_{j=0}^{M_j-1} F_{x+1-a_i, x+j-a_j}K_{i,j}
 Convolution kernels can be used to find local features in an image or apply general local operation.
 This includes blurring with the Gaussian filter, and edge detection with the Sobel filter in X and Y direction or with the Laplace filter (see figure \ref{eq:sota:kernels}).
 It can also be used to sharpen an image. 
+The use of convolution kernels is not limited to \ac{2D} images, 
+the same method also works for higher dimensional images, 
+when appropriate kernel matrices are used.
 
 \begin{figure}[h!]
 \begin{equation*}
@@ -257,6 +260,7 @@ The following list explains the mentioned coefficients:
 
 The internal camera matrix $ A $ can be calculated from multiple images of an object with known structure and dimensions, called a \emph{calibration pattern} \textcite{opencv2018calibration}. 
 For example an chessboard can be used, which is photographed from different positions and angles. 
+The corners of the chessboard squares are used determine how a straight line is projected i the camera in order to approximate the internal ca
 
 The external parameter for rotation and translation can not be found from one camera alone.
 In a multi-camera setup they can be found by triangulation of multiple points in multiple images that show the same scene from different angles.
