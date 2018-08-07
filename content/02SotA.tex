@@ -362,26 +362,23 @@ cones are used for the projection of it into the object space.
 The intersection of those cones creates the visual hull.
 There are several methods to implement silhouette based shape reconstruction:
 
-\paragraph{Standard Voxel Based Method}
-simple voxel substraction by removing all voxels that are not in all silhouetts
+\begin{itemize}
+    \item \textbf{Standard Voxel Based Method}
+    simple voxel substraction by removing all voxels that are not in all silhouetts
 – First the object space is split up into a 3D
 grid of voxels.
 – Each voxel is intersected with each
 silhouette volume.
 – Only voxels that lie inside all silhouette
 volumes remain part of the final shape.
-
-
-\paragraph{Space Carving}
-Space Carving (substractive technique that begins with a full voxel scene. the surface oof the scene is carved away pixel per pixel untill all surface voxels  are photoconsistent, this also provides the possibility to determine the color of the shape)
+    \item \textbf{Space Carving}
+    Space Carving (substractive technique that begins with a full voxel scene. the surface oof the scene is carved away pixel per pixel untill all surface voxels  are photoconsistent, this also provides the possibility to determine the color of the shape)
 \autocite[][]{kutulakos1999spacecarving}
-
-
-
+\end{itemize}
 
 
 TODO
-single view, multiview, depth sensors
+multiview, depth sensors
 interpolation of depth information by combinding views
 bounding / section box
 convex hull in 3d by mask
