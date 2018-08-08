@@ -371,8 +371,13 @@ There are several methods to implement silhouette based shape reconstruction:
     Only if it lies inside of all silhouettes
     it remains part of the finale volume description.
     \item \textbf{Space Carving}
+    This method, introduced by \textcite[][]{kutulakos1999spacecarving},
+    is concerned not only with reconstructing the volume of an object, but also to color its surface consistently to the images it is reconstructed from.
+    The method also begins with a scene full of voxels. 
+    However not all voxels need to be considered for the reconstruction.
+    Instead only the 
     Space Carving (substractive technique that begins with a full voxel scene. the surface oof the scene is carved away pixel per pixel untill all surface voxels  are photoconsistent, this also provides the possibility to determine the color of the shape)
-\autocite[][]{kutulakos1999spacecarving}
+
 \end{itemize}
 
 TODO still needs a reference or calibration to determine the space of the modeled room / scaling factor
