@@ -363,19 +363,19 @@ The intersection of those cones creates the visual hull.
 There are several methods to implement silhouette based shape reconstruction:
 
 \begin{itemize}
-    \item \textbf{Standard Voxel Based Method}
-    simple voxel substraction by removing all voxels that are not in all silhouetts
-– First the object space is split up into a 3D
-grid of voxels.
-– Each voxel is intersected with each
-silhouette volume.
-– Only voxels that lie inside all silhouette
-volumes remain part of the final shape.
+    \item \textbf{Standard Voxel Based Method} 
+    In this method, first the space too be modeled is described as a \ac{3D} grid of voxels at an constant resolution.
+    To find out which voxels belong to recontructed object,
+    each voxel is projected into the viewport of each camera 
+    and it is checked whether it lies in the silhouette from this perspective.
+    Only if it lies inside of all silhouettes
+    it remains part of the finale volume description.
     \item \textbf{Space Carving}
     Space Carving (substractive technique that begins with a full voxel scene. the surface oof the scene is carved away pixel per pixel untill all surface voxels  are photoconsistent, this also provides the possibility to determine the color of the shape)
 \autocite[][]{kutulakos1999spacecarving}
 \end{itemize}
 
+TODO still needs a reference or calibration to determine the space of the modeled room / scaling factor
 
 TODO
 multiview, depth sensors
