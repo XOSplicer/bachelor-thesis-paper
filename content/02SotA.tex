@@ -375,7 +375,11 @@ There are several methods to implement silhouette based shape reconstruction:
     is concerned not only with reconstructing the volume of an object, but also to color its surface consistently to the images it is reconstructed from.
     The method also begins with a scene full of voxels. 
     However not all voxels need to be considered for the reconstruction.
-    Instead only the 
+    Instead the method operates in iterations, where only the voxels on the surface of the volume are checked.
+    Each voxel on the surface is checked for \emph{photo-consistency} with each silhouette, which means that if it is visible from that perspective, it is correctly classified as background or foreground and has the correct color.
+    All surface pixels that are not consistent are removed until the iteration
+       
+    
     Space Carving (substractive technique that begins with a full voxel scene. the surface oof the scene is carved away pixel per pixel untill all surface voxels  are photoconsistent, this also provides the possibility to determine the color of the shape)
 
 \end{itemize}
