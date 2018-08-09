@@ -69,7 +69,7 @@ For a \ac{2D} image $ F \in \mathbb{N}^{X \times Y} $ the convolution $ H \in \m
 
 \begin{figure}[h!]
 \begin{equation*}
-H_{x,y} = \sum_{i=0}^{M_i-1} \sum_{j=0}^{M_j-1} F_{x+1-a_i, x+j-a_j}K_{i,j}
+H_{x,y} = \sum_{i=0}^{M_i-1} \sum_{j=0}^{M_j-1} F_{x+i-a_i, x+j-a_j}K_{i,j}
 \end{equation*}
 \caption{Application of an 2D convolution kernel. Reprinted from the \textcite[][]{opencv2018kernel}}
 \label{eq:sota:convolution}
