@@ -47,6 +47,7 @@ The value of a pixel can then be obtained using the function $ f_F: \mathbb{N}^2
 \subsection{OpenCV Computer Vision Library}
 OpenCV (Open Computer Vision Library) is a free (as in freedom) and open-source library,
 which collects many common functionalities for advanced computer vision.
+The \ac{BSD} license allows it to be used in private, academic and commercial contexts. 
 It is written in performant C/C++ and offers \ac{API} bindings for C++, Python and Java on Windows, Linux, Mac OS, iOS and Android \autocite[][]{opencv2018opencv}.
 It features algorithms that operate on all three layers of image engineering as defined by Zhang 
 and can be used to implement complex visual systems. 
@@ -65,6 +66,7 @@ To apply the kernel to the image, they are convoluted.
 This is done for each pixel individually by \enquote{overlaying} the kernel with its center onto it. 
 Then the sum of the element-wise multiplication of the kernel and the overlaid area of the image is calculated in order to determine the resulting pixel value in the output image.
 For a \ac{2D} image $ F \in \mathbb{N}^{X \times Y} $ the convolution $ H \in \mathbb{N}^{X \times Y} $ using the kernel $ K \in \mathbb{N}^{M_i \times M_j} $ is calculated with the formula in figure \ref{eq:sota:convolution}:
+
 \begin{figure}[h!]
 \begin{equation*}
 H_{x,y} = \sum_{i=0}^{M_i-1} \sum_{j=0}^{M_j-1} F_{x+1-a_i, x+j-a_j}K_{i,j}
@@ -76,6 +78,9 @@ H_{x,y} = \sum_{i=0}^{M_i-1} \sum_{j=0}^{M_j-1} F_{x+1-a_i, x+j-a_j}K_{i,j}
 Convolution kernels can be used to find local features in an image or apply general local operation.
 This includes blurring with the Gaussian filter, and edge detection with the Sobel filter in X and Y direction or with the Laplace filter (see figure \ref{eq:sota:kernels}).
 It can also be used to sharpen an image. 
+The use of convolution kernels is not limited to \ac{2D} images, 
+the same method also works for higher dimensional images, 
+when appropriate kernel matrices are used.
 
 \begin{figure}[h!]
 \begin{equation*}
@@ -138,7 +143,7 @@ whereas here only a subset is presented:
     When using $ K $ distributions this enables the distinction of $ K $ types of background and foreground, which improves the detection rate in outdoor scenes where e.g. leafs and branches of trees might be present. 
     For each of the $ K $ distributions the peak amplitude $ \omega{}_{i,t} $, average $ \mu{}_{i,t} $ and variance $ \sigma{}_{i,t} $ are stored.
     The distributions are ranked by the ratio $ \omega{}_{i,t} / \sigma{}_{i, t}$, since more narrow distributions are assumed to belong to a background classification.
-    The distributions are checked in order of their rank to accept a pixel value when $ (I_t - \mu{}_{i,t})/\sigma{}_{i,t} > 2.5 $ holds.
+    The distributions are checked in order of their rank to accept a pixel value when $ (I_t - \mu{}_{i,t})/\sigma{}_{i,t} > 2.5 $ holds, where $ I_t $ is the current pixel value.
     If $ \omega{}_{t} $ of the first accepting distribution is higher than a threshold, the pixel is considered background.
     The distribution parameters are updated using a running calculation (as above) when a new pixel value is a accepted by it.
     If no distribution accepts the value, the distribution with the lowest ranked is replaced by a new distribution centered around the new value with a high variance.
@@ -149,6 +154,22 @@ whereas here only a subset is presented:
 Since video images can contain pixel level noise, it is useful convert color video to grey-scale and to blur the images before applying the background subtraction.
 
 \subsubsection{Blob Detection}
+
+A \emph{blob} in a binary mask image is an area that consists of 
+
+what is a blob
+
+first explain contour (what are contours: outlines of connected areas in a binary mask) detection by border following \autocite[][]{suzuki1985border}
+
+
+
+\autocite[][]{opencv2018blob}
+operates on binary masked image
+\begin{enumerate}
+    \item Find the contours present in the image and calculate their centers
+    \item Group these centers based on a threshold for the distance for their location
+    \item From these groups, find overall center and estimate area and radius of the blob
+\end{enumerate}
 
 TODO
 
@@ -163,7 +184,28 @@ convex hull
 
 \subsection{3D Volume Estimation}
 
-\subsubsection{Camera Calibration}
+TODO describe what is ment by this
+
+\subsubsection{Camera Projection and Calibration}
+
+Since camera lenses use a perspective projection to produce images, 
+there are several considerations needed when working with \ac{3D} scenes that are captured.
+The points in the 3D scene can be described as coordinates in the \emph{world space}.
+In the perspective projection these points are seen from a single point in the camera, 
+which is the sensor in a real camera.
+To perform the projection the position of the point seen on the \emph{image plane} is calculated.
+The image plane is the section of the scene that is seen by the camera in the distance of the focal length.
+Figure \ref{fig:sota:camerprojection} shows how this projection can be visualized.
+Note that the Z axis is pointing into the real world space in the direction the camera is looking to.
+Since this projection is dependent on the focal length of the camera and the principal point, which is seen in the center of the image, it can be described as the intrinsic camera matrix $ A $ in the equation in figure \ref{eq:sota:camcalib}.
+When world space and camera space coordinates are not the same, i.e. the camera is rotated or translated, there exists an additional rotation and translation matrix $ [R|t] $ that describes these external projection parameters.
+
+\begin{figure}[hbt]
+    \centering
+    \includegraphics[width=0.8\textwidth, keepaspectratio]{opencv_pinhole_camera_model}
+        \caption{Camera model to illustrate perspective projection of a 3D scene onto the image plane (grey). Reprinted from the \textcite{opencv2018calibration}}
+    \label{fig:sota:camerprojection}
+\end{figure}
 
 \begin{figure}[h!]
 \centering
@@ -200,28 +242,87 @@ convex hull
 \label{eq:sota:camcalib}
 \end{figure}
 
+The equation in figure \ref{eq:sota:camcalib} depicts how a point in the world coordinate system can be mapped to the image plane of a camera. 
+The following list explains the mentioned coefficients:
+
+\begin{samepage}
 \begin{itemize}
-    \item $ s $ is the scale factor for image
+    \item $ s $ is the scale factor for image, such that the z axis of the image plane is 1
     \item $ (X, Y, Z) $ is the 3D point in world space
-    \item $ (u,v) $ is the projected point in the image
+    \item $ (u,v) $ is the projected point in the image plane
     \item $ A $ is the internal camera matrix
     \item $ (c_x, c_y) $ is the principle point in the world space seen at the image center
     \item $ f_x, f_y $ are the focal lengths in pixel units
     \item $ R $ is the external rotation matrix
     \item $ t $ is the external translation vector
 \end{itemize}
+\end{samepage}
 
-TODO
+The internal camera matrix $ A $ can be calculated from multiple images of an object with known structure and dimensions, called a \emph{calibration pattern} \textcite{opencv2018calibration}. 
+For example an chessboard can be used, which is photographed from different positions and angles. 
+The corners of the chessboard squares are used determine how a straight line is projected in the camera in order to approximate the internal camera matrix.
+
+The external parameter for rotation and translation can not be found from one camera alone.
+In a multi-camera setup they can be found by triangulation of multiple points in multiple images that show the same scene from different angles.
+If this triangulation is not possible because the points used for triangulation are not visible from all camera perspective, the rotation matrix an the translation vector can be found out by measuring the real world.
+The rotation matrix can be calculated by measuring the relative rotation angles of the cameras to each other.
+The equation in figure \ref{eq:sota:rotation} can be used to determine the combined rotation matrix when the rotation around the yaw, pitch and roll angles are known. 
+Yaw pitch and roll describe the rotation around the Z, Y and X axis respectively.
+The translation vector can be found by measuring the distance of the cameras to each other.
+
+\begin{figure}[h!]
+\centering
+\begin{equation*}
+    R
+    =
+    R_z(\alpha)R_y(\beta)R_x(\gamma)
+    =
+    \begin{bmatrix}
+    cos \alpha{} & - sin \alpha{} & 0 \\
+    sin \alpha{} & cos \alpha{} & 0 \\
+    0 & 0 & 1 
+    \end{bmatrix}
+    \begin{bmatrix}
+    cos \beta{} & 0 & sin \beta{} \\
+    0 & 1 & 0 \\
+    - sin \beta{} & 0 & cos \beta{}
+    \end{bmatrix}
+    \begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & cos \gamma{} & - sin \gamma{} \\
+    0 & sin \gamma{} & cos \gamma{} 
+    \end{bmatrix}
+\end{equation*}
+\caption{External rotation matrix from rotation along the yaw, pitch and roll angles $ \alpha{} $ , $ \beta{} $ and $ \gamma{} $ }
+\label{eq:sota:rotation}
+\end{figure}
+
+Furthermore real lenses introduce optical aberrations and 
+there exists \emph{distortion} in camera images.
+Distortion is visible in the effect where straight lines appear curved in the image representation.
+There exists two kinds of distortion that can occur, namely radial and tangential distortion \autocite[][Fig.~2]{weng1992distortion}.
+Radial distortion makes points appear closer together or further apart depending on their distance to the image center. 
+It is visible as a \enquote{barrel} or \enquote{pillow} effect on rectangular lines. 
+Tangential distortion causes a rotation of the image depending on the distance and angle of a point to the image center.
+The amount and type of distortion is part of the internal camera parameters.
+Just as the matrix of intrinsic parameters, the parameters for the distortion can be calculated from images of structures with known dimensions
+\autocite{opencv2018calibration}.
 
 \subsubsection{Single View Estimation}
+When the geometric shape of an \ac{3D} object is roughly known beforehand and only its exact outline and scale varies, it is possible to estimate its volume from its outline in a single image.
+The assumption here is that the volume scales with the area, that the object covers on the image \autocite{levine1989microwave} \autocite[][]{wang2017apple} \autocite[][]{sapkal2017volume} .
+Therefore a reference object with known dimensions is necessary to calculate the scale against.
+This approach avoids the need to multiple cameras and a \ac{3D} calibration
+However it does not generalize to \ac{3D} objects of unknown shape.
 
-TODO
 \subsubsection{Feature Based Scene Reconstruction} 
 stereo vision
 of full \ac{3D} reconstruction of each point
 TODO
 
 key concept: photoconsistency : a voxel is photoconsitent when 
+
+
 
 \begin{figure}[hbt]
 	\centering
@@ -235,35 +336,18 @@ key concept: photoconsistency : a voxel is photoconsitent when
 The \emph{silhouette} of an object within an image is intuitively defined 
 as a binary mask describing the areas of the image in which the object is present. 
 The edges of this areas describe the contours of the object.
-The silhouette can be obtained by image segmentation of the original image \autocite[][Chap.~2]{zhang2017imageanalysis}.
+The silhouette can be obtained by image segmentation of the original image \autocite[][Chap.~2]{zhang2017imageanalysis}, such as by background substraction.
 Depending on the camera perspective different portions of the object are visible.
-This can be used to reconstruct an image of $N+1$ spatial dimensions from images of $N$ spatial dimensions.
+Only the outline of the object from this perspective is visible.
+This implies that is is not possible to capture concave parts of an object.
 
-
-
-shape from silhouette creates visual hull (no concavities)
-\autocite[][]{laurentini1994hull}
-
-TODO
-Volume Intersection (photoconsitency is given with an additive approach that uses polyhederons and backrpojection to generate intersection cones)
-\autocite[][]{}
-
-simple voxel substraction by removing all voxels that are not in all silhouetts
-
-Space Carving (substractive technique that begins with a full voxel scene. the surface oof the scene is carved away pixel per pixel untill all surface voxels  are photoconsistent)
-\autocite[][]{kutulakos1999spacecarving}
-
-TODO
-single view, multiview, depth sensors
-estimation by pixel area
-interpolation of depth information by combinding views
-bounding / section box
-convex hull in 3d by mask
-Space Carving with silhouettes
-simple voxel substraction method
-visual hull 
-
-
+Silhouettes from multiple perspectives can be used to reconstruct the \ac{3D} shape of an object from \ac{2D} images of said object.
+The reconstructed \ac{3D} shape does not represent the real geometry of the object, but produces the same silhouettes as the real object when seen from the angles it was reconstructed from.
+The shape that is constructed from the silhouettes is called \emph{visual hull}, a term introduced by \textcite[][]{laurentini1994hull}.
+Since the silhouette does not include information about concavities,
+the visual hull also is convex. 
+Furthermore the silhouette does not include information about parts of the object whose visibility is obstructed from a certain perspective.
+Therefore the visual hull can not describe the shape of  part of the object, that are not visible in any silhouette.
 
 \begin{figure}[hbt]
 	\centering
@@ -271,6 +355,43 @@ visual hull
 	\caption{\label{fig:sota:volumeintersection} Volume intersection of cones from silhouettes.
 	Reprinted from \textcite[][]{bottino2001silhouette}}
 \end{figure}
+
+Figure \ref{fig:sota:volumeintersection} visualizes how the visual hull is created from two silhouettes. 
+Since the cameras that capture the silhouette are perspective,
+cones are used for the projection of it into the object space.
+The intersection of those cones creates the visual hull.
+There are several methods to implement silhouette based shape reconstruction:
+
+\begin{itemize}
+    \item \textbf{Standard Voxel Based Method} 
+    In this method, first the space too be modeled is described as a \ac{3D} grid of voxels at an constant resolution.
+    To find out which voxels belong to recontructed object,
+    each voxel is projected into the viewport of each camera 
+    and it is checked whether it lies in the silhouette from this perspective.
+    Only if it lies inside of all silhouettes
+    it remains part of the finale volume description.
+    \item \textbf{Space Carving}
+    This method, introduced by \textcite[][]{kutulakos1999spacecarving},
+    is concerned not only with reconstructing the volume of an object, but also to color its surface consistently to the images it is reconstructed from.
+    The method also begins with a scene full of voxels. 
+    However not all voxels need to be considered for the reconstruction.
+    Instead the method operates in iterations, where only the voxels on the surface of the volume are checked.
+    Each voxel on the surface is checked for \emph{photo-consistency} with each silhouette, which means that if it is visible from that perspective, it is correctly classified as background or foreground and has the correct color.
+    All surface pixels that are not consistent are removed until the iteration
+       
+    
+    Space Carving (substractive technique that begins with a full voxel scene. the surface oof the scene is carved away pixel per pixel untill all surface voxels  are photoconsistent, this also provides the possibility to determine the color of the shape)
+
+\end{itemize}
+
+TODO still needs a reference or calibration to determine the space of the modeled room / scaling factor
+
+TODO
+multiview, depth sensors
+interpolation of depth information by combinding views
+bounding / section box
+convex hull in 3d by mask
+
 
 \section{Elevator Control}
 
