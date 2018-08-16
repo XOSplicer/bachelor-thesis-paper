@@ -169,16 +169,24 @@ For this comparison the sequential control will be taken as a baseline.
 TODO
 - when no large cargo is there: collective control
 - when large cargo is there: sequential control
-- consideration: what to do to switch between collective and seqential control?
+- consideration: what to do to switch between collective and seqential control? -> "adaptive control"
+
 \subsection{Preparation for Simulation and Validation Strategy}
 
 TODO simulation configuration:
 \autocite[][p.~347]{barney2016handbook}
 
+three algorithms:
+sequential control
+collective control
+adaptive control
+
+describe pseudo code here
+
 \begin{table}[]
 \centering
 \begin{tabular}{lrl}
-\textbf{Description} \hspace{5cm}   & \multicolumn{1}{l}{\textbf{Value}}   & \textbf{Unit}   \\
+\textbf{Description} \hspace{5cm}   & \textbf{Value}   & \textbf{Unit}   \\
 \hline
 \multicolumn{3}{l}{\textbf{Building data}} \\
 Number of floors & 8 &        \\
@@ -189,14 +197,14 @@ Interfloor distances & 3.5 & $m$\\
 Number of lifts & 1 & \\
 Rated weight load & 5000 & $kg$\\
 Rated passenger capacity & 65 & \\
-Rated Speed & 1.0 & $ms^{-1}$ \\
+Rated Speed & 1.6 & $ms^{-1}$ \\
 Door opening time & 1.5 & $s$\\
 Door closing time & 1.5 & $s$\\
 Flight time single floor & 8 & $s$\\
 %& & \\
 \hline
 \multicolumn{3}{l}{\textbf{Passenger Data}}\\
-Arrival rates for floors & $ (f, t) \rightarrow \frac{5}{300} $ & $ \mathbb{N} \times s \rightarrow s^{-1}$\\
+Arrival rates for floors & $ (f, t) \rightarrow \frac{7}{300} $ & $ \mathbb{N} \times s \rightarrow s^{-1}$\\
 Weight and volume distribution & see below & $kg \times m \times m \times m \rightarrow \mathbb{R}$\\
 %Volume distribution & see below  & $m \times m \times m \rightarrow \mathbb{R} $\\
 Transfer time into / out of car & 2 & $s$\\
@@ -204,7 +212,7 @@ Floor bias & unbiased & $ \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{R} $ 
 %& & \\
 \hline
 \multicolumn{3}{l}{\textbf{Cargo Data}}\\
-Arrival rates for floors & $ (f, t) \rightarrow \frac{5}{300} $ & $\mathbb{N} \times s \rightarrow s^{-1}$\\
+Arrival rates for floors & $ (f, t) \rightarrow \frac{2}{300} $ & $\mathbb{N} \times s \rightarrow s^{-1}$\\
 Weight and volume distribution & see below & $kg \times m \times m \times m \rightarrow \mathbb{R}$\\
 %Volume distribution & see below  & $m \times m \times m \rightarrow \mathbb{R} $\\
 Transfer time into / out of car & 5 & $s$\\
@@ -214,10 +222,34 @@ Floor bias & unbiased & $ \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{R} $ 
 \multicolumn{3}{l}{\textbf{Simulation Parameters}}\\
 Simulation Period & 1 & $h$\\
 Time slice & 0.1 & $s$\\
-Number of simulations & 100 & \\
+Number of simulations & 1000 & \\
 \end{tabular}
 \caption{\label{tab:design:simulationconfig} General configuration for the comparative simulation}
 \end{table}
+
+\begingroup
+\renewcommand*{\arraystretch}{1.0}
+\begin{table}[]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrr}
+\textbf{Type}               & \textbf{Width / cm} & \textbf{Length / cm} & \textbf{Height / cm} & \textbf{Weight / kg} \\
+\hline
+\multirow{4}{*}{Passenger}  & 50                  & 25                   & 160                  & 60                   \\
+                            & 50                  & 25                   & 174                  & 65                   \\
+                            & 50                  & 25                   & 180                  & 80                   \\
+                            & 70                  & 30                   & 190                  & 110                  \\
+\hline
+\multirow{5}{*}{Cargo Item} & 250                 & 150                  & 150                  & 1000                 \\
+                            & 250                 & 150                  & 150                  & 2000                 \\
+                            & 250                 & 150                  & 150                  & 3000                 \\
+                            & 250                 & 150                  & 150                  & 4000                 \\
+                            & 250                 & 150                  & 150                  & 4900                
+\end{tabular}%
+}
+\caption{\label{tab:design:trafficitemprototypes} Prototypes for traffic items in the simulation}
+\end{table}
+\endgroup
 
 TODO
 The arrival rate is constant over the whole time (should this be adapted for several runs?)
@@ -243,17 +275,17 @@ TODO define measurements to take
 - waiting time per passenger / cargo
 - ride time per passanger / cargo
 
-Measurements to take:
+Measurements to take, each Maximum, minimum and average and standard deviation:
 \begin{samepage}
 \begin{itemize}
-    \item Maximum, minimum and average of total passenger in the simulation
-    \item Maximum, minimum and average of total cargo objects in the simulation
-    \item Maximum, minimum and average stops of the lift
-    \item Maximum, minimum and average passengers delivered to their destination
-    \item Maximum, minimum and average cargo items delivered to their destination
-    \item Maximum, minimum and average waiting time
-    \item Maximum, minimum and average ride time
-    \item Maximum, minimum and average total journey time
+    \item Total passenger in the simulation
+    \item Total cargo objects in the simulation
+    \item Stops of the lift
+    \item Delivered to their destination
+    \item Cargo items delivered to their destination
+    \item Waiting time
+    \item Ride time
+    %\item Maximum, minimum and average total journey time
 \end{itemize}
 \end{samepage}
  

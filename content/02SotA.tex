@@ -69,7 +69,7 @@ For a \ac{2D} image $ F \in \mathbb{N}^{X \times Y} $ the convolution $ H \in \m
 
 \begin{figure}[h!]
 \begin{equation*}
-H_{x,y} = \sum_{i=0}^{M_i-1} \sum_{j=0}^{M_j-1} F_{x+1-a_i, x+j-a_j}K_{i,j}
+H_{x,y} = \sum_{i=0}^{M_i-1} \sum_{j=0}^{M_j-1} F_{x+i-a_i, x+j-a_j}K_{i,j}
 \end{equation*}
 \caption{Application of an 2D convolution kernel. Reprinted from the \textcite[][]{opencv2018kernel}}
 \label{eq:sota:convolution}
@@ -293,7 +293,7 @@ The translation vector can be found by measuring the distance of the cameras to 
     0 & sin \gamma{} & cos \gamma{} 
     \end{bmatrix}
 \end{equation*}
-\caption{External rotation matrix from rotation along the yaw, pitch and roll angles $ \alpha{} $ , $ \beta{} $ and $ \gamma{} $ }
+\caption{External rotation matrix from rotation along the angles $ \alpha{} $ , $ \beta{} $ and $ \gamma{} $ }
 \label{eq:sota:rotation}
 \end{figure}
 
@@ -391,6 +391,9 @@ multiview, depth sensors
 interpolation of depth information by combinding views
 bounding / section box
 convex hull in 3d by mask
+
+
+\subsubsection{Connected Components}
 
 
 \section{Elevator Control}
