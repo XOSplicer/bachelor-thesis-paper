@@ -186,7 +186,7 @@ describe pseudo code here
 \begin{table}[]
 \centering
 \begin{tabular}{lrl}
-\textbf{Description} \hspace{5cm}   & \multicolumn{1}{l}{\textbf{Value}}   & \textbf{Unit}   \\
+\textbf{Description} \hspace{5cm}   & \textbf{Value}   & \textbf{Unit}   \\
 \hline
 \multicolumn{3}{l}{\textbf{Building data}} \\
 Number of floors & 8 &        \\
@@ -227,7 +227,24 @@ Number of simulations & 1000 & \\
 \caption{\label{tab:design:simulationconfig} General configuration for the comparative simulation}
 \end{table}
 
-
+\begin{table}[]
+\centering
+\begin{tabular}{lrrrr}
+\textbf{Type}               & \textbf{Width / cm} & \textbf{Length / cm} & \textbf{Height / cm} & \textbf{Weight / kg} \\
+\hline
+\multirow{4}{*}{Passenger}  & 50                  & 25                   & 160                  & 60                   \\
+                            & 50                  & 25                   & 174                  & 65                   \\
+                            & 50                  & 25                   & 180                  & 80                   \\
+                            & 70                  & 30                   & 190                  & 110                  \\
+\hline
+\multirow{5}{*}{Cargo Item} & 250                 & 150                  & 150                  & 1000                 \\
+                            & 250                 & 150                  & 150                  & 2000                 \\
+                            & 250                 & 150                  & 150                  & 3000                 \\
+                            & 250                 & 150                  & 150                  & 4000                 \\
+                            & 250                 & 150                  & 150                  & 4900                
+\end{tabular}
+\caption{\label{tab:design:trafficitemprototypes} Prototypes for traffic items in the simulation}
+\end{table}
 
 TODO
 The arrival rate is constant over the whole time (should this be adapted for several runs?)
