@@ -115,21 +115,24 @@ TODO
 Installing a camera system unavoidably raises privacy and security concerns 
 for the individuals that are being filmed.
 Especially in elevators, which are publicly accessible, there are legal requirements to fulfill.
-In Germany the Federal Data Protection Act \autocite[][]{bmjv2009bdsg} regulates the usage of video surveillance systems.
+In Germany the Federal Data Protection Act, \ac{BDSG} \autocite[][]{bmjv2009bdsg}, regulates the usage of video surveillance systems.
 Public areas may only observed for specified purposes and the presence of a surveillance system must be indicated as well as the name and contact of its controller. When the data gathered by the system is no longer needed for the specified purpose, it must be deleted \autocite[][§~4]{bmjv2009bdsg}.
-These principles of data transparency, purpose, 
+These principles of data transparency, purpose limitation, data minimization, storage limitation, confidentiality are also visible in the European \ac{GDPR} \autocite{eu2016gdpr}.
+
+purpose limitation -> faster lift service
+data transparency -> must have a sign in / infront of the elevator
+data minimization -> only as few cameras as necessary, only necessary resolution
+storage limitaion -> real time system does not need to store the data, in general not longer than a single ride
+
 
 TODO
 - long term storage not neccessary for real time analysis of volumes
 - face detection not necessary / no identification needed
 - time space tracking of individuals can be beneficial for algorithm
 - need to inform people of beeing filmed
-- missuse oppertunities: syste must not be online, but if accessible from outside the video feed is a target of threats
+- missuse oppertunities: system must not be online, but if accessible from outside the video feed is a target of threats
 
 EN 62676-4 category "Detektieren (Erfassung)" -> no need for high resulotion images
-
-
-\autocite[][]{bmjv2009bdsg} 
 
 \section{Conclusion}
 TODO
