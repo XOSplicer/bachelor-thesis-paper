@@ -171,13 +171,19 @@ For this comparison the sequential control and collective control will be taken 
 
 
 TODO
-- when no large cargo is there: collective control
-- when large cargo is there: sequential control
-- consideration: what to do to switch between collective and seqential control? -> "adaptive control"
 
 Therefore a new control strategy is proposed here, which will be called \emph{adaptive control} in the following. 
 The strategy is a combination of collective control and sequential control.
-It foll
+It follows these simple rules:
+
+\begin{itemize}
+    \item When no cargo item is present in the cabin, the elevator is operated in collective mode and picks up and delivers passengers according to the collective control strategy.
+    \item When there is a cargo item present in the cabin, deliver it directly to its destination car call, regardless of other car calls and hall calls.
+\end{itemize}
+
+TODO
+This implies the necessarity to associate the cargo item to its car call. 
+This association can be determined from the combination of the video data and car call data.
 
 \subsection{Preparation for Simulation and Validation Strategy}
 
@@ -189,7 +195,7 @@ sequential control
 collective control
 adaptive control
 
-describe pseudo code here
+describe pseudo code of the three strategies here
 
 \begin{table}[]
 \centering
