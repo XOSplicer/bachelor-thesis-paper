@@ -227,8 +227,11 @@ Number of simulations & 1000 & \\
 \caption{\label{tab:design:simulationconfig} General configuration for the comparative simulation}
 \end{table}
 
+\begingroup
+\renewcommand*{\arraystretch}{1.0}
 \begin{table}[]
 \centering
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{lrrrr}
 \textbf{Type}               & \textbf{Width / cm} & \textbf{Length / cm} & \textbf{Height / cm} & \textbf{Weight / kg} \\
 \hline
@@ -242,9 +245,11 @@ Number of simulations & 1000 & \\
                             & 250                 & 150                  & 150                  & 3000                 \\
                             & 250                 & 150                  & 150                  & 4000                 \\
                             & 250                 & 150                  & 150                  & 4900                
-\end{tabular}
+\end{tabular}%
+}
 \caption{\label{tab:design:trafficitemprototypes} Prototypes for traffic items in the simulation}
 \end{table}
+\endgroup
 
 TODO
 The arrival rate is constant over the whole time (should this be adapted for several runs?)
