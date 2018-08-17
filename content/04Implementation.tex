@@ -48,9 +48,23 @@ It features an expressive static type system and can be used to build applicatio
 The rust compiler targets common platforms and operating and compiles source code to native machine code.
 The language is chosen, since the author is proficient in it.
 
-TODO
+TODO describe cargo invocation, describe general programm flow
+
 \subsection{Evaluation of Simulation Results}
+
 TODO
+
+see table \ref{tab:impl:simulationresults}
+key points:
+
+\begin{itemize}
+    \item Adaptive control delivers \textbf{more cargo items} on average than sequential control (\texttt{+}40.13~\%) and collective control (\texttt{+}35.52~\%).
+    \item Collective control (\texttt{+}58.27~\%) and adaptive control (\texttt{+}61.53~\%) deliver \textbf{more passengers} on average compared to sequential control. 
+    \item Sequential control shows a drastically higher mean waiting time then the other two (\texttt{+}1568.09~\%, \texttt{+}1297.55~\%). However a it features a lower average ride time (\texttt{-}76.41~\%, \texttt{-}71.09~\%), which is is only linear dependent on the travel distance.
+    \item Adaptive control shows a slightly higher average waiting time (\texttt{+}30.56~\%) but has a lower (\texttt{-}18.40~\%) average ride time, which is less spread (\texttt{-}18.46~\%) compared to collective control.
+\end{itemize}
+
+TODO conclusion for efficiency and feasibility
 
 \begingroup
 \renewcommand*{\arraystretch}{1.0}
@@ -65,7 +79,7 @@ TODO
 \multirow{4}{*}{\textbf{Total cargo}}          & \textbf{min}        & 9.00                                                                                                                                              & 9.00                                                                                                                                              & 9.00                                                                                                                                            \\
                                                & \textbf{max}        & 42.00                                                                                                                                             & 42.00                                                                                                                                             & 42.00                                                                                                                                           \\
                                                & \textbf{avg}        & 24.10                                                                                                                                             & 24.10                                                                                                                                             & 24.10                                                                                                                                           \\
-                                               & \textbf{$ \sigma $} & 5.22                                                                                                                                              & 5.22                                                                                                                                              & 5.22                                                                                                                                            \\ \hline
+                                               & \textbf{$ \sigma $} & 4.95                                                                                                                                              & 4.95                                                                                                                                              & 4.95                                                                                                                                            \\ \hline
 \multirow{4}{*}{\textbf{Stops}}                & \textbf{min}        & 102.00                                                                                                                                            & 93.00                                                                                                                                             & 96.00                                                                                                                                           \\
                                                & \textbf{max}        & 135.00                                                                                                                                            & 158.00                                                                                                                                            & 157.00                                                                                                                                          \\
                                                & \textbf{avg}        & 118.47                                                                                                                                            & 125.75                                                                                                                                            & 129.60                                                                                                                                          \\
@@ -94,7 +108,69 @@ TODO
 \section{Economic Considerations}
 TODO
 
+- possible use cases -> multistory buildings with a elevator that is used by passengers as well as cargo objects, thinkable are (1) hospitals with elevators that are also used by patient beds, (2) multistory warehouses with cargo lifts, (3) office buildings with auxiliary lifts used by janitors with their carts
+- possible customers -> Thyssen, Otis, Kone
+- cost structure from hardware and software -> hardware necessary: 4 wide angle non-hd cameras per cabin, beefy computer to process the images (one per elevator or per group), cables, electricity, interconnection to group / elevator controller. software necessarry: image processing, connection to group / elevator controller, adapted scheduling software
+- savings possible from improved scheduling: cargo gets priority therefore cargo is delivered faster. having cargo in the cabin can hinder passengers from entering, therefore giving priority can increase overall capacity utilization which increases throughput
+- build costs: visual system can be sold as optional feature for new elevators, or can be sold as upgrade to existing
+
+
+
 \section{Privacy Considerations}
+Installing a camera system unavoidably raises privacy and security concerns 
+for the individuals that are being filmed.
+Especially in elevators, which are publicly accessible, there are legal requirements to fulfill.
+In Germany the Federal Data Protection Act, \ac{BDSG} \autocite[][]{bmjv2009bdsg}, 
+regulates the usage of video surveillance systems.
+Public areas may only observed for specified purposes and the presence of a surveillance system must be indicated,
+as well as the name and contact of its controller. 
+When the data gathered by the system is no longer needed for the specified purpose, it must be deleted 
+\autocite[][§~4]{bmjv2009bdsg}.
+The European \ac{GDPR} \autocite{eu2016gdpr} describes similar, more broad principles:  
+\emph{data transparency, purpose limitation, data minimization, storage limitation and confidentiality}
+\autocite{ico2018gdpr}.
+Oriented at this principle the following paragraphs provide privacy consideration about the visual system.
+
+The presented visual system has a \emph{limited purpose}, in that it is only used 
+to determine whether passengers or cargo items are present in the elevator cabin 
+and what volume they take up. 
+These information is used to improve the scheduling of the elevator.
+
+In order to keep the usage of video data \emph{transparent},
+passengers should be informed about the video system before they enter the cabin.
+This could be done by installing a sign, which indicates the presence of the video system, 
+clearly states, for what purpose the video data is used for, 
+and who is operating the system and can be contacted in case of issues.
+The sign should be in front and inside of the elevator, 
+so that potential passengers can decide,
+if they want to use the lift and be filmed.
+
+Since the system has a limited purpose, 
+only data specific to that purpose should be gathered and processed.
+The data usage should be \emph{minimized}.
+Only as few cameras as possible, but as many as necessary should be installed in the lift.
+Areas that are not of interest for the lift system should not be filmed.
+Furthermore the resolution of the cameras should be only as high as necessary.
+For purpose of detecting the presence, position and outline of a passenger or cargo object 
+in the cabin, it is not required to capture fine details.
+The DIN EN 62676-4 norm \autocite[][]{din2016surveillance} recommends 
+to use a camera resolution, which captures 25 to 62.5 pixel per meter,
+for the purpose of detecting or monitoring people.
+In addition the kind of processing of the video data should be limited to the extend neccesary for the purpose of the video system. 
+For example it is not necessary to perform face detection, or to identify individuals.
+However tracking the path of an individual over the course of their journey might be beneficial for the application.
+
+The presented system can operate in real time.
+Only the current video frame is needed to determine the presence and volume of passengers and objects.
+Therefore the \emph{storage} of the video data can be \emph{limited}.
+There is no need to store the video data at all.
+
+In order to keep the video data \emph{confidential}, 
+measures must be taken to prevent access by unauthorized parties.
+For the purpose of the system, all data processing can be done locally within the elevator system.
+The visual system only needs to interact with the elevator controller.
+Therefore there is no need to make the data available to the outside, e.g. the internet.
+Doing so would open up unnecessary possibilities for misuse of the video system.
 
 \section{Conclusion}
-TODO
+TODO about visual system, simulation, economic, and privacy
