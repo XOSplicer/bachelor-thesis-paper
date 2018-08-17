@@ -52,6 +52,13 @@ Rust comes with a build tool and package manager named \emph{cargo}.
 
 TODO describe cargo invocation, describe general programm flow
 
+general program flow:
+1. initialize building, lift and general simulation parameters
+2. generate 1000 traffic patters, each of one hour, the amount of arrivals of passangers and cargo is described by two poisson distribution,  the traffic items are chosen from the  list of prototypes given
+3. for each of the traffic sequences run the simulation with the three differet scheduling strategies. each simulation is given the same parameters and the same traffic pattern
+4. collect the results of all the simulations and filter out any rusults whetre any of the thre
+
+
 \subsection{Evaluation of Simulation Results}
 
 TODO
