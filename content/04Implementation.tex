@@ -153,10 +153,14 @@ in the cabin, it is not required to capture fine details.
 The DIN EN 62676-4 norm \autocite[][]{din2016surveillance} recommends 
 to use a camera resolution, which captures 25 to 62.5 pixel per meter,
 for the purpose of detecting or monitoring people.
-In addition only 
-For example it is not neccessary to perform face detection, or to identify individuals.
+In addition the kind of processing of the video data should be limited to the extend neccesary for the purpose of the video system. 
+For example it is not necessary to perform face detection, or to identify individuals.
+However tracking the path of an individual over the course of their journey might be beneficial for the application.
 
-TODO
+The presented system can operate in real time.
+Only the current video frame is needed to determine the presence and volume of passengers and objects.
+Therefore the \emph{storage} of the video data can be \emph{limited}.
+There is no need to store the video data at all.
 
 In order to keep the video data \emph{confidential}, 
 measures must be taken to prevent access by unauthorized parties.
@@ -164,23 +168,6 @@ For the purpose of the system, all data processing can be done locally within th
 The visual system only needs to interact with the elevator controller.
 Therefore there is no need to make the data available to the outside, e.g. the internet.
 Doing so would open up unnecessary possibilities for misuse of the video system.
-
-TODO
-
-(check) purpose limitation -> faster lift service
-(check) data transparency -> must have a sign in / infront of the elevator
-data minimization -> only as few cameras as necessary, only necessary resolution, only processing that is necessary to fulfill the purpose
-storage limitaion -> real time system does not need to store the data, in general not longer than a single ride
-(check)confidentiality -> measures must be taken, so that video footage is not accessible from unauthorized parties. can operate offline and local
-
-
-TODO
-- long term storage not neccessary for real time analysis of volumes
-- face detection not necessary / no identification needed
-- time space tracking of individuals can be beneficial for algorithm
-(check)- need to inform people of beeing filmed
-(check)- missuse oppertunities: system must not be online, but if accessible from outside the video feed is a target of threats
-(check)- EN 62676-4 category "Detektieren (Erfassung)" -> no need for high resulotion images
 
 \section{Conclusion}
 TODO about visual system, simulation, economic, and privacy
