@@ -128,16 +128,25 @@ The European \ac{GDPR} \autocite{eu2016gdpr} describes similar, more broad princ
 \autocite{ico2018gdpr}.
 Oriented at this principle the following paragraphs provide privacy consideration about the visual system.
 
-The presented visual system has a limited purpose, in that it is only used 
+The presented visual system has a \emph{limited purpose}, in that it is only used 
 to determine whether passengers or cargo items are present in the elevator cabin 
 and what volume they take up. 
 These information is used to improve the scheduling of the elevator.
 
-In order to 
+In order to keep the usage of video data \emph{transparent},
+passengers should be informed about the video system before they enter the cabin.
+This could be done by installing a sign, which indicates the presence of the video system, 
+clearly states, for what purpose the video data is used for, 
+and who is operating the system and can be contacted in case of issues.
+The sign should be in front and inside of the elevator, 
+so that potential passengers can decide,
+if they want to use the lift and be filmed.
+
+
 
 TODO
 
-In order to keep the video data confidential, 
+In order to keep the video data \emph{confidential}, 
 measures must be taken to prevent access by unauthorized parties.
 For the purpose of the system, all data processing can be done locally within the elevator system.
 The visual system only needs to interact with the elevator controller.
@@ -146,8 +155,8 @@ Doing so would open up unnecessary possibilities for misuse of the video system.
 
 TODO
 
-purpose limitation -> faster lift service
-data transparency -> must have a sign in / infront of the elevator
+(check) purpose limitation -> faster lift service
+(check) data transparency -> must have a sign in / infront of the elevator
 data minimization -> only as few cameras as necessary, only necessary resolution, only processing that is necessary to fulfill the purpose
 storage limitaion -> real time system does not need to store the data, in general not longer than a single ride
 (check)confidentiality -> measures must be taken, so that video footage is not accessible from unauthorized parties. can operate offline and local
@@ -157,7 +166,7 @@ TODO
 - long term storage not neccessary for real time analysis of volumes
 - face detection not necessary / no identification needed
 - time space tracking of individuals can be beneficial for algorithm
-- need to inform people of beeing filmed
+(check)- need to inform people of beeing filmed
 (check)- missuse oppertunities: system must not be online, but if accessible from outside the video feed is a target of threats
 - EN 62676-4 category "Detektieren (Erfassung)" -> no need for high resulotion images
 
