@@ -56,7 +56,13 @@ general program flow:
 1. initialize building, lift and general simulation parameters
 2. generate 1000 traffic patters, each of one hour, the amount of arrivals of passangers and cargo is described by two poisson distribution,  the traffic items are chosen from the  list of prototypes given
 3. for each of the traffic sequences run the simulation with the three differet scheduling strategies. each simulation is given the same parameters and the same traffic pattern
-4. collect the results of all the simulations and filter out any rusults whetre any of the thre
+4. collect the results of all the simulations and filter out any rusults whetre any of the three strategies produced invalid results
+5. calculate the specified metrics from all the results for each strategy and print them
+
+to run a single simulation with a control strategy:
+1. create a new Elevator system state to be altered during the simulation
+2. while the current tick of the simulation is smaller than the total ticks of the traffic pattern:
+    
 
 
 \subsection{Evaluation of Simulation Results}
