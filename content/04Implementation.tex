@@ -52,6 +52,8 @@ Rust comes with a build tool and package manager named \emph{cargo}.
 
 TODO describe cargo invocation, describe general programm flow
 
+todo describe traffic item
+
 general program flow:
 1. initialize building, lift and general simulation parameters
 2. generate 1000 traffic patters, each of one hour, the amount of arrivals of passangers and cargo is described by two poisson distribution,  the traffic items are chosen from the  list of prototypes given
@@ -59,31 +61,21 @@ general program flow:
 4. collect the results of all the simulations and filter out any rusults whetre any of the three strategies produced invalid results
 5. calculate the specified metrics from all the results for each strategy and print them
 
-to run a single simulation with a control strategy:
-1. create a new Elevator system state to be altered during the simulation
-2. while the current tick of the simulation is smaller than the total ticks of the traffic pattern:
-    2.1 ask the control strategy for an action to be performed on the elevator system based on the current state of the elevator system and the current state of the control strategy. also have it return the next control strategy state. The ations can be
-    a) move the lift up one floor
-    b) move the lift down one floor
-    c) open lift doors
-    d) close lift doors
-    e) load the traffic items from the floor queue into the lift
-    f) unload the traffic items from the lift, that need to exit on the current floor
-    g) do nothing and idle
-    2.2 perform the specified action, thereby updating the state of the lift system
-    2.3 advance the current ticks by the amount of time the performed actions took
-    2.4 update the metric information about the ride and wait times for each passenger / cargo item
-    2.5 copy the traffic times from the traffic pattern to the floor queues, which arrived in the time the last action took
-3. correct the metrics by remove ride times of passengers who did not arrive at the destination yet and remove the waiting times of not yet picked up passengers
 TODO
+to run a single simulation with a control strategy:
 
 \begin{enumerate}
     \item Create a new \texttt{ElevatorSystem e}, which holds the system state to be altered during the simulation.
     \item While \texttt{e.ticks < s.total\_ticks()}, repeat the following simulation cycle:
     \begin{enumerate}
-        \item 
+        \item Ask the control strategy for an action to be performed on the elevator system based on the current state of said system and the internal state of the control strategy.
+        The action can be one of the actions listed as \texttt{ControlAction}.
+        \item Perform the given action on the elevator system, thereby updating all fields effected by this action.
+        \item Calculate the time it took to perform those action on the system and advance the ticks accordingly.
+        \item Update the  metrics about waiting and ride time for each traffic item that is currently in the floor queues or in the elevator.
+        \item Copy the traffic item form the traffic pattern into the floor queues, which arrived in the time between the last tick and the updated tick.
     \end{enumerate}
-    \item Correct the gathered metrics by removing the ride times of passengers, who did not arrive at their destination yet and waiting times of passengers, who did not yet enter the elevator.
+    \item Correct the gathered metrics by removing the ride times of traffic items, who did not arrive at their destination yet and waiting times of traffic items, who did not yet enter the elevator.
 \end{enumerate}
 
 \begin{figure}[p]
