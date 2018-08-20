@@ -61,6 +61,12 @@ general program flow:
 4. collect the results of all the simulations and filter out any rusults whetre any of the three strategies produced invalid results
 5. calculate the specified metrics from all the results for each strategy and print them
 
+\begin{enumerate}
+    \item Initialize the \texttt{BuildingParameters b}, \texttt{LiftParameters l} and \texttt{SimulationParameters s}.
+    \item Generate \texttt{s.simulations} many traffic \texttt{TrafficGenerator} instances, which each generates a traffic pattern. A traffic patterns describes the arrivals of traffic items for each tick of the simulation period. A Poisson distribution can be used to determine the amount of traffic items that arrive within this tick \autocite{beers2015arrivals}.
+    \item For each traffic patterns, run the simulation with the tree different scheduling 
+\end{enumerate}
+
 TODO
 to run a single simulation with a control strategy:
 
