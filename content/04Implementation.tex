@@ -112,8 +112,6 @@ to run a single simulation with a control strategy:
 
 \subsection{Evaluation of Simulation Results}
 
-TODO
-
 \begingroup
 \renewcommand*{\arraystretch}{1.0}
 \begin{table}[]
@@ -175,9 +173,15 @@ Therefore delivering them faster causes a shorter block of theses resources, res
 The precondition of applying the adaptive control strategy is the knowledge, 
 whether a cargo objects is currently inside the elevator cabin and is blocking it for other passengers 
 and the information about the destination of this object.
-This 
+This information can be obtained by combining the visual system presented before, which is capable of detecting cargo objects by their volume, with the information about car calls made for this object. To create the association of an object present in the lift and its destination, 
+the time of entering the cabin and performing the car call can be correlated.
+Otherwise, in an environment that features hall calls with information about the destination, this association can be used.
+An alternative would be an \emph{override} button in the cabin, 
+to give priority to the current car call, regardless of the presence of an cargo object in the cabin.
 
-how to achive precondition: visual system with destination assosiation, alternative: override button
+However the scenario chosen for the simulation is very specific and can benefit from the kinds of optimizations the adaptive control yields. 
+The focus on a multi-story building with a single elevator that is used by passenegrs and cargo
+
 when to use: 
 
 this shows, when in a buidling with susch and such traffic conditions, utilizing this concept can be beneficial
