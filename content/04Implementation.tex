@@ -168,7 +168,7 @@ In conclusion these results for the adaptive control show, that giving cargo ite
 can increase the amount of cargo that gets delivered. 
 This reduces the average ride time, however it comes with a trade-of in waiting time.
 The increased performance can be explained by the reduced time, the cargo items block the space and weight restrictions present in the elevator cabin and prevent other passengers from entering.
-Therefore delivering them faster causes a shorter block of theses resources, resulting in a better overall utilization.
+Therefore delivering them faster causes a shorter blocking of theses resources, resulting in a better overall utilization.
 
 The precondition of applying the adaptive control strategy is the knowledge, 
 whether a cargo objects is currently inside the elevator cabin and is blocking it for other passengers 
@@ -180,15 +180,11 @@ An alternative would be an \emph{override} button in the cabin,
 to give priority to the current car call, regardless of the presence of an cargo object in the cabin.
 
 However the scenario chosen for the simulation is very specific and can benefit from the kinds of optimizations the adaptive control yields. 
-The focus on a multi-story building with a single elevator that is used by passenegrs and cargo
-
-when to use: 
-
-this shows, when in a buidling with susch and such traffic conditions, utilizing this concept can be beneficial
-
-TODO conclusion for efficiency and feasibility
-
-
+The given traffic conditions in a multi-story building with a single elevator, 
+which is used by passengers and cargo alike, 
+do favour the prioritization of cargo items by sequentially delivering them.
+The results for other traffic patterns, e.g. for elevators that only convey passengers,
+might differ and might not benefit from an adapted scheduling.
 
 \section{Economic Considerations}
 TODO
