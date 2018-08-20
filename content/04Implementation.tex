@@ -62,7 +62,7 @@ general program flow:
 to run a single simulation with a control strategy:
 1. create a new Elevator system state to be altered during the simulation
 2. while the current tick of the simulation is smaller than the total ticks of the traffic pattern:
-    2.1 ask the control strategy for an action to be performed on the elevator system based on the current state of the elevator system and the current state of the control strategy. also have it return the next control strategy state. The cations can be
+    2.1 ask the control strategy for an action to be performed on the elevator system based on the current state of the elevator system and the current state of the control strategy. also have it return the next control strategy state. The ations can be
     a) move the lift up one floor
     b) move the lift down one floor
     c) open lift doors
@@ -75,6 +75,16 @@ to run a single simulation with a control strategy:
     2.4 update the metric information about the ride and wait times for each passenger / cargo item
     2.5 copy the traffic times from the traffic pattern to the floor queues, which arrived in the time the last action took
 3. correct the metrics by remove ride times of passengers who did not arrive at the destination yet and remove the waiting times of not yet picked up passengers
+TODO
+
+\begin{enumerate}
+    \item Create a new \texttt{ElevatorSystem e}, which holds the system state to be altered during the simulation.
+    \item While \texttt{e.ticks < s.total\_ticks()}, repeat the following simulation cycle:
+    \begin{enumerate}
+        \item 
+    \end{enumerate}
+    \item Correct the gathered metrics by removing the ride times of passengers, who did not arrive at their destination yet and waiting times of passengers, who did not yet enter the elevator.
+\end{enumerate}
 
 \begin{figure}[p]
     \centering
