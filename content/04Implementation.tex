@@ -154,10 +154,10 @@ TODO
 \endgroup
 
 By running the  implemented simulation, the results displayed in table \ref{tab:impl:simulationresults} are gathered.
-It is visible, that the three scheduling algorithms have distinct manifestations of the metrics that h  
-
-see table 
-key points:
+It is visible, that the three scheduling algorithms have distinct manifestations of the metrics that are recorded.
+The sequential control sets focus on low ride time, the collective control sets focus on a balance between wait and ride time while maintaining a high delivery rate. 
+The adaptive control strategy favours the delivery of cargo objects with lower ride times, while trading for a higher waiting time.
+The key takeaways, expressed in relative numbers, here are:
 
 \begin{itemize}
     \item Adaptive control delivers \textbf{more cargo items} on average than sequential control (\texttt{+}40.13~\%) and collective control (\texttt{+}35.52~\%).
@@ -165,6 +165,8 @@ key points:
     \item Sequential control shows a drastically higher mean waiting time then the other two (\texttt{+}1568.09~\%, \texttt{+}1297.55~\%). However a it features a lower average ride time (\texttt{-}76.41~\%, \texttt{-}71.09~\%), which is is only linear dependent on the travel distance.
     \item Adaptive control shows a slightly higher average waiting time (\texttt{+}30.56~\%) but has a lower (\texttt{-}18.40~\%) average ride time, which is less spread (\texttt{-}18.46~\%) compared to collective control.
 \end{itemize}
+
+In conclusion
 
 TODO conclusion for efficiency and feasibility
 
