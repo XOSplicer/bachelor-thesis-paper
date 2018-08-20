@@ -190,16 +190,16 @@ might differ and might not benefit from an adapted scheduling.
 As stated above, the presented scheduling algorithm can use the visual system to determine the presence of an cargo object, which can benefit the handling capacity of elevators which are regularly used by passengers and cargo items.
 There are several possible real life scenarios with these properties:
 \begin{itemize}
-    \item \textbf{Hospitals} with elevators where patient beds are moved. The medical beds are usually as large as the elevator allows and therefore block the elevator from being used by groups of additional passengers. Additionaly patients with meduical conditions  
-    \item Large office buildings with \textbf{auxiliary lifts}
-    \item \textbf{Warehouses} or \textbf{fabrication plants} 
+    \item \textbf{Hospitals} with elevators where patient beds are moved. The medical beds are usually as large as the elevator allows and therefore block the elevator from being used by groups of additional passengers. Additionally patients with medical conditions who occupy the bed often should have a prioritized transport, as their health might depend on every second spend in the elevator. 
+    \item Large office buildings with \textbf{auxiliary lifts} that are used by janitors and craftsman, who carry carts, tool cabinets or hardware material. These lifts could also be used by regular passengers and might even be integrated into an elevator group. However the cart could block the elevator.
+    \item Multi-story \textbf{Warehouses} or \textbf{fabrication plants} with heavy duty cargo lifts used 
+    by factory employees and fork lifts or other transportation devices for heavy goods. The lifts block each other from entering the lift and therefore need to be handled sequentially. 
 \end{itemize}
 
-
+For DXC Technology and the Digital Service Innovation Team
 
 TODO
 
-- possible use cases -> multistory buildings with a elevator that is used by passengers as well as cargo objects, thinkable are (1) hospitals with elevators that are also used by patient beds, (2) multistory warehouses with cargo lifts, (3) office buildings with auxiliary lifts used by janitors with their carts
 - possible customers -> Thyssen, Otis, Kone
 - cost structure from hardware and software -> hardware necessary: 4 wide angle non-hd cameras per cabin, beefy computer to process the images (one per elevator or per group), cables, electricity, interconnection to group / elevator controller. software necessarry: image processing, connection to group / elevator controller, adapted scheduling software => moderatly priced hardware, real cost is durable and consistent software, many developer hours are needed
 - savings possible from improved scheduling: cargo gets priority therefore cargo is delivered faster. having cargo in the cabin can hinder passengers from entering, therefore giving priority can increase overall capacity utilization which increases throughput -> lower energy needs per passenger / cargo
