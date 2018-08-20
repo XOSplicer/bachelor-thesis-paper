@@ -146,6 +146,10 @@
 \renewcommand{\listalgorithmname}{List of Algorithms}
 \floatname{algorithm}{algorithm}
 
+% Better enums
+\renewcommand{\labelenumii}{\theenumii}
+\renewcommand{\theenumii}{\theenumi.\arabic{enumii}.}
+
 %-------------------------
 %		SCHRIFTART
 %-------------------------
@@ -181,3 +185,5 @@
 \setlength{\headheight}{1.1\baselineskip}
 
 \usepackage{amssymb}
+
+\usepackage{pdflscape}

@@ -24,7 +24,7 @@ A conclusion of the project for both technology-oriented as well as management-o
 \begin{figure}[hbt]
 	\centering
 	\includegraphics[width=0.8\textwidth, keepaspectratio]{resources/designscienceresearchoutputs.jpg}
-	\caption{\label{fig:design:designscience} Process steps and outputs of design science research. Reprinted from \textcite[][p.~83]{dresh2015designresearch}}
+	\caption[Process steps and outputs of design science research]{\label{fig:design:designscience} Process steps and outputs of design science research. Reprinted from \textcite[][p.~83]{dresh2015designresearch}}
 \end{figure}
 
 Figure \ref{fig:design:designscience} displays the steps that are found in the process of design science research. 
@@ -85,7 +85,7 @@ for hardware setup
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth, keepaspectratio]{systemcomponets_with_visual}
-    \caption{Elevator system extended with visual system (addition to figure \ref{fig:sota:systemcomponents})}
+    \caption[Elevator system extended with visual system]{Elevator system extended with visual system. Addition to figure \ref{fig:sota:systemcomponents}}
     \label{fig:design:systeminteration}
 \end{figure}
 
@@ -96,9 +96,8 @@ TODO
 - for the cargo objects an approximation as a ground area and a height, possible area types: convex hull most outer circumfence projected to the ground OR estimation by surrounding rectangle
 - total number of passengers and cargo objects inside and in-front
 \subsection{Detection Technique}
-1. Background substraction  to create forground mask
-2. space carving to generate voxel representation from different views
-3. find distinct items in voxelspace and classify as human or other
+
+TODO
 
 \begin{figure}
     \centering
@@ -141,6 +140,30 @@ TODO
     \caption{Volume detection technique}
     \label{fig:design:volumedetection}
 \end{figure}
+
+\subsubsection{Video Capture}
+TODO
+
+\subsubsection{Preprocessing}
+TODO
+
+\subsubsection{Foreground Masking}
+TODO
+
+\subsubsection{Camera Calibration}
+TODO
+
+\subsubsection{Volume Reconstruction}
+TODO
+
+\subsubsection{3D Blob Detection}
+TODO
+
+\subsubsection{Blob Measurement}
+TODO
+
+\subsubsection{Blob classification}
+TODO
 
 TODO
 \subsection{Test Arrangement and Validation Strategy}
@@ -187,9 +210,7 @@ This association can be determined from the combination of the video data and ca
 
 \subsection{Preparation for Simulation and Validation Strategy}
 
-TODO simulation configuration:
-\autocite[][p.~347]{barney2016handbook}
-
+TODO
 three algorithms:
 sequential control
 collective control
@@ -197,10 +218,14 @@ adaptive control
 
 describe pseudo code of the three strategies here
 
+TODO simulation configuration:
+\autocite[][p.~347]{barney2016handbook}
+
+
 \begin{table}[]
 \centering
 \begin{tabular}{lrl}
-\textbf{Description} \hspace{5cm}   & \textbf{Value}   & \textbf{Unit}   \\
+\textbf{Description} \hspace{4cm}   & \textbf{Value}   & \textbf{Unit}   \\
 \hline
 \multicolumn{3}{l}{\textbf{Building data}} \\
 Number of floors & 8 &        \\

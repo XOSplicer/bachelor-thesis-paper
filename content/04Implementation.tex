@@ -26,6 +26,23 @@ TODO
 elevator setup: measurements, camera positions
 scenario: empty, single person, 2 persons, 3 persons, only carton, 1+ carton, 2+ carton
 TODO
+
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=1.0\textwidth, keepaspectratio]{volumeintersection_preview_04}
+    
+    \vspace{0.5em}
+    
+    \includegraphics[width=1.0\textwidth, keepaspectratio]{volumeintersection_preview_03}
+    
+    \vspace{0.5em}
+    
+    \includegraphics[width=1.0\textwidth, keepaspectratio]{volumeintersection_preview_05}
+    
+    \caption[Images of volume intersection test with orthogonal projection]{Images of volume intersection test with orthogonal projection. Each preview showing the camera images, foreground masks and the resulting volume intersection. (a) single passenger (b) cargo object (c) multiple passengers.}
+    \label{fig:impl:preview}
+\end{figure}
+
 \subsection{Result Evaluation}
 general concept feasible
 small viewing angle: person out of frame
@@ -48,23 +65,52 @@ It features an expressive static type system and can be used to build applicatio
 The rust compiler targets common platforms and operating and compiles source code to native machine code.
 The language is chosen, since the author is proficient in it.
 
+Rust comes with a build tool and package manager named \emph{cargo}. 
+
 TODO describe cargo invocation, describe general programm flow
 
-\subsection{Evaluation of Simulation Results}
+todo describe traffic item
 
 TODO
+general program flow:
 
-see table \ref{tab:impl:simulationresults}
-key points:
 
-\begin{itemize}
-    \item Adaptive control delivers \textbf{more cargo items} on average than sequential control (\texttt{+}40.13~\%) and collective control (\texttt{+}35.52~\%).
-    \item Collective control (\texttt{+}58.27~\%) and adaptive control (\texttt{+}61.53~\%) deliver \textbf{more passengers} on average compared to sequential control. 
-    \item Sequential control shows a drastically higher mean waiting time then the other two (\texttt{+}1568.09~\%, \texttt{+}1297.55~\%). However a it features a lower average ride time (\texttt{-}76.41~\%, \texttt{-}71.09~\%), which is is only linear dependent on the travel distance.
-    \item Adaptive control shows a slightly higher average waiting time (\texttt{+}30.56~\%) but has a lower (\texttt{-}18.40~\%) average ride time, which is less spread (\texttt{-}18.46~\%) compared to collective control.
-\end{itemize}
+\begin{enumerate}
+    \item Initialize the \texttt{BuildingParameters b}, \texttt{LiftParameters l} and\\ \texttt{SimulationParameters s}.
+    \item Generate \texttt{s.simulations} many traffic \texttt{TrafficGenerator} instances, which each generates a traffic pattern. A traffic patterns describes the arrivals of traffic items for each tick of the simulation period. A Poisson distribution can be used to determine the amount of traffic items that arrive within this tick \autocite{beers2015arrivals}.
+    \item For each traffic patterns, run the simulation with the three different scheduling strategies. Each simulation is given the same parameters (\texttt{b, l, s}) and the same traffic pattern. The procedure to run a single simulation is described below.
+    \item Collect the results of all simulations and filter out the results of any run, where any of the three strategies produced an invalid result.
+    5. Calculate the specified metrics by aggregating all the results for each strategy.
+\end{enumerate}
 
-TODO conclusion for efficiency and feasibility
+TODO
+to run a single simulation with a control strategy:
+
+\begin{enumerate}
+    \item Create a new \texttt{ElevatorSystem e}, which holds the system state to be altered during the simulation.
+    \item Create an empty \texttt{SimulationResults} metric container, which will aggregate the metrics for this run.
+    \item While \texttt{e.ticks < s.total\_ticks()}, repeat the following simulation cycle:
+    \begin{enumerate}
+        \item Ask the control strategy for an action to be performed on the elevator system based on the current state of said system and the internal state of the control strategy.
+        The action can be one of the actions listed as \texttt{ControlAction}.
+        \item Perform the given action on the elevator system, thereby updating all fields effected by this action.
+        \item Calculate the time it took to perform those action on the system and advance the ticks accordingly.
+        \item Update the  metrics about waiting and ride time for each traffic item that is currently in the floor queues or in the elevator. Also update the metrics about the number of delivered traffic items and elevator stops.
+        \item Copy the traffic item form the traffic pattern into the floor queues, which arrived in the time between the last tick and the updated tick.
+    \end{enumerate}
+    \item Correct the gathered metrics by removing the ride times of traffic items, who did not arrive at their destination yet and waiting times of traffic items, who did not yet enter the elevator.
+\end{enumerate}
+
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=1.0\textwidth, keepaspectratio]{sim_uml_class}
+    \caption{Class diagram for the elevator simulation program}
+    \label{fig:impl:class}
+\end{figure}
+
+
+
+\subsection{Evaluation of Simulation Results}
 
 \begingroup
 \renewcommand*{\arraystretch}{1.0}
@@ -105,14 +151,59 @@ TODO conclusion for efficiency and feasibility
 \end{table}
 \endgroup
 
+By running the  implemented simulation, the results displayed in table \ref{tab:impl:simulationresults} are gathered.
+It is visible, that the three scheduling algorithms have distinct manifestations of the metrics that are recorded.
+The sequential control sets focus on low ride time, the collective control sets focus on a balance between wait and ride time while maintaining a high delivery rate. 
+The adaptive control strategy favours the delivery of cargo objects with lower ride times, while trading for a higher waiting time.
+The key takeaways, expressed in relative numbers, here are:
+
+\begin{itemize}
+    \item Adaptive control delivers \textbf{more cargo items} on average than sequential control (\texttt{+}40.13~\%) and collective control (\texttt{+}35.52~\%).
+    \item Collective control (\texttt{+}58.27~\%) and adaptive control (\texttt{+}61.53~\%) deliver \textbf{more passengers} on average compared to sequential control. 
+    \item Sequential control shows a drastically higher mean waiting time then the other two (\texttt{+}1568.09~\%, \texttt{+}1297.55~\%). However a it features a lower average ride time (\texttt{-}76.41~\%, \texttt{-}71.09~\%), which is is only linear dependent on the travel distance.
+    \item Adaptive control shows a slightly higher average waiting time (\texttt{+}30.56~\%) but has a lower (\texttt{-}18.40~\%) average ride time, which is less spread (\texttt{-}18.46~\%) compared to collective control.
+\end{itemize}
+
+In conclusion these results for the adaptive control show, that giving cargo items priority and delivering them in a sequential style, while delivering passengers in a collective style, 
+can increase the amount of cargo that gets delivered. 
+This reduces the average ride time, however it comes with a trade-of in waiting time.
+The increased performance can be explained by the reduced time, the cargo items block the space and weight restrictions present in the elevator cabin and prevent other passengers from entering.
+Therefore delivering them faster causes a shorter blocking of theses resources, resulting in a better overall utilization.
+
+The precondition of applying the adaptive control strategy is the knowledge, 
+whether a cargo objects is currently inside the elevator cabin and is blocking it for other passengers 
+and the information about the destination of this object.
+This information can be obtained by combining the visual system presented before, which is capable of detecting cargo objects by their volume, with the information about car calls made for this object. To create the association of an object present in the lift and its destination, 
+the time of entering the cabin and performing the car call can be correlated.
+Otherwise, in an environment that features hall calls with information about the destination, this association can be used.
+An alternative would be an \emph{override} button in the cabin, 
+to give priority to the current car call, regardless of the presence of an cargo object in the cabin.
+
+However the scenario chosen for the simulation is very specific and can benefit from the kinds of optimizations the adaptive control yields. 
+The given traffic conditions in a multi-story building with a single elevator, 
+which is used by passengers and cargo alike, 
+do favour the prioritization of cargo items by sequentially delivering them.
+The results for other traffic patterns, e.g. for elevators that only convey passengers,
+might differ and might not benefit from an adapted scheduling.
+
 \section{Economic Considerations}
+As stated above, the presented scheduling algorithm can use the visual system to determine the presence of an cargo object, which can benefit the handling capacity of elevators which are regularly used by passengers and cargo items.
+There are several possible real life scenarios with these properties:
+\begin{itemize}
+    \item \textbf{Hospitals} with elevators where patient beds are moved. The medical beds are usually as large as the elevator allows and therefore block the elevator from being used by groups of additional passengers. Additionally patients with medical conditions who occupy the bed often should have a prioritized transport, as their health might depend on every second spend in the elevator. 
+    \item Large office buildings with \textbf{auxiliary lifts} that are used by janitors and craftsman, who carry carts, tool cabinets or hardware material. These lifts could also be used by regular passengers and might even be integrated into an elevator group. However the cart could block the elevator.
+    \item Multi-story \textbf{Warehouses} or \textbf{fabrication plants} with heavy duty cargo lifts used 
+    by factory employees and fork lifts or other transportation devices for heavy goods. The lifts block each other from entering the lift and therefore need to be handled sequentially. 
+\end{itemize}
+
+For DXC Technology and the Digital Service Innovation Team
+
 TODO
 
-- possible use cases -> multistory buildings with a elevator that is used by passengers as well as cargo objects, thinkable are (1) hospitals with elevators that are also used by patient beds, (2) multistory warehouses with cargo lifts, (3) office buildings with auxiliary lifts used by janitors with their carts
 - possible customers -> Thyssen, Otis, Kone
-- cost structure from hardware and software -> hardware necessary: 4 wide angle non-hd cameras per cabin, beefy computer to process the images (one per elevator or per group), cables, electricity, interconnection to group / elevator controller. software necessarry: image processing, connection to group / elevator controller, adapted scheduling software
-- savings possible from improved scheduling: cargo gets priority therefore cargo is delivered faster. having cargo in the cabin can hinder passengers from entering, therefore giving priority can increase overall capacity utilization which increases throughput
-- build costs: visual system can be sold as optional feature for new elevators, or can be sold as upgrade to existing
+- cost structure from hardware and software -> hardware necessary: 4 wide angle non-hd cameras per cabin, beefy computer to process the images (one per elevator or per group), cables, electricity, interconnection to group / elevator controller. software necessarry: image processing, connection to group / elevator controller, adapted scheduling software => moderatly priced hardware, real cost is durable and consistent software, many developer hours are needed
+- savings possible from improved scheduling: cargo gets priority therefore cargo is delivered faster. having cargo in the cabin can hinder passengers from entering, therefore giving priority can increase overall capacity utilization which increases throughput -> lower energy needs per passenger / cargo
+- build costs: visual system can be sold as optional feature for new elevators, or can be sold as upgrade to existing, can be sold at a premium
 
 
 

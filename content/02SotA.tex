@@ -22,7 +22,7 @@ Since the methods of each layer operate on data of the lower layer, a complex co
 \begin{figure}[hbt]
 	\centering
 	\includegraphics[width=0.8\textwidth, keepaspectratio]{08_Chapter01_fig1-4}
-	\caption{\label{fig:sota:imageengineering} Levels of image engineering. 
+	\caption[Levels of image engineering]{\label{fig:sota:imageengineering} Levels of image engineering. 
 	Reprinted from \textcite[][Chapter~1]{zhang2017imageprocessing}}
 \end{figure}
 
@@ -71,7 +71,7 @@ For a \ac{2D} image $ F \in \mathbb{N}^{X \times Y} $ the convolution $ H \in \m
 \begin{equation*}
 H_{x,y} = \sum_{i=0}^{M_i-1} \sum_{j=0}^{M_j-1} F_{x+i-a_i, x+j-a_j}K_{i,j}
 \end{equation*}
-\caption{Application of an 2D convolution kernel. Reprinted from the \textcite[][]{opencv2018kernel}}
+\caption[Application of an 2D convolution kernel]{Application of an 2D convolution kernel. Reprinted from the \textcite[][]{opencv2018kernel}}
 \label{eq:sota:convolution}
 \end{figure}
 
@@ -113,7 +113,7 @@ when appropriate kernel matrices are used.
     1 & 1 & 1
     \end{bmatrix}
 \end{equation*}
-\caption{Examples for kernels left to rigth: Gaussian blur filter, Sobel filter in X direction, Sobel filter in Y direction, Laplace filter}
+\caption[Examples for kernels]{Examples for kernels, left to rigth: Gaussian blur filter, Sobel filter in X direction, Sobel filter in Y direction, Laplace filter}
 \label{eq:sota:kernels}
 \end{figure}
 
@@ -203,7 +203,7 @@ When world space and camera space coordinates are not the same, i.e. the camera 
 \begin{figure}[hbt]
     \centering
     \includegraphics[width=0.8\textwidth, keepaspectratio]{opencv_pinhole_camera_model}
-        \caption{Camera model to illustrate perspective projection of a 3D scene onto the image plane (grey). Reprinted from the \textcite{opencv2018calibration}}
+        \caption[Camera model to illustrate perspective projection]{Camera model to illustrate perspective projection of a 3D scene onto the image plane (grey). Reprinted from the \textcite{opencv2018calibration}}
     \label{fig:sota:camerprojection}
 \end{figure}
 
@@ -238,7 +238,7 @@ When world space and camera space coordinates are not the same, i.e. the camera 
         1
     \end{bmatrix}
 \end{equation*}
-\caption{Camera calibration with internal and external parameters. Reprinted from the \textcite{opencv2018calibration}}
+\caption[Camera calibration]{Camera calibration with internal and external parameters. Reprinted from the \textcite{opencv2018calibration}}
 \label{eq:sota:camcalib}
 \end{figure}
 
@@ -327,7 +327,7 @@ key concept: photoconsistency : a voxel is photoconsitent when
 \begin{figure}[hbt]
 	\centering
 	\includegraphics[width=1.0\textwidth, keepaspectratio]{resources/multiview}
-	\caption{\label{fig:sota:mulitviewtop}Concept of depth reconstruction in a 2D multi-view situation.
+	\caption[Concept of depth reconstruction in a 2D multi-view situation]{\label{fig:sota:mulitviewtop}Concept of depth reconstruction in a 2D multi-view situation.
 	Adapted from \textcite[][]{sonaten2011volume}}
 \end{figure}
 
@@ -352,7 +352,7 @@ Therefore the visual hull can not describe the shape of  part of the object, tha
 \begin{figure}[hbt]
 	\centering
 	\includegraphics[width=0.6\textwidth, keepaspectratio]{resources/volume_intersection_bottino}
-	\caption{\label{fig:sota:volumeintersection} Volume intersection of cones from silhouettes.
+	\caption[Volume intersection of cones from silhouettes]{\label{fig:sota:volumeintersection} Volume intersection of cones from silhouettes.
 	Reprinted from \textcite[][]{bottino2001silhouette}}
 \end{figure}
 
@@ -416,7 +416,7 @@ Figure \ref{fig:sota:systemcomponents} gives an general overview over the involv
 \begin{figure}[hbt]
 	\centering
 	\includegraphics[width=0.8\textwidth, keepaspectratio]{resources/systemcomponets}
-	\caption{\label{fig:sota:systemcomponents} General components of an elevator control system. Adapted from \textcite[][pp.~4,16]{xang2016trafficlist} and  \textcite[][p.~10]{siikonen1997models}}
+	\caption[General components of an elevator control system]{\label{fig:sota:systemcomponents} General components of an elevator control system. Adapted from \textcite[][pp.~4,16]{xang2016trafficlist} and  \textcite[][p.~10]{siikonen1997models}}
 \end{figure}
 
 When a passenger wants to take the elevator from one floor to another,
@@ -531,7 +531,7 @@ According to multiple sources, three general patterns are present in office buil
 \begin{figure}[hbt]
 	\centering
 	\includegraphics[width=0.8\textwidth, keepaspectratio]{resources/traffictimes}
-	\caption{\label{fig:sota:traffictimes} Exemplary traffic component profile for an office building.
+	\caption[Exemplary traffic component profile for an office building]{\label{fig:sota:traffictimes} Exemplary traffic component profile for an office building.
 	Reprinted from \textcite[][p.~14]{siikonen1997models}}
 \end{figure}
 
