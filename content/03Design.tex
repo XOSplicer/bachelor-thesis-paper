@@ -244,7 +244,7 @@ Flight time single floor & 8 & $s$\\
 \hline
 \multicolumn{3}{l}{\textbf{Passenger Data}}\\
 Arrival rates for floors & $ (f, t) \rightarrow \frac{7}{300} $ & $ \mathbb{N} \times s \rightarrow s^{-1}$\\
-Weight and volume distribution & see below & $kg \times m \times m \times m \rightarrow \mathbb{R}$\\
+Weight and volume distribution & see table \ref{tab:design:trafficitemprototypes} & $kg \times m \times m \times m \rightarrow \mathbb{R}$\\
 %Volume distribution & see below  & $m \times m \times m \rightarrow \mathbb{R} $\\
 Transfer time into / out of car & 2 & $s$\\
 Floor bias & unbiased & $ \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{R} $ \\
@@ -252,7 +252,7 @@ Floor bias & unbiased & $ \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{R} $ 
 \hline
 \multicolumn{3}{l}{\textbf{Cargo Data}}\\
 Arrival rates for floors & $ (f, t) \rightarrow \frac{2}{300} $ & $\mathbb{N} \times s \rightarrow s^{-1}$\\
-Weight and volume distribution & see below & $kg \times m \times m \times m \rightarrow \mathbb{R}$\\
+Weight and volume distribution & see table \ref{tab:design:trafficitemprototypes} & $kg \times m \times m \times m \rightarrow \mathbb{R}$\\
 %Volume distribution & see below  & $m \times m \times m \rightarrow \mathbb{R} $\\
 Transfer time into / out of car & 5 & $s$\\
 Floor bias & unbiased & $ \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{R} $ \\
@@ -303,12 +303,8 @@ which data to use: \autocite[][p.~347]{barney2016handbook}
 
 
 To evaluate the simulations, several measurements are taken to compare the scheduling algorithms.
-These are the total passengers as well as cargo items in the traffic within the simulation period, the total number of stops, the total number of passengers and cargo items delivered, the waiting time and the ride time.  
-For the each of the measures the minimum, maximum and average values are calculated over all the simulation runs.  
-
-TODO
-
-Measurements to take, each maximum, minimum and average and standard deviation $ \sigma{} $:
+For the each of the measures the minimum, maximum, average and standard deviation $ \sigma{} $ values are calculated over all the simulation runs of each scheduling algorithm.  
+The following measurements shall be taken:
 \begin{samepage}
 \begin{itemize}
     \item Total passenger in the simulation
