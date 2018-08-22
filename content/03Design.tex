@@ -237,11 +237,7 @@ This association can be determined from the combination of the video data and ca
 
 \subsection{Preparation for Simulation and Validation Strategy}
 
-TODO
-three algorithms:
-sequential control
-collective control
-adaptive control
+TODO texts about the three algorithms
 
 Sequential Control:
 \begin{enumerate}[noitemsep]
@@ -286,9 +282,19 @@ Non-directional Collective Control:
     \item Otherwise reverse the current direction of travel.
 \end{enumerate}
 
+Adaptive strategy:
+\begin{enumerate}[noitemsep]
+    \item If there is a cargo object in the elevator:
+    \begin{enumerate}[noitemsep]
+        \item Close the doors.
+        \item Move to its destination floor.
+        \item Open the doors.
+        \item Unload the cargo object and other passengers with this destination.
+        \item Reset the current travel direction.
+    \end{enumerate}
+    \item Otherwise, follow the collective control strategy.
+\end{enumerate}
 
-
-describe pseudo code of the three strategies here
 
 TODO simulation configuration:
 \autocite[][p.~347]{barney2016handbook}
