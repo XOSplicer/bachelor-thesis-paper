@@ -268,8 +268,25 @@ Non-directional Collective Control:
 \begin{enumerate}[noitemsep]
     \item Let the car calls be all the destinations of all passengers present in the lift.
     \item Let the hall calls be all the unique floors where passengers wait for the elevator
-    
+    \item If the car calls contain the current floor:
+    \begin{enumerate}[noitemsep]
+        \item Open the doors.
+        \item Unload the passengers for this floor.
+    \end{enumerate}
+    \item Otherwise, if the hall calls contain the current floor:
+    \begin{enumerate}[noitemsep]
+        \item Open the doors.
+        \item Load all passengers in the floor into the lift, which fit in it.
+    \end{enumerate}
+    \item Otherwise, if there is another car call or hall call in the current direction of travel:
+    \begin{enumerate}[noitemsep]
+        \item Close the doors.
+        \item Move to the closest car call or hall call in the direction of travel.
+    \end{enumerate}
+    \item Otherwise reverse the current direction of travel.
 \end{enumerate}
+
+
 
 describe pseudo code of the three strategies here
 
