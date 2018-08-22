@@ -244,10 +244,10 @@ collective control
 adaptive control
 
 Sequential Control:
-\begin{enumerate}
+\begin{enumerate}[noitemsep]
     \item Update the queue of hall calls by appending all active hall calls that are not yet in the queue.
     \item If there is an active car call:
-    \begin{enumerate}
+    \begin{enumerate}[noitemsep]
         \item Move to is respective floor.
         \item Open the doors.
         \item Unload the passenger. 
@@ -255,13 +255,20 @@ Sequential Control:
         \item Clear the car call.
     \end{enumerate}
     \item Otherwise, if there is an hall call in the queue:
-    \begin{enumerate}
+    \begin{enumerate}[noitemsep]
         \item Move to the floor of the first hall call in the queue. 
         \item Open the doors.
         \item Load one passenger into the lift. 
         \item Delete the hall call from the queue.
         \item Update the car call to be the destination floor of the passenger.
     \end{enumerate}
+\end{enumerate}
+
+Non-directional Collective Control:
+\begin{enumerate}[noitemsep]
+    \item Let the car calls be all the destinations of all passengers present in the lift.
+    \item Let the hall calls be all the unique floors where passengers wait for the elevator
+    
 \end{enumerate}
 
 describe pseudo code of the three strategies here
