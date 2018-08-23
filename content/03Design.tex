@@ -197,18 +197,21 @@ The algorithm can be improved by performing the label-propagation along the surf
 
 \subsubsection{Blob Measurement}
 
-The previous step yielded a \ac{3D} image $ F_{blobs} $ consiting of labeled 
+The previous step yielded a \ac{3D} image $ F_{blobs} $ consisting of labeled binary blobs.
+For each blob, the volume and its length in the X, Y and Z axis are calculated.
+The volume is calculated by summing up the volume of the voxels, that make up the blob.
+Even when no concrete volume for each voxel is known, this volume is still proportional to the total volume of the containing image $F_$
+The length in a particular axis can be found  by calculating the distance of the two most extreme voxels in that axis that belong to the blob.
 
 \begin{figure}[h!]
-\centering
-$
-P_l = \{ (x, y, z) | F_{blobs}(x, y, z) = l\}\\
-\Delta{}X_{l} = max(\{ x | (x, y, z) \in P_l \}) - min(\{ x | (x, y, z) \in P_l \})\\
-\Delta{}Y_{l} = max(\{ y | (x, y, z) \in P_l \}) - min(\{ y | (x, y, z) \in P_l \})\\
-\Delta{}Z_{l} = max(\{ z | (x, y, z) \in P_l \}) - min(\{ z | (x, y, z) \in P_l \})\\
-V_{l} = ||P_l|| = \sum\limits_{P_l}^{}1
-$
-\caption{}
+\centering{
+$$ P_l = \{ (x, y, z) | F_{blobs}(x, y, z) = l\} $$
+$$ \Delta{}X_{l} = max(\{ x | (x, y, z) \in P_l \}) - min(\{ x | (x, y, z) \in P_l \}) $$
+$$ \Delta{}Y_{l} = max(\{ y | (x, y, z) \in P_l \}) - min(\{ y | (x, y, z) \in P_l \}) $$
+$$ \Delta{}Z_{l} = max(\{ z | (x, y, z) \in P_l \}) - min(\{ z | (x, y, z) \in P_l \}) $$
+$$ V_{l} = ||P_l|| \times V_{voxel} = \sum\limits_{P_l}^{}V_{voxel} $$
+}
+\caption{Calculation of 3D blob measurements}
 \label{fig:design:blobmeasurement}
 \end{figure}
 
