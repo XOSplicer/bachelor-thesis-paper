@@ -200,8 +200,9 @@ The algorithm can be improved by performing the label-propagation along the surf
 The previous step yielded a \ac{3D} image $ F_{blobs} $ consisting of labeled binary blobs.
 For each blob, the volume and its length in the X, Y and Z axis are calculated.
 The volume is calculated by summing up the volume of the voxels, that make up the blob.
-Even when no concrete volume for each voxel is known, this volume is still proportional to the total volume of the containing image $F_$
+Even when no concrete volume for each voxel is known, this volume is still proportional to the total volume of the containing image $ F_{vol} $.
 The length in a particular axis can be found  by calculating the distance of the two most extreme voxels in that axis that belong to the blob.
+Figure \ref{fig:design:blobmeasurement} describes the calculations for this measurements for a blob with label $ l $.
 
 \begin{figure}[h!]
 \centering{
@@ -215,12 +216,12 @@ $$ V_{l} = ||P_l|| \times V_{voxel} = \sum\limits_{P_l}^{}V_{voxel} $$
 \label{fig:design:blobmeasurement}
 \end{figure}
 
-TODO
-sum up volume of all voxels in a connected component to find its total volume
-measure the blobs dimensions in x, y, z direction
-
 \subsubsection{Blob classification}
-TODO
+With the aid of the previously generated measurements, each blob can be classified.
+Blobs with a volume smaller than a specific threshold are probably erroneous artifacts and can easily ignored.
+
+
+
 classify based on those measures:
 if large volume: object or group of people
 if human like volume or partial of it: passenger
