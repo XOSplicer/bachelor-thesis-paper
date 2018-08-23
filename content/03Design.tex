@@ -173,8 +173,12 @@ Initially introduced for \ac{2D} images, it is possible to extend
 the common label-propagation and label-equivalence algorithms to work on a binary image of higher dimensions
 \autocite[][p.~39]{he2017connected}.
 Since $ X, Y, Z $ have been chosen to be of low resolution, it appears appropriate to use a label-propagation approach.
-In this approach, the \ac{3D} image is scanned in a raster, 
-and each
+
+In a simplified version of this approach, the \ac{3D} image is scanned in a raster, 
+and each encountered voxel, that is labeled as 1 in the original image and has not yet been labeled by the connected component algorithm, it assigned a new unique label.
+Furthermore all neighbouring voxels, which are labeled as 1 in the original image, are also labeled with this label.
+When a voxel is encountered, which is al ready labeled, this label is also propagated to its neighbours that are labeled as 1 in the original image. 
+The basics of this approach work exactly like in two dimensions, however the definition of neighbouring voxels is altered to match three
 
 
 
