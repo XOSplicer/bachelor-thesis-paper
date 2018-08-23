@@ -179,19 +179,17 @@ This way, single active pixels are deleted, while other structures are preserved
 After this, the \emph{DILATE} operation is applied again to close potential holes in the masks.
 
 \subsubsection{Camera Calibration}
-TODO
-consider translation, rotation and internal matrix, as well as distortion
-
 In this step the internal and external parameters for all cameras are gathered.
 Since the camera settings are not altered during the operation of the system, these parameters only needs to be determined once and can then be reused.
 The following parameters must be obtained for each camera, which are also explained in figure \ref{fig:sota:camcalib}:
 \begin{itemize}
     \item The internal camera matrix $ A $, which includes the focal length and the point of the image center. They can be obtained from calibration footage that features an identifiable object of known geometry, such as a chess board.
     \item The external rotation matrix $ R $ and the translation vector $ t $, which can be obtained by measuring the position and viewing direction of the camera.
-    \item The distorti
-    \item An additional scaling factor $ w $, which is later used to convert from real life room coordinates to unit coordinates in the range of $ [-1;+1] $.
+    \item The internal distortion coefficients of the camera, which also can be obtained from calibration footage.
 \end{itemize}
-The parameters are used in the next step, to guide the volume reconstruction.
+
+Additionally to the camera parameters, the dimensions of the elevator cabin need to be known to later be able to convert pixel units into world units of meter.
+The parameters obtained in this step are used in the next step, to guide the volume reconstruction.
 
 \subsubsection{Volume Reconstruction}
 
