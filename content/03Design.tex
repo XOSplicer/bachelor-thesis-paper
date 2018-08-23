@@ -294,7 +294,7 @@ For this comparison the sequential control and collective control will be taken 
 
 \subsection{Adaption of Scheduling Algorithm}
 The proposed visual system is able to detect, whether a passenger or a large object is present in the cabin.
-This information holds the possibility to be used used in an appropriate scheduling algorithm.
+This information holds the possibility to be used used in an appropriate elevator scheduling algorithm.
 Therefore a new control strategy is proposed here, which will be called \emph{adaptive control} in the following. 
 The strategy is a combination of collective control and sequential control.
 It follows these simple rules:
@@ -304,9 +304,9 @@ It follows these simple rules:
     \item When there is a cargo item present in the cabin, deliver it directly to its destination car call, regardless of other car calls and hall calls.
 \end{itemize}
 
-TODO
-This implies the necessarity to associate the cargo item to its car call. 
+Since those rules make use of the information about the destination floor of the cargo object, the necessarity to associate the cargo item to its car call within the system is implied.
 This association can be determined from the combination of the video data and car call data.
+When the cargo object is first detected, one of the next car calls made must by from the object or the passenger escorting it.
 
 \subsection{Preparation for Simulation and Validation Strategy}
 
