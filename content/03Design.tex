@@ -166,8 +166,6 @@ TODO low resolution to choose
 
 \subsubsection{3D Blob Detection}
 
-
-
 The volume intersection in the previous step yielded a \ac{3D} binary image \\
 $ F_{vol} \in \{0, 1\}^{X \times Y \times Z}$, where voxels marked with $ 1 $ indicate the presence of an object or passenger at the position of the volume element.
 Where ever a passenger or object takes up space in the \ac{3D} image, a \ac{3D} \emph{binary blob} is present, which is a collection of spacial coherent voxels that are positively labeled.
@@ -179,10 +177,10 @@ Since $ X, Y, Z $ have been chosen to be of low resolution, it appears appropria
 
 In a simplified version of this approach, the \ac{3D} image is scanned in a raster, 
 and each encountered voxel, that is labeled as 1 in $ F_{vol} $ and has not yet been labeled by the connected component algorithm, it assigned a new unique label.
-Furthermore all neighbouring voxels, which are labeled as 1 in $ F_{vol} $, are also labeled with this label.
-When a voxel is encountered, which is al ready labeled, this label is also propagated to its neighbours that are labeled as 1 in $ F_{vol} $. 
-The basics of this approach work exactly like in two dimensions, however the definition of neighbouring voxels is altered to match three dimensions. 
-In general all 26 voxels in the cube around a voxel are considered neighbours.
+Furthermore, all neighboring voxels, which are labeled as 1 in $ F_{vol} $, are also labeled with this label.
+When a voxel is encountered, which is already labeled, this label is also propagated to its neighbors that are labeled as 1 in $ F_{vol} $. 
+The basics of this approach work exactly like in two dimensions, however the definition of neighboring voxels is altered to match three dimensions. 
+In general all 26 voxels in the cube around a voxel are considered neighbors.
 It is also possible to only consider the 6 voxels, that share a face with the center voxel.
 
 The described algorithm performs a mapping $ \{0, 1\}^{X \times Y \times Z} \rightarrow \mathbb{N}^{X \times Y \times Z} $, where the voxel values of the output represent the unique label of the blob they belong to, or 0 in case that the voxel does not belong to any blob.
@@ -190,6 +188,8 @@ Has a complexity of $ \mathcal{O}(X \times Y \times Z) $ and operates without ad
 The algorithm can be improved by performing the label-propagation along the surface of the \ac{3D} blobs.
 
 \subsubsection{Blob Measurement}
+
+$ F_{blobs} $
 
 TODO
 sum up volume of all voxels in a connected component to find its total volume
