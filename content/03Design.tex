@@ -162,6 +162,7 @@ perform simple volume intersection
 therefore project every voxel (chosen low 3d resolution)
 into the viewport of the cameras and check, if it is contained in the foregroundmask of all of them,
 
+TODO low resolution to choose
 
 \subsubsection{3D Blob Detection}
 
@@ -171,6 +172,9 @@ In order to find distinct entities in that image, the \emph{connected component 
 Initially introduced for \ac{2D} images, it is possible to extend 
 the common label-propagation and label-equivalence algorithms to work on a binary image of higher dimensions
 \autocite[][p.~39]{he2017connected}.
+Since $ X, Y, Z $ have been chosen to be of low resolution, it appears appropriate to use a label-propagation approach.
+In this approach, the \ac{3D} image is scanned in a raster, 
+and each
 
 
 
