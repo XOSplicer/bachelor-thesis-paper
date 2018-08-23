@@ -146,12 +146,14 @@ TODO cameras, multiple as defined above, live stream via cable
 
 \subsubsection{Preprocessing}
 As the first active step, the images of all the cameras 
-are read into the memory of the system as color images 
+are read into the memory of the system as \ac{2D} color images 
 with native resolution of the cameras.
-To decrease the computation power needed for the next steps, it is possible to scale them down to a smaller 
-
-
-TODO reading of camera images from all cameras, blurring them to counter noise
+In order to decrease the computation power needed for the next steps, 
+it is possible to \emph{scale them down} to a smaller size.
+Furthermore, the camera images typically contain noise, 
+which can be countered by applying a \emph{Gaussian blur} filter so it.
+The convolution kernel $ G $ shown in figure \ref{fig:sota:kernels} is a candidate,
+but also Gaussian kernels of dimension $ 5 \times 5 $ can be used.
 
 \subsubsection{Foreground Masking}
 TODO apply MOG to blurred color images
@@ -196,6 +198,9 @@ The algorithm can be improved by performing the label-propagation along the surf
 \subsubsection{Blob Measurement}
 
 $ F_{blobs} $
+
+$ F_l =  
+max_l(\{ x | F_{blobs}(x, y, z) = l\}) -  $
 
 TODO
 sum up volume of all voxels in a connected component to find its total volume
