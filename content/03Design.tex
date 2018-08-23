@@ -142,6 +142,7 @@ TODO
 \end{figure}
 
 \subsubsection{Video Capture}
+
 TODO cameras, multiple as defined above, live stream via cable
 
 \subsubsection{Preprocessing}
@@ -156,6 +157,9 @@ The convolution kernel $ G $ shown in figure \ref{fig:sota:kernels} is a candida
 but also Gaussian kernels of dimension $ 5 \times 5 $ can be used.
 
 \subsubsection{Foreground Masking}
+To find out where passengers and objects are visible in each frame from each camera the next step is to find a foreground mask for each of the images.
+
+
 TODO apply MOG to blurred color images
 perform OPEN operation (ERRODE + DILATE)
 perform DILATE operation to fill holes and capture at least the area of movement, even more to improve overall result
