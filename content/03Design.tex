@@ -158,9 +158,20 @@ but also Gaussian kernels of dimension $ 5 \times 5 $ can be used.
 
 \subsubsection{Foreground Masking}
 To find out where passengers and objects are visible in each frame from each camera the next step is to find a foreground mask for each of the images.
+Since the cameras are static and do not change their position or angle in the cabin,
+each camera always films the same section of the elevator.
+The perceived background therefor is static except for changes in lighting.
+Those can occur when the cabin doors are opened or passengers block the lamps in the cabin.
+In contrast to the background, the passengers in the cabin move over time.
+The static background with moving passengers allows the method of \emph{background subtraction} to be used.
+Either static or dynamic techniques can be used, 
+but the dynamic approach of the \ac{MOG} is favourable, 
+since it can react to changes in lightning.
 
+The resulting foreground masks might be noisy and can have pixel-sized artifacts.
+These originate from noise present in the processed image and small changes between two frames in locations, where actually no passenger is present. 
+To get 
 
-TODO apply MOG to blurred color images
 perform OPEN operation (ERRODE + DILATE)
 perform DILATE operation to fill holes and capture at least the area of movement, even more to improve overall result
 
