@@ -153,6 +153,8 @@ whereas here only a subset is presented:
 
 Since video images can contain pixel level noise, it is useful convert color video to grey-scale and to blur the images before applying the background subtraction.
 
+\subsubsection{Edge Detection}
+
 \subsubsection{Blob Detection}
 
 A \emph{blob} in a binary mask image is an area that consists of 
@@ -171,15 +173,17 @@ operates on binary masked image
     \item From these groups, find overall center and estimate area and radius of the blob
 \end{enumerate}
 
+TODO connected components
+
 TODO
 
-\subsubsection{Convex Hull}
+\subsubsection{Cascade Classifier Method}
 
 TODO
 edge detection, outline detection, silouettes, contours
 foreground background mask from video image
 background substraction
-convex hull
+cascade classifier
 
 
 \subsection{3D Volume Estimation}
@@ -317,7 +321,7 @@ However it does not generalize to \ac{3D} objects of unknown shape.
 
 \subsubsection{Feature Based Scene Reconstruction} 
 stereo vision
-of full \ac{3D} reconstruction of each point
+of full \ac{3D} reconstruction of each point+match local features in multiple images to calculate the position in the room
 TODO
 
 key concept: photoconsistency : a voxel is photoconsitent when 
@@ -377,11 +381,7 @@ There are several methods to implement silhouette based shape reconstruction:
     However not all voxels need to be considered for the reconstruction.
     Instead the method operates in iterations, where only the voxels on the surface of the volume are checked.
     Each voxel on the surface is checked for \emph{photo-consistency} with each silhouette, which means that if it is visible from that perspective, it is correctly classified as background or foreground and has the correct color.
-    All surface pixels that are not consistent are removed until the iteration
-       
-    
-    Space Carving (substractive technique that begins with a full voxel scene. the surface oof the scene is carved away pixel per pixel untill all surface voxels  are photoconsistent, this also provides the possibility to determine the color of the shape)
-
+    All surface pixels that are not consistent are removed iteratively, until the reconstructed volume converges.
 \end{itemize}
 
 TODO still needs a reference or calibration to determine the space of the modeled room / scaling factor
