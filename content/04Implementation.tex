@@ -21,6 +21,8 @@ TODO
 
 based on \autocite[][]{xocoatzin2013voxelcarving}
 
+follows approach up to volume reconstruction, which however is done orthographically
+
 TODO
 \subsection{Test Execution}
 elevator setup: measurements, camera positions
@@ -55,8 +57,6 @@ TODO
 TODO
 \subsection{Implementation of Simulation}
 
-TODO
-
 The simulation is implemented in the \emph{Rust} programming language.
 Rust is a programming language initially developed by Mozilla.
 According to its website it is a \enquote{systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety} \autocite{rust2018rust}.
@@ -65,11 +65,7 @@ It features an expressive static type system and can be used to build applicatio
 The rust compiler targets common platforms and operating and compiles source code to native machine code.
 The language is chosen, since the author is proficient in it.
 
-Rust comes with a build tool and package manager named \emph{cargo}. 
-
-TODO describe cargo invocation, describe general programm flow
-
-todo describe traffic item
+TODO überleitung
 
 TODO
 general program flow:
@@ -100,6 +96,8 @@ to run a single simulation with a control strategy:
     \end{enumerate}
     \item Correct the gathered metrics by removing the ride times of traffic items, who did not arrive at their destination yet and waiting times of traffic items, who did not yet enter the elevator.
 \end{enumerate}
+
+TODO reference and describe class diagramm
 
 \begin{figure}[p]
     \centering
