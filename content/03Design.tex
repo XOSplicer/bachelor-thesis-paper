@@ -168,6 +168,10 @@ into the viewport of the cameras and check, if it is contained in the foreground
 The volume intersection in the previous step yielded a \ac{3D} binary image \\
 $ F_{vol} \in \{0, 1\}^{X \times Y \times Z}$, where voxels marked with $ 1 $ indicate the presence of an object or passenger at the position of the volume element.
 In order to find distinct entities in that image, the \emph{connected component labeling} method can be used.
+Initially introduced for \ac{2D} images, it is possible to extend 
+the common label-propagation and label-equivalence algorithms to work on a binary image of higher dimensions
+\autocite[][p.~39]{he2017connected}.
+
 
 
 TODO
