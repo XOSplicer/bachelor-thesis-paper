@@ -65,18 +65,18 @@ For \ac{2D} images $ 3 \times 3 $ or $5 \times 5 $ kernels are used.
 To apply the kernel to the image, they are convoluted.
 This is done for each pixel individually by \enquote{overlaying} the kernel with its center onto it. 
 Then the sum of the element-wise multiplication of the kernel and the overlaid area of the image is calculated in order to determine the resulting pixel value in the output image.
-For a \ac{2D} image $ F \in \mathbb{N}^{X \times Y} $ the convolution $ H \in \mathbb{N}^{X \times Y} $ using the kernel $ K \in \mathbb{N}^{M_i \times M_j} $ is calculated with the formula in figure \ref{eq:sota:convolution}:
+For a \ac{2D} image $ F \in \mathbb{N}^{X \times Y} $ the convolution $ H \in \mathbb{N}^{X \times Y} $ using the kernel $ K \in \mathbb{N}^{M_i \times M_j} $ is calculated with the formula in figure \ref{fig:sota:convolution}:
 
 \begin{figure}[h!]
 \begin{equation*}
 H_{x,y} = \sum_{i=0}^{M_i-1} \sum_{j=0}^{M_j-1} F_{x+i-a_i, x+j-a_j}K_{i,j}
 \end{equation*}
 \caption[Application of an 2D convolution kernel]{Application of an 2D convolution kernel. Reprinted from the \textcite[][]{opencv2018kernel}}
-\label{eq:sota:convolution}
+\label{fig:sota:convolution}
 \end{figure}
 
 Convolution kernels can be used to find local features in an image or apply general local operation.
-This includes blurring with the Gaussian filter, and edge detection with the Sobel filter in X and Y direction or with the Laplace filter (see figure \ref{eq:sota:kernels}).
+This includes blurring with the Gaussian filter, and edge detection with the Sobel filter in X and Y direction or with the Laplace filter (see figure \ref{fig:sota:kernels}).
 It can also be used to sharpen an image. 
 The use of convolution kernels is not limited to \ac{2D} images, 
 the same method also works for higher dimensional images, 
@@ -114,7 +114,7 @@ when appropriate kernel matrices are used.
     \end{bmatrix}
 \end{equation*}
 \caption[Examples for kernels]{Examples for kernels, left to rigth: Gaussian blur filter, Sobel filter in X direction, Sobel filter in Y direction, Laplace filter}
-\label{eq:sota:kernels}
+\label{fig:sota:kernels}
 \end{figure}
 
 \subsubsection{Background Subtraction}
@@ -139,7 +139,7 @@ whereas here only a subset is presented:
 \begin{itemize}
     
     \item \textbf{Running Gaussian average} For each pixel $ I $  in the grey-scale video image a running average $ \mu{}_t$ is calculated, that is updated in each frame by the formula $ \mu{}_t = \alpha{}I_t + (1 - \alpha)\mu{}_{t-1} $, where $ \alpha $ is an weight that determines how fast the model is updated. The variance $ \sigma{}_t $ is calculated similarly. A pixel $ I_t $ is considered foreground if $ |I_t - \mu{}_t| > k\sigma{}_t $ holds, where $ k $ is a parameter that determines the threshold sensitivity of the algorithm.
-    \item \textbf{Mixture of Gaussians} Instead of assuming a single value likelihood distribution for each pixel, multiple Gaussian distributions are used in this method introduced \textcite[][]{stauffer1999background}. 
+    \item \textbf{\acf{MOG}} Instead of assuming a single value likelihood distribution for each pixel, multiple Gaussian distributions are used in this method introduced \textcite[][]{stauffer1999background}. 
     When using $ K $ distributions this enables the distinction of $ K $ types of background and foreground, which improves the detection rate in outdoor scenes where e.g. leafs and branches of trees might be present. 
     For each of the $ K $ distributions the peak amplitude $ \omega{}_{i,t} $, average $ \mu{}_{i,t} $ and variance $ \sigma{}_{i,t} $ are stored.
     The distributions are ranked by the ratio $ \omega{}_{i,t} / \sigma{}_{i, t}$, since more narrow distributions are assumed to belong to a background classification.
@@ -153,6 +153,10 @@ whereas here only a subset is presented:
 
 Since video images can contain pixel level noise, it is useful convert color video to grey-scale and to blur the images before applying the background subtraction.
 
+\subsubsection{Edge Detection}
+
+TODO
+
 \subsubsection{Blob Detection}
 
 A \emph{blob} in a binary mask image is an area that consists of 
@@ -161,6 +165,10 @@ what is a blob
 
 first explain contour (what are contours: outlines of connected areas in a binary mask) detection by border following \autocite[][]{suzuki1985border}
 
+\subsubsection{Connected Components}
+TODO 
+\autocite[][]{he2017connected}
+finding connected pixels in a binary images, which is useful to tag different objects
 
 
 \autocite[][]{opencv2018blob}
@@ -171,15 +179,21 @@ operates on binary masked image
     \item From these groups, find overall center and estimate area and radius of the blob
 \end{enumerate}
 
+TODO connected components
+
 TODO
 
-\subsubsection{Convex Hull}
+\subsubsection{Cascade Classifier Method}
+TODO
+
+
+
 
 TODO
 edge detection, outline detection, silouettes, contours
 foreground background mask from video image
 background substraction
-convex hull
+cascade classifier
 
 
 \subsection{3D Volume Estimation}
@@ -197,7 +211,7 @@ To perform the projection the position of the point seen on the \emph{image plan
 The image plane is the section of the scene that is seen by the camera in the distance of the focal length.
 Figure \ref{fig:sota:camerprojection} shows how this projection can be visualized.
 Note that the Z axis is pointing into the real world space in the direction the camera is looking to.
-Since this projection is dependent on the focal length of the camera and the principal point, which is seen in the center of the image, it can be described as the intrinsic camera matrix $ A $ in the equation in figure \ref{eq:sota:camcalib}.
+Since this projection is dependent on the focal length of the camera and the principal point, which is seen in the center of the image, it can be described as the intrinsic camera matrix $ A $ in the equation in figure \ref{fig:sota:camcalib}.
 When world space and camera space coordinates are not the same, i.e. the camera is rotated or translated, there exists an additional rotation and translation matrix $ [R|t] $ that describes these external projection parameters.
 
 \begin{figure}[hbt]
@@ -239,10 +253,10 @@ When world space and camera space coordinates are not the same, i.e. the camera 
     \end{bmatrix}
 \end{equation*}
 \caption[Camera calibration]{Camera calibration with internal and external parameters. Reprinted from the \textcite{opencv2018calibration}}
-\label{eq:sota:camcalib}
+\label{fig:sota:camcalib}
 \end{figure}
 
-The equation in figure \ref{eq:sota:camcalib} depicts how a point in the world coordinate system can be mapped to the image plane of a camera. 
+The equation in figure \ref{fig:sota:camcalib} depicts how a point in the world coordinate system can be mapped to the image plane of a camera. 
 The following list explains the mentioned coefficients:
 
 \begin{samepage}
@@ -266,7 +280,7 @@ The external parameter for rotation and translation can not be found from one ca
 In a multi-camera setup they can be found by triangulation of multiple points in multiple images that show the same scene from different angles.
 If this triangulation is not possible because the points used for triangulation are not visible from all camera perspective, the rotation matrix an the translation vector can be found out by measuring the real world.
 The rotation matrix can be calculated by measuring the relative rotation angles of the cameras to each other.
-The equation in figure \ref{eq:sota:rotation} can be used to determine the combined rotation matrix when the rotation around the yaw, pitch and roll angles are known. 
+The equation in figure \ref{fig:sota:rotation} can be used to determine the combined rotation matrix when the rotation around the yaw, pitch and roll angles are known. 
 Yaw pitch and roll describe the rotation around the Z, Y and X axis respectively.
 The translation vector can be found by measuring the distance of the cameras to each other.
 
@@ -294,7 +308,7 @@ The translation vector can be found by measuring the distance of the cameras to 
     \end{bmatrix}
 \end{equation*}
 \caption{External rotation matrix from rotation along the angles $ \alpha{} $ , $ \beta{} $ and $ \gamma{} $ }
-\label{eq:sota:rotation}
+\label{fig:sota:rotation}
 \end{figure}
 
 Furthermore real lenses introduce optical aberrations and 
@@ -317,7 +331,7 @@ However it does not generalize to \ac{3D} objects of unknown shape.
 
 \subsubsection{Feature Based Scene Reconstruction} 
 stereo vision
-of full \ac{3D} reconstruction of each point
+of full \ac{3D} reconstruction of each point+match local features in multiple images to calculate the position in the room
 TODO
 
 key concept: photoconsistency : a voxel is photoconsitent when 
@@ -377,11 +391,7 @@ There are several methods to implement silhouette based shape reconstruction:
     However not all voxels need to be considered for the reconstruction.
     Instead the method operates in iterations, where only the voxels on the surface of the volume are checked.
     Each voxel on the surface is checked for \emph{photo-consistency} with each silhouette, which means that if it is visible from that perspective, it is correctly classified as background or foreground and has the correct color.
-    All surface pixels that are not consistent are removed until the iteration
-       
-    
-    Space Carving (substractive technique that begins with a full voxel scene. the surface oof the scene is carved away pixel per pixel untill all surface voxels  are photoconsistent, this also provides the possibility to determine the color of the shape)
-
+    All surface pixels that are not consistent are removed iteratively, until the reconstructed volume converges.
 \end{itemize}
 
 TODO still needs a reference or calibration to determine the space of the modeled room / scaling factor
@@ -391,9 +401,6 @@ multiview, depth sensors
 interpolation of depth information by combinding views
 bounding / section box
 convex hull in 3d by mask
-
-
-\subsubsection{Connected Components}
 
 
 \section{Elevator Control}
@@ -700,6 +707,7 @@ model building etc: here is a lot of research in the topic utilizing theoretical
 
 \autocite[][pp.~7--11]{beers2015arrivals}
 \autocite[][p.~193]{unger2015aufzuege}
+\autocite[][]{peters2018elevate}
 
 
 TODO

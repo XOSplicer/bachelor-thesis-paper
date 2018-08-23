@@ -56,7 +56,7 @@ the following steps are performed:
     \item Evaluate the results of the test for the functionality and effectiveness of the employed system.
 \end{enumerate}
 
-For the integration of the  passenger data into existing scheduling algorithm the following steps are performed:
+For the integration of the passenger data into an existing scheduling algorithm the following steps are performed:
 
 \begin{enumerate}
     \item Define a suitable elevator configuration that could possibly benefit from the information that the vision system can provide. 
@@ -75,6 +75,9 @@ For the integration of the  passenger data into existing scheduling algorithm th
  
 \section{Visual System}
 TODO
+
+%\autocite[][]{xang2016trafficlist} has done tehe same and patentet it :(
+
 \subsection{Proposal for Integration into Elevator Control System Architecture}
 TODO
 for hardware setup
@@ -142,30 +145,104 @@ TODO
 \end{figure}
 
 \subsubsection{Video Capture}
-TODO
+
+TODO cameras, multiple as defined above, live stream via cable
 
 \subsubsection{Preprocessing}
-TODO
+As the first active step, the images of all the cameras 
+are read into the memory of the system as \ac{2D} color images 
+with native resolution of the cameras.
+In order to decrease the computation power needed for the next steps, 
+it is possible to \emph{scale them down} to a smaller size.
+Furthermore, the camera images typically contain noise, 
+which can be countered by applying a \emph{Gaussian blur} filter so it.
+The convolution kernel $ G $ shown in figure \ref{fig:sota:kernels} is a candidate,
+but also Gaussian kernels of dimension $ 5 \times 5 $ can be used.
 
 \subsubsection{Foreground Masking}
-TODO
+To find out where passengers and objects are visible in each frame from each camera the next step is to find a foreground mask for each of the images.
+Since the cameras are static and do not change their position or angle in the cabin,
+each camera always films the same section of the elevator.
+The perceived background therefor is static except for changes in lighting.
+Those can occur when the cabin doors are opened or passengers block the lamps in the cabin.
+In contrast to the background, the passengers in the cabin move over time.
+The static background with moving passengers allows the method of \emph{background subtraction} to be used.
+Either static or dynamic techniques can be used, 
+but the dynamic approach of the \ac{MOG} is favourable, 
+since it can react to changes in lightning.
+
+The resulting foreground masks might be noisy and can have pixel-sized artifacts.
+These originate from noise present in the processed image and small changes between two frames in locations, where actually no passenger is present. 
+To remove his noise in the binary foreground mask, the morphological \emph{OPEN} operation is used. 
+It is a sequential application of the \emph{ERRODE} and \emph{DILATE}, which firsts removes all edge pixels and then extends the remaining edges again.
+This way, single active pixels are deleted, while other structures are preserved.
+After this, the \emph{DILATE} operation is applied again to close potential holes in the masks.
 
 \subsubsection{Camera Calibration}
 TODO
+consider translation, rotation and internal matrix, aswell as distortion
 
 \subsubsection{Volume Reconstruction}
 TODO
+perform simple volume intersection
+therefore project every voxel (chosen low 3d resolution)
+into the viewport of the cameras and check, if it is contained in the foregroundmask of all of them,
+
+TODO low resolution to choose
 
 \subsubsection{3D Blob Detection}
-TODO
+
+The volume intersection in the previous step yielded a \ac{3D} binary image \\
+$ F_{vol} \in \{0, 1\}^{X \times Y \times Z}$, where voxels marked with $ 1 $ indicate the presence of an object or passenger at the position of the volume element.
+Where ever a passenger or object takes up space in the \ac{3D} image, a \ac{3D} \emph{binary blob} is present, which is a collection of spacial coherent voxels that are positively labeled.
+In order to find distinct entities in that image, the \emph{connected component labeling} method can be used.
+Initially introduced for \ac{2D} images, it is possible to extend 
+the common label-propagation and label-equivalence algorithms to work on a binary image of higher dimensions
+\autocite[][p.~39]{he2017connected}.
+Since $ X, Y, Z $ have been chosen to be of low resolution, it appears appropriate to use a label-propagation approach.
+
+In a simplified version of this approach, the \ac{3D} image is scanned in a raster, 
+and each encountered voxel, that is labeled as 1 in $ F_{vol} $ and has not yet been labeled by the connected component algorithm, it assigned a new unique label.
+Furthermore, all neighboring voxels, which are labeled as 1 in $ F_{vol} $, are also labeled with this label.
+When a voxel is encountered, which is already labeled, this label is also propagated to its neighbors that are labeled as 1 in $ F_{vol} $. 
+The basics of this approach work exactly like in two dimensions, however the definition of neighboring voxels is altered to match three dimensions. 
+In general all 26 voxels in the cube around a voxel are considered neighbors.
+It is also possible to only consider the 6 voxels, that share a face with the center voxel.
+
+The described algorithm performs a mapping $ \{0, 1\}^{X \times Y \times Z} \rightarrow \mathbb{N}^{X \times Y \times Z} $, where the voxel values of the output represent the unique label of the blob they belong to, or 0 in case that the voxel does not belong to any blob.
+Has a complexity of $ \mathcal{O}(X \times Y \times Z) $ and operates without additional memory. 
+The algorithm can be improved by performing the label-propagation along the surface of the \ac{3D} blobs.
 
 \subsubsection{Blob Measurement}
-TODO
+
+The previous step yielded a \ac{3D} image $ F_{blobs} $ consisting of labeled binary blobs.
+For each blob, the volume and its length in the X, Y and Z axis are calculated.
+The volume is calculated by summing up the volume of the voxels, that make up the blob.
+Even when no concrete volume for each voxel is known, this volume is still proportional to the total volume of the containing image $ F_{vol} $.
+The length in a particular axis can be found  by calculating the distance of the two most extreme voxels in that axis that belong to the blob.
+Figure \ref{fig:design:blobmeasurement} describes the calculations for this measurements for a blob with label $ l $.
+
+\begin{figure}[h!]
+\centering{
+$$ P_l = \{ (x, y, z) | F_{blobs}(x, y, z) = l\} $$
+$$ \Delta{}X_{l} = max(\{ x | (x, y, z) \in P_l \}) - min(\{ x | (x, y, z) \in P_l \}) $$
+$$ \Delta{}Y_{l} = max(\{ y | (x, y, z) \in P_l \}) - min(\{ y | (x, y, z) \in P_l \}) $$
+$$ \Delta{}Z_{l} = max(\{ z | (x, y, z) \in P_l \}) - min(\{ z | (x, y, z) \in P_l \}) $$
+$$ V_{l} = ||P_l|| \times V_{voxel} = \sum\limits_{P_l}^{}V_{voxel} $$
+}
+\caption{Calculation of 3D blob measurements}
+\label{fig:design:blobmeasurement}
+\end{figure}
 
 \subsubsection{Blob classification}
-TODO
+With the aid of the previously generated measurements, each blob can be classified to find out whether it reassembles a passenger, a group of passengers, or a large cargo object.
+Blobs with a volume smaller than a specific threshold $ T_{min} $ are probably erroneous artifacts and can easily be ignored.
+If the volume is human like and the proportions of the blob are higher then wide, it can be classified as a human. 
+If the volume is larger than a threshold $ T_{max} $ or if the blob is wider then high, it can be either classified as a large object, or as a group of passengers.
 
-TODO
+An alternative to this static approach would be to apply machine learning algorithms to find out the classification of a blob.
+For this a pre-classified learning data set needs to be available, which might not be feasible.
+
 \subsection{Test Arrangement and Validation Strategy}
 To show the general feasibility of the approach described above, 
 a real live test is performed.
@@ -187,9 +264,14 @@ of passengers residing in the cabin:
     \item Single passenger with a large cargo object in the cabin
     \item Multiple passengers with a large cargo object in the cabin
 \end{itemize}
-TODO
+In the test, each of those scenarios is conducted for about a minute or less.
 
-TODO validation strategy
+A typical approach to evaluate the performance of an 
+quantitative algorithm in computer vision is to compare it against the \emph{ground truth} present in the observed scene.
+The ground truth is a description of the scene in the same format which the algorithm produces, however it is generated by inspection of the original scene by a human.
+If the description consists of data for which an order exists, this order can be used for evaluation of the capability of the system.
+In general however, the data that is compared might be arbitrarily complex and therefore it is not always possible to perform the comparison quantitatively. Rather a human has to decide, how \enquote{good} the produced results are.
+
 
 \section{Scheduling Algorithm}
 TODO
@@ -211,12 +293,8 @@ The typical control algorithm is collective control or sequential control \autoc
 For this comparison the sequential control and collective control will be taken as a baseline.
 
 \subsection{Adaption of Scheduling Algorithm}
-
-
-
-
-TODO
-
+The proposed visual system is able to detect, whether a passenger or a large object is present in the cabin.
+This information holds the possibility to be used used in an appropriate elevator scheduling algorithm.
 Therefore a new control strategy is proposed here, which will be called \emph{adaptive control} in the following. 
 The strategy is a combination of collective control and sequential control.
 It follows these simple rules:
@@ -226,19 +304,70 @@ It follows these simple rules:
     \item When there is a cargo item present in the cabin, deliver it directly to its destination car call, regardless of other car calls and hall calls.
 \end{itemize}
 
-TODO
-This implies the necessarity to associate the cargo item to its car call. 
+Since those rules make use of the information about the destination floor of the cargo object, the necessarity to associate the cargo item to its car call within the system is implied.
 This association can be determined from the combination of the video data and car call data.
+When the cargo object is first detected, one of the next car calls made must by from the object or the passenger escorting it.
 
 \subsection{Preparation for Simulation and Validation Strategy}
 
-TODO
-three algorithms:
-sequential control
-collective control
-adaptive control
+TODO texts about the three algorithms
 
-describe pseudo code of the three strategies here
+Sequential Control:
+\begin{enumerate}[noitemsep]
+    \item Update the queue of hall calls by appending all active hall calls that are not yet in the queue.
+    \item If there is an active car call:
+    \begin{enumerate}[noitemsep]
+        \item Move to is respective floor.
+        \item Open the doors.
+        \item Unload the passenger. 
+        \item Close the doors. 
+        \item Clear the car call.
+    \end{enumerate}
+    \item Otherwise, if there is an hall call in the queue:
+    \begin{enumerate}[noitemsep]
+        \item Move to the floor of the first hall call in the queue. 
+        \item Open the doors.
+        \item Load one passenger into the lift. 
+        \item Delete the hall call from the queue.
+        \item Update the car call to be the destination floor of the passenger.
+    \end{enumerate}
+\end{enumerate}
+
+Non-directional Collective Control:
+\begin{enumerate}[noitemsep]
+    \item Let the car calls be all the destinations of all passengers present in the lift.
+    \item Let the hall calls be all the unique floors where passengers wait for the elevator
+    \item If the car calls contain the current floor:
+    \begin{enumerate}[noitemsep]
+        \item Open the doors.
+        \item Unload the passengers for this floor.
+    \end{enumerate}
+    \item Otherwise, if the hall calls contain the current floor:
+    \begin{enumerate}[noitemsep]
+        \item Open the doors.
+        \item Load all passengers in the floor into the lift, which fit in it.
+    \end{enumerate}
+    \item Otherwise, if there is another car call or hall call in the current direction of travel:
+    \begin{enumerate}[noitemsep]
+        \item Close the doors.
+        \item Move to the closest car call or hall call in the direction of travel.
+    \end{enumerate}
+    \item Otherwise reverse the current direction of travel.
+\end{enumerate}
+
+Adaptive strategy:
+\begin{enumerate}[noitemsep]
+    \item If there is a cargo object in the elevator:
+    \begin{enumerate}[noitemsep]
+        \item Close the doors.
+        \item Move to its destination floor.
+        \item Open the doors.
+        \item Unload the cargo object and other passengers with this destination.
+        \item Reset the current travel direction.
+    \end{enumerate}
+    \item Otherwise, follow the collective control strategy.
+\end{enumerate}
+
 
 TODO simulation configuration:
 \autocite[][p.~347]{barney2016handbook}
@@ -290,7 +419,7 @@ Number of simulations & 1000 & \\
 
 \begingroup
 \renewcommand*{\arraystretch}{1.0}
-\begin{table}[]
+\begin{table}[htb]
 \centering
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lrrrr}
@@ -308,7 +437,7 @@ Number of simulations & 1000 & \\
                             & 250                 & 150                  & 150                  & 4900                
 \end{tabular}%
 }
-\caption{\label{tab:design:trafficitemprototypes} Prototypes for traffic items in the simulation}
+\caption{\label{tab:design:trafficitemprototypes} Prototypes for traffic items in the simulation, chosen at equal likelihood}
 \end{table}
 \endgroup
 
@@ -317,6 +446,8 @@ The arrival rate is constant over the whole time (should this be adapted for sev
 therefore in each simulation step the arrival rate is poisson ditributed
 
 TODO: define cargo ites, passangers etc
+
+TODO describe howthe prototypes are used 
 
 data from eg. \url{https://www.kone.de/aufzug-aufzuege.aspx} \url{https://www.kone.de/neubau/aufzug-aufzuege/lastenaufzug-bettenaufzug-transys/}
 and also \autocite[][p.~349]{barney2016handbook}
@@ -341,17 +472,5 @@ The following measurements shall be taken:
 \end{samepage}
  
 
-%\section{Requirements}
-%TODO
-%\autocite[][]{xang2016trafficlist} has done tehe same and patentet it :(
-%\section{Conduction of Method}
-%TODO the method determines which steps to take
-%TODO, choose possible approach from sota
-%\section{Proposed Solution}
-%TODO next two are included?
-%\section{Architectural Plan}
-%TODO necessary? yes
-%\section{Algorithmic Approach}
-%TODO necessary? yes
-%\section{Validation Strategy}
-%TODO
+
+

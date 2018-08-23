@@ -21,8 +21,15 @@ In dieser Arbeit werden Möglichkeiten ergründet, diesen Prozess durch die Verw
 Der Fokus liegt dabei auf der Analyse der benötigten und freie Volumina.
 Dies umfasst eine Implementierung eines entsprechenden Bilderkennungssystems und eine modellhafte Darlegung eines Fahrstuhlsystems, das dieses verwendet.
 
-TODO revise after finish
-
+Das entwickelte Bilderkennungssystem verwendet mehrere Kameras 
+und nutzt die Hintergrundsubtraktionstechnik um die Position von Personen und Objekten in der Kabine zu erfassen.
+Ein shilhouettenbasierter Volumenschnitt wird durchgeführt um das eingenommene Volumen der Anwesenden zu erkennen.
+Die so gewonnenen Daten können in einem angepassten Steuerungsalgorithmus für Aufzugsysteme genutzt werden, 
+der großen Objekten in der Kabine Vorrang gewärt, um diese schneller zuzustellen.
+Da diese Objekte die Kabine für andere Fahrgäste blockieren,
+kann dies die Anzahl der beförderten Objekte erhöhen, 
+was mit einer durchgeführten Simulation untermauert wird.
+Eine solche Modifikation der Kotrollalgorithmus kann für Umfelder sinnvoll sein, in denen Passagiere und Objekte um Beförderung im Aufzug konkurrieren. 
 
 \selectlanguage{english}
 
@@ -61,4 +68,9 @@ The work done for this paper includes an implementation of an appropriate
 image recognition system and an exemplary outline of an elevator system
 that uses such a system.
 
-TODO revise after finish
+The developed visual recognition system uses a multi-view camera set-up with the techniques of background subtraction to register the positions of passengers and objects in the elevator cabin.
+The technique of silhouette based volume intersection is used to detect the volume that these entities take up.
+The data gathered by this system can be used for an elevator scheduling algorithm which gives priority to the delivery of large objects in the cabin, which blocks the space for other passengers.
+A conducted simulation yields that this approach can improve the 
+amount of delivered objects, which can be beneficial in an environment where passengers and cargo objects need to be moved likewise. 
+
