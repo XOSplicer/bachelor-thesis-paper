@@ -180,9 +180,19 @@ After this, the \emph{DILATE} operation is applied again to close potential hole
 
 \subsubsection{Camera Calibration}
 TODO
-consider translation, rotation and internal matrix, aswell as distortion
+consider translation, rotation and internal matrix, as well as distortion
+
+In this step the internal and external parameters for all cameras are gathered.
+Since the camera settings are not altered during the operation of the system, these parameters only needs to be determined once and can then be reused.
+The following parameters must be obtained, which are also explained in figure \ref{fig:sota:camerprojection}:
+\begin{itemize}
+    \item The internal camera matrix $ $, which includes the 
+\end{itemize}
+The parameters are used in the next stept, to guide the volume reconstruction.
 
 \subsubsection{Volume Reconstruction}
+
+
 
 
 TODO
