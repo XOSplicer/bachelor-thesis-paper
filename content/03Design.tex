@@ -170,10 +170,10 @@ since it can react to changes in lightning.
 
 The resulting foreground masks might be noisy and can have pixel-sized artifacts.
 These originate from noise present in the processed image and small changes between two frames in locations, where actually no passenger is present. 
-To get 
-
-perform OPEN operation (ERRODE + DILATE)
-perform DILATE operation to fill holes and capture at least the area of movement, even more to improve overall result
+To remove his noise in the binary foreground mask, the morphological \emph{OPEN} operation is used. 
+It is a sequential application of the \emph{ERRODE} and \emph{DILATE}, which firsts removes all edge pixels and then extends the remaining edges again.
+This way, single active pixels are deleted, while other structures are preserved.
+After this, the \emph{DILATE} operation is applied again to close potential holes in the masks.
 
 \subsubsection{Camera Calibration}
 TODO
