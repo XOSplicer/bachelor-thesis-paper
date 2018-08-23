@@ -197,10 +197,20 @@ The algorithm can be improved by performing the label-propagation along the surf
 
 \subsubsection{Blob Measurement}
 
-$ F_{blobs} $
+The previous step yielded a \ac{3D} image $ F_{blobs} $ consiting of labeled 
 
-$ F_l =  
-max_l(\{ x | F_{blobs}(x, y, z) = l\}) -  $
+\begin{figure}[h!]
+\centering
+$
+P_l = \{ (x, y, z) | F_{blobs}(x, y, z) = l\}\\
+\Delta{}X_{l} = max(\{ x | (x, y, z) \in P_l \}) - min(\{ x | (x, y, z) \in P_l \})\\
+\Delta{}Y_{l} = max(\{ y | (x, y, z) \in P_l \}) - min(\{ y | (x, y, z) \in P_l \})\\
+\Delta{}Z_{l} = max(\{ z | (x, y, z) \in P_l \}) - min(\{ z | (x, y, z) \in P_l \})\\
+V_{l} = ||P_l|| = \sum\limits_{P_l}^{}1
+$
+\caption{}
+\label{fig:design:blobmeasurement}
+\end{figure}
 
 TODO
 sum up volume of all voxels in a connected component to find its total volume
