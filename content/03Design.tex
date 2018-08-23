@@ -75,6 +75,9 @@ For the integration of the passenger data into an existing scheduling algorithm 
  
 \section{Visual System}
 TODO
+
+%\autocite[][]{xang2016trafficlist} has done tehe same and patentet it :(
+
 \subsection{Proposal for Integration into Elevator Control System Architecture}
 TODO
 for hardware setup
@@ -290,12 +293,8 @@ The typical control algorithm is collective control or sequential control \autoc
 For this comparison the sequential control and collective control will be taken as a baseline.
 
 \subsection{Adaption of Scheduling Algorithm}
-
-
-
-
-TODO
-
+The proposed visual system is able to detect, whether a passenger or a large object is present in the cabin.
+This information holds the possibility to be used used in an appropriate scheduling algorithm.
 Therefore a new control strategy is proposed here, which will be called \emph{adaptive control} in the following. 
 The strategy is a combination of collective control and sequential control.
 It follows these simple rules:
@@ -420,7 +419,7 @@ Number of simulations & 1000 & \\
 
 \begingroup
 \renewcommand*{\arraystretch}{1.0}
-\begin{table}[]
+\begin{table}[htb]
 \centering
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lrrrr}
@@ -448,6 +447,8 @@ therefore in each simulation step the arrival rate is poisson ditributed
 
 TODO: define cargo ites, passangers etc
 
+TODO describe howthe prototypes are used 
+
 data from eg. \url{https://www.kone.de/aufzug-aufzuege.aspx} \url{https://www.kone.de/neubau/aufzug-aufzuege/lastenaufzug-bettenaufzug-transys/}
 and also \autocite[][p.~349]{barney2016handbook}
 
@@ -471,17 +472,5 @@ The following measurements shall be taken:
 \end{samepage}
  
 
-%\section{Requirements}
-%TODO
-%\autocite[][]{xang2016trafficlist} has done tehe same and patentet it :(
-%\section{Conduction of Method}
-%TODO the method determines which steps to take
-%TODO, choose possible approach from sota
-%\section{Proposed Solution}
-%TODO next two are included?
-%\section{Architectural Plan}
-%TODO necessary? yes
-%\section{Algorithmic Approach}
-%TODO necessary? yes
-%\section{Validation Strategy}
-%TODO
+
+
