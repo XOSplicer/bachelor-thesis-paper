@@ -105,13 +105,21 @@ Figure \ref{fig:design:systemintegration} visualizes the proposed integration.
 \end{figure}
 
 \subsection{Output Data Definition}
-The 
- 
+
+It is the purpose of the visual system to provide information about the volume of passengers and cargo objects.
+Therefor the following data 
+
 \begin{itemize}
     \item The total number of passengers and cargo objects inside the cabin.
     \item The approximate volume of each passenger or cargo object.
     \item The approximate dimensions of each passenger or cargo object.
 \end{itemize}
+
+The system should operate in near real time,
+meaning the output data should match the current situation inside the cabin.
+Only a short time may be taken up for processing the image data.
+Otherwise the situation inside the cabin could change significantly during the processing time, which would make the information gathered by the system less meaningful.
+In an elevator this change can happen in seconds, for example when passengers are entering and leaving the cabin.
 
 \subsection{Detection Technique}
 
