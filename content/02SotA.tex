@@ -155,8 +155,6 @@ Since video images can contain pixel level noise, it is useful convert color vid
 
 \subsubsection{Edge Detection}
 
-TODO
-
 \subsubsection{Blob Detection}
 
 A \emph{blob} in a binary mask image is an area that consists of 
@@ -379,7 +377,7 @@ There are several methods to implement silhouette based shape reconstruction:
 \begin{itemize}
     \item \textbf{Standard Voxel Based Method} 
     In this method, first the space too be modeled is described as a \ac{3D} grid of voxels at an constant resolution.
-    To find out which voxels belong to recontructed object,
+    To find out which voxels belong to reconstructed object,
     each voxel is projected into the viewport of each camera 
     and it is checked whether it lies in the silhouette from this perspective.
     Only if it lies inside of all silhouettes
@@ -702,12 +700,14 @@ The elevator allocations are calculated by optimization of a cost function which
 Usually the waiting time is optimized, but also the ride time can be optimized in order to increase the handling capacity. \autocite[][p.~10]{siikonen1997models} 
 
 \subsection{Optimization Approaches by Simulation}
-TODO
-model building etc: here is a lot of research in the topic utilizing theoretical multivariable model optimization, simulational approaches and heuristical approaches in real world (refs?)
 
-\autocite[][pp.~7--11]{beers2015arrivals}
-\autocite[][p.~193]{unger2015aufzuege}
-\autocite[][]{peters2018elevate}
+Active research goes into simulating elevator systems in order to test out new control strategies.
+There are approaches to model existing or planned elevator systems based on their physical properties
+and analyze them using either with closed mathematical formulations or to simulate their behavior using computers \autocite[][p.~6]{beers2015arrivals}. 
+When implementing a simulation it can be done as a deterministic or stochastic model, which operate on continuous or discrete data.
+For a computer simulation, the discrete stochastic model is favourable, 
+since it can deal with discrete events, which deal with the interaction of entities in the simulation. 
 
-
-TODO
+An industrial grade elevator simulator is developed by \emph{Peters Research Ltd} \autocite[][]{peters2018elevate}.
+KONE offers a complete toolbox for system planning, which includes traffic calculations \autocite[][]{kone2016toolbox}.
+\textcite[][p.~193]{unger2015aufzuege} lists a simplified mathematical approach to finding out the performance values of an elevator system.
