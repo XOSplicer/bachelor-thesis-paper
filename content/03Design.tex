@@ -350,6 +350,8 @@ When the cargo object is first detected, one of the next car calls made must by 
 \subsubsection{Scheduling Algorithms}
 
 TODO texts about the three algorithms
+TODO describe tick concept
+TODO define traffic item is either cargo ites, passangers etc
 
 \textbf{Sequential Control}:
 \begin{enumerate}[noitemsep]
@@ -480,15 +482,11 @@ Number of simulations & 1000 & \\
 In the section beforehand, the building type that acts as a base for the simulation has been described:
 a single elevator configuration, shared by passengers and cargo items.
 \textcite[][p.~347]{barney2016handbook} described, which parameters need to be determined in order to run a simulation. 
+Table \ref{tab:design:simulationconfig} gives an overview over the parameters that were chosen for this simulation.
 Some of the values are taken from elevators manufactured by KONE \autocite[][]{kone2017overview}, 
 other values are taken from \textcite[][p.~349]{barney2016handbook}.
-Table \ref{tab:design:simulationconfig} gives an overview over the parameters that were chosen for this simulation.
-In paragraphs ahead, some of these parameters are discussed more thoroughly.
-
-TODO define traffic item is either cargo ites, passangers etc
-TODO describe how building parameters are derived from building type.
-TODO describe tick concept
-
+Especially the lift parameters are based on the sources.
+In paragraphs ahead, the other parameters are discussed more thoroughly.
 
 The \emph{arrival rates} of passengers and cargo items is chosen constant over the who time, 
 which means that at any point in the simulation the chance that a given amount (0, 1, 2, ...) of traffic items arrives is fixed.
