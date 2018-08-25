@@ -360,9 +360,6 @@ As discussed before the introduced \emph{adaptive control strategy} is evaluated
 It is compared against the \emph{sequential control strategy} and the \emph{collective control strategy}.
 In order to guide the implementation of the simulation, the concrete actions that these three strategies take to move an elevator are laid out in the following.
 
-TODO texts about the three algorithms
-
-
 The \textbf{sequential control strategy} delivers one passenger at a time and serves hall calls sequentially. 
 Its behavior can be describes with the following actions:
 \begin{enumerate}[noitemsep]
@@ -385,7 +382,8 @@ Its behavior can be describes with the following actions:
     \end{enumerate}
 \end{enumerate}
 
-The \textbf{non-directional collective control strategy} collec
+The \textbf{non-directional collective control strategy} collects and drops of passengers along the way, while serving the hall and car calls.
+Its behavior can be describes with the following actions:
 \begin{enumerate}[noitemsep]
     \item Let the car calls be all the destinations of all passengers present in the lift.
     \item Let the hall calls be all the unique floors where passengers wait for the elevator
@@ -407,7 +405,8 @@ The \textbf{non-directional collective control strategy} collec
     \item Otherwise reverse the current direction of travel.
 \end{enumerate}
 
-\textbf{Adaptive strategy}:
+The \textbf{adaptive control strategy strategy} introduced before makes a decision based on whether an cargo object is currently in located inside the cabin.
+Its behavior can be describes with the following actions:
 \begin{enumerate}[noitemsep]
     \item If there is a cargo object in the elevator:
     \begin{enumerate}[noitemsep]
