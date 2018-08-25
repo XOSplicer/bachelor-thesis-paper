@@ -484,16 +484,18 @@ therefore in each simulation step the arrival rate is poisson ditributed
 
 TODO: define traffic item is either cargo ites, passangers etc
 
-TODO describe howthe prototypes are used 
-Table \ref{tab:design:trafficitemprototypes} describes the 
+TODO describe how the prototypes are used 
 
-The \emph{floor bias} for both types of traffic items is unbiased. 
+The \emph{weight and volume distribution} for both types of traffic items is given by choosing from predefined \emph{prototypes} (or stereotypes).
+Table \ref{tab:design:trafficitemprototypes}
+
+The \emph{floor bias} for both types of traffic items is \emph{unbiased}. 
 There is no precedence in arrival and destination floor, every journey appears with the same likelihood.
 However, a journey where arrival and destination floor are equal, can not occur.
 The probability of any given trip to be occur, is described as a probability function
 $$ b(f_{arrival}, f_{destination}) =
     \begin{cases} 
-      \frac{1}{N^2 - N} & f_1 \neq f_2 \\
+      \frac{1}{N^2 - N} & f_{arrival} \neq f_{destination} \\
       0 & else
    \end{cases}
 $$
