@@ -356,9 +356,12 @@ When the cargo object is first detected, one of the next car calls made must by 
 
 \subsubsection{Scheduling Algorithms}
 
+As discussed before the introduced \emph{adaptive control strategy} is evaluated using a simulation of an elevator system. 
+It is compared against the \emph{sequential control strategy} and the \emph{collective control strategy}.
+In order to guide the implementation of the simulation, the concrete actions that these three strategies take to move an elevator are laid out in the following.
+
 TODO texts about the three algorithms
-TODO describe tick concept
-TODO define traffic item is either cargo ites, passangers etc
+
 
 \textbf{Sequential Control}:
 \begin{enumerate}[noitemsep]
@@ -495,7 +498,17 @@ other values are taken from \textcite[][p.~349]{barney2016handbook}.
 Especially the lift parameters are based on the sources.
 In paragraphs ahead, the other parameters are discussed more thoroughly.
 
-The \emph{arrival rates} of passengers and cargo items is chosen constant over the who time, 
+Table \ref{tab:design:simulationconfig} features two sections, that describe passenger data and cargo data.
+The elevator can convey both, passengers and cargo objects.
+Therefore in the simulation they are both considered to be \emph{traffic items}.
+
+Even though, not all cargo objects can move 
+For the purpose of this simulation, they are considered to behave identical.
+A traffic
+TODO describe tick concept
+TODO define traffic item is either cargo ites, passangers etc
+
+The \emph{arrival rates} of passengers and cargo objects is chosen constant over the who time, 
 which means that at any point in the simulation the chance that a given amount (0, 1, 2, ...) of traffic items arrives is fixed.
 Furthermore, the arrival rate on each floor are assumed to be the same.
 This behavior can be modeled with a Poisson distribution
