@@ -431,7 +431,7 @@ Flight time single floor & 8 & $s$\\
 %& & \\
 \hline
 \multicolumn{3}{l}{\textbf{Passenger Data}}\\
-Arrival rates for floors & $ (f, t) \rightarrow \frac{7}{300} $ & $ \mathbb{N} \times s \rightarrow s^{-1}$\\
+Arrival rates for floors & $ (f, t) \mapsto \frac{7}{300} $ & $ \mathbb{N} \times s \rightarrow s^{-1}$\\
 Weight and volume distribution & see table \ref{tab:design:trafficitemprototypes} & $kg \times m \times m \times m \rightarrow \mathbb{R}$\\
 %Volume distribution & see below  & $m \times m \times m \rightarrow \mathbb{R} $\\
 Transfer time into / out of car & 2 & $s$\\
@@ -439,7 +439,7 @@ Floor bias & unbiased & $ \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{R} $ 
 %& & \\
 \hline
 \multicolumn{3}{l}{\textbf{Cargo Data}}\\
-Arrival rates for floors & $ (f, t) \rightarrow \frac{2}{300} $ & $\mathbb{N} \times s \rightarrow s^{-1}$\\
+Arrival rates for floors & $ (f, t) \mapsto \frac{2}{300} $ & $\mathbb{N} \times s \rightarrow s^{-1}$\\
 Weight and volume distribution & see table \ref{tab:design:trafficitemprototypes} & $kg \times m \times m \times m \rightarrow \mathbb{R}$\\
 %Volume distribution & see below  & $m \times m \times m \rightarrow \mathbb{R} $\\
 Transfer time into / out of car & 5 & $s$\\
@@ -478,16 +478,24 @@ Number of simulations & 1000 & \\
 \end{table}
 \endgroup
 
+
+
+TODO: define traffic item is either cargo ites, passangers etc
+
+data from eg. \url{https://www.kone.de/aufzug-aufzuege.aspx} \url{https://www.kone.de/neubau/aufzug-aufzuege/lastenaufzug-bettenaufzug-transys/}
+and also \autocite[][p.~349]{barney2016handbook}
+
+which data to use: \autocite[][p.~347]{barney2016handbook}
+
 TODO
 The arrival rate is constant over the whole time (should this be adapted for several runs?)
 therefore in each simulation step the arrival rate is poisson ditributed
 
-TODO: define traffic item is either cargo ites, passangers etc
-
-TODO describe how the prototypes are used 
-
 The \emph{weight and volume distribution} for both types of traffic items is given by choosing from predefined \emph{prototypes} (or stereotypes).
-Table \ref{tab:design:trafficitemprototypes}
+Every passenger or cargo object in the simulation has the same wight and volume properties as one of the prototypes.
+Table \ref{tab:design:trafficitemprototypes} lists the prototypes that are defined for this simulation.
+A passenger in the simulation is created from any of the passenger prototypes with the likelihood of $ \frac{1}{4} $, a cargo item from any of the cargo item prototypes with a likelihood of $ \frac{1}{4} $.
+Choosing from prototypes rather than a continuous distribution helps to simplify the simulation implementation.
 
 The \emph{floor bias} for both types of traffic items is \emph{unbiased}. 
 There is no precedence in arrival and destination floor, every journey appears with the same likelihood.
@@ -500,13 +508,6 @@ $$ b(f_{arrival}, f_{destination}) =
    \end{cases}
 $$
 where $ N $ is the number of floors present in a building, $ f_{arrival} $ and  $ f_{destination} $ are an integer number between 0 and $ N - 1$, which describe the arrival and destination floor number.
-
-
-data from eg. \url{https://www.kone.de/aufzug-aufzuege.aspx} \url{https://www.kone.de/neubau/aufzug-aufzuege/lastenaufzug-bettenaufzug-transys/}
-and also \autocite[][p.~349]{barney2016handbook}
-
-which data to use: \autocite[][p.~347]{barney2016handbook}
-
 
 To evaluate the simulations, several measurements are taken to compare the scheduling algorithms.
 For the each of the measures the minimum, maximum, average and standard deviation $ \sigma{} $ values are calculated over all the simulation runs of each scheduling algorithm.  
