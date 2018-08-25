@@ -482,19 +482,23 @@ TODO
 The arrival rate is constant over the whole time (should this be adapted for several runs?)
 therefore in each simulation step the arrival rate is poisson ditributed
 
-TODO: define cargo ites, passangers etc
+TODO: define traffic item is either cargo ites, passangers etc
 
 TODO describe howthe prototypes are used 
 Table \ref{tab:design:trafficitemprototypes} describes the 
 
-define what unbiased floor bias is
-
-$$ b(f_1, f_2) =
+The \emph{floor bias} for both types of traffic items is unbiased. 
+There is no precedence in arrival and destination floor, every journey appears with the same likelihood.
+However, a journey where arrival and destination floor are equal, can not occur.
+The probability of any given trip to be occur, is described as a probability function
+$$ b(f_{arrival}, f_{destination}) =
     \begin{cases} 
-      \frac{1}{n} & f_1 \neq f_2, f_1,f_2 \in \mathbb{N}_{\gt 0} \\
+      \frac{1}{N^2 - N} & f_1 \neq f_2 \\
       0 & else
    \end{cases}
 $$
+where $ N $ is the number of floors present in a building, $ f_{arrival} $ and  $ f_{destination} $ are an integer number between 0 and $ N - 1$, which describe the arrival and destination floor number.
+
 
 data from eg. \url{https://www.kone.de/aufzug-aufzuege.aspx} \url{https://www.kone.de/neubau/aufzug-aufzuege/lastenaufzug-bettenaufzug-transys/}
 and also \autocite[][p.~349]{barney2016handbook}
