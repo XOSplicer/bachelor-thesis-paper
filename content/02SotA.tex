@@ -609,17 +609,12 @@ Another consideration in the design of a control strategy are the rules, where t
 The place where a cabin is parked can greatly influence the response time to hall calls.
 Having an cabin in or near the floor, where the arrival of the next passenger is expected, 
 makes it possible to instantly answer their hall call.
-In a single-lift scenario this position might be ea
-
-
-TODO
-\autocite[][pp.~3--4,10]{beers2015arrivals}
-- parking polcies
-- call allocation
-
-
-
-
+In a single-lift scenario this position might be easy to be determine, 
+however in an multi-lift group, the possibilities of parking become complex \autocite[][pp.~3]{beers2015arrivals}.
+The prediction of the next arrival can be based on a model of the current traffic pattern.
+\textcite{brand2004parking} showed that for down-peak traffic, a distribution of the lifts is sufficient, which matches the arrival rates for each floor.
+For up-peak traffic however, the problem is stated to be harder, 
+so that dynamic programming is proposed to solve it.
 
 
 \subsection{Performance Criteria}
