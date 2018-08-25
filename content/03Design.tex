@@ -125,15 +125,16 @@ In an elevator this change can happen in seconds, for example when passengers ar
 
 \subsection{Detection Technique}
 
-The technique to generate the data that is 
+The technique to generate the data that which has been defined above,
+is centered around the reconstruction of the volume that is occupied by the passengers and objects inside the cabin.
+Figure \ref{fig:design:volumedetection} displays the general concept of this technique.
+The left side of the figure exhibits the data that is input for the system, 
+the right side shows, which steps are taken to process this data inside the system.
+First the video capture from the cameras inside the cabin is read, which gets processed and combined with the position and calibration data of the cameras in order to create a reconstruction of the volume inside the cabin.
+This volume representation is then used to take measurements of the passengers and objects inside the cabin.
+The next paragraphs describe each of these steps in more detail.
 
-TODO intro 
-and \ref{fig:design:volumedetection} 
-and short explain of figure 
-and left is extern input, right is internal processing
-and describe what nexts paragraphs will do
-
-\begin{figure}
+\begin{figure}[p]
     \centering
     \tikzset{
         box/.style = {
@@ -282,7 +283,7 @@ $$ V_{l} = ||P_l|| \times V_{voxel} = \sum\limits_{P_l}^{}V_{voxel} $$
 With the aid of the previously generated measurements, each blob can be classified to find out whether it reassembles a passenger, a group of passengers, or a large cargo object.
 Blobs with a volume smaller than a specific threshold $ T_{min} $ are probably erroneous artifacts and can easily be ignored.
 If the volume is human like and the proportions of the blob are higher then wide, it can be classified as a human. 
-If the volume is larger than a threshold $ T_{max} $ or if the blob is wider then high, it can be either classified as a large object, or as a group of passengers.
+If the volume is larger than a threshold $ T_{max} $ or if the blob has a greater width than height , it can be either classified as a large object, or as a group of passengers.
 
 An alternative to this static approach would be to apply machine learning algorithms to find out the classification of a blob.
 For this a pre-classified learning data set needs to be available, which might not be feasible.
