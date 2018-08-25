@@ -75,8 +75,9 @@ For the integration of the passenger data into an existing scheduling algorithm 
  
 \section{Visual System}
 TODO
-
-%\autocite[][]{xang2016trafficlist} has done tehe same and patentet it :(
+similar systems which have a broader scope already papented by otis:
+\autocite{lin2011control}
+\autocite[][]{xang2016trafficlist} has done tehe same and patentet it :(
 
 \subsection{Proposal for Integration into Elevator Control System Architecture}
 
@@ -346,7 +347,11 @@ When the cargo object is first detected, one of the next car calls made must by 
 
 \subsection{Preparation for Simulation and Validation Strategy}
 
+\subsubsection{Scheduling Algorithms}
+
 TODO texts about the three algorithms
+TODO describe tick concept
+TODO define traffic item is either cargo ites, passangers etc
 
 \textbf{Sequential Control}:
 \begin{enumerate}[noitemsep]
@@ -404,10 +409,7 @@ TODO texts about the three algorithms
     \item Otherwise, follow the collective control strategy.
 \end{enumerate}
 
-
-TODO simulation configuration:
-\autocite[][p.~347]{barney2016handbook}
-
+\subsubsection{Simulation Parameters}
 
 \begin{table}[]
 \centering
@@ -430,7 +432,7 @@ Flight time single floor & 8 & $s$\\
 %& & \\
 \hline
 \multicolumn{3}{l}{\textbf{Passenger Data}}\\
-Arrival rates for floors & $ (f, t) \rightarrow \frac{7}{300} $ & $ \mathbb{N} \times s \rightarrow s^{-1}$\\
+Arrival rates for floors & $ (f, t) \mapsto \frac{7}{300} $ & $ \mathbb{N} \times s \rightarrow s^{-1}$\\
 Weight and volume distribution & see table \ref{tab:design:trafficitemprototypes} & $kg \times m \times m \times m \rightarrow \mathbb{R}$\\
 %Volume distribution & see below  & $m \times m \times m \rightarrow \mathbb{R} $\\
 Transfer time into / out of car & 2 & $s$\\
@@ -438,7 +440,7 @@ Floor bias & unbiased & $ \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{R} $ 
 %& & \\
 \hline
 \multicolumn{3}{l}{\textbf{Cargo Data}}\\
-Arrival rates for floors & $ (f, t) \rightarrow \frac{2}{300} $ & $\mathbb{N} \times s \rightarrow s^{-1}$\\
+Arrival rates for floors & $ (f, t) \mapsto \frac{2}{300} $ & $\mathbb{N} \times s \rightarrow s^{-1}$\\
 Weight and volume distribution & see table \ref{tab:design:trafficitemprototypes} & $kg \times m \times m \times m \rightarrow \mathbb{R}$\\
 %Volume distribution & see below  & $m \times m \times m \rightarrow \mathbb{R} $\\
 Transfer time into / out of car & 5 & $s$\\
@@ -477,20 +479,44 @@ Number of simulations & 1000 & \\
 \end{table}
 \endgroup
 
-TODO
-The arrival rate is constant over the whole time (should this be adapted for several runs?)
-therefore in each simulation step the arrival rate is poisson ditributed
+In the section beforehand, the building type that acts as a base for the simulation has been described:
+a single elevator configuration, shared by passengers and cargo items.
+\textcite[][p.~347]{barney2016handbook} described, which parameters need to be determined in order to run a simulation. 
+Table \ref{tab:design:simulationconfig} gives an overview over the parameters that were chosen for this simulation.
+Some of the values are taken from elevators manufactured by KONE \autocite[][]{kone2017overview}, 
+other values are taken from \textcite[][p.~349]{barney2016handbook}.
+Especially the lift parameters are based on the sources.
+In paragraphs ahead, the other parameters are discussed more thoroughly.
 
-TODO: define cargo ites, passangers etc
+The \emph{arrival rates} of passengers and cargo items is chosen constant over the who time, 
+which means that at any point in the simulation the chance that a given amount (0, 1, 2, ...) of traffic items arrives is fixed.
+Furthermore, the arrival rate on each floor are assumed to be the same.
+This behavior can be modeled with a Poisson distribution
+$$ A(k) = e^{-\lambda}\frac{\lambda^k}{k!} $$
+where $ A(k) $ describes the likelihood of a specific number of traffic items arriving within a time slice (duration of a tick) in the whole building.
+The parameter $ \lambda $ is chosen to be the multiple of the time slice and the arrival rate.
+This constant arrival model simplifies the simulation and effectively simulates an \emph{inter-floor traffic pattern}.
+It would also be possible to model a up-peak or down-peak traffic pattern, however this would make the modeling more complex.
 
-TODO describe howthe prototypes are used 
+The \emph{weight and volume distribution} for both types of traffic items is given by choosing from predefined \emph{prototypes} (or stereotypes).
+Every passenger or cargo object in the simulation has the same wight and volume properties as one of the prototypes.
+Table \ref{tab:design:trafficitemprototypes} lists the prototypes that are defined for this simulation.
+A passenger in the simulation is created from any of the passenger prototypes with the likelihood of $ \frac{1}{4} $, a cargo item from any of the cargo item prototypes with a likelihood of $ \frac{1}{4} $.
+Choosing from prototypes rather than a continuous distribution helps to simplify the simulation implementation.
 
-data from eg. \url{https://www.kone.de/aufzug-aufzuege.aspx} \url{https://www.kone.de/neubau/aufzug-aufzuege/lastenaufzug-bettenaufzug-transys/}
-and also \autocite[][p.~349]{barney2016handbook}
+The \emph{floor bias} for both types of traffic items is \emph{unbiased}. 
+There is no precedence in arrival and destination floor, every journey appears with the same likelihood.
+However, a journey where arrival and destination floor are equal, can not occur.
+The probability of any given trip to be occur, is described as a probability function
+$$ b(f_{arrival}, f_{destination}) =
+    \begin{cases} 
+      \frac{1}{N^2 - N} & f_{arrival} \neq f_{destination} \\
+      0 & else
+   \end{cases}
+$$
+where $ N $ is the number of floors present in a building, $ f_{arrival} $ and  $ f_{destination} $ are an integer number between 0 and $ N - 1$, which describe the arrival and destination floor number.
 
-which data to use: \autocite[][p.~347]{barney2016handbook}
-
-
+\subsubsection{Simulation Measurements}
 To evaluate the simulations, several measurements are taken to compare the scheduling algorithms.
 For the each of the measures the minimum, maximum, average and standard deviation $ \sigma{} $ values are calculated over all the simulation runs of each scheduling algorithm.  
 The following measurements shall be taken:
