@@ -234,16 +234,10 @@ The number if voxels is chosen rather low, in total between 10,000 and 100,000.
 If a larger amount is chosen, results with higher accuracy could be obtained at the expense of processing power.
 The voxels describe an evenly distributed cube grid, that fills the whole elevator cabin.
 In order to perform the volume reconstruction,
-the position of every voxel is projected into the viewport of each camera by applying the formula given in figure \ref{fig:sota:camcalib} to it with the parameters obtained from the came
-
-
-
-TODO
-perform simple volume intersection
-therefore project every voxel (chosen low 3d resolution)
-into the viewport of the cameras and check, if it is contained in the foregroundmask of all of them,
-
-TODO low resolution to choose
+the position of every voxel is projected into the viewport of each camera by applying the formula given in figure \ref{fig:sota:camcalib} to it with the parameters obtained from the camera calibration in the step before. 
+This projection also needs to take the transformation from world coordinates in meter into pixel coordinates in the camera into account.
+Now a \ac{3D} binary image $ F_{vol} \in \{0, 1\}^{X \times Y \times Z} $ is created, by checking for every voxel if it lies within the viewport of each camera and is projected to a foreground pixel in it.
+If this is the case for all cameras, the voxel is considered to be part of an occupied volume and hence marked as 1, otherwise as 0.
 
 \subsubsection{3D Blob Detection}
 
