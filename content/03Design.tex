@@ -75,10 +75,17 @@ For the integration of the passenger data into an existing scheduling algorithm 
 %\end{figure}
  
 \section{Visual System}
-TODO
-similar systems which have a broader scope already papented by otis:
-\autocite{lin2011control}
-\autocite[][]{xang2016trafficlist} has done tehe same and patentet it :(
+The section ahead describes the design of a camera-based visual system that is cable to capture the volume of passengers that are using an elevator system. 
+To design this system, the approach described in the previous section is followed.
+First the integration into an typical elevator system is described, 
+than the detection capabilities of the system are specified.
+Building on that, an approach to the volume detection is constructed.
+In the next chapter an exemplary implementation of this approach is created.
+
+The \emph{Otis Elevator Company} hold patents, which describe a similar but more extensive elevator control system \autocite[][]{lin2011control} \autocite[][]{xang2016trafficlist}.
+The two patents describe systems with a much broader scope.
+They focus on tracking individual passengers over their whole journey and use this data for scheduling, door control, and security \autocite[][]{lin2011control}. 
+By generating a \enquote{traffic list} from objects recognized in a depth map of they extended this concept also to volume tracking \autocite[][]{xang2016trafficlist}.
 
 \subsection{Proposal for Integration into Elevator Control System Architecture}
 
@@ -134,7 +141,7 @@ First the video capture from the cameras inside the cabin is read, which gets pr
 This volume representation is then used to take measurements of the passengers and objects inside the cabin.
 The next paragraphs describe each of these steps in more detail.
 
-\begin{figure}[p]
+\begin{figure}[hptb]
     \centering
     \tikzset{
         box/.style = {
@@ -177,8 +184,15 @@ The next paragraphs describe each of these steps in more detail.
 \end{figure}
 
 \subsubsection{Video Capture}
-
-TODO cameras, multiple as defined above, live stream via cable
+Inside the cabin multiple cameras are mounted.
+The cameras are positioned on the walls of the cabin, such that they observe the center of it.
+On each wall one can be mounted.
+Where is is not possible to place the camera on the wall, for example on the side of the doors,
+it is also possible to position the camera in the ceiling corner.
+This way the space in the cabin is viewed from multiple angles, 
+which enables ever position in the cabin to be observed by cameras. 
+Using cameras of the same model and optic configuration makes the implementation easier.
+The cameras are connected to the processing unit of the visual system and provide a life stream of image frames to it.
 
 \subsubsection{Preprocessing}
 As the first active step, the images of all the cameras 
@@ -225,20 +239,27 @@ The parameters obtained in this step are used in the next step to guide the volu
 
 \subsubsection{Volume Reconstruction}
 
+From the camera calibration and position data and the foreground mask of each perspective, 
+it is possible to reconstruct the volumetric data of the interior of the cabin.
+The technique of \emph{volume intersection} is used for this.
+Since the purpose of this system does not require a photo-realistic, the simple voxel based method can be used.
+It would be possible to reconstruct the full geometry and color of the room using a point matching algorithm or the more advanced space carving. 
+However, it is not necessary to reach such a level of detil for the purpose of this system.
 
-
-
-TODO
-perform simple volume intersection
-therefore project every voxel (chosen low 3d resolution)
-into the viewport of the cameras and check, if it is contained in the foregroundmask of all of them,
-
-TODO low resolution to choose
+In the volume intersection technique, first the whole volume of the elevator is described as a \ac{3D} image of $ X \times Y \times Z $ voxels.
+The number if voxels is chosen rather low, in total between 10,000 and 100,000.
+If a larger amount is chosen, results with higher accuracy could be obtained at the expense of processing power.
+The voxels describe an evenly distributed cube grid, that fills the whole elevator cabin.
+In order to perform the volume reconstruction,
+the position of every voxel is projected into the viewport of each camera by applying the formula given in figure \ref{fig:sota:camcalib} to it with the parameters obtained from the camera calibration in the step before. 
+This projection also needs to take the transformation from world coordinates in meter into pixel coordinates in the camera into account.
+Now a \ac{3D} binary image $ F_{vol} \in \{0, 1\}^{X \times Y \times Z} $ is created, by checking for every voxel if it lies within the viewport of each camera and is projected to a foreground pixel in it.
+If this is the case for all cameras, the voxel is considered to be part of an occupied volume and hence marked as 1, otherwise as 0.
 
 \subsubsection{3D Blob Detection}
 
 The volume intersection in the previous step yielded a \ac{3D} binary image \\
-$ F_{vol} \in \{0, 1\}^{X \times Y \times Z}$, where voxels marked with $ 1 $ indicate the presence of an object or passenger at the position of the volume element.
+$ F_{vol} \in \{0, 1\}^{X \times Y \times Z} $, where voxels marked with $ 1 $ indicate the presence of an object or passenger at the position of the volume element.
 Where ever a passenger or object takes up space in the \ac{3D} image, a \ac{3D} \emph{binary blob} is present, which is a collection of spacial coherent voxels that are positively labeled.
 In order to find distinct entities in that image, the \emph{connected component labeling} method can be used.
 Initially introduced for \ac{2D} images, it is possible to extend 
@@ -551,7 +572,7 @@ To evaluate the simulations, several measurements are taken to compare the sched
 For the each of the measures the minimum, maximum, average and standard deviation $ \sigma{} $ values are calculated over all the simulation runs of each scheduling algorithm.  
 The following measurements shall be taken:
 \begin{samepage}
-\begin{itemize}
+\begin{itemize}[noitemsep]
     \item Total passenger in the simulation
     \item Total cargo objects in the simulation
     \item Stops of the lift
