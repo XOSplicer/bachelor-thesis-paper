@@ -219,14 +219,14 @@ since it can react to changes in lighting.
 
 The resulting foreground masks might be noisy and can have pixel-sized artifacts.
 These originate from noise present in the processed image and small changes between two frames in locations, where actually no passenger is present. 
-To remove his noise in the binary foreground mask, the morphological \emph{OPEN} operation is used. 
+In order to remove this noise in the binary foreground mask, the morphological \emph{OPEN} operation is used. 
 It is a sequential application of the \emph{ERRODE} and \emph{DILATE}, which first removes all edge pixels and then extends the remaining edges again.
 This way, single active pixels are deleted, while other structures are preserved.
 After this, the \emph{DILATE} operation is applied again to close potential holes in the masks.
 
 \subsubsection{Camera Calibration}
 In this step, the internal and external parameters for all cameras are gathered.
-Since the camera settings are not altered during the operation of the system, these parameters only needs to be determined once and can then be reused.
+Since the camera settings are not altered during the operation of the system, these parameters only need to be determined once and can then be reused.
 The following parameters must be obtained for each camera, which is also explained in figure \ref{fig:sota:camcalib}:
 \begin{itemize}
     \item The internal camera matrix $ A $, which includes the focal length and the point of the image center. They can be obtained from calibration footage that features an identifiable object of known geometry, such as a chess board.
@@ -234,7 +234,7 @@ The following parameters must be obtained for each camera, which is also explain
     \item The internal distortion coefficients of the camera, which also can be obtained from calibration footage.
 \end{itemize}
 
-Additionally, to the camera parameters, the dimensions of the elevator cabin need to be known to later be able to convert pixel units into world units of meter.
+Additionally to the camera parameters, the dimensions of the elevator cabin need to be known to be later able to convert pixel units into world units of meter.
 The parameters obtained in this step are used in the next step to guide the volume reconstruction.
 
 \subsubsection{Volume Reconstruction}
@@ -268,7 +268,7 @@ the common label-propagation and label-equivalence algorithms to work on a binar
 Since $ X, Y, Z $ have been chosen to be of low resolution, it appears appropriate to use a label-propagation approach.
 
 In a simplified version of this approach, the \ac{3D} image is scanned in a raster, 
-and each encountered voxel, that is labeled as 1 in $ F_{vol} $ and has not yet been labeled by the connected component algorithm, it assigned a new unique label.
+and each encountered voxel, which is labeled as 1 in $ F_{vol} $ and has not yet been labeled by the connected component algorithm, it assigned a new unique label.
 Furthermore, all neighboring voxels, which are labeled as 1 in $ F_{vol} $, are also labeled with this label.
 When a voxel is encountered, which is already labeled, this label is also propagated to its neighbors that are labeled as 1 in $ F_{vol} $. 
 The basics of this approach work exactly like in two dimensions, however, the definition of neighboring voxels is altered to match three dimensions. 
@@ -283,7 +283,7 @@ The algorithm can be improved by performing the label-propagation along the surf
 
 The previous step yielded a \ac{3D} image $ F_{blobs} $ consisting of labeled binary blobs.
 For each blob, the volume and its length in the X, Y and Z axis are calculated.
-The volume is calculated by summing up the volume of the voxels, that make up the blob.
+The volume is calculated by summing up the volume of the voxels, which make up the blob.
 Even when no concrete volume for each voxel is known, this volume is still proportional to the total volume of the containing image $ F_{vol} $.
 The length in a particular axis can be found  by calculating the distance of the two most extreme voxels in that axis that belong to the blob.
 Figure \ref{fig:design:blobmeasurement} describes the calculations for this measurements for a blob with label $ l $.
@@ -343,7 +343,7 @@ In general, however, the data that is compared might be arbitrarily complex and 
 This section describes the design of a scheduling strategy, 
 which makes use of the information provided by the visual system designed above.
 The strategy is tailored to meet the needs of a building, in which passengers and cargo objects are sharing a lift.
-The strategy is then compared against conventional scheduling algorithms by designing  simulation of an elevator system that runs those algorithms.
+The strategy is then compared against conventional scheduling algorithms by designing a simulation of an elevator system that runs those algorithms.
 This section follows the line of action defined in section \ref{sec:design:methodology}.
 In the next chapter, the results of this simulation are explored.
 
@@ -354,13 +354,13 @@ to a scheduling algorithm of an elevator system which conveys both of them.
 This holds the opportunity to have a bigger impact on the performance of the system, 
 in contrast to applying it to a passenger-only lift.
 
-Looking back at the categorization of elevators, cargo lifts meet this specification.
+When looking back at the categorization of elevators, cargo lifts meet this specification.
 Typically an office building has one or multiple cargo lifts depending on its size,
 but grouping them is uncommon \autocite[][p.~167]{barney2016handbook}.
 A weight capacity of at least 1,600 kg is typical \autocite[][p.~167]{barney2016handbook},
 but also capacities of 5,000 kg are possible \autocite[][]{kone2017overview}.
 Typical application areas for cargo lifts are hospitals, where patients and beds are moved,
-auxiliary lifts in office buildings and multi-story industrial buildings.
+auxiliary lifts in office buildings and multi-storey industrial buildings.
 The typical control algorithm is collective control or sequential control \autocite[][pp.~238,~244]{barney2016handbook}.
 For this comparison, the sequential control and collective control will be taken as a baseline.
 
