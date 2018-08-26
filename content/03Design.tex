@@ -185,7 +185,7 @@ it is also possible to position the camera in the ceiling corner.
 This way the space in the cabin is viewed from multiple angles, 
 which enables ever position in the cabin to be observed by cameras. 
 Using cameras of the same model and optic configuration makes the implementation easier.
-The cameras are 
+The cameras are connected to the processing unit of the visual system and provide a life stream of image frames to it.
 
 \subsubsection{Preprocessing}
 As the first active step, the images of all the cameras 
@@ -236,7 +236,10 @@ From the camera calibration and position data and the foreground mask of each pe
 it is possible to reconstruct the volumetric data of the interior of the cabin.
 The technique of \emph{volume intersection} is used for this.
 Since the purpose of this system does not require a photo-realistic, the simple voxel based method can be used.
-First the whole volume of the elevator is described as a \ac{3D} image of $ X \times Y \times Z $ voxels.
+It would be possible to reconstruct the full geometry and color of the room using a point matching algorithm or the more advanced space carving. 
+However, it is not necessary to reach such a level of detil for the purpose of this system.
+
+In the volume intersection technique, first the whole volume of the elevator is described as a \ac{3D} image of $ X \times Y \times Z $ voxels.
 The number if voxels is chosen rather low, in total between 10,000 and 100,000.
 If a larger amount is chosen, results with higher accuracy could be obtained at the expense of processing power.
 The voxels describe an evenly distributed cube grid, that fills the whole elevator cabin.
