@@ -75,12 +75,12 @@ For the integration of the passenger data into an existing scheduling algorithm 
 %\end{figure}
  
 \section{Visual System}
-The section ahead describes the design of a camera-based visual system that is cable to capture the volume of passengers that are using an elevator system. 
+The section ahead describes the design of a camera-based visual system that is able to capture the volume of passengers that are using an elevator system. 
 To design this system, the approach described in the previous section is followed.
-First the integration into an typical elevator system is described, 
-than the detection capabilities of the system are specified.
+First, the integration into a typical elevator system is described, 
+then the detection capabilities of the system are specified.
 Building on that, an approach to the volume detection is constructed.
-In the next chapter an exemplary implementation of this approach is created.
+In the next chapter, an exemplary implementation of this approach is created.
 
 The \emph{Otis Elevator Company} hold patents, which describe a similar but more extensive elevator control system \autocite[][]{lin2011control} \autocite[][]{xang2016trafficlist}.
 The two patents describe systems with a much broader scope.
@@ -89,7 +89,7 @@ By generating a \enquote{traffic list} from objects recognized in a depth map of
 
 \subsection{Proposal for Integration into Elevator Control System Architecture}
 
-There are two places in an elevator system, where the addition of an camera system can create information about passengers: inside the cabin and in front of the lift in the main or floor halls.
+There are two places in an elevator system, where the addition of a camera system can create information about passengers: inside the cabin and in front of the lift in the main or floor halls.
 Cameras inside the cabin could determine, if passengers are currently occupying the space in it and if additional large cargo objects are inside.
 Cameras in the hall on each floor can observe passengers, that are about to perform a hall call.
 However since this paper explores the possibilities of volume detection, 
@@ -103,7 +103,7 @@ Therefore the system can be integrated into the electronics of the elevator cabi
 and is attached to the elevator controller, 
 which can interact with it to make use of the gathered data.
 If the visual system should be integrated into a multi-cabin system, 
-the elevator controller can foreword the information from the visual system to the group controller.
+the elevator controller can forward the information from the visual system to the group controller.
 Figure \ref{fig:design:systemintegration} visualizes the proposed integration.
 
 \begin{figure}[htb]
@@ -127,8 +127,8 @@ Therefore it should generate the following pieces of data:
 The system should operate in near real time,
 meaning the output data should match the current situation inside the cabin.
 Only a short time may be taken up for processing the image data.
-Otherwise the situation inside the cabin could change significantly during the processing time, which would make the information gathered by the system less meaningful.
-In an elevator this change can happen in seconds, for example when passengers are entering and leaving the cabin.
+Otherwise, the situation inside the cabin could change significantly during the processing time, which would make the information gathered by the system less meaningful.
+In an elevator, this change can happen in seconds, for example when passengers are entering and leaving the cabin.
 
 \subsection{Detection Technique}
 
@@ -184,20 +184,20 @@ The next paragraphs describe each of these steps in more detail.
 \end{figure}
 
 \subsubsection{Video Capture}
-Inside the cabin multiple cameras are mounted.
+Inside the cabin, multiple cameras are mounted.
 The cameras are positioned on the walls of the cabin, such that they observe the center of it.
-On each wall one can be mounted.
-Where is is not possible to place the camera on the wall, for example on the side of the doors,
+On each wall, one can be mounted.
+Where it is not possible to place the camera on the wall, for example on the side of the doors,
 it is also possible to position the camera in the ceiling corner.
 This way the space in the cabin is viewed from multiple angles, 
 which enables ever position in the cabin to be observed by cameras. 
 Using cameras of the same model and optic configuration makes the implementation easier.
-The cameras are connected to the processing unit of the visual system and provide a life stream of image frames to it.
+The cameras are connected to the processing unit of the visual system and provide a lifestream of image frames to it.
 
 \subsubsection{Preprocessing}
 As the first active step, the images of all the cameras 
 are read into the memory of the system as \ac{2D} color images 
-with native resolution of the cameras.
+with the native resolution of the cameras.
 In order to decrease the computation power needed for the next steps, 
 it is possible to \emph{scale them down} to a smaller size.
 Furthermore, the camera images typically contain noise, 
@@ -214,27 +214,27 @@ Those can occur when the cabin doors are opened or passengers block the lamps in
 In contrast to the background, the passengers in the cabin move over time.
 The static background with moving passengers allows the method of \emph{background subtraction} to be used.
 Either static or dynamic techniques can be used, 
-but the dynamic approach of the \ac{MOG} is favourable, 
-since it can react to changes in lightning.
+but the dynamic approach of the \ac{MOG} is favorable, 
+since it can react to changes in lighting.
 
 The resulting foreground masks might be noisy and can have pixel-sized artifacts.
 These originate from noise present in the processed image and small changes between two frames in locations, where actually no passenger is present. 
 To remove his noise in the binary foreground mask, the morphological \emph{OPEN} operation is used. 
-It is a sequential application of the \emph{ERRODE} and \emph{DILATE}, which firsts removes all edge pixels and then extends the remaining edges again.
+It is a sequential application of the \emph{ERRODE} and \emph{DILATE}, which first removes all edge pixels and then extends the remaining edges again.
 This way, single active pixels are deleted, while other structures are preserved.
 After this, the \emph{DILATE} operation is applied again to close potential holes in the masks.
 
 \subsubsection{Camera Calibration}
-In this step the internal and external parameters for all cameras are gathered.
+In this step, the internal and external parameters for all cameras are gathered.
 Since the camera settings are not altered during the operation of the system, these parameters only needs to be determined once and can then be reused.
-The following parameters must be obtained for each camera, which are also explained in figure \ref{fig:sota:camcalib}:
+The following parameters must be obtained for each camera, which is also explained in figure \ref{fig:sota:camcalib}:
 \begin{itemize}
     \item The internal camera matrix $ A $, which includes the focal length and the point of the image center. They can be obtained from calibration footage that features an identifiable object of known geometry, such as a chess board.
     \item The external rotation matrix $ R $ and the translation vector $ t $, which can be obtained by measuring the position and viewing direction of the camera.
     \item The internal distortion coefficients of the camera, which also can be obtained from calibration footage.
 \end{itemize}
 
-Additionally to the camera parameters, the dimensions of the elevator cabin need to be known to later be able to convert pixel units into world units of meter.
+Additionally, to the camera parameters, the dimensions of the elevator cabin need to be known to later be able to convert pixel units into world units of meter.
 The parameters obtained in this step are used in the next step to guide the volume reconstruction.
 
 \subsubsection{Volume Reconstruction}
@@ -242,12 +242,12 @@ The parameters obtained in this step are used in the next step to guide the volu
 From the camera calibration and position data and the foreground mask of each perspective, 
 it is possible to reconstruct the volumetric data of the interior of the cabin.
 The technique of \emph{volume intersection} is used for this.
-Since the purpose of this system does not require a photo-realistic, the simple voxel based method can be used.
+Since the purpose of this system does not require a photo-realistic, the simple voxel-based method can be used.
 It would be possible to reconstruct the full geometry and color of the room using a point matching algorithm or the more advanced space carving. 
-However, it is not necessary to reach such a level of detil for the purpose of this system.
+However, it is not necessary to reach such a level of detail for the purpose of this system.
 
-In the volume intersection technique, first the whole volume of the elevator is described as a \ac{3D} image of $ X \times Y \times Z $ voxels.
-The number if voxels is chosen rather low, in total between 10,000 and 100,000.
+In the volume intersection technique, first, the whole volume of the elevator is described as a \ac{3D} image of $ X \times Y \times Z $ voxels.
+The number of voxels is chosen rather low, in total between 10,000 and 100,000.
 If a larger amount is chosen, results with higher accuracy could be obtained at the expense of processing power.
 The voxels describe an evenly distributed cube grid, that fills the whole elevator cabin.
 In order to perform the volume reconstruction,
@@ -271,7 +271,7 @@ In a simplified version of this approach, the \ac{3D} image is scanned in a rast
 and each encountered voxel, that is labeled as 1 in $ F_{vol} $ and has not yet been labeled by the connected component algorithm, it assigned a new unique label.
 Furthermore, all neighboring voxels, which are labeled as 1 in $ F_{vol} $, are also labeled with this label.
 When a voxel is encountered, which is already labeled, this label is also propagated to its neighbors that are labeled as 1 in $ F_{vol} $. 
-The basics of this approach work exactly like in two dimensions, however the definition of neighboring voxels is altered to match three dimensions. 
+The basics of this approach work exactly like in two dimensions, however, the definition of neighboring voxels is altered to match three dimensions. 
 In general all 26 voxels in the cube around a voxel are considered neighbors.
 It is also possible to only consider the 6 voxels, that share a face with the center voxel.
 
