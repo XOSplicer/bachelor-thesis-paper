@@ -76,8 +76,11 @@ For the integration of the passenger data into an existing scheduling algorithm 
  
 \section{Visual System}
 The section ahead describes the design of a camera-based visual system that is cable to capture the volume of passengers that are using an elevator system. 
-
-TODO
+To design this system, the approach described in the previous section is followed.
+First the integration into an typical elevator system is described, 
+than the detection capabilities of the system are specified.
+Building on that, an approach to the volume detection is constructed.
+In the next chapter an exemplary implementation of this approach is created.
 
 The \emph{Otis Elevator Company} hold patents, which describe a similar but more extensive elevator control system \autocite[][]{lin2011control} \autocite[][]{xang2016trafficlist}.
 The two patents describe systems with a much broader scope.
@@ -569,7 +572,7 @@ To evaluate the simulations, several measurements are taken to compare the sched
 For the each of the measures the minimum, maximum, average and standard deviation $ \sigma{} $ values are calculated over all the simulation runs of each scheduling algorithm.  
 The following measurements shall be taken:
 \begin{samepage}
-\begin{itemize}
+\begin{itemize}[noitemsep]
     \item Total passenger in the simulation
     \item Total cargo objects in the simulation
     \item Stops of the lift
