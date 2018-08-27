@@ -1,6 +1,6 @@
 % !TEX root = ../master.tex
 
-\chapter{Simulation Source Code (extracts)}
+\chapter{Simulation Source Code (excerpts)}
 \label{app:sim}
 
 \begin{lstlisting}[caption={Main function of the simulation program}, label={lst:app:simmain}]
@@ -170,4 +170,108 @@ fn run_single_simulation<S: ControlStrategy>(
 
     Ok(results)
 }
+\end{lstlisting}
+
+\chapter{Volume Intersection Source Code (excerpts)}
+
+\begin{lstlisting}[caption={Main function of the volume intersection program}, label={lst:app:volmain}]
+def main():
+    print_versions()
+
+    cv2.namedWindow('sliders', flags=cv2.WINDOW_NORMAL)
+    cv2.createTrackbar('open_kernel','sliders',3,101,nop)
+    cv2.createTrackbar('dilate_kernel','sliders',17,101,nop)
+
+    view_3d = init_3d_plot()
+    create_3d_room(view_3d)
+    create_3d_cams(view_3d)
+    vol_3d = create_3d_volume(view_3d)
+    side_3d = create_3d_side(view_3d)
+
+    caps = [ cv2.VideoCapture(c['file']) for c in CAPTURES ]
+    # bgss = [ cv2.createBackgroundSubtractorMOG2() for _ in caps ]
+    bgss_pp = [ cv2.createBackgroundSubtractorMOG2() for _ in caps ]
+
+    video_out_res = (1920, 480)
+    if OUTPUT:
+        fourcc = cv2.VideoWriter_fourcc(*'XVID')
+        video_out = cv2.VideoWriter('output.avi',fourcc, 25.0, video_out_res)
+
+    while True:
+        # read all capture images at this moment
+        raws = [ c.read()[1] for c in caps]
+
+        # convert to grayscale
+        gry = [ cv2.cvtColor(c, cv2.COLOR_BGR2GRAY) for c in raws ]
+        gry_preview = multi_preview(gry)
+        #cv2.imshow('gry_preview', gry_preview)
+
+        # get parameters from trackbars
+        k_size = cv2.getTrackbarPos('open_kernel','sliders')
+        k_size = k_size - k_size % 2 +1
+        d_size = cv2.getTrackbarPos('dilate_kernel','sliders')
+        d_size = d_size - d_size % 2 +1
+
+        # pre process images and appy background subtractor
+        pp = [ cv2.GaussianBlur(r, (k_size,k_size), 0) for r in raws ]
+        bgs_pp_masks = [ bgss_pp[i].apply(pp[i]) for i in range(len(raws)) ]
+
+        # post process foreground masks
+        open_kernel = np.ones((k_size,k_size),np.uint8)
+        dilate_kernel = np.ones((d_size,d_size),np.uint8)
+        bgs_pp_masks_t = [ cv2.threshold(b, 254, 255, cv2.THRESH_BINARY)[1] for b in bgs_pp_masks]
+        bgs_pp_masks_b = [ cv2.dilate(cv2.morphologyEx(b, cv2.MORPH_OPEN, open_kernel), dilate_kernel, iterations = 10)\
+             for b in bgs_pp_masks_t ]
+        bgs_pp_preview = multi_preview(bgs_pp_masks_b)
+        #cv2.imshow('bgs_pp_preview', bgs_pp_preview)
+
+        # draw masks A B C to the side, othorgonal (semi correct)
+        scaled_masks = draw_3d_side(side_3d, bgs_pp_masks_b)
+
+        # create orthorgonal  intersection of A B C
+        vol_poss = np.array([ \
+            [ \
+                u * ROOM_SCALE_MPVX['width'],\
+                v * ROOM_SCALE_MPVX['depth'],\
+                w * ROOM_SCALE_MPVX['height']\
+            ] \
+            for u in range(ROOM_DIM_VX['width']) \
+            for v in range(ROOM_DIM_VX['depth']) \
+            for w in range(ROOM_DIM_VX['height']) \
+            if  scaled_masks[0][w][v] == 255 \
+            and scaled_masks[1][w][u] == 255 \
+            and scaled_masks[2][w][v] == 255 ])
+        vol_3d.setData(pos=vol_poss)
+
+        # create combined preview
+        image_3d = convertQImageToMat(view_3d.readQImage())
+        scale = 480 / image_3d.shape[0]
+        image_3d_preview = cv2.resize(image_3d, (0,0), fx=scale, fy=scale)
+        image_3d_preview = cv2.cvtColor(image_3d_preview, cv2.COLOR_BGRA2BGR)
+        full_preview = np.hstack((\
+            cv2.cvtColor(np.vstack((gry_preview, bgs_pp_preview)), cv2.COLOR_GRAY2BGR), \
+            image_3d_preview \
+            ))
+        cv2.imshow('full_preview', full_preview)
+        out = np.zeros((video_out_res[1], video_out_res[0], 3), dtype=np.uint8)
+        out[:, 0:full_preview.shape[1], :] = full_preview
+        if OUTPUT:
+            video_out.write(out)
+
+
+        # unnecessary distance measure
+        # canny_dists = [cv2.distanceTransform(cv2.bitwise_not(cv2.Canny(m, 0, 255)), cv2.DIST_L2, 3) for m in bgs_pp_masks_b]
+        # canny_dists_preview = multi_preview(canny_dists)
+        # cv2.imshow('canny_dists_preview', canny_dists_preview)
+        # print(cannys[0].shape, cannys[0].dtype)
+
+        if cv2.waitKey(int(1000/25)) != -1:
+            break
+
+    cv2.destroyAllWindows()
+    for c in caps:
+        c.release()
+    if OUTPUT:
+video_out.release()
+
 \end{lstlisting}
