@@ -89,6 +89,7 @@ The actions it performs can be described as following:
     \item Collect the results of all simulations and filter out the results of any run, where any of the three strategies produced an invalid result.
     \item Calculate the specified metrics by aggregating all the results for each strategy.
 \end{enumerate}
+The implementation in Rust can be found in listing \ref{lst:app:simmain} in appendix \ref{app:sim}.
 
 The actions takes in order to run a single simulation are then as follows:
 \begin{enumerate}
@@ -105,6 +106,7 @@ The actions takes in order to run a single simulation are then as follows:
     \end{enumerate}
     \item Correct the gathered metrics by removing the ride times of traffic items, who did not arrive at their destination yet and waiting times of traffic items, who did not yet enter the elevator.
 \end{enumerate}
+The implementation in Rust can be found in listing \ref{lst:app:simsinglerun} in appendix \ref{app:sim}.
 
 The three control strategies are passed to the execution of a single simulation as generic parameters parameters.
 Therefore, they all implement an interface \texttt{ControlStrategy}.
@@ -138,47 +140,6 @@ This list describes their purpose in the program:
     \item \texttt{uom}: Provides types for units of measurements such as Mass and Time, as well as the respective \ac{SI} units such as kilograms and seconds
 \end{itemize}
 \end{samepage}
-
-\begin{lstlisting}[caption={Main function of the simulation program}, label={lst:design:simmain}]
-fn main() {
-    let b = BuildingParameters::default();
-    let l = LiftParameters::default();
-    let s = SimulationParameters::default();
-    println!("{:#?}\n{:#?}\n{:#?}\ntotal_ticks: {}\n", &b, &l, &s, s.total_ticks());
-
-    let results =
-        rayon::iter::repeatn((), s.simulations) // enable parallel execution
-        .enumerate()
-        .inspect(|(num, _)| println!("running simulation {}", num))
-        .map(|_| TrafficGenerator::new(&s, &b).arrivals())
-        .map(|t| (
-            run_single_simulation::<SequentialControlStrategy>(&b, &l, &s, &t),
-            run_single_simulation::<CollectiveControlStrategy>(&b, &l, &s, &t),
-            run_single_simulation::<AdaptedControlStrategy>(&b, &l, &s, &t),
-            ))
-        .collect::<Vec<_>>();
-    let invalid = results.iter()
-        .filter(|&(a, b, c)| a.is_err() || b.is_err() || c.is_err())
-        .count();
-    let valid: Vec<_> = results.into_iter()
-        .filter(|&(ref a, ref b, ref c)| a.is_ok() && b.is_ok() && c.is_ok())
-        .map(|(a, b, c)| (a.unwrap(), b.unwrap(), c.unwrap()))
-        .collect();
-    let valid_a = valid.iter().map(|&(ref a, ref _b, ref _c)| a);
-    let valid_b = valid.iter().map(|&(ref _a, ref b, ref _c)| b);
-    let valid_c = valid.iter().map(|&(ref _a, ref _b, ref c)| c);
-
-    println!("invalid results: {}", invalid);
-    println!("{}", SequentialControlStrategy::name());
-    print_stats(valid_a);
-    println!("{}", CollectiveControlStrategy::name());
-    print_stats(valid_b);
-    println!("{}", AdaptedControlStrategy::name());
-    print_stats(valid_c);
-
-    println!("\ndone.");
-}
-\end{lstlisting}
 
 \subsection{Evaluation of Simulation Results}
 

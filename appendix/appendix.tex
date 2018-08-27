@@ -1,4 +1,173 @@
 % !TEX root = ../master.tex
 
-% \chapter{Appendix A}
+\chapter{Simulation Source Code (extracts)}
+\label{app:sim}
 
+\begin{lstlisting}[caption={Main function of the simulation program}, label={lst:app:simmain}]
+fn main() {
+    let b = BuildingParameters::default();
+    let l = LiftParameters::default();
+    let s = SimulationParameters::default();
+    println!("{:#?}\n{:#?}\n{:#?}\ntotal_ticks: {}\n", &b, &l, &s, s.total_ticks());
+
+    let results =
+        rayon::iter::repeatn((), s.simulations) // enable parallel execution
+        .enumerate()
+        .inspect(|(num, _)| println!("running simulation {}", num))
+        .map(|_| TrafficGenerator::new(&s, &b).arrivals())
+        .map(|t| (
+            run_single_simulation::<SequentialControlStrategy>(&b, &l, &s, &t),
+            run_single_simulation::<CollectiveControlStrategy>(&b, &l, &s, &t),
+            run_single_simulation::<AdaptedControlStrategy>(&b, &l, &s, &t),
+            ))
+        .collect::<Vec<_>>();
+    let invalid = results.iter()
+        .filter(|&(a, b, c)| a.is_err() || b.is_err() || c.is_err())
+        .count();
+    let valid: Vec<_> = results.into_iter()
+        .filter(|&(ref a, ref b, ref c)| a.is_ok() && b.is_ok() && c.is_ok())
+        .map(|(a, b, c)| (a.unwrap(), b.unwrap(), c.unwrap()))
+        .collect();
+    let valid_a = valid.iter().map(|&(ref a, ref _b, ref _c)| a);
+    let valid_b = valid.iter().map(|&(ref _a, ref b, ref _c)| b);
+    let valid_c = valid.iter().map(|&(ref _a, ref _b, ref c)| c);
+
+    println!("invalid results: {}", invalid);
+    println!("{}", SequentialControlStrategy::name());
+    print_stats(valid_a);
+    println!("{}", CollectiveControlStrategy::name());
+    print_stats(valid_b);
+    println!("{}", AdaptedControlStrategy::name());
+    print_stats(valid_c);
+
+    println!("\ndone.");
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption={Implementation of a single simulation run}, label={lst:app:simsinglerun}]
+fn run_single_simulation<S: ControlStrategy>(
+    building: &BuildingParameters,
+    lift: &LiftParameters,
+    sim: &SimulationParameters,
+    traffic: &Vec<Vec<TrafficItem>>,
+) -> Result<SimulationResults, String> {
+
+    println!("running simulation: {:?}", S::name());
+    let mut system = ElevatorSystem::new(building, lift, sim);
+    let mut state = S::State::default();
+    let mut results = SimulationResults::default();
+
+    results.passengers_in_traffic = traffic.iter()
+        .flat_map(|t| t)
+        .filter(|&t| t.kind == TrafficItemKind::Passenger)
+        .count();
+    results.cargo_in_traffic = traffic.iter()
+        .flat_map(|t| t)
+        .filter(|&t| t.kind == TrafficItemKind::Cargo)
+        .count();
+
+    while system.ticks < sim.total_ticks() {
+        let last_ticks = system.ticks;
+        let (next_state, action) = S::action(state, &system);
+        state = next_state;
+        match action {
+            ControlAction::MoveUp => {
+                let time = system.move_up()?;
+                system.ticks += sim.time_to_ticks(time);
+            },
+            ControlAction::MoveDown => {
+                let time = system.move_down()?;
+                system.ticks += sim.time_to_ticks(time);
+            },
+            ControlAction::OpenDoors => {
+                let time = system.open_doors()?;
+                results.stops += 1;
+                system.ticks += sim.time_to_ticks(time);
+            },
+            ControlAction::CloseDoors => {
+                let time = system.close_doors()?;
+                system.ticks += sim.time_to_ticks(time);
+            },
+            ControlAction::LoadTrafficItems(amount) => {
+                let mut to_load = Vec::with_capacity(amount);
+                for _ in 0..amount {
+                    if let Some(i) = system.floor_queues[system.lift_floor]
+                        .pop_front()
+                    {
+                        to_load.push(i);
+                    }
+                }
+                let (time, rest) = system.load_traffic_items(to_load)?;
+                for i in rest {
+                    system.floor_queues[system.lift_floor]
+                        .push_front(i);
+                }
+                system.ticks += sim.time_to_ticks(time);
+            },
+            ControlAction::UnloadTrafficItems => {
+                let current_floor = system.lift_floor;
+                let (time, items) = system.unload_traffic_items_for_floor(current_floor)?;
+                results.passengers_delivered += items.iter()
+                    .filter(|&i| i.kind == TrafficItemKind::Passenger)
+                    .count();
+                results.cargo_delivered += items.iter()
+                    .filter(|&i| i.kind == TrafficItemKind::Cargo)
+                    .count();
+                system.ticks += sim.time_to_ticks(time);
+            },
+            ControlAction::Nothing => {
+                system.ticks += 1;
+            }
+        }
+
+        let next_tick = cmp::min(system.ticks, sim.total_ticks());
+        let tick_diff = next_tick - last_ticks;
+
+        // update waiting times
+        for id in system.floor_queues.iter()
+            .flat_map(|v| v.iter())
+            .map(|i| i.id)
+        {
+            *results.waiting_ticks.entry(id).or_insert(0) += tick_diff;
+        }
+
+        // update ride times
+        for id in system.lift_traffic_items.values()
+            .flat_map(|v| v.iter())
+            .map(|i| i.id)
+        {
+            *results.ride_ticks.entry(id).or_insert(0) += tick_diff;
+        }
+
+        // advance ticks and update floor queues with traffic items
+        let new_traffic_items = traffic[last_ticks..next_tick]
+            .iter()
+            .flat_map(|v| v)
+            .cloned();
+        for i in new_traffic_items {
+            system.floor_queues[i.from_floor].push_back(i)
+        }
+
+    }
+
+    // remove ride times of passenegers that did not reach destination yet
+    // and are in the lift
+    for id in system.lift_traffic_items.values()
+        .flat_map(|v| v.iter())
+        .map(|i| i.id)
+    {
+        results.ride_ticks.remove(&id);
+    }
+
+    // remove waiting times of passenegrs still waiting
+    for id in system.floor_queues.iter()
+        .flat_map(|v| v.iter())
+        .map(|i| i.id)
+    {
+        results.waiting_ticks.remove(&id);
+    }
+
+    Ok(results)
+}
+\end{lstlisting}
