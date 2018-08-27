@@ -139,6 +139,47 @@ This list describes their purpose in the program:
 \end{itemize}
 \end{samepage}
 
+\begin{lstlisting}[caption={Main function of the simulation program}, label={lst:design:simmain}]
+fn main() {
+    let b = BuildingParameters::default();
+    let l = LiftParameters::default();
+    let s = SimulationParameters::default();
+    println!("{:#?}\n{:#?}\n{:#?}\ntotal_ticks: {}\n", &b, &l, &s, s.total_ticks());
+
+    let results =
+        rayon::iter::repeatn((), s.simulations) // enable parallel execution
+        .enumerate()
+        .inspect(|(num, _)| println!("running simulation {}", num))
+        .map(|_| TrafficGenerator::new(&s, &b).arrivals())
+        .map(|t| (
+            run_single_simulation::<SequentialControlStrategy>(&b, &l, &s, &t),
+            run_single_simulation::<CollectiveControlStrategy>(&b, &l, &s, &t),
+            run_single_simulation::<AdaptedControlStrategy>(&b, &l, &s, &t),
+            ))
+        .collect::<Vec<_>>();
+    let invalid = results.iter()
+        .filter(|&(a, b, c)| a.is_err() || b.is_err() || c.is_err())
+        .count();
+    let valid: Vec<_> = results.into_iter()
+        .filter(|&(ref a, ref b, ref c)| a.is_ok() && b.is_ok() && c.is_ok())
+        .map(|(a, b, c)| (a.unwrap(), b.unwrap(), c.unwrap()))
+        .collect();
+    let valid_a = valid.iter().map(|&(ref a, ref _b, ref _c)| a);
+    let valid_b = valid.iter().map(|&(ref _a, ref b, ref _c)| b);
+    let valid_c = valid.iter().map(|&(ref _a, ref _b, ref c)| c);
+
+    println!("invalid results: {}", invalid);
+    println!("{}", SequentialControlStrategy::name());
+    print_stats(valid_a);
+    println!("{}", CollectiveControlStrategy::name());
+    print_stats(valid_b);
+    println!("{}", AdaptedControlStrategy::name());
+    print_stats(valid_c);
+
+    println!("\ndone.");
+}
+\end{lstlisting}
+
 \subsection{Evaluation of Simulation Results}
 
 \begingroup
