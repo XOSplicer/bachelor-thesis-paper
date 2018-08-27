@@ -28,8 +28,9 @@ Then, every voxel position in the room is checked in a list comprehension.
 To do so, the coordinate \texttt{[u, v, w]} is iterated over the Cartesian product 
 of all possible voxel coordinate values of the width, depth and height axis of the room.
 The voxel position is then \enquote{projected} orthogonally into the scaled foreground masks, which is essentially only an array index into the masks, where \texttt{w} is the primary axis of the image, and \texttt{v} or \texttt{u} is the secondary axis of the image (depending on the side).
+The list comprehension yields an array of voxel positions, where the voxel is part of the volume description.
 
-\begin{lstlisting}[caption={Othorgonal volume intersection implementation}, label={lst:impl:volintersect}]
+\begin{lstlisting}[caption={Orthogonal volume intersection implementation}, label={lst:impl:volintersect}]
 # draw masks A B C to the side, orthogonal
 scaled_masks = draw_3d_side(side_3d, bgs_pp_masks_b)
 
@@ -49,14 +50,17 @@ vol_poss = np.array([ \
 \end{lstlisting}
 
 As mentioned, this implementation uses orthogonal projection.
-In order to turn it into a perspective projection, instead of usng a direct array lookup \\
-\texttt{... scaled_masks[0][w][v] == 255 ...} \\
-an projected lookup can be made:\\
-\texttt{... masks[0][project_and_scale(, [u, v, w])] == 255}
-TODO what todo in order to make this correct
+In order to turn it into a perspective projection, instead of using a direct array look-up \\
+\texttt{... scaled\_masks[0][w][v] == 255 ...} \\
+a projected look-up can be made:\\
+\texttt{... masks[0][project\_and\_scale(CAM\_CALIBRATION[0], [u, v, w])] == 255}\\
+where the function \texttt{project\_and\_scale(c, p)} takes the internal and external calibration data \texttt{c} of a camera and a voxel position \texttt{p} and returns a projected and scaled pixel position, that can be used to index into the foreground mask of that camera.
 
 
-TODO Dependencies:
+
+The program depends on several libraries.
+The \textcite{python2018pypi} provides a repository, in which all of these dependencies can be found.
+
 \begin{itemize}[noitemsep]
     \item \texttt{numpy}:  Provides typed n-dimensional arrays to store image data
     \item \texttt{scipy}:  Dependency of scikit-image

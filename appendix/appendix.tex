@@ -223,10 +223,10 @@ def main():
              for b in bgs_pp_masks_t ]
         bgs_pp_preview = multi_preview(bgs_pp_masks_b)
 
-        # draw masks A B C to the side, othorgonal (semi correct)
+        # draw masks A B C to the side, orthogonal (semi correct)
         scaled_masks = draw_3d_side(side_3d, bgs_pp_masks_b)
 
-        # create orthorgonal  intersection of A B C
+        # create orthogonal  intersection of A B C
         vol_poss = np.array([ \
             [ \
                 u * ROOM_SCALE_MPVX['width'],\
