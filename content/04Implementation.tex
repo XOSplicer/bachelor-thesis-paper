@@ -112,12 +112,11 @@ A control strategy decides in each tick of the simulation, which action should b
 The behavior is the same as defined in section \ref{sec:design:schedulingalgorithms}, however, the actions such as \enquote{move elevator to floor X} are not performed in one action, but require instructions for the elevator system spanning over multiple ticks.
 Hence, at each point in time and instruction from the \texttt{ControlAction} enumeration is given.
 
-
-TODO reference and describe class diagram in figure \ref{fig:impl:simclass}
-rust does not support only the oop style, so a class diagram is not compleatly suitable
-
 Figure \ref{fig:impl:simclass} shows a class diagram of the simulation program.
-Rust is not a pure object oriented language 
+Rust is not a pure object oriented language, but rather a imperative system programming language, which solves generic programming via interfaces.
+Therefore, the \ac{UML} class diagram is sub-optimal for the accurate representation of a rust program.
+It can still be used and gives a good overview over the types and instance variables present in the program.
+
 
 \begin{figure}[p]
     \centering
@@ -126,7 +125,8 @@ Rust is not a pure object oriented language
     \label{fig:impl:simclass}
 \end{figure}
 
-TODO dependecies:
+The rust implementation as a few dependencies, which are libraries used by the program.
+All of them can be found in the rust package repository \url{}
 \begin{itemize}[noitemsep]
     \item \texttt{lazy\_static}: Used for initialization of prototype list
     \item \texttt{rand}: Provides randomness functions and common likelihood functions including the Poisson distribution
