@@ -1,4 +1,267 @@
 % !TEX root = ../master.tex
 
-% \chapter{Appendix A}
+\chapter{Simulation Source Code (excerpts)}
+\label{app:sim}
 
+\begin{lstlisting}[caption={Main function of the simulation program}, label={lst:app:simmain}]
+fn main() {
+    let b = BuildingParameters::default();
+    let l = LiftParameters::default();
+    let s = SimulationParameters::default();
+    println!("{:#?}\n{:#?}\n{:#?}\ntotal_ticks: {}\n", &b, &l, &s, s.total_ticks());
+
+    let results =
+        rayon::iter::repeatn((), s.simulations) // enable parallel execution
+        .enumerate()
+        .inspect(|(num, _)| println!("running simulation {}", num))
+        .map(|_| TrafficGenerator::new(&s, &b).arrivals())
+        .map(|t| (
+            run_single_simulation::<SequentialControlStrategy>(&b, &l, &s, &t),
+            run_single_simulation::<CollectiveControlStrategy>(&b, &l, &s, &t),
+            run_single_simulation::<AdaptedControlStrategy>(&b, &l, &s, &t),
+            ))
+        .collect::<Vec<_>>();
+    let invalid = results.iter()
+        .filter(|&(a, b, c)| a.is_err() || b.is_err() || c.is_err())
+        .count();
+    let valid: Vec<_> = results.into_iter()
+        .filter(|&(ref a, ref b, ref c)| a.is_ok() && b.is_ok() && c.is_ok())
+        .map(|(a, b, c)| (a.unwrap(), b.unwrap(), c.unwrap()))
+        .collect();
+    let valid_a = valid.iter().map(|&(ref a, ref _b, ref _c)| a);
+    let valid_b = valid.iter().map(|&(ref _a, ref b, ref _c)| b);
+    let valid_c = valid.iter().map(|&(ref _a, ref _b, ref c)| c);
+
+    println!("invalid results: {}", invalid);
+    println!("{}", SequentialControlStrategy::name());
+    print_stats(valid_a);
+    println!("{}", CollectiveControlStrategy::name());
+    print_stats(valid_b);
+    println!("{}", AdaptedControlStrategy::name());
+    print_stats(valid_c);
+
+    println!("\ndone.");
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption={Implementation of a single simulation run}, label={lst:app:simsinglerun}]
+fn run_single_simulation<S: ControlStrategy>(
+    building: &BuildingParameters,
+    lift: &LiftParameters,
+    sim: &SimulationParameters,
+    traffic: &Vec<Vec<TrafficItem>>,
+) -> Result<SimulationResults, String> {
+
+    println!("running simulation: {:?}", S::name());
+    let mut system = ElevatorSystem::new(building, lift, sim);
+    let mut state = S::State::default();
+    let mut results = SimulationResults::default();
+
+    results.passengers_in_traffic = traffic.iter()
+        .flat_map(|t| t)
+        .filter(|&t| t.kind == TrafficItemKind::Passenger)
+        .count();
+    results.cargo_in_traffic = traffic.iter()
+        .flat_map(|t| t)
+        .filter(|&t| t.kind == TrafficItemKind::Cargo)
+        .count();
+
+    while system.ticks < sim.total_ticks() {
+        let last_ticks = system.ticks;
+        let (next_state, action) = S::action(state, &system);
+        state = next_state;
+        match action {
+            ControlAction::MoveUp => {
+                let time = system.move_up()?;
+                system.ticks += sim.time_to_ticks(time);
+            },
+            ControlAction::MoveDown => {
+                let time = system.move_down()?;
+                system.ticks += sim.time_to_ticks(time);
+            },
+            ControlAction::OpenDoors => {
+                let time = system.open_doors()?;
+                results.stops += 1;
+                system.ticks += sim.time_to_ticks(time);
+            },
+            ControlAction::CloseDoors => {
+                let time = system.close_doors()?;
+                system.ticks += sim.time_to_ticks(time);
+            },
+            ControlAction::LoadTrafficItems(amount) => {
+                let mut to_load = Vec::with_capacity(amount);
+                for _ in 0..amount {
+                    if let Some(i) = system.floor_queues[system.lift_floor]
+                        .pop_front()
+                    {
+                        to_load.push(i);
+                    }
+                }
+                let (time, rest) = system.load_traffic_items(to_load)?;
+                for i in rest {
+                    system.floor_queues[system.lift_floor]
+                        .push_front(i);
+                }
+                system.ticks += sim.time_to_ticks(time);
+            },
+            ControlAction::UnloadTrafficItems => {
+                let current_floor = system.lift_floor;
+                let (time, items) = system.unload_traffic_items_for_floor(current_floor)?;
+                results.passengers_delivered += items.iter()
+                    .filter(|&i| i.kind == TrafficItemKind::Passenger)
+                    .count();
+                results.cargo_delivered += items.iter()
+                    .filter(|&i| i.kind == TrafficItemKind::Cargo)
+                    .count();
+                system.ticks += sim.time_to_ticks(time);
+            },
+            ControlAction::Nothing => {
+                system.ticks += 1;
+            }
+        }
+
+        let next_tick = cmp::min(system.ticks, sim.total_ticks());
+        let tick_diff = next_tick - last_ticks;
+
+        // update waiting times
+        for id in system.floor_queues.iter()
+            .flat_map(|v| v.iter())
+            .map(|i| i.id)
+        {
+            *results.waiting_ticks.entry(id).or_insert(0) += tick_diff;
+        }
+
+        // update ride times
+        for id in system.lift_traffic_items.values()
+            .flat_map(|v| v.iter())
+            .map(|i| i.id)
+        {
+            *results.ride_ticks.entry(id).or_insert(0) += tick_diff;
+        }
+
+        // advance ticks and update floor queues with traffic items
+        let new_traffic_items = traffic[last_ticks..next_tick]
+            .iter()
+            .flat_map(|v| v)
+            .cloned();
+        for i in new_traffic_items {
+            system.floor_queues[i.from_floor].push_back(i)
+        }
+
+    }
+
+    // remove ride times of passenegers that did not reach destination yet
+    // and are in the lift
+    for id in system.lift_traffic_items.values()
+        .flat_map(|v| v.iter())
+        .map(|i| i.id)
+    {
+        results.ride_ticks.remove(&id);
+    }
+
+    // remove waiting times of passenegrs still waiting
+    for id in system.floor_queues.iter()
+        .flat_map(|v| v.iter())
+        .map(|i| i.id)
+    {
+        results.waiting_ticks.remove(&id);
+    }
+
+    Ok(results)
+}
+\end{lstlisting}
+
+\chapter{Volume Intersection Source Code (excerpts)}
+\label{app:vol}
+
+\begin{lstlisting}[caption={Main function of the volume intersection program}, label={lst:app:volmain}]
+def main():
+    print_versions()
+
+    cv2.namedWindow('sliders', flags=cv2.WINDOW_NORMAL)
+    cv2.createTrackbar('open_kernel','sliders',3,101,nop)
+    cv2.createTrackbar('dilate_kernel','sliders',17,101,nop)
+
+    view_3d = init_3d_plot()
+    create_3d_room(view_3d)
+    create_3d_cams(view_3d)
+    vol_3d = create_3d_volume(view_3d)
+    side_3d = create_3d_side(view_3d)
+
+    caps = [ cv2.VideoCapture(c['file']) for c in CAPTURES ]
+    bgss_pp = [ cv2.createBackgroundSubtractorMOG2() for _ in caps ]
+
+    video_out_res = (1920, 480)
+    if OUTPUT:
+        fourcc = cv2.VideoWriter_fourcc(*'XVID')
+        video_out = cv2.VideoWriter('output.avi',fourcc, 25.0, video_out_res)
+
+    while True:
+        # read all capture images at this moment
+        raws = [ c.read()[1] for c in caps]
+
+        # convert to grayscale
+        gry = [ cv2.cvtColor(c, cv2.COLOR_BGR2GRAY) for c in raws ]
+        gry_preview = multi_preview(gry)
+
+        # get parameters from trackbars
+        k_size = cv2.getTrackbarPos('open_kernel','sliders')
+        k_size = k_size - k_size % 2 +1
+        d_size = cv2.getTrackbarPos('dilate_kernel','sliders')
+        d_size = d_size - d_size % 2 +1
+
+        # pre process images and appy background subtractor
+        pp = [ cv2.GaussianBlur(r, (k_size,k_size), 0) for r in raws ]
+        bgs_pp_masks = [ bgss_pp[i].apply(pp[i]) for i in range(len(raws)) ]
+
+        # post process foreground masks
+        open_kernel = np.ones((k_size,k_size),np.uint8)
+        dilate_kernel = np.ones((d_size,d_size),np.uint8)
+        bgs_pp_masks_t = [ cv2.threshold(b, 254, 255, cv2.THRESH_BINARY)[1] for b in bgs_pp_masks]
+        bgs_pp_masks_b = [ cv2.dilate(cv2.morphologyEx(b, cv2.MORPH_OPEN, open_kernel), dilate_kernel, iterations = 10)\
+             for b in bgs_pp_masks_t ]
+        bgs_pp_preview = multi_preview(bgs_pp_masks_b)
+
+        # draw masks A B C to the side, orthogonal (semi correct)
+        scaled_masks = draw_3d_side(side_3d, bgs_pp_masks_b)
+
+        # create orthogonal  intersection of A B C
+        vol_poss = np.array([ \
+            [ \
+                u * ROOM_SCALE_MPVX['width'],\
+                v * ROOM_SCALE_MPVX['depth'],\
+                w * ROOM_SCALE_MPVX['height']\
+            ] \
+            for u in range(ROOM_DIM_VX['width']) \
+            for v in range(ROOM_DIM_VX['depth']) \
+            for w in range(ROOM_DIM_VX['height']) \
+            if  scaled_masks[0][w][v] == 255 \
+            and scaled_masks[1][w][u] == 255 \
+            and scaled_masks[2][w][v] == 255 ])
+        vol_3d.setData(pos=vol_poss)
+
+        # create combined preview
+        image_3d = convertQImageToMat(view_3d.readQImage())
+        scale = 480 / image_3d.shape[0]
+        image_3d_preview = cv2.resize(image_3d, (0,0), fx=scale, fy=scale)
+        image_3d_preview = cv2.cvtColor(image_3d_preview, cv2.COLOR_BGRA2BGR)
+        full_preview = np.hstack((\
+            cv2.cvtColor(np.vstack((gry_preview, bgs_pp_preview)), cv2.COLOR_GRAY2BGR), \
+            image_3d_preview \
+            ))
+        cv2.imshow('full_preview', full_preview)
+        out = np.zeros((video_out_res[1], video_out_res[0], 3), dtype=np.uint8)
+        out[:, 0:full_preview.shape[1], :] = full_preview
+        if OUTPUT:
+            video_out.write(out)
+
+        if cv2.waitKey(int(1000/25)) != -1:
+            break
+
+    cv2.destroyAllWindows()
+    for c in caps:
+        c.release()
+    if OUTPUT:
+        video_out.release()
+\end{lstlisting}

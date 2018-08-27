@@ -75,12 +75,12 @@ For the integration of the passenger data into an existing scheduling algorithm 
 %\end{figure}
  
 \section{Visual System}
-The section ahead describes the design of a camera-based visual system that is cable to capture the volume of passengers that are using an elevator system. 
-To design this system, the approach described in the previous section is followed.
-First the integration into an typical elevator system is described, 
-than the detection capabilities of the system are specified.
+The section ahead describes the design of a camera-based visual system that is able to capture the volume of passengers that are using an elevator system. 
+in order to design this system, the approach described in the previous section is followed.
+First, the integration into a typical elevator system is described, 
+then the detection capabilities of the system are specified.
 Building on that, an approach to the volume detection is constructed.
-In the next chapter an exemplary implementation of this approach is created.
+In the next chapter, an exemplary implementation of this approach is created.
 
 The \emph{Otis Elevator Company} hold patents, which describe a similar but more extensive elevator control system \autocite[][]{lin2011control} \autocite[][]{xang2016trafficlist}.
 The two patents describe systems with a much broader scope.
@@ -89,7 +89,7 @@ By generating a \enquote{traffic list} from objects recognized in a depth map of
 
 \subsection{Proposal for Integration into Elevator Control System Architecture}
 
-There are two places in an elevator system, where the addition of an camera system can create information about passengers: inside the cabin and in front of the lift in the main or floor halls.
+There are two places in an elevator system, where the addition of a camera system can create information about passengers: inside the cabin and in front of the lift in the main or floor halls.
 Cameras inside the cabin could determine, if passengers are currently occupying the space in it and if additional large cargo objects are inside.
 Cameras in the hall on each floor can observe passengers, that are about to perform a hall call.
 However since this paper explores the possibilities of volume detection, 
@@ -103,7 +103,7 @@ Therefore the system can be integrated into the electronics of the elevator cabi
 and is attached to the elevator controller, 
 which can interact with it to make use of the gathered data.
 If the visual system should be integrated into a multi-cabin system, 
-the elevator controller can foreword the information from the visual system to the group controller.
+the elevator controller can forward the information from the visual system to the group controller.
 Figure \ref{fig:design:systemintegration} visualizes the proposed integration.
 
 \begin{figure}[htb]
@@ -127,8 +127,8 @@ Therefore it should generate the following pieces of data:
 The system should operate in near real time,
 meaning the output data should match the current situation inside the cabin.
 Only a short time may be taken up for processing the image data.
-Otherwise the situation inside the cabin could change significantly during the processing time, which would make the information gathered by the system less meaningful.
-In an elevator this change can happen in seconds, for example when passengers are entering and leaving the cabin.
+Otherwise, the situation inside the cabin could change significantly during the processing time, which would make the information gathered by the system less meaningful.
+In an elevator, this change can happen in seconds, for example when passengers are entering and leaving the cabin.
 
 \subsection{Detection Technique}
 
@@ -184,20 +184,20 @@ The next paragraphs describe each of these steps in more detail.
 \end{figure}
 
 \subsubsection{Video Capture}
-Inside the cabin multiple cameras are mounted.
+Inside the cabin, multiple cameras are mounted.
 The cameras are positioned on the walls of the cabin, such that they observe the center of it.
-On each wall one can be mounted.
-Where is is not possible to place the camera on the wall, for example on the side of the doors,
+On each wall, one can be mounted.
+Where it is not possible to place the camera on the wall, for example on the side of the doors,
 it is also possible to position the camera in the ceiling corner.
 This way the space in the cabin is viewed from multiple angles, 
 which enables ever position in the cabin to be observed by cameras. 
 Using cameras of the same model and optic configuration makes the implementation easier.
-The cameras are connected to the processing unit of the visual system and provide a life stream of image frames to it.
+The cameras are connected to the processing unit of the visual system and provide a lifestream of image frames to it.
 
 \subsubsection{Preprocessing}
 As the first active step, the images of all the cameras 
 are read into the memory of the system as \ac{2D} color images 
-with native resolution of the cameras.
+with the native resolution of the cameras.
 In order to decrease the computation power needed for the next steps, 
 it is possible to \emph{scale them down} to a smaller size.
 Furthermore, the camera images typically contain noise, 
@@ -214,27 +214,27 @@ Those can occur when the cabin doors are opened or passengers block the lamps in
 In contrast to the background, the passengers in the cabin move over time.
 The static background with moving passengers allows the method of \emph{background subtraction} to be used.
 Either static or dynamic techniques can be used, 
-but the dynamic approach of the \ac{MOG} is favourable, 
-since it can react to changes in lightning.
+but the dynamic approach of the \ac{MOG} is favorable, 
+since it can react to changes in lighting.
 
 The resulting foreground masks might be noisy and can have pixel-sized artifacts.
 These originate from noise present in the processed image and small changes between two frames in locations, where actually no passenger is present. 
-To remove his noise in the binary foreground mask, the morphological \emph{OPEN} operation is used. 
-It is a sequential application of the \emph{ERRODE} and \emph{DILATE}, which firsts removes all edge pixels and then extends the remaining edges again.
+In order to remove this noise in the binary foreground mask, the morphological \emph{OPEN} operation is used. 
+It is a sequential application of the \emph{ERRODE} and \emph{DILATE}, which first removes all edge pixels and then extends the remaining edges again.
 This way, single active pixels are deleted, while other structures are preserved.
 After this, the \emph{DILATE} operation is applied again to close potential holes in the masks.
 
 \subsubsection{Camera Calibration}
-In this step the internal and external parameters for all cameras are gathered.
-Since the camera settings are not altered during the operation of the system, these parameters only needs to be determined once and can then be reused.
-The following parameters must be obtained for each camera, which are also explained in figure \ref{fig:sota:camcalib}:
+In this step, the internal and external parameters for all cameras are gathered.
+Since the camera settings are not altered during the operation of the system, these parameters only need to be determined once and can then be reused.
+The following parameters must be obtained for each camera, which is also explained in figure \ref{fig:sota:camcalib}:
 \begin{itemize}
     \item The internal camera matrix $ A $, which includes the focal length and the point of the image center. They can be obtained from calibration footage that features an identifiable object of known geometry, such as a chess board.
     \item The external rotation matrix $ R $ and the translation vector $ t $, which can be obtained by measuring the position and viewing direction of the camera.
     \item The internal distortion coefficients of the camera, which also can be obtained from calibration footage.
 \end{itemize}
 
-Additionally to the camera parameters, the dimensions of the elevator cabin need to be known to later be able to convert pixel units into world units of meter.
+Additionally to the camera parameters, the dimensions of the elevator cabin need to be known to be later able to convert pixel units into world units of meter.
 The parameters obtained in this step are used in the next step to guide the volume reconstruction.
 
 \subsubsection{Volume Reconstruction}
@@ -242,12 +242,12 @@ The parameters obtained in this step are used in the next step to guide the volu
 From the camera calibration and position data and the foreground mask of each perspective, 
 it is possible to reconstruct the volumetric data of the interior of the cabin.
 The technique of \emph{volume intersection} is used for this.
-Since the purpose of this system does not require a photo-realistic, the simple voxel based method can be used.
+Since the purpose of this system does not require a photo-realistic, the simple voxel-based method can be used.
 It would be possible to reconstruct the full geometry and color of the room using a point matching algorithm or the more advanced space carving. 
-However, it is not necessary to reach such a level of detil for the purpose of this system.
+However, it is not necessary to reach such a level of detail for the purpose of this system.
 
-In the volume intersection technique, first the whole volume of the elevator is described as a \ac{3D} image of $ X \times Y \times Z $ voxels.
-The number if voxels is chosen rather low, in total between 10,000 and 100,000.
+In the volume intersection technique, first, the whole volume of the elevator is described as a \ac{3D} image of $ X \times Y \times Z $ voxels.
+The number of voxels is chosen rather low, in total between 10,000 and 100,000.
 If a larger amount is chosen, results with higher accuracy could be obtained at the expense of processing power.
 The voxels describe an evenly distributed cube grid, that fills the whole elevator cabin.
 In order to perform the volume reconstruction,
@@ -268,11 +268,11 @@ the common label-propagation and label-equivalence algorithms to work on a binar
 Since $ X, Y, Z $ have been chosen to be of low resolution, it appears appropriate to use a label-propagation approach.
 
 In a simplified version of this approach, the \ac{3D} image is scanned in a raster, 
-and each encountered voxel, that is labeled as 1 in $ F_{vol} $ and has not yet been labeled by the connected component algorithm, it assigned a new unique label.
+and each encountered voxel, which is labeled as 1 in $ F_{vol} $ and has not yet been labeled by the connected component algorithm, it assigned a new unique label.
 Furthermore, all neighboring voxels, which are labeled as 1 in $ F_{vol} $, are also labeled with this label.
 When a voxel is encountered, which is already labeled, this label is also propagated to its neighbors that are labeled as 1 in $ F_{vol} $. 
-The basics of this approach work exactly like in two dimensions, however the definition of neighboring voxels is altered to match three dimensions. 
-In general all 26 voxels in the cube around a voxel are considered neighbors.
+The basics of this approach work exactly like in two dimensions, however, the definition of neighboring voxels is altered to match three dimensions. 
+In general, all 26 voxels in the cube around a voxel are considered neighbors.
 It is also possible to only consider the 6 voxels, that share a face with the center voxel.
 
 The described algorithm performs a mapping $ \{0, 1\}^{X \times Y \times Z} \rightarrow \mathbb{N}^{X \times Y \times Z} $, where the voxel values of the output represent the unique label of the blob they belong to, or 0 in case that the voxel does not belong to any blob.
@@ -283,7 +283,7 @@ The algorithm can be improved by performing the label-propagation along the surf
 
 The previous step yielded a \ac{3D} image $ F_{blobs} $ consisting of labeled binary blobs.
 For each blob, the volume and its length in the X, Y and Z axis are calculated.
-The volume is calculated by summing up the volume of the voxels, that make up the blob.
+The volume is calculated by summing up the volume of the voxels, which make up the blob.
 Even when no concrete volume for each voxel is known, this volume is still proportional to the total volume of the containing image $ F_{vol} $.
 The length in a particular axis can be found  by calculating the distance of the two most extreme voxels in that axis that belong to the blob.
 Figure \ref{fig:design:blobmeasurement} describes the calculations for this measurements for a blob with label $ l $.
@@ -304,15 +304,15 @@ $$ V_{l} = ||P_l|| \times V_{voxel} = \sum\limits_{P_l}^{}V_{voxel} $$
 With the aid of the previously generated measurements, each blob can be classified to find out whether it reassembles a passenger, a group of passengers, or a large cargo object.
 Blobs with a volume smaller than a specific threshold $ T_{min} $ are probably erroneous artifacts and can easily be ignored.
 If the volume is human like and the proportions of the blob are higher then wide, it can be classified as a human. 
-If the volume is larger than a threshold $ T_{max} $ or if the blob has a greater width than height , it can be either classified as a large object, or as a group of passengers.
+If the volume is larger than a threshold $ T_{max} $ or if the blob has a greater width than height, it can be either classified as a large object, or as a group of passengers.
 
 An alternative to this static approach would be to apply machine learning algorithms to find out the classification of a blob.
-For this a pre-classified learning data set needs to be available, which might not be feasible.
+For this, a pre-classified learning data set needs to be available, which might not be feasible.
 
 \subsection{Test Arrangement and Validation Strategy}
 To show the general feasibility of the approach described above, 
 a real live test is performed.
-For this test an exemplary office elevator is used.
+For this test, an exemplary office elevator is used.
 Inside it, multiple cameras are mounted at the walls, 
 all viewing the center of the cabin.
 The cameras do not capture a live stream that is processed but record a video for later processing.
@@ -321,7 +321,7 @@ One mounted to the center of each wall of the elevator, in a height of 150~cm.
 These cameras are therefore positioned at a right angle towards each other.
 An additional camera is mounted over the entry door within the elevator, also facing the center of the elevator.
 
-During the performance of the test there are multiple scenarios
+During the performance of the test, there are multiple scenarios
 of passengers residing in the cabin:
 \begin{itemize}
     \item Empty cabin
@@ -332,18 +332,19 @@ of passengers residing in the cabin:
 \end{itemize}
 In the test, each of those scenarios is conducted for about a minute or less.
 
-A typical approach to evaluate the performance of an 
+A typical approach to evaluate the performance of a 
 quantitative algorithm in computer vision is to compare it against the \emph{ground truth} present in the observed scene.
 The ground truth is a description of the scene in the same format which the algorithm produces, however it is generated by inspection of the original scene by a human.
 If the description consists of data for which an order exists, this order can be used for evaluation of the capability of the system.
-In general however, the data that is compared might be arbitrarily complex and therefore it is not always possible to perform the comparison quantitatively. Rather a human has to decide, how \enquote{good} the produced results are.
+In general, however, the data that is compared might be arbitrarily complex and therefore it is not always possible to perform the comparison quantitatively. Rather a human has to decide, how \enquote{good} the produced results are.
 
 
 \section{Scheduling Algorithm}
-This section describes the design of an scheduling strategy, 
+\label{sec:design:schedulingalgorithm}
+This section describes the design of a scheduling strategy, 
 which makes use of the information provided by the visual system designed above.
-The strategy is tailored to meet the needs of an building, in which passengers and cargo objects are sharing a lift.
-The strategy is then compared against conventional scheduling algorithms by designing an simulation of an elevator system that runs those algorithms.
+The strategy is tailored to meet the needs of a building, in which passengers and cargo objects are sharing a lift.
+The strategy is then compared against conventional scheduling algorithms by designing a simulation of an elevator system that runs those algorithms.
 This section follows the line of action defined in section \ref{sec:design:methodology}.
 In the next chapter, the results of this simulation are explored.
 
@@ -351,22 +352,22 @@ In the next chapter, the results of this simulation are explored.
 Since the camera system is suitable to detect passengers as well as cargo objects,
 it seems reasonable to apply the passenger information 
 to a scheduling algorithm of an elevator system which conveys both of them.
-This hold the opportunity to have a bigger impact the performance of the system, 
+This holds the opportunity to have a bigger impact on the performance of the system, 
 in contrast to applying it to a passenger-only lift.
 
-Looking back at the categorization of elevators, cargo lifts meet this specification.
+When looking back at the categorization of elevators, cargo lifts meet this specification.
 Typically an office building has one or multiple cargo lifts depending on its size,
 but grouping them is uncommon \autocite[][p.~167]{barney2016handbook}.
 A weight capacity of at least 1,600 kg is typical \autocite[][p.~167]{barney2016handbook},
 but also capacities of 5,000 kg are possible \autocite[][]{kone2017overview}.
 Typical application areas for cargo lifts are hospitals, where patients and beds are moved,
-auxiliary lifts in office buildings and multi-story industrial buildings.
+auxiliary lifts in office buildings and multi-storey industrial buildings.
 The typical control algorithm is collective control or sequential control \autocite[][pp.~238,~244]{barney2016handbook}.
-For this comparison the sequential control and collective control will be taken as a baseline.
+For this comparison, the sequential control and collective control will be taken as a baseline.
 
 \subsection{Adaption of Scheduling Algorithm}
 The proposed visual system is able to detect, whether a passenger or a large object is present in the cabin.
-This information holds the possibility to be used used in an appropriate elevator scheduling algorithm.
+This information holds the possibility to be used in an appropriate elevator scheduling algorithm.
 Therefore a new control strategy is proposed here, which will be called \emph{adaptive control} in the following. 
 The strategy is a combination of collective control and sequential control.
 It follows these simple rules:
@@ -376,20 +377,21 @@ It follows these simple rules:
     \item When there is a cargo item present in the cabin, deliver it directly to its destination car call, regardless of other car calls and hall calls.
 \end{itemize}
 
-Since those rules make use of the information about the destination floor of the cargo object, the necessarity to associate the cargo item to its car call within the system is implied.
+Since those rules make use of the information about the destination floor of the cargo object, the necessity to associate the cargo item to its car call within the system is implied.
 This association can be determined from the combination of the video data and car call data.
-When the cargo object is first detected, one of the next car calls made must by from the object or the passenger escorting it.
+When the cargo object is first detected, one of the next car calls made must be from the object or the passenger escorting it.
 
 \subsection{Preparation for Simulation and Validation Strategy}
 
 \subsubsection{Scheduling Algorithms}
+\label{sec:design:schedulingalgorithms}
 
 As discussed before the introduced \emph{adaptive control strategy} is evaluated using a simulation of an elevator system. 
 It is compared against the \emph{sequential control strategy} and the \emph{collective control strategy}.
 In order to guide the implementation of the simulation, the concrete actions that these three strategies take to move an elevator are laid out in the following.
 
 The \textbf{sequential control strategy} delivers one passenger at a time and serves hall calls sequentially. 
-Its behavior can be describes with the following actions:
+Its behavior can be described with the following actions:
 \begin{enumerate}[noitemsep]
     \item Update the queue of hall calls by appending all active hall calls that are not yet in the queue.
     \item If there is an active car call:
@@ -410,8 +412,8 @@ Its behavior can be describes with the following actions:
     \end{enumerate}
 \end{enumerate}
 
-The \textbf{non-directional collective control strategy} collects and drops of passengers along the way, while serving the hall and car calls.
-Its behavior can be describes with the following actions:
+The \textbf{non-directional collective control strategy} collects and drops off passengers along the way while serving the hall and car calls.
+Its behavior can be described with the following actions:
 \begin{enumerate}[noitemsep]
     \item Let the car calls be all the destinations of all passengers present in the lift.
     \item Let the hall calls be all the unique floors where passengers wait for the elevator
@@ -423,7 +425,7 @@ Its behavior can be describes with the following actions:
     \item Otherwise, if the hall calls contain the current floor:
     \begin{enumerate}[noitemsep]
         \item Open the doors.
-        \item Load all passengers in the floor into the lift, which fit in it.
+        \item Load all passengers on the floor into the lift, which fit in it.
     \end{enumerate}
     \item Otherwise, if there is another car call or hall call in the current direction of travel:
     \begin{enumerate}[noitemsep]
@@ -433,8 +435,8 @@ Its behavior can be describes with the following actions:
     \item Otherwise reverse the current direction of travel.
 \end{enumerate}
 
-The \textbf{adaptive control strategy strategy} introduced before makes a decision based on whether an cargo object is currently in located inside the cabin.
-Its behavior can be describes with the following actions:
+The \textbf{adaptive control strategy} introduced before makes a decision based on whether a cargo object is currently located inside the cabin.
+Its behavior can be described with the following actions:
 \begin{enumerate}[noitemsep]
     \item If there is a cargo object in the elevator:
     \begin{enumerate}[noitemsep]
@@ -520,7 +522,7 @@ Number of simulations & 1000 & \\
 In the section beforehand, the building type that acts as a base for the simulation has been described:
 a single elevator configuration, shared by passengers and cargo items.
 \textcite[][p.~347]{barney2016handbook} described, which parameters need to be determined in order to run a simulation. 
-Table \ref{tab:design:simulationconfig} gives an overview over the parameters that were chosen for this simulation.
+Table \ref{tab:design:simulationconfig} gives an overview of the parameters that were chosen for this simulation.
 Some of the values are taken from elevators manufactured by KONE \autocite[][]{kone2017overview}, 
 other values are taken from \textcite[][p.~349]{barney2016handbook}.
 Especially the lift parameters are based on the sources.
@@ -528,29 +530,29 @@ In paragraphs ahead, the other parameters are discussed more thoroughly.
 
 Table \ref{tab:design:simulationconfig} features two sections, that describe passenger data and cargo data.
 The elevator can convey both, passengers and cargo objects.
-Therefore in the simulation they are both considered to be \emph{traffic items}.
+Therefore, in the simulation they are both considered to be \emph{traffic items}.
 Even though, not all cargo objects can move on their own, and need to be carried by a passenger,
 for the purpose of this simulation, they are considered to behave identical as passengers.
-In general traffic items arrive at a certain time at a certain floor and have a defined destination floor.
+In general, traffic items arrive at a certain time on a certain floor and have a defined destination floor.
 The only aspect in which they differ is their arrival rate, in that more passengers than cargo objects arrive, and their physical properties.
 
 The simulation is performed using discrete events.
 Therefore a discrete, strictly increasing integer clock is used to mark the timing of events.
-Each of theses discrete steps is called a \emph{tick}.
+Each of these discrete steps is called a \emph{tick}.
 The duration of such a tick is determined by the \emph{time slice} parameter.
 
 The \emph{arrival rates} of passengers and cargo objects is chosen constant over the who time, 
 which means that at any point in the simulation the chance that a given amount (0, 1, 2, ...) of traffic items arrives is fixed.
-Furthermore, the arrival rate on each floor are assumed to be the same.
+Furthermore, the arrival rate on each floor is assumed to be the same.
 This behavior can be modeled with a Poisson distribution
 $$ A(k) = e^{-\lambda}\frac{\lambda^k}{k!} $$
 where $ A(k) $ describes the likelihood of a specific number of traffic items arriving within a time slice (duration of a tick) in the whole building.
 The parameter $ \lambda $ is chosen to be the multiple of the time slice and the arrival rate.
 This constant arrival model simplifies the simulation and effectively simulates an \emph{inter-floor traffic pattern}.
-It would also be possible to model a up-peak or down-peak traffic pattern, however this would make the modeling more complex.
+It would also be possible to model an up-peak or down-peak traffic pattern, however, this would make the modeling more complex.
 
 The \emph{weight and volume distribution} for both types of traffic items is given by choosing from predefined \emph{prototypes} (or stereotypes).
-Every passenger or cargo object in the simulation has the same wight and volume properties as one of the prototypes.
+Every passenger or cargo object in the simulation has the same weight and volume properties as one of the prototypes.
 Table \ref{tab:design:trafficitemprototypes} lists the prototypes that are defined for this simulation.
 A passenger in the simulation is created from any of the passenger prototypes with the likelihood of $ \frac{1}{4} $, a cargo item from any of the cargo item prototypes with a likelihood of $ \frac{1}{4} $.
 Choosing from prototypes rather than a continuous distribution helps to simplify the simulation implementation.
