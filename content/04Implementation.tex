@@ -80,6 +80,8 @@ The \textcite{python2018pypi} provides a repository, in which all of these depen
 \end{itemize}
 
 TODO
+adjustable values for some parameters
+
 \subsection{Test Execution}
 elevator setup: measurements, camera positions, calibration with \autocite[][]{smid2015calibration}
 scenario: empty, single person, 2 persons, 3 persons, only carton, 1+ carton, 2+ carton
@@ -118,11 +120,18 @@ A wide angle camera on all sides might yield better results.
 The foreground masking does not produce results of the desired quality.
 It detects the passengers and cargo objects while they are moving.
 However, often the center of the subject is not completely detected.
-Only the outline and moving edged are recognized by the backg
+Only the outline and moving edged are recognized by the background subtractor.
+This leads to \enquote{holes} in the reconstructed volume.
+On the positive side of the adjustable parameters for the blur of the input image before the background subtraction and the adjustable amount of morphological opening and dilating of the foreground mask served good while experimenting with the footage.
+In order to address the shortcomings of the foreground masking via background subtraction,
+it could be possible to combine the technique with other image segmentation methods.
 
-- adjustable blurring helped to find better background subtractor results
-- background substraction is not as good as i though it would be, often a body is not compleatly detected, only its outline is detected <- room, for improvement by maybe applying other image segmentation techniques combined with it, or maybe using a lower resolution
-- volume reconstruction in general feasible, however its not compleatly correct but yields at least proportional results
+The volume reconstruction using a simple voxel-based method of volume intersection shows to be feasible in general for the purpose of life volume estimation, since no high accuracy is needed.
+However the implemented orthogonal version is not completely correct, as a perspective projection would be needed.
+Still it demonstrates general feasibility of this approach, 
+as the orthogonal projection yields a volume description that is proportional but skewed.
+Additionally, due to the holes in the foreground masks, these holes are also present in the 
+
 - due do inconsistent foreground masks, many "holes" occure
 - blob detection and measurement not implemented
 - blob classification not feasable if blob quality is low because of viewving angle and holes
