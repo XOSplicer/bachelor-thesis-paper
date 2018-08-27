@@ -17,19 +17,23 @@ main program in \ref{lst:app:volmain} in appendix \ref{app:vol} and also on atta
 There exists a C++ implementation of a perspective correct volume intersection, which however is used for a more detailed reconstruction of a small statue, which is photographed 36 times and rotated around its own axis \autocite[][]{xocoatzin2013voxelcarving}.
 This C++ implementation gave a first reference for the implementation in Python.
 
-
+size of cabin in voxel: 20x25x30
 
 TODO
 important excerpt:
 
 Listing \ref{lst:impl:volintersect} shows the code for the orthogonal volume intersection.
-First, the three input images are scaled
+First, the three  foreground masks of the three perspectives are scaled.
+Then, every voxel position in the room is checked in a list comprehension.
+To do so, the coordinate \texttt{[u, v, w]} is iterated over the Cartesian product 
+of all possible voxel coordinate values of the width, depth and height axis of the room.
+The voxel position is then \enquote{projected} orthogonally into the scaled foreground masks, which is essentially only an array index into the masks, where \texttt{w} is the primary axis of the image, and \texttt{v} or \texttt{u} is the secondary axis of the image (depending on the side).
 
 \begin{lstlisting}[caption={Othorgonal volume intersection implementation}, label={lst:impl:volintersect}]
 # draw masks A B C to the side, orthogonal
 scaled_masks = draw_3d_side(side_3d, bgs_pp_masks_b)
 
-# create points of orthorgonal intersection of A B C
+# create points of orthogonal intersection of A B C
 vol_poss = np.array([ \
     [ \
         u * ROOM_SCALE_MPVX['width'],\
@@ -43,6 +47,14 @@ vol_poss = np.array([ \
     and scaled_masks[1][w][u] == 255 \
     and scaled_masks[2][w][v] == 255 ])
 \end{lstlisting}
+
+As mentioned, this implementation uses orthogonal projection.
+In order to turn it into a perspective projection, instead of usng a direct array lookup \\
+\texttt{... scaled_masks[0][w][v] == 255 ...} \\
+an projected lookup can be made:\\
+\texttt{... masks[0][project_and_scale(, [u, v, w])] == 255}
+TODO what todo in order to make this correct
+
 
 TODO Dependencies:
 \begin{itemize}[noitemsep]
