@@ -85,6 +85,10 @@ elevator setup: measurements, camera positions, calibration with \autocite[][]{s
 scenario: empty, single person, 2 persons, 3 persons, only carton, 1+ carton, 2+ carton
 TODO
 
+The test was performed as described in section \ref{sec:design:visualtest} with the help of two fellow students.
+The used cameras are smart phones, attached to the wall with tape.
+The cargo object used is a large carton.
+
 \begin{figure}[p]
     \centering
     \includegraphics[width=1.0\textwidth, keepaspectratio]{volumeintersection_preview_04}
@@ -98,10 +102,16 @@ TODO
     \includegraphics[width=1.0\textwidth, keepaspectratio]{volumeintersection_preview_05}
     
     \caption[Images of volume intersection test with orthogonal projection]{Images of volume intersection test with orthogonal projection. Each preview showing the camera images, foreground masks and the resulting volume intersection. (a) single passenger (b) cargo object (c) multiple passengers.}
-    \label{fig:impl:preview}
+    \label{fig:impl:videopreview}
 \end{figure}
 
 \subsection{Result Evaluation}
+
+no ground truth for every frame taken, however let me tell you about the ups and downs.
+- video capture works
+- adjustable blurring helped to find better background subtractor results
+- background substraction is not as good as i though it would be, often a body is not compleatly
+
 general concept feasible
 small viewing angle: person out of frame
 poor foreground separation by only applying background subtraction
