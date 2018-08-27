@@ -11,33 +11,34 @@ Then simulation of an elevator system is implemented to compare tree scheduling 
 TODO
 \subsection{Implementation with OpenCV and Python}
 
-
-
-There exists a C++ implementation of a perspective correct volume intersection  \autocite[][]{xocoatzin2013voxelcarving}
-
 follows approach up to volume reconstruction, which however is done orthographically
-main program in \ref{lst:app:volmain} in appendix \ref{app:vol}.
+main program in \ref{lst:app:volmain} in appendix \ref{app:vol} and also on attached CD or DVD.
+
+There exists a C++ implementation of a perspective correct volume intersection, which however is used for a more detailed reconstruction of a small statue, which is photographed 36 times and rotated around its own axis \autocite[][]{xocoatzin2013voxelcarving}.
+This C++ implementation gave a first reference for the implementation in Python.
+
+
 
 TODO
 important excerpt:
 
 \begin{lstlisting}[caption={Othorgonal volume intersection implementation}, label={lst:impl:volintersect}]
-        # draw masks A B C to the side, othorgonal (semi correct)
-        scaled_masks = draw_3d_side(side_3d, bgs_pp_masks_b)
+# draw masks A B C to the side, orthogonal
+scaled_masks = draw_3d_side(side_3d, bgs_pp_masks_b)
 
-        # create orthorgonal  intersection of A B C
-        vol_poss = np.array([ \
-            [ \
-                u * ROOM_SCALE_MPVX['width'],\
-                v * ROOM_SCALE_MPVX['depth'],\
-                w * ROOM_SCALE_MPVX['height']\
-            ] \
-            for u in range(ROOM_DIM_VX['width']) \
-            for v in range(ROOM_DIM_VX['depth']) \
-            for w in range(ROOM_DIM_VX['height']) \
-            if  scaled_masks[0][w][v] == 255 \
-            and scaled_masks[1][w][u] == 255 \
-            and scaled_masks[2][w][v] == 255 ])
+# create points of orthorgonal intersection of A B C
+vol_poss = np.array([ \
+    [ \
+        u * ROOM_SCALE_MPVX['width'],\
+        v * ROOM_SCALE_MPVX['depth'],\
+        w * ROOM_SCALE_MPVX['height']\
+    ] \
+    for u in range(ROOM_DIM_VX['width']) \
+    for v in range(ROOM_DIM_VX['depth']) \
+    for w in range(ROOM_DIM_VX['height']) \
+    if  scaled_masks[0][w][v] == 255 \
+    and scaled_masks[1][w][u] == 255 \
+    and scaled_masks[2][w][v] == 255 ])
 \end{lstlisting}
 
 TODO Dependencies:
