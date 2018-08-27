@@ -134,20 +134,13 @@ Additionally, due to the holes in the foreground masks, these holes are also pre
 This leads to inconsistencies.
 
 The \ac{3D} blob detection and measurement has not been implemented as proposed.
-This is a decision made in order to keep room for the 
+The blob classification is not feasible, if the quality of the volume data is low because of the missing observed corners and the holes in the volumes.
+The holes lead to a high degree of segmentation. No connected components would be found and the ones found would be lower than the detection threshold.
+Figure \ref{fig:impl:videopreview} shows the short times, where actually connected blobs are detected. But most of the time the results are worse.
+The video data can also be found on the attached CD or DVD.
 
-- blob detection and measurement not implemented
-- blob classification not feasable if blob quality is low because of viewving angle and holes
-- conclusion: feasable, but needs a lot of work to be ready
-- \ref{fig:impl:videopreview} shows the better parts, but most of the time there were holes
-- video can also be found on CD / DVD
+In conclusion: The overall approach is feasible and implementable using OpenCV, however many improvements need to be made for a production ready system.
 
-general concept feasible
-small viewing angle: person out of frame
-poor foreground separation by only applying background subtraction
-non-correct orthogonal intersection implemented
-
-TODO
 
 \section{Scheduling Algorithm}
 \subsection{Implementation of Simulation}
