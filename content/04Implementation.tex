@@ -90,7 +90,7 @@ The actions it performs can be described as following:
 \end{enumerate}
 
 
-
+The actions takes in order to run a single simulation are then as follows:
 \begin{enumerate}
     \item Create a new \texttt{ElevatorSystem e}, which holds the system state to be altered during the simulation.
     \item Create an empty \texttt{SimulationResults} metric container, which will aggregate the metrics for this run.
@@ -107,6 +107,11 @@ The actions it performs can be described as following:
 \end{enumerate}
 
 TODO reference implementation of the strategies
+
+The three control strategies are passed to the execution of a single simulation as generic parameters parameters.
+Therefore, they all implement an interface \texttt{ControlStrategy}.
+The control strategies decide in each tick of the simulation, which action should be taken on the elevator system
+
 
 TODO reference and describe class diagram in figure \ref{fig:impl:simclass}
 rust does not support only the oop style, so a class diagram is not compleatly suitable
