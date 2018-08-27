@@ -57,7 +57,7 @@ vol_poss = np.array([ \
 
 As mentioned, this implementation uses orthogonal projection.
 In order to turn it into a perspective projection, instead of using a direct array look-up \\
-\texttt{... scaled\_masks[0][w][v] == 255 ...} \\
+\texttt{... scaled\_masks[0][w][v] == 255} \\
 a projected look-up can be made:\\
 \texttt{... masks[0][project\_and\_scale(CAM\_CALIBRATION[0], [u, v, w])] == 255 ...} \\
 where the function \texttt{project\_and\_scale(c, p)} takes the internal and external calibration data \texttt{c} of a camera and a voxel position \texttt{p} and returns a projected and scaled pixel position, that can be used to index into the foreground mask of that camera.
