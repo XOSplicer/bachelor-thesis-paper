@@ -106,15 +106,18 @@ The actions takes in order to run a single simulation are then as follows:
     \item Correct the gathered metrics by removing the ride times of traffic items, who did not arrive at their destination yet and waiting times of traffic items, who did not yet enter the elevator.
 \end{enumerate}
 
-TODO reference implementation of the strategies
-
 The three control strategies are passed to the execution of a single simulation as generic parameters parameters.
 Therefore, they all implement an interface \texttt{ControlStrategy}.
-The control strategies decide in each tick of the simulation, which action should be taken on the elevator system
+A control strategy decides in each tick of the simulation, which action should be taken on the elevator system.
+The behavior is the same as defined in section \ref{sec:design:schedulingalgorithms}, however, the actions such as \enquote{move elevator to floor X} are not performed in one action, but require instructions for the elevator system spanning over multiple ticks.
+Hence, at each point in time and instruction from the \texttt{ControlAction} enumeration is given.
 
 
 TODO reference and describe class diagram in figure \ref{fig:impl:simclass}
 rust does not support only the oop style, so a class diagram is not compleatly suitable
+
+Figure \ref{fig:impl:simclass} shows a class diagram of the simulation program.
+Rust is not a pure object oriented language 
 
 \begin{figure}[p]
     \centering
@@ -128,7 +131,7 @@ TODO dependecies:
     \item \texttt{lazy\_static}: Used for initialization of prototype list
     \item \texttt{rand}: Provides randomness functions and common likelihood functions including the Poisson distribution
     \item \texttt{rayon}: Provides data-driven multi-threading capabilities and is used to run the simulations in parallel
-    \item \texttt{streaming-stats} (\texttt{stats}): Provides functions to create metrics with online algorithms such as average,  minimum, maximum and standert deviation
+    \item \texttt{streaming-stats} (\texttt{stats}): Provides functions to create metrics with online algorithms such as average,  minimum, maximum and standard deviation
     \item \texttt{uom}: Provides types for units of measurements such as Mass and Time, as well as the respective \ac{SI} units such as kilograms and seconds
 \end{itemize}
 
