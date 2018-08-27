@@ -18,16 +18,18 @@ based on \autocite[][]{xocoatzin2013voxelcarving}
 follows approach up to volume reconstruction, which however is done orthographically
 
 TODO Dependencies:
-numpy - ndarrays
-scipy
-matplotlib - plotting of 2D graphs
-opencv-python - Computer Vision library
-opencv-contrib-python - additional functions in computer vision
-PyYAML - parsig and writing of YAML files for calibration
-scikit-image - 
-PyQt5 - 
-PyOpenGL
-pyqtgraph - 3D 
+\begin{itemize}[noitemsep]
+    \item \texttt{numpy}:  Provides typed n-dimensional arrays to store image data
+    \item \texttt{scipy}:  Dependency of scikit-image
+    \item \texttt{matplotlib}: Used for plotting of 2D graphs
+    \item \texttt{opencv-python}: Open Computer Vision library
+    \item \texttt{opencv-contrib-python}: Provides additional functions for OpenCV
+    \item \texttt{PyYAML}: Used for parsing and writing of \ac{YAML} files in the camera calibration
+    \item \texttt{scikit-image}: Image processing functions  
+    \item \texttt{PyQt5}: Dependency of \texttt{pyqtgraph}, used to create application windows
+    \item \texttt{PyOpenGL}: Dependency of \texttt{pyqtgraph}, used for for \ac{3D} rendering 
+    \item \texttt{pyqtgraph}: Used to display real-time 3D graphs
+\end{itemize}
 
 TODO
 \subsection{Test Execution}
@@ -74,8 +76,8 @@ The language is chosen, since the author is proficient in it.
 TODO überleitung
 
 TODO
-general program flow:
 
+The \texttt{main} function is the entry point into the program
 
 \begin{enumerate}
     \item Initialize the \texttt{BuildingParameters b}, \texttt{LiftParameters l} and\\ \texttt{SimulationParameters s}.
@@ -102,6 +104,8 @@ to run a single simulation with a control strategy:
     \end{enumerate}
     \item Correct the gathered metrics by removing the ride times of traffic items, who did not arrive at their destination yet and waiting times of traffic items, who did not yet enter the elevator.
 \end{enumerate}
+
+TODO reference implementation of the strategies
 
 TODO reference and describe class diagramm
 
