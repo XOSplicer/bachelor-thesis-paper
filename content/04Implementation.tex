@@ -130,9 +130,12 @@ The volume reconstruction using a simple voxel-based method of volume intersecti
 However the implemented orthogonal version is not completely correct, as a perspective projection would be needed.
 Still it demonstrates general feasibility of this approach, 
 as the orthogonal projection yields a volume description that is proportional but skewed.
-Additionally, due to the holes in the foreground masks, these holes are also present in the 
+Additionally, due to the holes in the foreground masks, these holes are also present in the volume image. 
+This leads to inconsistencies.
 
-- due do inconsistent foreground masks, many "holes" occure
+The \ac{3D} blob detection and measurement has not been implemented as proposed.
+This is a decision made in order to keep room for the 
+
 - blob detection and measurement not implemented
 - blob classification not feasable if blob quality is low because of viewving angle and holes
 - conclusion: feasable, but needs a lot of work to be ready
