@@ -33,7 +33,8 @@ Then, every voxel position in the room is checked in a list comprehension.
 To do so, the coordinate \texttt{[u, v, w]} is iterated over the Cartesian product 
 of all possible voxel coordinate values of the width, depth and height axis of the room.
 The voxel position is then \enquote{projected} orthogonally into the scaled foreground masks, which is essentially only an array index into the masks, where \texttt{w} is the primary axis of the image, and \texttt{v} or \texttt{u} is the secondary axis of the image (depending on the side).
-The list comprehension yields an array of voxel positions, where the voxel is part of the volume description.
+The voxel position is then scaled from voxel coordinates to room coordinates.
+The list comprehension yields an array of voxel positions, where each of the the voxels is part of the volume description.
 
 \begin{lstlisting}[caption={Orthogonal volume intersection implementation}, label={lst:impl:volintersect}]
 # draw masks A B C to the side, orthogonal
@@ -58,7 +59,7 @@ As mentioned, this implementation uses orthogonal projection.
 In order to turn it into a perspective projection, instead of using a direct array look-up \\
 \texttt{... scaled\_masks[0][w][v] == 255 ...} \\
 a projected look-up can be made:\\
-\texttt{... masks[0][project\_and\_scale(CAM\_CALIBRATION[0], [u, v, w])] == 255}\\
+\texttt{... masks[0][project\_and\_scale(CAM\_CALIBRATION[0], [u, v, w])] == 255 ...} \\
 where the function \texttt{project\_and\_scale(c, p)} takes the internal and external calibration data \texttt{c} of a camera and a voxel position \texttt{p} and returns a projected and scaled pixel position, that can be used to index into the foreground mask of that camera.
 
 
