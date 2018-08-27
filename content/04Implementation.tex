@@ -62,8 +62,9 @@ non-correct othorgonal intersection implemented
 TODO
 
 \section{Scheduling Algorithm}
-TODO
 \subsection{Implementation of Simulation}
+In section \ref{sec:design:schedulingalgorithm} the \emph{adaptive control strategy} has been introduced and an evaluation via a simulation has been planned.
+This section describes the details of this implementation.
 
 The simulation is implemented in the \emph{Rust} programming language.
 Rust is a programming language initially developed by Mozilla.
@@ -73,9 +74,9 @@ It features an expressive static type system and can be used to build applicatio
 The rust compiler targets common platforms and operating and compiles source code to native machine code.
 The language is chosen, since the author is proficient in it.
 
-TODO überleitung
-
-TODO
+The whole program spans over 880 lines of code.
+It is not printed here, but can be found on the attached CD or DVD.
+Instead of printing it, its behavior and structure is explained in the following.
 
 The \texttt{main} function is the entry point into the program.
 In it the general behavior of the simulation is defined.
@@ -88,7 +89,6 @@ The actions it performs can be described as following:
     \item Collect the results of all simulations and filter out the results of any run, where any of the three strategies produced an invalid result.
     \item Calculate the specified metrics by aggregating all the results for each strategy.
 \end{enumerate}
-
 
 The actions takes in order to run a single simulation are then as follows:
 \begin{enumerate}
@@ -113,7 +113,7 @@ The behavior is the same as defined in section \ref{sec:design:schedulingalgorit
 Hence, at each point in time and instruction from the \texttt{ControlAction} enumeration is given.
 
 Figure \ref{fig:impl:simclass} shows a class diagram of the simulation program.
-Rust is not a pure object oriented language, but rather a imperative system programming language, which solves generic programming via interfaces.
+Rust is not a pure object oriented language, but rather a imperative systems programming language, which solves generic programming via interfaces.
 Therefore, the \ac{UML} class diagram is sub-optimal for the accurate representation of a rust program.
 It can still be used and gives a good overview over the types and instance variables present in the program.
 
@@ -126,7 +126,9 @@ It can still be used and gives a good overview over the types and instance varia
 \end{figure}
 
 The rust implementation as a few dependencies, which are libraries used by the program.
-All of them can be found in the rust package repository \url{}
+All of them can be found in the rust package repository \autocite[][]{rust2018cratesio}.
+This list describes their purpose in the program:
+\begin{samepage}
 \begin{itemize}[noitemsep]
     \item \texttt{lazy\_static}: Used for initialization of prototype list
     \item \texttt{rand}: Provides randomness functions and common likelihood functions including the Poisson distribution
@@ -134,6 +136,7 @@ All of them can be found in the rust package repository \url{}
     \item \texttt{streaming-stats} (\texttt{stats}): Provides functions to create metrics with online algorithms such as average,  minimum, maximum and standard deviation
     \item \texttt{uom}: Provides types for units of measurements such as Mass and Time, as well as the respective \ac{SI} units such as kilograms and seconds
 \end{itemize}
+\end{samepage}
 
 
 \subsection{Evaluation of Simulation Results}
