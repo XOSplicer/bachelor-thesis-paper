@@ -114,9 +114,10 @@ Hence, at each point in time and instruction from the \texttt{ControlAction} enu
 
 Figure \ref{fig:impl:simclass} shows a class diagram of the simulation program.
 Rust is not a pure object oriented language, but rather a imperative systems programming language, which solves generic programming via interfaces.
-Therefore, the \ac{UML} class diagram is sub-optimal for the accurate representation of a rust program.
+Therefore, the \ac{UML} class diagram is sub-optimal for the accurate representation of a Rust program.
 It can still be used and gives a good overview over the types and instance variables present in the program.
-
+Note that the \texttt{Main} class is not a class but a collection of functions.
+It uses almost all of the types shown, even if no association is indicated in the diagram.
 
 \begin{figure}[p]
     \centering
@@ -125,7 +126,7 @@ It can still be used and gives a good overview over the types and instance varia
     \label{fig:impl:simclass}
 \end{figure}
 
-The rust implementation as a few dependencies, which are libraries used by the program.
+The Rust implementation as a few dependencies, which are libraries used by the program.
 All of them can be found in the rust package repository \autocite[][]{rust2018cratesio}.
 This list describes their purpose in the program:
 \begin{samepage}
@@ -137,7 +138,6 @@ This list describes their purpose in the program:
     \item \texttt{uom}: Provides types for units of measurements such as Mass and Time, as well as the respective \ac{SI} units such as kilograms and seconds
 \end{itemize}
 \end{samepage}
-
 
 \subsection{Evaluation of Simulation Results}
 
