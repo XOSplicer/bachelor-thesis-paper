@@ -78,17 +78,18 @@ TODO überleitung
 TODO
 
 The \texttt{main} function is the entry point into the program.
-
+In it the general behavior of the simulation is defined.
+It initializes the simulation parameters and traffic patterns and runs the actual simulation runs.
+The actions it performs can be described as following:
 \begin{enumerate}
     \item Initialize the \texttt{BuildingParameters b}, \texttt{LiftParameters l} and\\ \texttt{SimulationParameters s}.
     \item Generate \texttt{s.simulations} many traffic \texttt{TrafficGenerator} instances, which each generates a traffic pattern. A traffic patterns describes the arrivals of traffic items for each tick of the simulation period. A Poisson distribution can be used to determine the amount of traffic items that arrive within this tick \autocite{beers2015arrivals}.
     \item For each traffic patterns, run the simulation with the three different scheduling strategies. Each simulation is given the same parameters (\texttt{b, l, s}) and the same traffic pattern. The procedure to run a single simulation is described below.
     \item Collect the results of all simulations and filter out the results of any run, where any of the three strategies produced an invalid result.
-    5. Calculate the specified metrics by aggregating all the results for each strategy.
+    \item Calculate the specified metrics by aggregating all the results for each strategy.
 \end{enumerate}
 
-TODO
-to run a single simulation with a control strategy:
+
 
 \begin{enumerate}
     \item Create a new \texttt{ElevatorSystem e}, which holds the system state to be altered during the simulation.
@@ -107,13 +108,14 @@ to run a single simulation with a control strategy:
 
 TODO reference implementation of the strategies
 
-TODO reference and describe class diagramm
+TODO reference and describe class diagram in figure \ref{fig:impl:simclass}
+rust does not support only the oop style, so a class diagram is not compleatly suitable
 
 \begin{figure}[p]
     \centering
     \includegraphics[width=1.0\textwidth, keepaspectratio]{sim_uml_class}
     \caption{Class diagram for the elevator simulation program}
-    \label{fig:impl:class}
+    \label{fig:impl:simclass}
 \end{figure}
 
 TODO dependecies:
