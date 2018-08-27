@@ -106,9 +106,20 @@ The cargo object used is a large carton.
 \end{figure}
 
 \subsection{Result Evaluation}
+No ground truth for the volumetric data inside the cabin was recorded during the execution of the test.
+This means the volume of the test subjects is unknown, as well as their position at every moment of time.
+Therefore, here a qualitative evaluation is performed. 
 
-no ground truth for every frame taken, however let me tell you about the ups and downs.
-- video capture works, but has small viewving angle, so that corners are not covered, maybe other angle is better
+The video capture works as intended.
+However the choice of cameras resulted in a viewing angle, which did not cover the whole cabin.
+This has the consequence that the corners of the cabin were not recorded an a passenger standing there was not registered by the system.
+A wide angle camera on all sides might yield better results.
+
+The foreground masking does not produce results of the desired quality.
+It detects the passengers and cargo objects while they are moving.
+However, often the center of the subject is not completely detected.
+Only the outline and moving edged are recognized by the backg
+
 - adjustable blurring helped to find better background subtractor results
 - background substraction is not as good as i though it would be, often a body is not compleatly detected, only its outline is detected <- room, for improvement by maybe applying other image segmentation techniques combined with it, or maybe using a lower resolution
 - volume reconstruction in general feasible, however its not compleatly correct but yields at least proportional results
@@ -117,7 +128,7 @@ no ground truth for every frame taken, however let me tell you about the ups and
 - blob classification not feasable if blob quality is low because of viewving angle and holes
 - conclusion: feasable, but needs a lot of work to be ready
 - \ref{fig:impl:videopreview} shows the better parts, but most of the time there were holes
-- video can a
+- video can also be found on CD / DVD
 
 general concept feasible
 small viewing angle: person out of frame
