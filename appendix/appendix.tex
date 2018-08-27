@@ -173,6 +173,7 @@ fn run_single_simulation<S: ControlStrategy>(
 \end{lstlisting}
 
 \chapter{Volume Intersection Source Code (excerpts)}
+\label{app:vol}
 
 \begin{lstlisting}[caption={Main function of the volume intersection program}, label={lst:app:volmain}]
 def main():
@@ -189,7 +190,6 @@ def main():
     side_3d = create_3d_side(view_3d)
 
     caps = [ cv2.VideoCapture(c['file']) for c in CAPTURES ]
-    # bgss = [ cv2.createBackgroundSubtractorMOG2() for _ in caps ]
     bgss_pp = [ cv2.createBackgroundSubtractorMOG2() for _ in caps ]
 
     video_out_res = (1920, 480)
@@ -204,7 +204,6 @@ def main():
         # convert to grayscale
         gry = [ cv2.cvtColor(c, cv2.COLOR_BGR2GRAY) for c in raws ]
         gry_preview = multi_preview(gry)
-        #cv2.imshow('gry_preview', gry_preview)
 
         # get parameters from trackbars
         k_size = cv2.getTrackbarPos('open_kernel','sliders')
@@ -223,7 +222,6 @@ def main():
         bgs_pp_masks_b = [ cv2.dilate(cv2.morphologyEx(b, cv2.MORPH_OPEN, open_kernel), dilate_kernel, iterations = 10)\
              for b in bgs_pp_masks_t ]
         bgs_pp_preview = multi_preview(bgs_pp_masks_b)
-        #cv2.imshow('bgs_pp_preview', bgs_pp_preview)
 
         # draw masks A B C to the side, othorgonal (semi correct)
         scaled_masks = draw_3d_side(side_3d, bgs_pp_masks_b)
@@ -258,13 +256,6 @@ def main():
         if OUTPUT:
             video_out.write(out)
 
-
-        # unnecessary distance measure
-        # canny_dists = [cv2.distanceTransform(cv2.bitwise_not(cv2.Canny(m, 0, 255)), cv2.DIST_L2, 3) for m in bgs_pp_masks_b]
-        # canny_dists_preview = multi_preview(canny_dists)
-        # cv2.imshow('canny_dists_preview', canny_dists_preview)
-        # print(cannys[0].shape, cannys[0].dtype)
-
         if cv2.waitKey(int(1000/25)) != -1:
             break
 
@@ -272,6 +263,5 @@ def main():
     for c in caps:
         c.release()
     if OUTPUT:
-video_out.release()
-
+        video_out.release()
 \end{lstlisting}

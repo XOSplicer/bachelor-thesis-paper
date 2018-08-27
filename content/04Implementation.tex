@@ -16,6 +16,29 @@ TODO
 based on \autocite[][]{xocoatzin2013voxelcarving}
 
 follows approach up to volume reconstruction, which however is done orthographically
+main program in \ref{lst:app:volmain} in appendix \ref{app:vol}.
+
+TODO
+important excerpt:
+
+\begin{lstlisting}[caption={Othorgonal volume intersection implementation}, label={lst:impl:volintersect}]
+        # draw masks A B C to the side, othorgonal (semi correct)
+        scaled_masks = draw_3d_side(side_3d, bgs_pp_masks_b)
+
+        # create orthorgonal  intersection of A B C
+        vol_poss = np.array([ \
+            [ \
+                u * ROOM_SCALE_MPVX['width'],\
+                v * ROOM_SCALE_MPVX['depth'],\
+                w * ROOM_SCALE_MPVX['height']\
+            ] \
+            for u in range(ROOM_DIM_VX['width']) \
+            for v in range(ROOM_DIM_VX['depth']) \
+            for w in range(ROOM_DIM_VX['height']) \
+            if  scaled_masks[0][w][v] == 255 \
+            and scaled_masks[1][w][u] == 255 \
+            and scaled_masks[2][w][v] == 255 ])
+\end{lstlisting}
 
 TODO Dependencies:
 \begin{itemize}[noitemsep]
