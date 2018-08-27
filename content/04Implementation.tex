@@ -11,11 +11,16 @@ Then simulation of an elevator system is implemented to compare tree scheduling 
 TODO
 \subsection{Implementation with OpenCV and Python}
 
-follows approach up to volume reconstruction, which however is done orthographically
-main program in \ref{lst:app:volmain} in appendix \ref{app:vol} and also on attached CD or DVD.
+The implementation is written in Python 3 in version 3.6 \autocite[][]{python2018python366}
+with bindings to OpenCV 3.4.2.
+Python was chosen as the implementation language, since it provides a higher abstraction and better ergonomics than C++.
+Furthermore, the author is proficient in it.
 
 There exists a C++ implementation of a perspective correct volume intersection, which however is used for a more detailed reconstruction of a small statue, which is photographed 36 times and rotated around its own axis \autocite[][]{xocoatzin2013voxelcarving}.
 This C++ implementation gave a first reference for the implementation in Python.
+
+follows approach up to volume reconstruction, which however is done orthographically
+main program in \ref{lst:app:volmain} in appendix \ref{app:vol} and also on attached CD or DVD.
 
 size of cabin in voxel: 20x25x30
 
@@ -60,7 +65,6 @@ where the function \texttt{project\_and\_scale(c, p)} takes the internal and ext
 
 The program depends on several libraries.
 The \textcite{python2018pypi} provides a repository, in which all of these dependencies can be found.
-
 \begin{itemize}[noitemsep]
     \item \texttt{numpy}:  Provides typed n-dimensional arrays to store image data
     \item \texttt{scipy}:  Dependency of scikit-image
@@ -76,7 +80,7 @@ The \textcite{python2018pypi} provides a repository, in which all of these depen
 
 TODO
 \subsection{Test Execution}
-elevator setup: measurements, camera positions
+elevator setup: measurements, camera positions, calibration with \autocite[][]{smid2015calibration}
 scenario: empty, single person, 2 persons, 3 persons, only carton, 1+ carton, 2+ carton
 TODO
 
