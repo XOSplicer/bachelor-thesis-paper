@@ -22,6 +22,9 @@ This C++ implementation gave a first reference for the implementation in Python.
 TODO
 important excerpt:
 
+Listing \ref{lst:impl:volintersect} shows the code for the orthogonal volume intersection.
+First, the three input images are scaled
+
 \begin{lstlisting}[caption={Othorgonal volume intersection implementation}, label={lst:impl:volintersect}]
 # draw masks A B C to the side, orthogonal
 scaled_masks = draw_3d_side(side_3d, bgs_pp_masks_b)
