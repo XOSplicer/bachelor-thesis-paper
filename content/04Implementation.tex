@@ -19,13 +19,12 @@ Furthermore, the author is proficient in it.
 There exists a C++ implementation of a perspective correct volume intersection, which however is used for a more detailed reconstruction of a small statue, which is photographed 36 times and rotated around its own axis \autocite[][]{xocoatzin2013voxelcarving}.
 This C++ implementation gave a first reference for the implementation in Python.
 
+TODO
 follows approach up to volume reconstruction, which however is done orthographically
 main program in \ref{lst:app:volmain} in appendix \ref{app:vol} and also on attached CD or DVD.
-
 size of cabin in voxel: 20x25x30
-
 TODO
-important excerpt:
+adjustable values for some parameters
 
 Listing \ref{lst:impl:volintersect} shows the code for the orthogonal volume intersection.
 First, the three  foreground masks of the three perspectives are scaled.
@@ -78,9 +77,6 @@ The \textcite{python2018pypi} provides a repository, in which all of these depen
     \item \texttt{PyOpenGL}: Dependency of \texttt{pyqtgraph}, used for for \ac{3D} rendering 
     \item \texttt{pyqtgraph}: Used to display real-time 3D graphs
 \end{itemize}
-
-TODO
-adjustable values for some parameters
 
 \subsection{Test Execution}
 elevator setup: measurements, camera positions, calibration with \autocite[][]{smid2015calibration}
