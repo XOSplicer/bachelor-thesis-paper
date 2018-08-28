@@ -12,12 +12,12 @@ Then simulation of an elevator system is implemented to compare tree scheduling 
 The design proposal given in section \ref{sec:design:detection} serves as a base for the actual implementation of the visual system.
 The implementation is written in Python 3 in version 3.6 \autocite[][]{python2018python366}
 with bindings to OpenCV 3.4.2.
-Python was chosen as the implementation language, since it provides a higher abstraction and better ergonomics than C++.
+Python was chosen as the implementation language since it provides a higher abstraction and better ergonomics than C++.
 Furthermore, the author is proficient in it.
 The code of the \texttt{main} procedure that has been implemented can be found in listing \ref{lst:app:volmain} in appendix \ref{app:vol}.
 The whole program, including the processed camera footage, can be found on the attached CD or DVD.
 
-There exists a C++ implementation of a perspective correct volume intersection, which however is used for a more detailed reconstruction of a small statue, which is photographed 36 times and rotated around its own axis \autocite[][]{xocoatzin2013voxelcarving}.
+There exists a C++ implementation of a perspective correct volume intersection, which however is used for a more detailed reconstruction of a small statue, which is photographed 36 times and rotated around its upward axis \autocite[][]{xocoatzin2013voxelcarving}.
 This C++ implementation gave a first reference for the implementation in Python.
 
 The interior volume of the cabin is modeled with a voxel image of dimension $ 20 \times 25 \times 30 $ with a total of 15000 voxels.
@@ -33,7 +33,7 @@ The resulting foreground mask is then post-processed by applying\\
 \texttt{cv2.threshold(mask, 254, 255, cv2.THRESH\_BINARY)} and \\
 \texttt{cv2.morphologyEx(mask, cv2.MORPH\_OPEN , open\_kernel} and \\
 \texttt{cv2.dilate(mask, dilate\_kernel , iterations= 10)} in series to the mask.
-Interactive sliders are used to adjust the strength of blurring the image and to adjust the level of morphological opening and dilating by altering the respective kernel used.
+Interactive sliders are used to adjust the strength of blurring the image and the level of morphological opening and dilating by altering the respective kernel used.
 This creates the opportunity to find the optimal value for each of the settings by hand.
 The described foreground masking operates therefore as planned.
 
@@ -41,9 +41,9 @@ In contrast to the planned design, however,
 the implementation here uses an even more simplified version of the volume intersection.
 Instead of using a perspective projection of the cabin to the camera images,
 an orthogonal projection is used.
-This means the image is assumed be to be taken without perspective distortion and with a image sensor that spans over the whole wall.
+This means the image is assumed to be taken without perspective distortion and with an image sensor that spans over the whole wall.
 This is obviously physically incorrect, as usual cameras are closer to pinhole cameras than to orthographic cameras.
-But this simplification enables a more straight foreword implementation of the volume intersection, as only images with right angles to the room need to be considered.
+But this simplification enables a more straight forward implementation of the volume intersection, as only images with right angles to the room need to be considered.
 No external and internal camera matrix is therefore needed.
 
 Listing \ref{lst:impl:volintersect} shows the code for the orthogonal volume intersection.
@@ -53,7 +53,7 @@ To do so, the coordinate \texttt{[u, v, w]} is iterated over the Cartesian produ
 of all possible voxel coordinate values of the width, depth and height axis of the room.
 The voxel position is then \enquote{projected} orthogonally into the scaled foreground masks, which is essentially only an array index into the masks, where \texttt{w} is the primary axis of the image, and \texttt{v} or \texttt{u} is the secondary axis of the image (depending on the side).
 The voxel position is then scaled from voxel coordinates to room coordinates.
-The list comprehension yields an array of voxel positions, where each of the the voxels is part of the volume description.
+The list comprehension yields an array of voxel positions, where each of the voxels is part of the volume description.
 
 
 \begin{lstlisting}[caption={Orthogonal volume intersection implementation}, label={lst:impl:volintersect}]
@@ -100,10 +100,10 @@ The \textcite{python2018pypi} provides a repository, in which all of these depen
 \subsection{Test Execution}
 The test was performed as described in section \ref{sec:design:visualtest} with the help of two fellow students.
 The elevator cabin has a dimension of $ 130 \times 165 \times 230 $ cm (width, depth, height).
-The used cameras are three smart phones, attached to the wall with tape, and an wide-angle camera, attached above the door at an angle of $ 54.5^{\circ} $ down.
-The cameras on the wall were mounted in the center of the wall at a height of 150 cm each, facing the center of the cabin.
+The used cameras are three smartphones, attached to the wall with tape, and a wide-angle camera attached above the door at an angle of $ 54.5^{\circ} $ down.
+The cameras on the wall were mounted in the center of the wall at the height of 150 cm each, facing the center of the cabin.
 Multiple configurations of passengers inside the cabin were tested, as described in the test plan.
-A large carton was used as a cargo object, which was held first by two, then by one passengers.
+A large carton was used as a cargo object, which was held first by two, then by one passenger.
 
 Figure \ref{fig:impl:videopreview} shows images of three of those configurations and the preview of the processed images.
 The top left grey-scale images show the input images captured by the cameras from the right, rear, left and over-the-door position.
@@ -112,7 +112,7 @@ On the right of each figure, the detected \ac{3D} volume is displayed.
 The white outline marks the dimensions of the cabin.
 The red dots mark the position of each camera.
 The blue areas consist of the foreground masks projected and stretched to the walls.
-The green cloud represents the point that are part of the orthogonal volume intersection of the 
+The green cloud represents the points that are part of the orthogonal volume intersection of the 
 the three wall-mounted cameras.
 This composition image is also saved as a video by generating it for every frame of the input images.
 
@@ -128,7 +128,7 @@ This composition image is also saved as a video by generating it for every frame
     
     \includegraphics[width=1.0\textwidth, keepaspectratio]{volumeintersection_preview_05}
     
-    \caption[Images of volume intersection test with orthogonal projection]{Images of volume intersection test with orthogonal projection. Each preview showing the camera images, foreground masks and the resulting volume intersection. (a) single passenger (b) cargo object (c) multiple passengers.}
+    \caption[Images of volume intersection test with orthogonal projection]{Images of volume intersection test with orthogonal projection. Each preview showing the camera images, foreground masks, and the resulting volume intersection. (a) single passenger (b) cargo object (c) multiple passengers.}
     \label{fig:impl:videopreview}
 \end{figure}
 
@@ -138,22 +138,22 @@ This means the volume of the test subjects is unknown, as well as their position
 Therefore, here a qualitative evaluation is performed. 
 
 The video capture works as intended.
-However the choice of cameras resulted in a viewing angle, which did not cover the whole cabin.
-This has the consequence that the corners of the cabin were not recorded an a passenger standing there was not registered by the system.
-A wide angle camera on all sides might yield better results.
+However, the choice of cameras resulted in a viewing angle, which did not cover the whole cabin.
+This has the consequence that the corners of the cabin were not recorded a passenger standing there was not registered by the system.
+A wide-angle camera on all sides might yield better results.
 
 The foreground masking does not produce results of the desired quality.
 It detects the passengers and cargo objects while they are moving.
 However, often the center of the subject is not completely detected.
-Only the outline and moving edged are recognized by the background subtractor.
+The background subtractor recognizes only the outline and moving edges.
 This leads to \enquote{holes} in the reconstructed volume.
 On the positive side of the adjustable parameters for the blur of the input image before the background subtraction and the adjustable amount of morphological opening and dilating of the foreground mask served good while experimenting with the footage.
 In order to address the shortcomings of the foreground masking via background subtraction,
-it could be possible to combine the technique with other image segmentation methods.
+combining the technique with other image segmentation methods could be possible.
 
-The volume reconstruction using a simple voxel-based method of volume intersection shows to be feasible in general for the purpose of life volume estimation, since no high accuracy is needed.
-However the implemented orthogonal version is not completely correct, as a perspective projection would be needed.
-Still it demonstrates general feasibility of this approach, 
+The volume reconstruction using a simple voxel-based method of volume intersection shows to be feasible in general for the purpose of live volume estimation since no high accuracy is needed.
+However, the implemented orthogonal version is not entirely correct, as a perspective projection would be needed.
+Still, it demonstrates general feasibility of this approach, 
 as the orthogonal projection yields a volume description that is proportional but skewed.
 Additionally, due to the holes in the foreground masks, these holes are also present in the volume image. 
 This leads to inconsistencies.
