@@ -20,9 +20,18 @@ The whole program, including the processed camera footage, can be found on the a
 There exists a C++ implementation of a perspective correct volume intersection, which however is used for a more detailed reconstruction of a small statue, which is photographed 36 times and rotated around its own axis \autocite[][]{xocoatzin2013voxelcarving}.
 This C++ implementation gave a first reference for the implementation in Python.
 
-TODO
-size of cabin in voxel: 20x25x30
+The interior volume of the cabin is modeled with a voxel image of dimension $ 20 \times 25 \times 30 $ with a total of 15000 voxels.
+The chosen numbers are a compromise between accuracy and detail.
 
+The camera capture is implemented by reading from a video file, which is created during the test execution.
+The preprocessing of the camera images and the foreground masking is implemented as designed.
+For blurring the image, the OpenCV function\\
+\texttt{cv2.GaussianBlur(img, kernel\_size, std\_deviation)} is used.
+In order to perform the background subtraction, the function\\
+\texttt{cv2.createBackgroundSubtractorMOG2()} is used to create an instance of a \ac{MOG} based background subtractor for each input camera.
+
+Interactive sliders are used to adjust the strength of blurring the image and to adjust the level of morphological opening and dilating.
+This creates the opportunity to find the optimal value for each of the settings by hand.
 
 In contrast to the planned design, however, 
 the implementation here uses an even more simplified version of the volume intersection.
@@ -30,10 +39,6 @@ Instead of using a perspective projection of the cabin
 
 TODO
 follows approach up to volume reconstruction, which however is done orthographically
-
-
-TODO
-adjustable values for some parameters
 
 Listing \ref{lst:impl:volintersect} shows the code for the orthogonal volume intersection.
 First, the three  foreground masks of the three perspectives are scaled.
