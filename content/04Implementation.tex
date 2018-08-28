@@ -29,9 +29,13 @@ For blurring the image, the OpenCV function\\
 \texttt{cv2.GaussianBlur(img, kernel\_size, std\_deviation)} is used.
 In order to perform the background subtraction, the function\\
 \texttt{cv2.createBackgroundSubtractorMOG2()} is used to create an instance of a \ac{MOG} based background subtractor for each input camera.
-
-Interactive sliders are used to adjust the strength of blurring the image and to adjust the level of morphological opening and dilating.
+The resulting foreground mask is then post-processed by applying\\
+\texttt{cv2.threshold(mask, 254, 255, cv2.THRESH\_BINARY)} and \\
+\texttt{cv2.morphologyEx(mask, cv2.MORPH\_OPEN , open\_kernel} and \\
+\texttt{cv2.dilate(mask, dilate\_kernel , iterations= 10)} in series to the mask.
+Interactive sliders are used to adjust the strength of blurring the image and to adjust the level of morphological opening and dilating by altering the respective kernel used.
 This creates the opportunity to find the optimal value for each of the settings by hand.
+The described foreground masking operates therefore as planned.
 
 In contrast to the planned design, however, 
 the implementation here uses an even more simplified version of the volume intersection.
