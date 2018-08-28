@@ -43,10 +43,8 @@ Instead of using a perspective projection of the cabin to the camera images,
 an orthogonal projection is used.
 This means the image is assumed be to be taken without perspective distortion and with a image sensor that spans over the whole wall.
 This is obviously physically incorrect, as usual cameras are closer to pinhole cameras than to orthographic cameras.
-But this simplification enables a more straight foreword implementatio of the volume intersection, as only images with right angles to the  
-
-TODO
-follows approach up to volume reconstruction, which however is done orthographically
+But this simplification enables a more straight foreword implementation of the volume intersection, as only images with right angles to the room need to be considered.
+No external and internal camera matrix is therefore needed.
 
 Listing \ref{lst:impl:volintersect} shows the code for the orthogonal volume intersection.
 First, the three  foreground masks of the three perspectives are scaled.
