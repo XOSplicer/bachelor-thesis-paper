@@ -14,11 +14,15 @@ we saw:
 - theoretical background of 2d and 3d computer vision as well as elevator systems
 - design for an visual system to be used in an elevator
 - partial implementation and testing of said system
+ - used techniques include foreground masking by background subtraction with the \ac{MOG} method and morphological post-processing and most importantly the technique of voxel based colume intersection
+
+
 - the thoughts that go into simulating an elevator system
 - a new scheduling algorithm suited for cargo lifts used by passengers and cargo
-which prioritizes cargo
+which prioritizes cargo, 
 - the performance evaluation of this algorithm in the simulation
-
+-according to own simulation it delivers 35.52~\% more cargo than collective control, and has a 18.40~\% lower average wait time but comes at the cost of a 30.56~\% higher waiting time.
+- possible use cases include hospitals, auxiliary lifts and fabrication plants
 
 \section{Discussion and Critical Reflection}
 
@@ -35,5 +39,7 @@ TODO  Discussion regarding internal Execution and chosen methods
 
 TODO
 this project: possible to do mathematical correct and complete implementation
+but how needs this is far from production ready
 dxc: try to get customers interested and develop new ideas with them based on this work
+team up with computer vision experts if necessary
 
