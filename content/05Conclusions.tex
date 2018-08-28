@@ -9,31 +9,34 @@ Lastly a suggestion for the next steps at DXC Technology regarding the utilizati
 
 \section{Summary}
 
-TODO
-we saw:
-- theoretical background of 2d and 3d computer vision as well as elevator systems
-- design for an visual system to be used in an elevator
-- partial implementation and testing of said system
-- the thoughts that go into simulating an elevator system
-- a new scheduling algorithm suited for cargo lifts used by passengers and cargo
-which prioritizes cargo
-- the performance evaluation of this algorithm in the simulation
+In this thesis first the theoretical background in \ac{2D} and \ac{3D} computer vision have been explained.
+After that two major artifacts have been designed, created and evaluated by following the principles of design science research.
+Primarily a design for a volume recognition system inside elevator cabin has been conducted.
+The system uses techniques which include foreground-masking by background subtraction with the \ac{MOG} method and most importantly the technique of voxel based volume intersection.
+The system was partially implemented and tested on a real elevator cabin to show the general feasibility of the chosen approach.
 
+As a secondary artifact a new elevator control strategy has been presented.
+It extends the common collective control strategy by giving priority to delivering cargo objects in order to free up the cabin quickly.
+A simulation which models an elevator system with discrete events has been used to evaluate the performance of this control strategy.
+It has been show that in a single-elevator set-up with constant arrival rates of passengers and cargo objects the new strategy delivers 35.52~\% more cargo objects than collective control.
+It has a 18.40~\% lower average ride time which comes at the cost of a 30.56~\% higher waiting time.
+Possible use cases include buildings where the elevator commonly conveys passengers and cargo objects.
+Examples are hospitals, auxiliary lifts and fabrication plants.
 
 \section{Discussion and Critical Reflection}
 
 TODO Discussion regarding outcomes
-TODO Discussion regarding external Results
-discussion regarding initial questions
-discussion regarding alternative solutions
-Discussion of simulation parameter, strategy and programflow correctness, discussion of simulation output corecctness
-
-TODO  Discussion regarding internal Execution and chosen methods
-
+TODO Discussion regarding external Results - fragezeichen
+TODO discussion regarding initial questions
+TODO discussion regarding alternative solutions
+TODO Discussion of simulation parameter, strategy and program flow correctness, discussion of simulation output correctness
+TODO  Discussion regarding internal Execution and chosen methods - einhaltung von design science research
 
 \section{Further Work}
 
 TODO
 this project: possible to do mathematical correct and complete implementation
+but how needs this is far from production ready
 dxc: try to get customers interested and develop new ideas with them based on this work
+team up with computer vision experts if necessary
 
