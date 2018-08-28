@@ -6,10 +6,10 @@ In this chapter the implementation of the two artifacts identified and designed 
 First, an attempt is made to implement the visual volume detection system and test it out in a real-world test environment.
 Then simulation of an elevator system is implemented to compare tree scheduling strategies and the results of this simulation are evaluated.
 
-
 \section{Visual System}
 \subsection{Implementation with OpenCV and Python}
 
+The design proposal given in section \ref{sec:design:detection} serves as a base for the actual implementation of the visual system.
 The implementation is written in Python 3 in version 3.6 \autocite[][]{python2018python366}
 with bindings to OpenCV 3.4.2.
 Python was chosen as the implementation language, since it provides a higher abstraction and better ergonomics than C++.
@@ -18,8 +18,8 @@ Furthermore, the author is proficient in it.
 There exists a C++ implementation of a perspective correct volume intersection, which however is used for a more detailed reconstruction of a small statue, which is photographed 36 times and rotated around its own axis \autocite[][]{xocoatzin2013voxelcarving}.
 This C++ implementation gave a first reference for the implementation in Python.
 
-The general approach proposed in section \ref{sec:design:detection} is followed.
-However, the 
+
+
 
 TODO
 follows approach up to volume reconstruction, which however is done orthographically
