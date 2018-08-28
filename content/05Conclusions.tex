@@ -15,6 +15,13 @@ Primarily a design for a volume recognition system inside elevator cabin has bee
 The system uses techniques which include foreground-masking by background subtraction with the \ac{MOG} method and most importantly the technique of voxel based volume intersection.
 The system was partially implemented and tested on a real elevator cabin.
 
+As a secondary artifact a new elevator control strategy has been presented.
+It extends the common collective control strategy by giving priority to delivering cargo objects in order to free up the cabin quickly.
+A simulation which models an elevator system with discrete events has been used to evaluate the performance of this control strategy.
+It has been show that in a single-elevator set-up with constant arrival rates of passengers and cargo objects the new strategy delivers 35.52~\% more cargo objects than collective control.
+It has a 18.40~\% lower average ride time which comes at the cost of a 30.56~\% higher waiting time.
+Possible use cases include buildings where an elevator is commonly used by both passengers and 
+
 
 
 TODO
