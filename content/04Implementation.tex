@@ -55,6 +55,7 @@ The voxel position is then \enquote{projected} orthogonally into the scaled fore
 The voxel position is then scaled from voxel coordinates to room coordinates.
 The list comprehension yields an array of voxel positions, where each of the the voxels is part of the volume description.
 
+
 \begin{lstlisting}[caption={Orthogonal volume intersection implementation}, label={lst:impl:volintersect}]
 # draw masks A B C to the side, orthogonal
 scaled_masks = draw_3d_side(side_3d, bgs_pp_masks_b)
@@ -113,6 +114,7 @@ The red dots mark the position of each camera.
 The blue areas consist of the foreground masks projected and stretched to the walls.
 The green cloud represents the point that are part of the orthogonal volume intersection of the 
 the three wall-mounted cameras.
+This composition image is also saved as a video by generating it for every frame of the input images.
 
 \begin{figure}[p]
     \centering
