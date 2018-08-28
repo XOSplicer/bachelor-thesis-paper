@@ -8,7 +8,6 @@ Then simulation of an elevator system is implemented to compare tree scheduling 
 
 
 \section{Visual System}
-TODO
 \subsection{Implementation with OpenCV and Python}
 
 The implementation is written in Python 3 in version 3.6 \autocite[][]{python2018python366}
@@ -19,13 +18,12 @@ Furthermore, the author is proficient in it.
 There exists a C++ implementation of a perspective correct volume intersection, which however is used for a more detailed reconstruction of a small statue, which is photographed 36 times and rotated around its own axis \autocite[][]{xocoatzin2013voxelcarving}.
 This C++ implementation gave a first reference for the implementation in Python.
 
+TODO
 follows approach up to volume reconstruction, which however is done orthographically
 main program in \ref{lst:app:volmain} in appendix \ref{app:vol} and also on attached CD or DVD.
-
 size of cabin in voxel: 20x25x30
-
 TODO
-important excerpt:
+adjustable values for some parameters
 
 Listing \ref{lst:impl:volintersect} shows the code for the orthogonal volume intersection.
 First, the three  foreground masks of the three perspectives are scaled.
@@ -33,7 +31,8 @@ Then, every voxel position in the room is checked in a list comprehension.
 To do so, the coordinate \texttt{[u, v, w]} is iterated over the Cartesian product 
 of all possible voxel coordinate values of the width, depth and height axis of the room.
 The voxel position is then \enquote{projected} orthogonally into the scaled foreground masks, which is essentially only an array index into the masks, where \texttt{w} is the primary axis of the image, and \texttt{v} or \texttt{u} is the secondary axis of the image (depending on the side).
-The list comprehension yields an array of voxel positions, where the voxel is part of the volume description.
+The voxel position is then scaled from voxel coordinates to room coordinates.
+The list comprehension yields an array of voxel positions, where each of the the voxels is part of the volume description.
 
 \begin{lstlisting}[caption={Orthogonal volume intersection implementation}, label={lst:impl:volintersect}]
 # draw masks A B C to the side, orthogonal
@@ -56,12 +55,10 @@ vol_poss = np.array([ \
 
 As mentioned, this implementation uses orthogonal projection.
 In order to turn it into a perspective projection, instead of using a direct array look-up \\
-\texttt{... scaled\_masks[0][w][v] == 255 ...} \\
+\texttt{... scaled\_masks[0][w][v] == 255} \\
 a projected look-up can be made:\\
-\texttt{... masks[0][project\_and\_scale(CAM\_CALIBRATION[0], [u, v, w])] == 255}\\
+\texttt{... masks[0][project\_and\_scale(CAM\_CALIBRATION[0], [u, v, w])] == 255} \\
 where the function \texttt{project\_and\_scale(c, p)} takes the internal and external calibration data \texttt{c} of a camera and a voxel position \texttt{p} and returns a projected and scaled pixel position, that can be used to index into the foreground mask of that camera.
-
-
 
 The program depends on several libraries.
 The \textcite{python2018pypi} provides a repository, in which all of these dependencies can be found.
@@ -78,11 +75,23 @@ The \textcite{python2018pypi} provides a repository, in which all of these depen
     \item \texttt{pyqtgraph}: Used to display real-time 3D graphs
 \end{itemize}
 
-TODO
 \subsection{Test Execution}
-elevator setup: measurements, camera positions, calibration with \autocite[][]{smid2015calibration}
-scenario: empty, single person, 2 persons, 3 persons, only carton, 1+ carton, 2+ carton
-TODO
+The test was performed as described in section \ref{sec:design:visualtest} with the help of two fellow students.
+The elevator cabin has a dimension of $ 130 \times 165 \times 230 $ cm (width, depth, height).
+The used cameras are three smart phones, attached to the wall with tape, and an wide-angle camera, attached above the door at an angle of $ 54.5^{\circ} $ down.
+The cameras on the wall were mounted in the center of the wall at a height of 150 cm each, facing the center of the cabin.
+Multiple configurations of passengers inside the cabin were tested, as described in the test plan.
+A large carton was used as a cargo object, which was held first by two, then by one passengers.
+
+Figure \ref{fig:impl:videopreview} shows images of three of those configurations and the preview of the processed images.
+The top left grey-scale images show the input images captured by the cameras from the right, rear, left and over-the-door position.
+Under each input image the calculated foreground mask is displayed, where white areas highlight the foreground.
+On the right of each figure, the detected \ac{3D} volume is displayed.
+The white outline marks the dimensions of the cabin.
+The red dots mark the position of each camera.
+The blue areas consist of the foreground masks projected and stretched to the walls.
+The green cloud represents the point that are part of the orthogonal volume intersection of the 
+the three wall-mounted cameras.
 
 \begin{figure}[p]
     \centering
@@ -97,16 +106,43 @@ TODO
     \includegraphics[width=1.0\textwidth, keepaspectratio]{volumeintersection_preview_05}
     
     \caption[Images of volume intersection test with orthogonal projection]{Images of volume intersection test with orthogonal projection. Each preview showing the camera images, foreground masks and the resulting volume intersection. (a) single passenger (b) cargo object (c) multiple passengers.}
-    \label{fig:impl:preview}
+    \label{fig:impl:videopreview}
 \end{figure}
 
 \subsection{Result Evaluation}
-general concept feasible
-small viewing angle: person out of frame
-poor foreground separation by only applying background subtraction
-non-correct orthogonal intersection implemented
+No ground truth for the volumetric data inside the cabin was recorded during the execution of the test.
+This means the volume of the test subjects is unknown, as well as their position at every moment of time.
+Therefore, here a qualitative evaluation is performed. 
 
-TODO
+The video capture works as intended.
+However the choice of cameras resulted in a viewing angle, which did not cover the whole cabin.
+This has the consequence that the corners of the cabin were not recorded an a passenger standing there was not registered by the system.
+A wide angle camera on all sides might yield better results.
+
+The foreground masking does not produce results of the desired quality.
+It detects the passengers and cargo objects while they are moving.
+However, often the center of the subject is not completely detected.
+Only the outline and moving edged are recognized by the background subtractor.
+This leads to \enquote{holes} in the reconstructed volume.
+On the positive side of the adjustable parameters for the blur of the input image before the background subtraction and the adjustable amount of morphological opening and dilating of the foreground mask served good while experimenting with the footage.
+In order to address the shortcomings of the foreground masking via background subtraction,
+it could be possible to combine the technique with other image segmentation methods.
+
+The volume reconstruction using a simple voxel-based method of volume intersection shows to be feasible in general for the purpose of life volume estimation, since no high accuracy is needed.
+However the implemented orthogonal version is not completely correct, as a perspective projection would be needed.
+Still it demonstrates general feasibility of this approach, 
+as the orthogonal projection yields a volume description that is proportional but skewed.
+Additionally, due to the holes in the foreground masks, these holes are also present in the volume image. 
+This leads to inconsistencies.
+
+The \ac{3D} blob detection and measurement has not been implemented as proposed.
+The blob classification is not feasible, if the quality of the volume data is low because of the missing observed corners and the holes in the volumes.
+The holes lead to a high degree of segmentation. No connected components would be found and the ones found would be lower than the detection threshold.
+Figure \ref{fig:impl:videopreview} shows the short times, where actually connected blobs are detected. But most of the time the results are worse.
+The video data can also be found on the attached CD or DVD.
+
+In conclusion: The overall approach is feasible and implementable using OpenCV, however many improvements need to be made for a production ready system.
+
 
 \section{Scheduling Algorithm}
 \subsection{Implementation of Simulation}
