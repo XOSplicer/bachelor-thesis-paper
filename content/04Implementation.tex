@@ -39,7 +39,11 @@ The described foreground masking operates therefore as planned.
 
 In contrast to the planned design, however, 
 the implementation here uses an even more simplified version of the volume intersection.
-Instead of using a perspective projection of the cabin to 
+Instead of using a perspective projection of the cabin to the camera images,
+an orthogonal projection is used.
+This means the image is assumed be to be taken without perspective distortion and with a image sensor that spans over the whole wall.
+This is obviously physically incorrect, as usual cameras are closer to pinhole cameras than to orthographic cameras.
+But this simplification enables a more straight foreword implementatio of the volume intersection, as only images with right angles to the  
 
 TODO
 follows approach up to volume reconstruction, which however is done orthographically
