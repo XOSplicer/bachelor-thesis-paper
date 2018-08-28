@@ -277,7 +277,7 @@ In general, all 26 voxels in the cube around a voxel are considered neighbors.
 It is also possible to only consider the 6 voxels, that share a face with the center voxel.
 
 The described algorithm performs a mapping $ \{0, 1\}^{X \times Y \times Z} \rightarrow \mathbb{N}^{X \times Y \times Z} $, where the voxel values of the output represent the unique label of the blob they belong to, or 0 in case that the voxel does not belong to any blob.
-Has a complexity of $ \mathcal{O}(X \times Y \times Z) $ and operates without additional memory. 
+Has a complexity of $ \mathcal{O}(X Y Z) $ and operates without additional memory. 
 The algorithm can be improved by performing the label-propagation along the surface of the \ac{3D} blobs.
 
 \subsubsection{Blob Measurement}

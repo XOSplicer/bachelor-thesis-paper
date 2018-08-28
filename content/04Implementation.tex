@@ -31,8 +31,8 @@ In order to perform the background subtraction, the function\\
 \texttt{cv2.createBackgroundSubtractorMOG2()} is used to create an instance of a \ac{MOG} based background subtractor for each input camera.
 The resulting foreground mask is then post-processed by applying\\
 \texttt{cv2.threshold(mask, 254, 255, cv2.THRESH\_BINARY)} and \\
-\texttt{cv2.morphologyEx(mask, cv2.MORPH\_OPEN , open\_kernel} and \\
-\texttt{cv2.dilate(mask, dilate\_kernel , iterations= 10)} in series to the mask.
+\texttt{cv2.morphologyEx(mask, cv2.MORPH\_OPEN, open\_kernel} and \\
+\texttt{cv2.dilate(mask, dilate\_kernel, iterations= 10)} in series to the mask.
 Interactive sliders are used to adjust the strength of blurring the image and the level of morphological opening and dilating by altering the respective kernel used.
 This creates the opportunity to find the optimal value for each of the settings by hand.
 The described foreground masking operates therefore as planned.
@@ -61,7 +61,7 @@ The list comprehension yields an array of voxel positions, where each of the vox
 scaled_masks = draw_3d_side(side_3d, bgs_pp_masks_b)
 
 # create points of orthogonal intersection of A B C
-vol_poss = np.array([ \
+vol_poss = numpy.array([ \
     [ \
         u * ROOM_SCALE_MPVX['width'],\
         v * ROOM_SCALE_MPVX['depth'],\
@@ -77,8 +77,7 @@ vol_poss = np.array([ \
 
 As mentioned, this implementation uses orthogonal projection.
 In order to turn it into a perspective projection, instead of using a direct array look-up \\
-\texttt{... scaled\_masks[0][w][v] == 255} \\
-a projected look-up can be made:\\
+\texttt{... scaled\_masks[0][w][v] == 255 ...} a projected look-up can be made:\\
 \texttt{... masks[0][project\_and\_scale(CAM\_CALIBRATION[0], [u, v, w])] == 255} \\
 where the function \texttt{project\_and\_scale(c, p)} takes the internal and external calibration data \texttt{c} of a camera and a voxel position \texttt{p} and returns a projected and scaled pixel position, that can be used to index into the foreground mask of that camera.
 
@@ -104,6 +103,10 @@ The used cameras are three smartphones, attached to the wall with tape, and a wi
 The cameras on the wall were mounted in the center of the wall at the height of 150 cm each, facing the center of the cabin.
 Multiple configurations of passengers inside the cabin were tested, as described in the test plan.
 A large carton was used as a cargo object, which was held first by two, then by one passenger.
+
+A camera calibration using a chessboard has been performed before the actual test.
+The chessboard was filmed by every camera individually from multiple angles.
+A calibration program by \textcite{smid2015calibration} has been used to generate the internal camera matrix and distortion coefficients for the cameras based on the footage taken.
 
 Figure \ref{fig:impl:videopreview} shows images of three of those configurations and the preview of the processed images.
 The top left grey-scale images show the input images captured by the cameras from the right, rear, left and over-the-door position.
