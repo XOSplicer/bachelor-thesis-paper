@@ -15,14 +15,16 @@ with bindings to OpenCV 3.4.2.
 Python was chosen as the implementation language, since it provides a higher abstraction and better ergonomics than C++.
 Furthermore, the author is proficient in it.
 The code of the \texttt{main} procedure that has been implemented can be found in listing \ref{lst:app:volmain} in appendix \ref{app:vol}.
-The whole program, icluding 
+The whole program, including the processed camera footage, can be found on the attached CD or DVD.
 
 There exists a C++ implementation of a perspective correct volume intersection, which however is used for a more detailed reconstruction of a small statue, which is photographed 36 times and rotated around its own axis \autocite[][]{xocoatzin2013voxelcarving}.
 This C++ implementation gave a first reference for the implementation in Python.
 
+TODO
 size of cabin in voxel: 20x25x30
 
-In contrast to the planned design however, 
+
+In contrast to the planned design, however, 
 the implementation here uses an even more simplified version of the volume intersection.
 Instead of using a perspective projection of the cabin
 
