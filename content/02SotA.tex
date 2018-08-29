@@ -454,12 +454,12 @@ Before the elevator starts to move, the door closes again, if no obstacle is det
 Until the elevator serves the destination floor, the car call stays active.
 \emph{Additional sensors} inside the cabin provide more information about the passengers inside.
 This can include among others a weight scale to measure the total weight utilization, or a kind of camera system \autocite[][]{xang2016trafficlist}.
-Further more the position of each elevator is known to the group controller.
+Furthermore, the position of each elevator is known to the group controller.
 
 \subsection{System Classifications}
 
 Elevator systems come in different configurations with different purposes.
-Depending on their use cases different technical implementations can chosen.
+Depending on their use cases, different technical implementations can be chosen.
 Therefore they can be classified in various dimensions.
 
 The first observation to make is the \textbf{number of shafts and cabins} in the system.
@@ -467,38 +467,38 @@ The main difference comes in the scheduling complexity regarding single-cabin ve
 Systems with multiple elevators need a group controller to decide which cabin serves which hall call.
 This decision can be non-trivial as laid out in section \vref{sec:sota:strategies}.
 When only one cabin is used, the scheduling becomes more straightforward.
-In small residential buildings an single cabin might be sufficient.
-However in buildings with larger passenger amounts, such as office buildings, a multi-elevator setup can become necessary increase the handling capacity.
+In small residential buildings, a single cabin might be sufficient.
+However, in buildings with larger passenger amounts, such as office buildings, a multi-elevator setup can become necessary increase to the handling capacity.
 
-Next is the classification by the \textbf{type of objects or people} that are transported in the system. Especially important is the distinction of the purpose of the elevator system regarding whether people and / or large objects can be conveyed.
+Next is the classification by the \textbf{type of objects or people} that are transported in the system. Especially important is the distinction regarding the purpose of the elevator system and whether people and/or large objects can be conveyed.
 \textcite[][pp.~141--158]{unger2015aufzuege} describes the properties of the most common types:
 
 \begin{itemize}
     \item Cabins that carry \textbf{only people} 
     typically have a premium interior decoration, such as glass, mirrors or stainless steel.
-    Usually also cargo can be transported, but large goods might damage the cabin.
+    Usually, also cargo can be transported, but large goods might damage the cabin.
     Examples for a building that uses such elevators are office buildings, residential buildings or hotels.
     
     \item Elevators for \textbf{large cargo and people} 
     have a more simple interior that is more resistant to damage by lifting carts. 
-    However security measures regarding the doors are taken, such that the elevator is also safe to use by people. 
+    However, security measures regarding the doors are taken, such that the elevator is also safe to use by people. 
     Typically a high payload weight and dimension can be moved.
     Examples for the usage of this type are factories, storage buildings or hospitals. 
     
     \item Lifts that carry \textbf{only small cargo} can be found for example in restaurant kitchens to transport dishes.
-    The cabin is not used by people and the system is controlled purely from outside call panels. 
-    Due to the size restriction only a smaller weight needs to be transported.
+    The cabin is not used by people, and the system is controlled purely from outside call panels. 
+    Due to the size restrictions, only a smaller weight can be transported.
     
     \item Cabins that convey \textbf{only large cargo} but no people can only be controlled from the outside call panel and have fewer safety restrictions, even though the cabin can be entered for loading and unloading. 
 \end{itemize}
 
 This excerpt of the list is far from complete and \textcite[][pp.~141--158]{unger2015aufzuege} lists even more types, 
-such as lifts for wheel chairs, the never-stopping paternoster or elevators on construction sites.
-However these are not in the scope of this thesis and are not further considered.
+such as lifts for wheelchairs, the never-stopping paternoster or elevators on construction sites.
+However, these are not in the scope of this thesis and are not further considered.
 
 Another interesting distinction to consider is the \textbf{amount of floors} that is served by an elevator system.
 The amount of floors influences the heeded handling capacity of the system.
-The more floors there are, the more people need to travel a potentially longer distance.
+The more floors there are, the more people need to travel potentially longer distances.
 While a building with only a few floors can be handled by a single elevator,
 buildings with up to 40 stories require the use of elevator groups.
 When more than 40 floors need to be served, 
@@ -510,14 +510,14 @@ where a fast shuttle transports passengers between the main lobby and the sky lo
 Passenger traffic patterns are typical streams of passengers going from one floor to another.
 Those patterns are reoccurring regularly based on the time of the day.
 The movement of passengers can be described with three directions: \emph{incoming}, \emph{outgoing}, and \emph{inter-floor} traffic.
-With those directions the traffic patterns can be described, as they focus on one of the directions, but also incorporates components of passengers heading in other directions \autocite[][p.~259]{siikonen1993simulation}.
+With those directions, the traffic patterns can be described, as they focus on one of the directions, but also incorporates components of passengers heading in other directions \autocite[][p.~259]{siikonen1993simulation}.
 According to multiple sources, three general patterns are present in office buildings \autocite[][pp.~1--2]{beers2015arrivals}
 \autocite[][pp.~6--7]{axelsson2013strategies}
 \autocite[][p.~194]{unger2015aufzuege}
 \autocite[][p.~14]{siikonen1997models}:
 
 \begin{itemize}
-    \item \textbf{Up-peak traffic} In the morning the majority of passengers in an office building constitutes to an incoming traffic.
+    \item \textbf{Up-peak traffic} In the morning the majority of passengers in an office building constitutes to incoming traffic.
     They arrive at the entrance lobby and travel to different upper floors to fill the building.
     The lift cars potentially need to stop at every level and return to the lobby without passengers to pick up new ones. 
     This reduces the utilized capacity and puts a high load on the elevator system to convoy all passengers in time.
@@ -525,7 +525,7 @@ According to multiple sources, three general patterns are present in office buil
     Most of the passengers constitute to outgoing traffic.
     The elevator system needs to pick up passengers at every level. 
     Reverse to the up-peak traffic, the cars are empty when returning from the lobby.
-    Similar to the up-peak traffic this situation induces a high stress on the system.
+    Similar to the up-peak traffic this situation induces high stress on the system.
     \item \textbf{Inter-floor traffic} All other traffic that is neither incoming nor outgoing can be considered inter-floor traffic. Passengers that travel from one floor to another but are not entering or leaving the building are the majority in this situation.
 \end{itemize}
 
@@ -539,7 +539,7 @@ According to multiple sources, three general patterns are present in office buil
 %Figure \ref{fig:sota:trafficpatterns} depicts the former mentioned traffic components.
 Figure \ref{fig:sota:traffictimes} shows an example of how the traffic components contribute to overall traffic in an office building. A clear peak of incoming traffic in the morning and outgoing traffic in the evening are visible.
 This information can be used to model simulations and predict traffic in various circumstances.
-It has significant impact on the scheduling principles employed for each situation in order to improve the efficiency of an elevator system.
+It has a significant impact on the scheduling principles employed for each situation in order to improve the efficiency of an elevator system.
 
 %\begin{figure}[hbt]
 %	\centering
@@ -554,10 +554,10 @@ It has significant impact on the scheduling principles employed for each situati
 \label{sec:sota:strategies}
 
 Elevator control strategies deal with the assignment of hall calls and car calls to elevator rides in order to derive a stopping schedule for the cabins in the system.
-The way this schedule is set up affects
+The way this schedule is set up effects
 the performances regarding the criteria laid out in section \ref{sec:sota:perf}.
 An appropriate control algorithm must be chosen in order to optimize for performance criteria
-depending on the type of elevator system, it's use purpose and the current passenger traffic.
+depending on the type of elevator system, it's  purpose and the current passenger traffic.
 Depending on the type of elevator system different control strategies are used, some of which are listed below.
 
 \subsubsection{Sequential Control}
@@ -566,8 +566,8 @@ this strategy is only applicable to a single-lift system.
 The system answers hall calls in the order they arrive 
 and executes the car call with priority before moving on to serve the next hall call.
 This way only one ride is performed a time and the calls are executed in sequence. This method is also called \emph{single call automatic control} or \emph{non-collective control}.
-Drawbacks of this strategy are a increased passenger waiting time and an decreased handling capacity.
-However for cargo lifts, this can beneficial if only on cargo item can fit the cabin at a time
+Drawbacks of this strategy are an increased passenger waiting time and a decreased handling capacity.
+However, for cargo lifts, this can be beneficial if only one cargo item can fit the cabin at a time
 \autocite[][p.~238]{barney2016handbook}.
 
 \subsubsection{Collective Control}
@@ -575,7 +575,7 @@ This is the \enquote{most common form of automatic control} \autocite[][p.~237]{
 Hall calls are answered in the order of the floors they originate from rather than their temporal order.
 On the way up and down the cabin collects all the hall calls and deliver car calls also following the floor order.
 Different variations of this approach are available, where the direction of the hall call is ignored, only downward calls are collected only upwards calls are collected, or the call direction is considered for collection in both directions.
-This approach can be expended to a elevator system with group control, such that a hall call is answered by the first cabin to pass the floor in the desired direction \autocite[][p.~238]{barney2016handbook}.
+This approach can be expended to an elevator system with group control, such that a hall call is answered by the first cabin to pass the floor in the desired direction \autocite[][p.~238]{barney2016handbook}.
 When all cabins are idle, the nearest available is assigned to a call. Hence this strategy is also called \emph{nearest car}
 \autocite[][p.~244]{barney2016handbook}.
 
@@ -589,29 +589,29 @@ The order of serving of the hall calls is based on the collective control.
 A lift is currently outside of its zone, 
 the zone can be served by lifts from sectors above and below it.
 
-The distribution of zones can be chosen based by the amount of passengers on each floor.
+The distribution of zones can be chosen based on the amount of passengers on each floor.
 This approach is useful when the traffic is evenly distributed across the building, such as in inter-floor traffic. It can be complemented with controls for special condition to react to peak-traffic \autocite[][p.~247]{barney2016handbook}.
 The static zone approach can be extended to a dynamic sector approach where the sectors are not limited by static floor numbers but by the position of the elevators \autocite[][p.~250]{barney2016handbook}.
 
 \subsubsection{Cost Function Based Approaches}
-Modern elevator system come with a control system that includes a computer of some sort.
-This allows for a more sophisticated scheduling which involves planing ahead of the time and optimizing the movement of every lift in the group.
+Modern elevator systems come with a control system that includes a computer of some sort.
+This allows for more sophisticated scheduling which involves planning ahead of the time and optimizing the movement of every lift in the group.
 \autocite[][pp.261ff]{barney2016handbook}
 The optimization goal is described as a \emph{cost function}.
 This cost function can consider many of the performance criteria listed in section \ref{sec:sota:perf}.
 A basic cost function is only looking at the average total journey time of the passengers, which includes waiting time and ride time
 \autocite[][pp.278ff]{barney2016handbook}.
-The computer can evaluate this cost function and search for an scheduling configuration, which minimizes it 
+The computer can evaluate this cost function and search for a scheduling configuration, which minimizes it 
 \autocite[][pp.~3--6]{axelsson2013strategies}.
 The accuracy of the cost function can be enhanced if 
-the destination of each passenger is know beforehand.
-This is the case, when the passenger selects their destination on the floor call panel instead of only giving an up/down direction.
+the destination of each passenger is known beforehand.
+This is the case when the passenger selects their destination on the floor call panel instead of only giving an up/down direction.
 The system can then allocate an explicit lift to this passenger based on the evaluation of the cost function.
 
 \subsubsection{Parking Policies}
-Another consideration in the design of a control strategy are the rules, where to park a cabin, when it is not in use and has no current hall calls.
+Another consideration in the design of a control strategy are the rules where to park a cabin when it is not in use and has no current hall calls.
 The place where a cabin is parked can greatly influence the response time to hall calls.
-Having an cabin in or near the floor, where the arrival of the next passenger is expected, 
+Having a cabin in or near the floor, where the arrival of the next passenger is expected, 
 makes it possible to instantly answer their hall call.
 In a single-lift scenario this position might be easy to be determine, 
 however in an multi-lift group, the possibilities of parking become complex \autocite[][pp.~3]{beers2015arrivals}.
