@@ -597,12 +597,13 @@ A lift is currently outside of its zone,
 the zone can be served by lifts from sectors above and below it.
 
 The distribution of zones can be chosen based by the amount of passengers on each floor.
-This approach is useful when the traffic is evenly distributed across the building, such as in interfloor traffic. It can be complemented with controls for special condition to react to peak-traffic \autocite[][p.~247]{barney2016handbook}.
+This approach is useful when the traffic is evenly distributed across the building, such as in inter-floor traffic. It can be complemented with controls for special condition to react to peak-traffic \autocite[][p.~247]{barney2016handbook}.
 The static zone approach can be extended to a dynamic sector approach where the sectors are not limited by static floor numbers but by the position of the elevators \autocite[][p.~250]{barney2016handbook}.
 
 \subsubsection{Cost Function Based Approaches}
 Modern elevator system come with a control system that includes a computer of some sort.
 This allows for a more sophisticated scheduling which involves planing ahead of the time and optimizing the movement of every lift in the group.
+\autocite[][pp.261ff]{barney2016handbook}
 The optimization goal is described as a \emph{cost function}.
 This cost function can consider many of the performance criteria listed in section \ref{sec:sota:perf}.
 A basic cost function is only looking at the average total journey time of the passengers, which includes waiting time and ride time
@@ -611,13 +612,8 @@ The computer can evaluate this cost function and search for an scheduling config
 \autocite[][pp.~3--6]{axelsson2013strategies}.
 The accuracy of the cost function can be enhanced if 
 the destination of each passenger is know beforehand.
-This is t
-\autocite[][pp.261ff]{barney2016handbook}
-
-
-- search based
-- rule based
-- genetic algorithm
+This is the case, when the passenger selects their destination on the floor call panel instead of only giving an up/down direction.
+The system can then allocate an explicit lift to this passenger based on the evaluation of the cost function.
 
 \subsubsection{Parking Policies}
 Another consideration in the design of a control strategy are the rules, where to park a cabin, when it is not in use and has no current hall calls.
