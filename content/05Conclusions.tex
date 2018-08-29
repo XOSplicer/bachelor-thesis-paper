@@ -4,39 +4,66 @@
 
 This chapter summarizes the outcomes of the thesis at hand 
 and reflects on the conducted methods.
-Key ideas of the previous chapters are pointed out and a discussion regarding the solution quality and alternative solutions is held.
-Lastly a suggestion for the next steps at DXC Technology regarding the utilization of this thesis is given.
+Key ideas of the previous chapters are pointed out, and a discussion regarding the solution quality and alternative solutions is held.
+Lastly, a suggestion for the next steps at DXC Technology regarding the utilization of this thesis is given.
 
 \section{Summary}
 
-In this thesis first the theoretical background in \ac{2D} and \ac{3D} computer vision have been explained.
-After that two major artifacts have been designed, created and evaluated by following the principles of design science research.
-Primarily a design for a volume recognition system inside elevator cabin has been conducted.
-The system uses techniques which include foreground-masking by background subtraction with the \ac{MOG} method and most importantly the technique of voxel based volume intersection.
+This thesis explored the possibilities to support the movement control of elevator systems with the help of a camera system to estimate the volume occupied in the cabins.
+First, the theoretical background in \ac{2D} and \ac{3D} computer vision have been explained.
+After that, two major artifacts have been designed, created and evaluated by following the principles of design science research.
+Primarily a design for a volume recognition system inside elevator cabins has been conducted.
+The system uses techniques which include foreground-masking by background subtraction with the \ac{MOG} method and most importantly the technique of voxel-based volume intersection.
 The system was partially implemented and tested on a real elevator cabin to show the general feasibility of the chosen approach.
 
 As a secondary artifact a new elevator control strategy has been presented.
 It extends the common collective control strategy by giving priority to delivering cargo objects in order to free up the cabin quickly.
 A simulation which models an elevator system with discrete events has been used to evaluate the performance of this control strategy.
-It has been show that in a single-elevator set-up with constant arrival rates of passengers and cargo objects the new strategy delivers 35.52~\% more cargo objects than collective control.
+It has been shows that in a single-elevator set-up with constant arrival rates of passengers and cargo objects the new strategy delivers 35.52~\% more cargo objects than collective control.
 It has a 18.40~\% lower average ride time which comes at the cost of a 30.56~\% higher waiting time.
 Possible use cases include buildings where the elevator commonly conveys passengers and cargo objects.
 Examples are hospitals, auxiliary lifts and fabrication plants.
 
 \section{Discussion and Critical Reflection}
 
-TODO Discussion regarding outcomes
-TODO Discussion regarding external Results - fragezeichen
-TODO discussion regarding initial questions
-TODO discussion regarding alternative solutions
-TODO Discussion of simulation parameter, strategy and program flow correctness, discussion of simulation output correctness
-TODO  Discussion regarding internal Execution and chosen methods - einhaltung von design science research
+In the introduction of this thesis (section \ref{sec:intro:goals}) several research questions have been stated,
+which over the over the course of this document have been implicitly answered.
+It has been explained, that the computer vision techniques of background subtraction and volume intersection are one possibility to detect passengers and other objects inside an elevator cabin. 
+The movement of that elevator can then optimized by altering its control strategy based on whether cargo objects are present and prioritize their delivery.
+Other interesting objects that might be detected have been deduced from specific use cases and include janitor carts, forklifts or hospital beds.
+It is useful to integrate the proposed visual system into an elevator in buildings where passengers and cargo objects share a single lift.
+The extent of the usefulness of the integration has been shown by running a simulation. 
+It turns out that a desirable optimization goal is the fast delivery of cargo objects.
+
+In the consideration for both artifacts, only one particular solution each has been explored in greater detail.
+However, many more use cases and approaches would have been interesting.
+A broader range of consideration and a thorough decision process could enhance the scientific demands of this thesis.
+Alternative solutions for the visual system could be found in depth sensor technology, feature-based depth reconstruction with stereo vision.
+However, these solutions would come at a higher expense or complexity.
+In the initial problem exploration, the installation of cameras in front of the cabin on each floor has also been proposed, but the idea was not pursued further. 
+Alternative solutions for the conducted elevator simulation could be found by investing in industrial software instead of modeling the elevator system by manually. 
+
+The conducted simulation was kept simple with specific building parameters 
+and models the elevator system by using discrete events, which yields a presumably correct implementation.
+Moreover, the simulation only models one particular situation and therefore many premises were made for the parameters of the system.
+Some parameters were not even considered in the implementation, even though they were specified.
+It would also have been possible to model the physical behavior in more detail of the system and take more parameters into account.
+Also, only a simple traffic pattern and basic control strategies have been implemented. 
+A more detailed modeling in this respects could lead to more informed results. 
+Taking more metrics out of the simulation can also create a deeper understanding of the properties of the simulation, like the direct measurement of capacity utilization or the total journey time.
+The results generated by the simulation do not contradict the general intuition and lie in an expected range. 
+However, the results give only a vague indication of how the proposed scheduling algorithm would perform in reality.
+
+The chosen methodology of design science research proved capable of 
+conducting the research in this thesis.
+It provides a broad guideline to the project execution 
+and ensures the produced artifacts are not only designed and implemented but also evaluated and presented.
+In particular, also the re-circulation of the gained insight into the body of knowledge of academia is demanded.
+However, the results of this thesis are not likely to be published in scientific conferences or journals.
 
 \section{Further Work}
 
-TODO
-this project: possible to do mathematical correct and complete implementation
-but how needs this is far from production ready
-dxc: try to get customers interested and develop new ideas with them based on this work
-team up with computer vision experts if necessary
-
+The presented visual solution is far from production-ready and only showed the general feasibility of the approach.
+If the project of this thesis is continued, a complete implementation of the visual system is desirable, which uses a correct perspective projection and realizes the proposed blob detection and classification.
+However, based on the shown results, DXC Technology can try to get possible customers from the elevator business interested in developing innovative ideas together with them.
+They can explore many more use cases of camera systems in elevators and team up with computer vision professionals or start-ups to put a solution into place, which meets the customers' needs.
