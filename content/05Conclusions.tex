@@ -28,21 +28,19 @@ Examples are hospitals, auxiliary lifts and fabrication plants.
 
 TODO Discussion regarding outcomes
 - only inside lift, not infront
-TODO Discussion regarding external Results - fragezeichen
+TODO Discussion regarding external Results 
+- fragezeichen
 
-In the introduction of this thesis several research questions have been stated,
+In the introduction of this thesis (section \ref{sec:intro:goals}) several research questions have been stated,
 which over the over the course of this document have been implicitly answered.
 It has been explained, that the computer vision techniques of background subtraction and volume intersection are one possibility to detect passengers and other objects inside a elevator cabin. The movement of that elevator can then optimized by altering its control strategy based on whether cargo objects are present and prioritize their delivery.
-Other interesting objects that might be detected have been deduced from specific use cases and include janitor carts, 
+Other interesting objects that might be detected have been deduced from specific use cases and include janitor carts, forklifts or hospital beds.
+It has been found out, 
+that it  is useful to integrate the proposed visual system into an elevator in buildings where passengers and cargo objects share a single lift.
+The extent of the usefulness of the integration has been shown by running a simulation. 
+It turns out that a desirable optimization goal is the fast delivery of cargo objects.
 
-TODO discussion regarding initial questions
- - all are implicitly answered
- - which computer vision techniques: background subtraction,volume intersection
- - optimization of movement: priority to cargo objects
- - other interesting objects: carts, forklifts hospital beds
- - useful circumstances: single elevator shared by caro and passenegrs
- - extent of usefulness shown by simulation
- - optimization goal: amount of delivered cargo objects amongst others
+
 TODO discussion regarding alternative solutions
  - only one particular use case with one particular solution was explored further, however many more use cases and approaches would have been possible, the decision to follow this particular one were not perfectly argumented (das sollte schöner formuliert werden), alternative solutions for the visual system could be found in depth sensors, or feature based scenen reconstruction with multi stereo vision. but they come hat either heigher cost or higher complexety
 TODO Discussion of simulation parameter, strategy and program flow correctness, discussion of simulation output correctness
