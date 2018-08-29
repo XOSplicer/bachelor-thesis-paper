@@ -389,7 +389,7 @@ There are several methods to implement silhouette based shape reconstruction:
 \begin{itemize}
     \item \textbf{Standard Voxel Based Method} 
     In this method, first the space too be modeled is described as a \ac{3D} grid of voxels at an constant resolution.
-    To find out which voxels belong to reconstructed object,
+    To find out which voxels belong to the reconstructed object,
     each voxel is projected into the viewport of each camera 
     and it is checked whether it lies in the silhouette from this perspective.
     Only if it lies inside of all silhouettes
@@ -404,14 +404,9 @@ There are several methods to implement silhouette based shape reconstruction:
     All surface pixels that are not consistent are removed iteratively, until the reconstructed volume converges.
 \end{itemize}
 
-TODO still needs a reference or calibration to determine the space of the modeled room / scaling factor
-
-TODO
-multiview, depth sensors
-interpolation of depth information by combinding views
-bounding / section box
-convex hull in 3d by mask
-
+Since the volume intersection method operates by projecting voxels into each perspective,
+the internal and external calibration parameters of the cameras for each perspective needs to be known.
+Furthermore, it is not possible to reconstruct the volume with absolute measures without determining the dimensions of the modeled room first and deriving a scaling factor out of it.
 
 \section{Elevator Control}
 
