@@ -336,18 +336,21 @@ However it does not generalize to \ac{3D} objects of unknown shape.
 stereo vision
 of full \ac{3D} reconstruction of each point+match local features in multiple images to calculate the position in the room
 TODO
-
-method: triangulation (see \ref{fig:sota:epipolar}) of correcponding image points
+method: triangulation (see figure \ref{fig:sota:epipolar}) of correcponding image points
 these image points are \emph{local features} of the image
 this creates one depth map from two images
 combining them yields a complete scene
 the color can also be reconstructed
-
-key concept: photoconsistency : a voxel is photoconsitent when 
+see also
+\autocite[][]{dyer2001reconstruction}
+\autocite[][Chap.~3]{zhang2017imageunderstanding}
+does only yield limited depth information when not enough perspective
+can be enhanced with the usage of depth sensors
+see figure \ref{fig:sota:mulitviewtop}
 
 \begin{figure}[hbt]
 	\centering
-	\includegraphics[width=1.0\textwidth, keepaspectratio]{resources/Epipolar_Geometry}
+	\includegraphics[width=0.5\textwidth, keepaspectratio]{resources/Epipolar_Geometry}
 	\caption[]{\label{fig:sota:epipolar} Projection of a 3D Point into two 2D images of different perspective}
 \end{figure}
 
