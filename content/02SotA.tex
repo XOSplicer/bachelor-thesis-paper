@@ -337,9 +337,16 @@ stereo vision
 of full \ac{3D} reconstruction of each point+match local features in multiple images to calculate the position in the room
 TODO
 
+method: triangulation (see \ref{fig:sota:epipolar}) of correcponding image points
+these image points are \emph{local features} fo the image
+
 key concept: photoconsistency : a voxel is photoconsitent when 
 
-
+\begin{figure}[hbt]
+	\centering
+	\includegraphics[width=1.0\textwidth, keepaspectratio]{resources/Epipolar_Geometry}
+	\caption[]{\label{fig:sota:epipolar} Projection of a 3D Point into two 2D images of different perspective}
+\end{figure}
 
 \begin{figure}[hbt]
 	\centering
@@ -347,6 +354,8 @@ key concept: photoconsistency : a voxel is photoconsitent when
 	\caption[Concept of depth reconstruction in a 2D multi-view situation]{\label{fig:sota:mulitviewtop}Concept of depth reconstruction in a 2D multi-view situation.
 	Adapted from \textcite[][]{sonaten2011volume}}
 \end{figure}
+
+
 
 \subsubsection{Silhouette Based Volume Reconstruction}
 
