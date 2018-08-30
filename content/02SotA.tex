@@ -170,6 +170,12 @@ The angle of the normal of the edge curve in this point can be found by the elem
 
 \subsubsection{Blob Detection}
 
+A \emph{blob} is a collection of positively marked image points in a binary image, which are located near to each other and therefore form a coherent group.
+One can distinguish between two types of blobs:
+a fully connected blob, 
+where only those image points are considered to belong to the same blob, that are direct neighbours.
+
+
 either connected components or just generally newr points
 
 TODO
@@ -181,11 +187,9 @@ first explain contour (what are contours: outlines of connected areas in a binar
 
 
 
-TODO connected components
-TODO 
-\autocite[][]{he2017connected}
-finding connected pixels in a binary images, which is useful to tag different objects
+
 \autocite[][]{opencv2018blob}
+\autocite[][]{mallick2015blob}
 operates on binary masked image
 \begin{enumerate}
     \item Find the contours present in the image and calculate their centers
@@ -193,7 +197,10 @@ operates on binary masked image
     \item From these groups, find overall center and estimate area and radius of the blob
 \end{enumerate}
 
-
+TODO connected components
+TODO 
+\autocite[][]{he2017connected}
+finding connected pixels in a binary images, which is useful to tag different objects
 
 TODO
 
