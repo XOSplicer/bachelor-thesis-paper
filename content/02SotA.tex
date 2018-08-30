@@ -335,6 +335,16 @@ However it does not generalize to \ac{3D} objects of unknown shape.
 
 Multiple images of the same scene from different perspectives enable the reconstruction of the \ac{3D} geometry of the scene. In order to do so a \ac{3D} point in the scene needs to be found in multiple perspectives.
 The point is a local feature which can be recognized and matched across images.
+Using perspective projection and triangulation can then be used to find out the \ac{3D} position of this point.
+
+The simplest form of this kind of reconstruction is \emph{stereo vision}, where a scene is reconstructed from two images taken from known positions.
+\autocite[][Chap.~2]{zhang2017imageunderstanding}
+Figure \ref{fig:sota:epipolar} demonstrates how a \ac{3D} point $ P $  is perceived in two \ac{2D} images as points $ P_L $ and $ P_R $. 
+When the relative position of the cameras $ O_L $ and $ O_R $ are known, a the relative position of point $ P $ in \ac{3D} space can be found via triangulation.
+This triangulation is performed for every point that can be matched between the two images in order to create a \emph{depth map}.
+
+However with stereo vision it is not possible to fully reconstruct a scene, as for example the backside of objects can not possibly be seen from two perspectives that have points in common.
+
 
 
 TODO
@@ -347,7 +357,6 @@ combining them yields a complete scene
 the color can also be reconstructed
 see also
 \autocite[][]{dyer2001reconstruction}
-\autocite[][Chap.~3]{zhang2017imageunderstanding}
 does only yield limited depth information when not enough perspective
 can be enhanced with the usage of depth sensors
 see figure \ref{fig:sota:mulitviewtop}
