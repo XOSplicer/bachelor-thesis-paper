@@ -339,8 +339,8 @@ Multiple images of the same scene from different perspectives enable the reconst
 The point is a local feature which can be recognized and matched across images.
 Using perspective projection and triangulation can then be used to find out the \ac{3D} position of this point.
 
-The simplest form of this kind of reconstruction is \emph{stereo vision}, where a scene is reconstructed from two images taken from known positions.
-\autocite[][Chap.~2]{zhang2017imageunderstanding}
+The simplest form of this kind of reconstruction is \emph{stereo vision}, where a scene is reconstructed from two images taken from known positions
+\autocite[][Chap.~2]{zhang2017imageunderstanding}.
 Figure \ref{fig:sota:epipolar} demonstrates how a \ac{3D} point $ P $  is perceived in two \ac{2D} images as points $ P_L $ and $ P_R $. 
 When the relative position of the cameras $ O_L $ and $ O_R $ are known, the relative position of the point $ P $ in \ac{3D} space can be found via triangulation.
 This triangulation is performed for every point that can be matched between the two images in order to create a \emph{depth map}.
@@ -479,7 +479,7 @@ Therefore they can be classified in various dimensions.
 The first observation to make is the \textbf{number of shafts and cabins} in the system.
 The main difference comes in the scheduling complexity regarding single-cabin versus multi-cabin systems.
 Systems with multiple elevators need a group controller to decide which cabin serves which hall call.
-This decision can be non-trivial as laid out in section \vref{sec:sota:strategies}.
+This decision can be non-trivial as laid out in section \ref{sec:sota:strategies}.
 When only one cabin is used, the scheduling becomes more straightforward.
 In small residential buildings, a single cabin might be sufficient.
 However, in buildings with larger passenger amounts, such as office buildings, a multi-elevator setup can become necessary increase to the handling capacity.
@@ -709,7 +709,7 @@ These calculations can be based on theoretical consideration about the physical 
  
 When the group controller schedules the elevators in a system, the order of dispatches influences the metrics listed above.
 The elevator allocations are calculated by optimization of a cost function which takes the metrics into consideration.
-Usually, the waiting time is optimized, but also the ride time can be optimized in order to increase the handling capacity. \autocite[][p.~10]{siikonen1997models} 
+Usually, the waiting time is optimized, but also the ride time can be optimized in order to increase the handling capacity \autocite[][p.~10]{siikonen1997models}.
 
 \subsection{Optimization Approaches by Simulation}
 
