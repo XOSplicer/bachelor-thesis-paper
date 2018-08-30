@@ -611,29 +611,23 @@ The system can then allocate an explicit lift to this passenger based on the eva
 \subsubsection{Parking Policies}
 Another consideration in the design of a control strategy are the rules where to park a cabin when it is not in use and has no current hall calls.
 The place where a cabin is parked can greatly influence the response time to hall calls.
-Having a cabin in or near the floor, where the arrival of the next passenger is expected, 
+Having a cabin on or near the floor, where the arrival of the next passenger is expected, 
 makes it possible to instantly answer their hall call.
-In a single-lift scenario this position might be easy to be determine, 
+In a single-lift scenario, this position might be easy to determine, 
 however in an multi-lift group, the possibilities of parking become complex \autocite[][pp.~3]{beers2015arrivals}.
 The prediction of the next arrival can be based on a model of the current traffic pattern.
 \textcite{brand2004parking} showed that for down-peak traffic, a distribution of the lifts is sufficient, which matches the arrival rates for each floor.
-For up-peak traffic however, the problem is stated to be harder, 
+For up-peak traffic, however, the problem is stated to be harder, 
 so that dynamic programming is proposed to solve it.
 
 
 \subsection{Performance Criteria}
 \label{sec:sota:perf}
 
-In order to evaluate the performance of an elevator system some metrics about it are commonly considered.
+In order to evaluate the performance of an elevator system, some metrics about it are commonly considered.
 They are used to check if a planned system fulfills the requirements that the expected traffic poses. 
 The metrics are mostly perceived as part of the service quality by the passengers.
 Many of them are linked together and influence each other.
-
-% General cite:
-%\autocite[][p.~10]{beers2015arrivals}
-%\autocite[][p.~7]{hakonen2003simulation}
-%\autocite[][pp.8-9]{siikonen1997models}
-%\autocite[][p.~194]{unger2015aufzuege}
 
 \begin{itemize}
 
@@ -674,17 +668,17 @@ Many of them are linked together and influence each other.
         \autocite[][pp.8-9]{siikonen1997models}.
     
     \item The \textbf{hall call time} 
-        describes the time between the issuing of an hall call by a passenger and the cancellation of the call. 
+        describes the time between the issuing of a hall call by a passenger and the cancellation of the call. 
         The call is canceled when an elevator is scheduled to serve the call floor and hence decelerates to stop at the floor
         \autocite[][pp.8-9]{siikonen1997models}. 
     
     \item The number of \textbf{total stops}
-        necessary to serve an specified amount of passengers (or within a given time frame) is an indicator for the efficiency of the scheduling algorithm
+        necessary to serve a specified amount of passengers (or within a given time frame) is an indicator for the efficiency of the scheduling algorithm
         \autocite[][p.~194]{unger2015aufzuege}.
     
     \item The \textbf{energy consumption} 
-        per ride or per time interval is an measure of economic interest. 
-        However it does not influence the perceived service quality.
+        per ride or per time interval is a measure of economic interest. 
+        However, it does not influence the perceived service quality.
     
     \item The \textbf{capacity utilization} 
         of the cabins in spacial and weight dimensions is an interesting metric to observe, 
@@ -696,12 +690,12 @@ Many of them are linked together and influence each other.
         
 \end{itemize}
 
-For each of the metrics it is common to calculate statistical figures, such as average, mean, minimum, maximum and standard deviation, which also can differ depending on the traffic situation.
+For each of the metrics, it is common to calculate statistical figures, such as average, mean, minimum, maximum and standard deviation, which also can differ depending on the traffic situation.
 These calculations can be based on theoretical consideration about the physical parameters of the system \autocite[][p.~194]{unger2015aufzuege}, simulations or heuristical observations in real buildings.
  
 When the group controller schedules the elevators in a system, the order of dispatches influences the metrics listed above.
-The elevator allocations are calculated by optimization of a cost function which takes the metrics in consideration.
-Usually the waiting time is optimized, but also the ride time can be optimized in order to increase the handling capacity. \autocite[][p.~10]{siikonen1997models} 
+The elevator allocations are calculated by optimization of a cost function which takes the metrics into consideration.
+Usually, the waiting time is optimized, but also the ride time can be optimized in order to increase the handling capacity. \autocite[][p.~10]{siikonen1997models} 
 
 \subsection{Optimization Approaches by Simulation}
 
@@ -709,7 +703,7 @@ Active research goes into simulating elevator systems in order to test out new c
 There are approaches to model existing or planned elevator systems based on their physical properties
 and analyze them using either with closed mathematical formulations or to simulate their behavior using computers \autocite[][p.~6]{beers2015arrivals}. 
 When implementing a simulation it can be done as a deterministic or stochastic model, which operate on continuous or discrete data.
-For a computer simulation, the discrete stochastic model is favourable, 
+For a computer simulation, the discrete stochastic model is favorable, 
 since it can deal with discrete events, which deal with the interaction of entities in the simulation. 
 
 An industrial grade elevator simulator is developed by \emph{Peters Research Ltd} \autocite[][]{peters2018elevate}.
