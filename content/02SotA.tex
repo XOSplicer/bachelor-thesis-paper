@@ -331,7 +331,11 @@ Therefore a reference object with known dimensions is necessary to calculate the
 This approach avoids the need to multiple cameras and a \ac{3D} calibration
 However it does not generalize to \ac{3D} objects of unknown shape.
 
-\subsubsection{Feature Based Scene Reconstruction} 
+\subsubsection{Point-Based Scene Reconstruction} 
+
+Multiple images of the same scene from different perspectives enable the reconstruction of the \ac{3D} geometry of the scene. In order to do so a \ac{3D} point in the scene needs to be found in multiple perspectives.
+The point is a local feature which can be recognized and matched across images.
+
 TODO
 stereo vision
 of full \ac{3D} reconstruction of each point+match local features in multiple images to calculate the position in the room
@@ -362,7 +366,7 @@ see figure \ref{fig:sota:mulitviewtop}
 
 
 
-\subsubsection{Silhouette Based Volume Reconstruction}
+\subsubsection{Silhouette-Based Volume Reconstruction}
 
 The \emph{silhouette} of an object within an image is intuitively defined 
 as a binary mask describing the areas of the image in which the object is present. 
