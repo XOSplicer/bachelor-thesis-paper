@@ -377,14 +377,14 @@ The edges of this areas describe the contours of the object.
 The silhouette can be obtained by image segmentation of the original image \autocite[][Chap.~2]{zhang2017imageanalysis}, such as by background subtraction.
 Depending on the camera perspective different portions of the object are visible.
 Only the outline of the object from this perspective is visible in the silhouette.
-This implies that is is not possible to capture concave parts of an object.
+This implies that is is not possible to capture any concave parts of an object.
 
 Silhouettes from multiple perspectives can be used to reconstruct the \ac{3D} shape of an object from \ac{2D} images of said object.
-The reconstructed \ac{3D} shape does not represent the real geometry of the object, but produces the same silhouettes as the real object when seen from the angles it was reconstructed from.
+The reconstructed \ac{3D} shape does not represent the real geometry of the object but produces the same silhouettes as the real object when seen from the angles it was reconstructed from.
 The shape that is constructed from the silhouettes is called \emph{visual hull}, a term introduced by \textcite[][]{laurentini1994hull}.
 Since the silhouette does not include information about concavities,
 the visual hull also is convex. 
-Furthermore the silhouette does not include information about parts of the object whose visibility is obstructed from a certain perspective.
+Furthermore, the silhouette does not include information about parts of the object whose visibility is obstructed from a certain perspective.
 Therefore the visual hull can not describe the shape of parts of the object, that are not visible in any silhouette.
 
 \begin{figure}[hbt]
@@ -401,8 +401,8 @@ The intersection of those cones creates the visual hull.
 There are several methods to implement silhouette based shape reconstruction:
 
 \begin{itemize}
-    \item \textbf{Standard Voxel Based Method} 
-    In this method, first the space too be modeled is described as a \ac{3D} grid of voxels at an constant resolution.
+    \item \textbf{Standard Voxel-Based Method} 
+    In this method, first, the space to be modeled is described as a \ac{3D} grid of voxels at a constant resolution.
     To find out which voxels belong to the reconstructed object,
     each voxel is projected into the viewport of each camera 
     and it is checked whether it lies in the silhouette from this perspective.
@@ -412,10 +412,10 @@ There are several methods to implement silhouette based shape reconstruction:
     This method, introduced by \textcite[][]{kutulakos1999spacecarving},
     is concerned not only with reconstructing the volume of an object, but also to color its surface consistently to the images it is reconstructed from.
     The method also begins with a scene full of voxels. 
-    However not all voxels need to be considered for the reconstruction.
-    Instead the method operates in iterations, where only the voxels on the surface of the volume are checked.
+    However, not all voxels need to be considered for the reconstruction.
+    Instead, the method operates in iterations, where only the voxels on the surface of the volume are checked.
     Each voxel on the surface is checked for \emph{photo-consistency} with each silhouette, which means that if it is visible from that perspective, it is correctly classified as background or foreground and has the correct color.
-    All surface pixels that are not consistent are removed iteratively, until the reconstructed volume converges.
+    All surface pixels that are not consistent are removed iteratively until the reconstructed volume converges.
 \end{itemize}
 
 Since the volume intersection method operates by projecting voxels into each perspective,
