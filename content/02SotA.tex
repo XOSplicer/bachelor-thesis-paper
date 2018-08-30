@@ -1,7 +1,7 @@
 % !TEX root = ../master.tex
 \chapter{Fundamentals}
 \label{chap:sota}
-In this chapter the state of the art of the technologies and concepts used in this thesis are outlined.
+In this chapter, the state of the art of the technologies and concepts used in this thesis are outlined.
 A broad overview over object detection using computer vision and the control of elevator systems is given.
 This forms the basis to further explore the problem and find possible solutions in the chapters afterwards.
 
@@ -9,7 +9,7 @@ This forms the basis to further explore the problem and find possible solutions 
 
 The field of computer vision tries to establish methods and algorithms 
 that extract useful information out of image data to be used by machines. 
-The field has a broad range of applications and is influenced by various subjects such as methematics, physics and computer science.
+The field has a broad range of applications and is influenced by various subjects such as mathematics, physics and computer science.
 Therefore \textcite{zhang2017imageprocessing} coined the term of \emph{image engineering} to localize the methods that deal with obtaining data from images. 
 \textcite{zhang2017imageprocessing} defines three abstraction layers that these methods operate on (see figure \ref{fig:sota:imageengineering}).
 \emph{Image processing} deals with the \enquote{manipulation of an image to produce another (improved) image} \autocite[][]{zhang2017imageprocessing}. 
@@ -331,6 +331,8 @@ Therefore a reference object with known dimensions is necessary to calculate the
 This approach avoids the need to multiple cameras and a \ac{3D} calibration
 However it does not generalize to \ac{3D} objects of unknown shape.
 
+\newpage
+
 \subsubsection{Point-Based Scene Reconstruction} 
 
 Multiple images of the same scene from different perspectives enable the reconstruction of the \ac{3D} geometry of the scene. In order to do so a \ac{3D} point in the scene needs to be found in multiple perspectives.
@@ -354,21 +356,11 @@ It is required to take images from many more perspectives into consideration to 
 When the camera position for each of those images is known, it is possible to create a depth map for each adjacent perspective pair.
 The depth maps are then combined to reconstruct the full geometry of the scene.
 
-In oder to enhance 
-Figure \ref{fig:sota:mulitviewtop} describes 
-
-
-TODO
-this creates one depth map from two images
-combining them yields a complete scene
-the color can also be reconstructed
-see also
-\autocite[][]{dyer2001reconstruction}
-does only yield limited depth information when not enough perspective
-can be enhanced with the usage of depth sensors
-see figure \ref{fig:sota:mulitviewtop}
-
-
+In order to enhance the capability to create the depth maps,
+cameras with integrated depth sensors can be used.
+Examples for such cameras are the (discontinued) Microsoft Kinect \autocite[][]{microsoft2018kinect} and Intel RealSense \autocite[][]{intel2018realsense}.
+Figure \ref{fig:sota:mulitviewtop} depicts which parts of an object are visible in a \ac{2D} situation, and of which parts the depth is actually reconstructable, depending of perspective of the available cameras. 
+The concept is applicable to \ac{3D} scenes similarly.
 
 \begin{figure}[hbt]
 	\centering
@@ -376,8 +368,6 @@ see figure \ref{fig:sota:mulitviewtop}
 	\caption[Concept of depth reconstruction in a 2D multi-view situation]{\label{fig:sota:mulitviewtop}Concept of depth reconstruction in a 2D multi-view situation.
 	Adapted from \textcite[][]{sonaten2011volume}}
 \end{figure}
-
-
 
 \subsubsection{Silhouette-Based Volume Reconstruction}
 
