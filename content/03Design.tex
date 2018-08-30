@@ -30,9 +30,9 @@ A conclusion of the project for both technology-oriented as well as management-o
 
 Figure \ref{fig:design:designscience} displays the steps that are found in the process of design science research. 
 Those are the steps that guide the execution of this thesis.
-The awareness and relevance of the given problem have already been given in section \vref{sec:into:context}.
-Looking back to the original research questions (see section \vref{sec:intro:goals}) two focuses have been identified for this thesis:
+The awareness and relevance of the given problem have already been given in section \ref{sec:into:context}.
 
+Looking back to the original research questions (see section \ref{sec:intro:goals}) two focuses have been identified for this thesis:
 \begin{itemize}
     \item Which computer vision techniques can be used to detect persons and objects within an elevator car and in front of the lift and estimate their spacial volume?
     \item How can the information acquired by a system that uses such methods constitute to the optimization of algorithms that control the movement plan for elevators?
@@ -96,7 +96,7 @@ However since this paper explores the possibilities of volume detection,
 the information gathered inside the cabin is focused.
 
 In the context of an elevator system, 
-the cameras inside the cabin are, 
+the cameras inside the cabin, 
 combined with a processing system, 
 are just an additional cabin sensor.
 Therefore the system can be integrated into the electronics of the elevator cabin
@@ -210,7 +210,7 @@ but also Gaussian kernels of dimension $ 5 \times 5 $ can be used.
 To find out where passengers and objects are visible in each frame from each camera the next step is to find a foreground mask for each of the images.
 Since the cameras are static and do not change their position or angle in the cabin,
 each camera always films the same section of the elevator.
-The perceived background therefor is static except for changes in lighting.
+The perceived background therefore is static except for changes in lighting.
 Those can occur when the cabin doors are opened or passengers block the lamps in the cabin.
 In contrast to the background, the passengers in the cabin move over time.
 The static background with moving passengers allows the method of \emph{background subtraction} to be used.
@@ -525,14 +525,14 @@ Number of simulations & 1000 & \\
 
 In the section beforehand, the building type that acts as a base for the simulation has been described:
 a single elevator configuration, shared by passengers and cargo items.
-\textcite[][p.~347]{barney2016handbook} described, which parameters need to be determined in order to run a simulation. 
+\textcite[][p.~347]{barney2016handbook} describe, which parameters need to be determined in order to run a simulation. 
 Table \ref{tab:design:simulationconfig} gives an overview of the parameters that were chosen for this simulation.
 Some of the values are taken from elevators manufactured by KONE \autocite[][]{kone2017overview}, 
 other values are taken from \textcite[][p.~349]{barney2016handbook}.
 Especially the lift parameters are based on the sources.
 In paragraphs ahead, the other parameters are discussed more thoroughly.
 
-Table \ref{tab:design:simulationconfig} features two sections, that describe passenger data and cargo data.
+Table \ref{tab:design:simulationconfig} features two sections that describe passenger data and cargo data.
 The elevator can convey both, passengers and cargo objects.
 Therefore, in the simulation they are both considered to be \emph{traffic items}.
 Even though, not all cargo objects can move on their own, and need to be carried by a passenger,
@@ -558,13 +558,13 @@ It would also be possible to model an up-peak or down-peak traffic pattern, howe
 The \emph{weight and volume distribution} for both types of traffic items is given by choosing from predefined \emph{prototypes} (or stereotypes).
 Every passenger or cargo object in the simulation has the same weight and volume properties as one of the prototypes.
 Table \ref{tab:design:trafficitemprototypes} lists the prototypes that are defined for this simulation.
-A passenger in the simulation is created from any of the passenger prototypes with the likelihood of $ \frac{1}{4} $, a cargo item from any of the cargo item prototypes with a likelihood of $ \frac{1}{4} $.
+A passenger in the simulation is created from any of the passenger prototypes with the likelihood of $ \frac{1}{4} $, a cargo item from any of the cargo item prototypes with a likelihood of $ \frac{1}{5} $.
 Choosing from prototypes rather than a continuous distribution helps to simplify the simulation implementation.
 
 The \emph{floor bias} for both types of traffic items is \emph{unbiased}. 
 There is no precedence in arrival and destination floor, every journey appears with the same likelihood.
 However, a journey where arrival and destination floor are equal, can not occur.
-The probability of any given trip to be occur, is described as a probability function
+The probability of any given trip to occur, is described as a probability function
 $$ b(f_{arrival}, f_{destination}) =
     \begin{cases} 
       \frac{1}{N^2 - N} & f_{arrival} \neq f_{destination} \\
