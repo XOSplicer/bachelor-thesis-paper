@@ -71,7 +71,7 @@ For a \ac{2D} image $ F \in \mathbb{N}^{X \times Y} $ the convolution $ H \in \m
 \begin{equation*}
 H_{x,y} = \sum_{i=0}^{M_i-1} \sum_{j=0}^{M_j-1} F_{x+i-a_i, x+j-a_j}K_{i,j}
 \end{equation*}
-\caption[Application of an 2D convolution kernel]{Application of an 2D convolution kernel. Reprinted from the \textcite[][]{opencv2018kernel}}
+\caption[Application of a 2D convolution kernel]{Application of an 2D convolution kernel. Reprinted from the \textcite[][]{opencv2018kernel}}
 \label{fig:sota:convolution}
 \end{figure}
 
@@ -155,7 +155,18 @@ Since video images can contain pixel level noise, it is useful convert color vid
 
 \subsubsection{Edge Detection}
 
-TODO
+Edge detection is the process of finding edges of objects in an gray scale image.
+An edge is present where ever there is a sharp change in luminosity along a curve in the image.
+It is important to note that edges can also occur within the are of an object and must not necessarily describe its outline.
+There are two major approaches to edge detection.
+
+First the application of the \emph{Laplace filter kernel} (see $ D_{xy}^{2} $ in figure \ref{fig:sota:kernels}) yields an approximation of the second order derivative of the image.
+The second order derivative describes the divergence of the gradient of the image and therefore is capable of finding the \enquote{turning point} in the luminosity since the second order derivative in this points is zero. It is common to combine this operation with prior application of a Gaussian blur \autocite[][pp.~237f.]{szeliski2010algorithms}.
+
+The second approach is called the \emph{Canny algorithm} \autocite[][]{canny1986edge}.
+In order find edges, first two partial first order derivatives of the image are approximated by applying the Sobel kernel in X and Y direction respectively ($ G_x , G_y $ in figure \ref{fig:sota:kernels}). 
+The sharpness (or strength) of the edge in each point can then be described as the element-wise euclidean norm $ G = \sqrt{G_x^2 + G_y^2} $.
+The angle of the normal of the edge curve in this point can be found by the element-wise two-argument inverse tangent of the two partial derivatives: $ \Theta = atan2(G_x, G_y) $.
 
 \subsubsection{Blob Detection}
 
@@ -251,6 +262,8 @@ When world space and camera space coordinates are not the same, i.e. the camera 
 \label{fig:sota:camcalib}
 \end{figure}
 
+\newpage
+
 The equation in figure \ref{fig:sota:camcalib} depicts how a point in the world coordinate system can be mapped to the image plane of a camera. 
 The following list explains the mentioned coefficients:
 
@@ -343,7 +356,7 @@ see figure \ref{fig:sota:mulitviewtop}
 \begin{figure}[hbt]
 	\centering
 	\includegraphics[width=0.5\textwidth, keepaspectratio]{resources/Epipolar_Geometry}
-	\caption[]{\label{fig:sota:epipolar} Projection of a 3D Point into two 2D images of different perspective}
+	\caption[Projection of a 3D Point into two 2D images of different perspective]{\label{fig:sota:epipolar} Projection of a 3D Point into two 2D images of different perspective. Reprinted from \textcite{wiki2009epipolar}}
 \end{figure}
 
 \begin{figure}[hbt]
