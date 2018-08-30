@@ -161,14 +161,13 @@ It is important to note that edges can also occur within the are of an object an
 There are two major approaches to edge detection.
 
 First the application of the \emph{Laplace filter kernel} (see $ D_{xy}^{2} $ in figure \ref{fig:sota:kernels}) yields an approximation of the second order derivative of the image.
-The second order derivative describes the divergence of the gradient of the image and therefore is capable of finding the \enquote{turning point} in the luminosity since the second order derivative in this points is zero. 
+The second order derivative describes the divergence of the gradient of the image and therefore is capable of finding the \enquote{turning point} in the luminosity since the second order derivative in this points is zero. It is common to combine this operation with prior application of a Gaussian blur \autocite[][]{}.
 
-The second approach is called the \emph{Canny algorithm}.
+The second approach is called the \emph{Canny algorithm} \autocite[][]{canny1986edge}.
 In order find edges, first two partial first order derivatives of the image are approximated by applying the Sobel kernel in X and Y direction respectively. 
-The sharpness of the edge in each point can then be described as the euclidian 
+The sharpness (or strength) of the edge in each point can then be described as the element-wise euclidean norm $ G = \sqrt{G_x^2 + G_y^2} $.
+The angle of the normal of the edge curve in this point can be found by the element-wise inverse two-argument tangent of the two partial derivative $ \Theta = atan2(G_x, G_y) $.
 
-
-TODO
 
 \subsubsection{Blob Detection}
 
