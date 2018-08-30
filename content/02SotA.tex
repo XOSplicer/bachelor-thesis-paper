@@ -156,9 +156,16 @@ Since video images can contain pixel level noise, it is useful convert color vid
 \subsubsection{Edge Detection}
 
 Edge detection is the process of finding edges of objects in an gray scale image.
-An edge is present where ever there is a sharp change in luminosity in any image direction.
-There are two major approaches to this.
-First the application of the Laplace filter (see $ D_{xy}^{2} $ in figure \ref{fig:sota:kernels}) kernel yields a second order derivative of the image
+An edge is present where ever there is a sharp change in luminosity along a curve in the image.
+It is important to note that edges can also occur within the are of an object and must not necessarily describe its outline.
+There are two major approaches to edge detection.
+
+First the application of the \emph{Laplace filter kernel} (see $ D_{xy}^{2} $ in figure \ref{fig:sota:kernels}) yields an approximation of the second order derivative of the image.
+The second order derivative describes the divergence of the gradient of the image and therefore is capable of finding the \enquote{turning point} in the luminosity since the second order derivative in this points is zero. 
+
+The second approach is called the \emph{Canny algorithm}.
+In order find edges, first two partial first order derivatives of the image are approximated by applying the Sobel kernel in X and Y direction respectively. 
+The sharpness of the edge in each point can then be described as the euclidian 
 
 
 TODO
