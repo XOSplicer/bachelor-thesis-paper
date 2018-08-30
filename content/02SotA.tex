@@ -343,15 +343,22 @@ Figure \ref{fig:sota:epipolar} demonstrates how a \ac{3D} point $ P $  is percei
 When the relative position of the cameras $ O_L $ and $ O_R $ are known, a the relative position of point $ P $ in \ac{3D} space can be found via triangulation.
 This triangulation is performed for every point that can be matched between the two images in order to create a \emph{depth map}.
 
-However with stereo vision it is not possible to fully reconstruct a scene, as for example the backside of objects can not possibly be seen from two perspectives that have points in common.
+\begin{figure}[hbt]
+	\centering
+	\includegraphics[width=0.5\textwidth, keepaspectratio]{resources/Epipolar_Geometry}
+	\caption[Projection of a 3D Point into two 2D images of different perspective]{\label{fig:sota:epipolar} Projection of a 3D Point into two 2D images of different perspective. Reprinted from \textcite{wiki2009epipolar}}
+\end{figure}
 
+However with stereo vision it is not possible to fully reconstruct a scene, as for example the backside of objects can not possibly be seen from two perspectives that have points in common.
+It is required to take images from many more perspectives into consideration to fully reconstruct a scene in every angle.
+When the camera position for each of those images is known, it is possible to create a depth map for each adjacent perspective pair.
+The depth maps are then combined to reconstruct the full geometry of the scene.
+
+In oder to enhance 
+Figure \ref{fig:sota:mulitviewtop} describes 
 
 
 TODO
-stereo vision
-of full \ac{3D} reconstruction of each point+match local features in multiple images to calculate the position in the room
-method: triangulation (see figure \ref{fig:sota:epipolar}) of correcponding image points
-these image points are \emph{local features} of the image
 this creates one depth map from two images
 combining them yields a complete scene
 the color can also be reconstructed
@@ -361,11 +368,7 @@ does only yield limited depth information when not enough perspective
 can be enhanced with the usage of depth sensors
 see figure \ref{fig:sota:mulitviewtop}
 
-\begin{figure}[hbt]
-	\centering
-	\includegraphics[width=0.5\textwidth, keepaspectratio]{resources/Epipolar_Geometry}
-	\caption[Projection of a 3D Point into two 2D images of different perspective]{\label{fig:sota:epipolar} Projection of a 3D Point into two 2D images of different perspective. Reprinted from \textcite{wiki2009epipolar}}
-\end{figure}
+
 
 \begin{figure}[hbt]
 	\centering
