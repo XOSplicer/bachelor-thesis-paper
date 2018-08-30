@@ -100,6 +100,7 @@ The \textcite{python2018pypi} provides a repository, in which all of these depen
 The test was performed as described in section \ref{sec:design:visualtest} with the help of two fellow students.
 The elevator cabin has a dimension of $ 130 \times 165 \times 230 $ cm (width, depth, height).
 The used cameras are three smartphones, attached to the wall with tape, and a wide-angle camera attached above the door at an angle of $ 54.5^{\circ} $ down.
+The image resolution of each of the cameras was set to 1280 times 720 pixels.
 The cameras on the wall were mounted in the center of the wall at the height of 150 cm each, facing the center of the cabin.
 Multiple configurations of passengers inside the cabin were tested, as described in the test plan.
 A large carton was used as a cargo object, which was held first by two, then by one passenger.
@@ -134,6 +135,8 @@ This composition image is also saved as a video by generating it for every frame
     \caption[Images of volume intersection test with orthogonal projection]{Images of volume intersection test with orthogonal projection. Each preview showing the camera images, foreground masks, and the resulting volume intersection. (a) single passenger (b) cargo object (c) multiple passengers.}
     \label{fig:impl:videopreview}
 \end{figure}
+
+\newpage
 
 \subsection{Result Evaluation}
 No ground truth for the volumetric data inside the cabin was recorded during the execution of the test.

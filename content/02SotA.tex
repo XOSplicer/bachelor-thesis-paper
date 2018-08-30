@@ -164,7 +164,7 @@ First the application of the \emph{Laplace filter kernel} (see $ D_{xy}^{2} $ in
 The second order derivative describes the divergence of the gradient of the image and therefore is capable of finding the \enquote{turning point} in the luminosity since the second order derivative in this points is zero. It is common to combine this operation with prior application of a Gaussian blur \autocite[][pp.~237f.]{szeliski2010algorithms}.
 
 The second approach is called the \emph{Canny algorithm} \autocite[][]{canny1986edge}.
-In order find edges, first, two partial first-order derivatives of the image are approximated by applying the Sobel kernel in X and Y direction respectively ($ G_x , G_y $ in figure \ref{fig:sota:kernels}). 
+In order to find edges, first, two partial first-order derivatives of the image are approximated by applying the Sobel kernel in X and Y direction respectively ($ G_x , G_y $ in figure \ref{fig:sota:kernels}). 
 The sharpness (or strength) of the edge in each point can then be described as the element-wise euclidean norm $ G = \sqrt{G_x^2 + G_y^2} $.
 The angle of the normal of the edge curve in this point can be found by the element-wise two-argument inverse tangent of the two partial derivatives: $ \Theta = atan2(G_x, G_y) $.
 
@@ -174,7 +174,7 @@ A \emph{blob} is a collection of positively marked image points in a binary imag
 One can distinguish between two types of blobs:
 One is a fully connected blob, 
 where only those image points are considered to belong to the same blob, that are direct neighbors.
-The other is an area of image points which might only loosely be connected and connected areas, which are close to each other are considered to belong to the same blob.
+The other is an area of image points which might only be loosely connected. It consists of multiple connected areas, which are close to each other are considered to belong to the same blob.
 
 The method to find fully connected blobs is called \emph{connected component labeling}, and two fundamental methods exist to perform it: \emph{label propagation algorithms} and \emph{label equivalence solving} \autocite[][]{he2017connected}.
 In the label propagation approach, the image is each image point is scanned and labeled. When a new, unlabeled point, which is positively labeled in the binary image, is encountered, it is given a new label and all of its neighbors are given the same label.
@@ -280,7 +280,7 @@ The corners of the chessboard squares are used determine how a straight line is 
 
 The external parameter for rotation and translation can not be found from one camera alone.
 In a multi-camera setup, they can be found by triangulation of multiple points in multiple images that show the same scene from different angles.
-If this triangulation is not possible because the points used for triangulation are not visible from all camera perspective, the rotation matrix an the translation vector can be found out by measuring the real world.
+If this triangulation is not possible because the points used for triangulation are not visible from all camera perspective, the rotation matrix and the translation vector can be found out by measuring the real world.
 The rotation matrix can be calculated by measuring the relative rotation angles of the cameras to each other.
 The equation in figure \ref{fig:sota:rotation} can be used to determine the combined rotation matrix when the rotation around the yaw, pitch, and roll angles are known. 
 Yaw, pitch, and roll describe the rotation around the Z, Y and X axis respectively.
@@ -328,7 +328,7 @@ Just as the matrix of intrinsic parameters, the parameters for the distortion ca
 When the geometric shape of a \ac{3D} object is roughly known beforehand and only its exact outline and scale varies, it is possible to estimate its volume from its outline in a single image.
 The assumption here is that the volume scales with the area, that the object covers on the image \autocite{levine1989microwave} \autocite[][]{wang2017apple} \autocite[][]{sapkal2017volume} .
 Therefore a reference object with known dimensions is necessary to calculate the scale against.
-This approach avoids the need to multiple cameras and a \ac{3D} calibration
+This approach avoids the need to multiple cameras and a \ac{3D} calibration.
 However, it does not generalize to \ac{3D} objects of unknown shape.
 
 \newpage
@@ -595,7 +595,7 @@ When all cabins are idle, the nearest available is assigned to a call. Hence thi
 
 \subsubsection{Zone Approach}
 In this approach the floors of the building are divided into static, continuous zones also called \emph{sectors} \autocite[][p.~247]{barney2016handbook}. 
-Typically there are is one zone per elevator in the group. 
+Typically there is one zone per elevator in the group. 
 Each lift in the group serves hall calls from only one sector
 while also delivering passengers to floors outside of this zone
 \autocite[][pp.~3--6]{axelsson2013strategies}.
@@ -716,6 +716,7 @@ Usually, the waiting time is optimized, but also the ride time can be optimized 
 Active research goes into simulating elevator systems in order to test out new control strategies.
 There are approaches to model existing or planned elevator systems based on their physical properties
 and analyze them using either with closed mathematical formulations or to simulate their behavior using computers \autocite[][p.~6]{beers2015arrivals}. 
+
 When implementing a simulation it can be done as a deterministic or stochastic model, which operate on continuous or discrete data.
 For a computer simulation, the discrete stochastic model is favorable, 
 since it can deal with discrete events, which deal with the interaction of entities in the simulation. 
