@@ -172,17 +172,17 @@ The angle of the normal of the edge curve in this point can be found by the elem
 
 A \emph{blob} is a collection of positively marked image points in a binary image, which are located near to each other and therefore form a coherent group.
 One can distinguish between two types of blobs:
-a fully connected blob, 
+One is a fully connected blob, 
 where only those image points are considered to belong to the same blob, that are direct neighbours.
+The other is an area of image points which might only loosely be connected and connected areas, which are close to each other are considered to belong to the same blob.
+
+The method to find fully connected blobs is called \emph{connected component labeling}, and two fundamental methods exist to perform it: \emph{label propagation algorithms} and \emph{label equivalence solving} \autocite[][]{he2017connected}.
+In the label propagation approach, the image is each image point is scanned and labeled. When a new, unlabeled point, which is positively labeled in the binary image, is encountered, it is given a new label and all of its neighbours are given the same label.
 
 
-either connected components or just generally newr points
+
 
 TODO
-A \emph{blob} in a binary mask image is an area that consists of 
-
-what is a blob
-
 first explain contour (what are contours: outlines of connected areas in a binary mask) detection by border following \autocite[][]{suzuki1985border}
 
 
@@ -200,7 +200,7 @@ operates on binary masked image
 TODO connected components
 TODO 
 \autocite[][]{he2017connected}
-finding connected pixels in a binary images, which is useful to tag different objects
+finding connected pixels in a binary images, which is useful to tag different objects: label propoagation or label eqivalence soving
 
 TODO
 
