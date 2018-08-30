@@ -7,6 +7,13 @@ This forms the basis to explore the problem further and find possible solutions 
 
 \section{Computer Vision}
 
+\begin{figure}[hbt]
+	\centering
+	\includegraphics[width=0.8\textwidth, keepaspectratio]{08_Chapter01_fig1-4}
+	\caption[Levels of image engineering]{\label{fig:sota:imageengineering} Levels of image engineering. 
+	Reprinted from \textcite[][Chapter~1]{zhang2017imageprocessing}}
+\end{figure}
+
 The field of computer vision tries to establish methods and algorithms 
 that extract useful information out of image data to be used by machines. 
 The field has a broad range of applications and is influenced by various subjects such as mathematics, physics, and computer science.
@@ -19,13 +26,6 @@ In order to gain domain knowledge about the content of the image, this data can 
 This data can then be used to make decisions about the objects in the image.
 Since the methods of each layer operate on data of the lower layer, a complex computer vision system employs methods from all three fields.  
 
-\begin{figure}[hbt]
-	\centering
-	\includegraphics[width=0.8\textwidth, keepaspectratio]{08_Chapter01_fig1-4}
-	\caption[Levels of image engineering]{\label{fig:sota:imageengineering} Levels of image engineering. 
-	Reprinted from \textcite[][Chapter~1]{zhang2017imageprocessing}}
-\end{figure}
-
 \subsection{Image Representation}
 Image data can be captured with different systems which produce image data of various dimensions.
 It consists of information that can be visualized in any manner, such as still picture in color or grey-scale, a video, or a volumetric scan \autocite[][Chap.~1]{zhang2017imageprocessing}.
@@ -36,7 +36,7 @@ Typical examples for $ D $ are two dimensional images where the points are of th
 Typical examples for $ V $ are grey-scale images where the luminosity is described as a value in $ \mathbb{R} $ or a colored image where the color is described as a red-green-blue $ (r, g, b) \in \mathbb{R}^3 $.
 
 For digital images, $V$ and $D$ are discrete with upper and lower limits.
-In two dimensions a image point a discrete position $ (y, x) \in \mathbb{N}^2 $ is called a \emph{pixel},
+In two dimensions an image point at a discrete position $ (y, x) \in \mathbb{N}^2 $ is called a \emph{pixel},
 in three dimensions a point $ (x, y, z) \in \mathbb{N}^3 $ is called a \emph{voxel}.
 In order to store such an image on a computer a \emph{matrix representation} can be chosen.
 Examples:
@@ -64,7 +64,7 @@ It is a small matrix with the same dimensions as the image it is applied to.
 For \ac{2D} images $ 3 \times 3 $ or $5 \times 5 $ kernels are used. 
 To apply the kernel to the image, they are convoluted.
 This is done for each pixel individually by \enquote{overlaying} the kernel with its center onto it. 
-Then the sum of the element-wise multiplication of the kernel and the overlaid area of the image is calculated in order to determine the resulting pixel value in the output image.
+Then the sum of the element-wise multiplication of the kernel and the overlaid area of the image is calculated in order to determine the resulting pixel value in the output image  \autocite[][]{opencv2018kernel}.
 For a \ac{2D} image $ F \in \mathbb{N}^{X \times Y} $ the convolution $ H \in \mathbb{N}^{X \times Y} $ using the kernel $ K \in \mathbb{N}^{M_i \times M_j} $ is calculated with the formula in figure \ref{fig:sota:convolution}:
 
 \begin{figure}[h!]
