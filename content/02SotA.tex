@@ -1,21 +1,21 @@
 % !TEX root = ../master.tex
 \chapter{Fundamentals}
 \label{chap:sota}
-In this chapter the state of the art of the technologies and concepts used in this thesis are outlined.
+In this chapter, the state of the art of the technologies and concepts used in this thesis are outlined.
 A broad overview over object detection using computer vision and the control of elevator systems is given.
-This forms the basis to further explore the problem and find possible solutions in the chapters afterwards.
+This forms the basis to explore the problem further and find possible solutions in the chapters afterward.
 
 \section{Computer Vision}
 
 The field of computer vision tries to establish methods and algorithms 
 that extract useful information out of image data to be used by machines. 
-The field has a broad range of applications and is influenced by various subjects such as methematics, physics and computer science.
+The field has a broad range of applications and is influenced by various subjects such as mathematics, physics, and computer science.
 Therefore \textcite{zhang2017imageprocessing} coined the term of \emph{image engineering} to localize the methods that deal with obtaining data from images. 
 \textcite{zhang2017imageprocessing} defines three abstraction layers that these methods operate on (see figure \ref{fig:sota:imageengineering}).
 \emph{Image processing} deals with the \enquote{manipulation of an image to produce another (improved) image} \autocite[][]{zhang2017imageprocessing}. 
 It includes image capturing, representation and reconstruction.
 \emph{Image analysis} is concerned with the extraction of higher level data from the image which described the objects and features present in the image.
-To gain domain knowledge about the content of the image, this data can be processed by the means of \emph{image understanding}. 
+In order to gain domain knowledge about the content of the image, this data can be processed by the means of \emph{image understanding}. 
 This data can then be used to make decisions about the objects in the image.
 Since the methods of each layer operate on data of the lower layer, a complex computer vision system employs methods from all three fields.  
 
@@ -29,13 +29,13 @@ Since the methods of each layer operate on data of the lower layer, a complex co
 \subsection{Image Representation}
 Image data can be captured with different systems which produce image data of various dimensions.
 It consists of information that can be visualized in any manner, such as still picture in color or grey-scale, a video, or a volumetric scan \autocite[][Chap.~1]{zhang2017imageprocessing}.
-In general an image can be though of as a function $f: D \rightarrow V$, 
-where $D$ is the domain of the location of an point in the image 
+In general, an image can be thought of as a function $f: D \rightarrow V$, 
+where $D$ is the domain of the location of a point in the image 
 and $V$ is the domain of the properties of the real world represented at this point.
 Typical examples for $ D $ are two dimensional images where the points are of the form $ (x, y) $, three dimensional images with points of the form $ (x, y, z) \in \mathbb{R}^3 $ or videos with points of the form $ (x, y, t) \in \mathbb{R}^3 $ where $ t $ is the time dimension.
-Typical examples for $ V $ are grey-scale images where the luminosity is described as a value in $ \mathbb{R} $ or a colored image where the color is describes as a red-green-blue $ (r, g, b) \in \mathbb{R}^3 $.
+Typical examples for $ V $ are grey-scale images where the luminosity is described as a value in $ \mathbb{R} $ or a colored image where the color is described as a red-green-blue $ (r, g, b) \in \mathbb{R}^3 $.
 
-For digital images $V$ and $D$ are discrete with upper and lower limits.
+For digital images, $V$ and $D$ are discrete with upper and lower limits.
 In two dimensions a image point a discrete position $ (y, x) \in \mathbb{N}^2 $ is called a \emph{pixel},
 in three dimensions a point $ (x, y, z) \in \mathbb{N}^3 $ is called a \emph{voxel}.
 In order to store such an image on a computer a \emph{matrix representation} can be chosen.
@@ -59,7 +59,7 @@ Its documentation is extensive and offers practical examples for a lot of proble
 
 \subsubsection{Convolution Kernels}
 
-A key concept in image processing is the application of an \emph{convolution matrix} to an image, which is also known as a \emph{kernel}. 
+A key concept in image processing is the application of a \emph{convolution matrix} to an image, which is also known as a \emph{kernel}. 
 It is a small matrix with the same dimensions as the image it is applied to. 
 For \ac{2D} images $ 3 \times 3 $ or $5 \times 5 $ kernels are used. 
 To apply the kernel to the image, they are convoluted.
@@ -140,22 +140,22 @@ whereas here only a subset is presented:
     
     \item \textbf{Running Gaussian average} For each pixel $ I $  in the grey-scale video image a running average $ \mu{}_t$ is calculated, that is updated in each frame by the formula $ \mu{}_t = \alpha{}I_t + (1 - \alpha)\mu{}_{t-1} $, where $ \alpha $ is an weight that determines how fast the model is updated. The variance $ \sigma{}_t $ is calculated similarly. A pixel $ I_t $ is considered foreground if $ |I_t - \mu{}_t| > k\sigma{}_t $ holds, where $ k $ is a parameter that determines the threshold sensitivity of the algorithm.
     \item \textbf{\acf{MOG}} Instead of assuming a single value likelihood distribution for each pixel, multiple Gaussian distributions are used in this method introduced \textcite[][]{stauffer1999background}. 
-    When using $ K $ distributions this enables the distinction of $ K $ types of background and foreground, which improves the detection rate in outdoor scenes where e.g. leafs and branches of trees might be present. 
+    When using $ K $ distributions this enables the distinction of $ K $ types of background and foreground, which improves the detection rate in outdoor scenes where e.g. leaves and branches of trees might be present. 
     For each of the $ K $ distributions the peak amplitude $ \omega{}_{i,t} $, average $ \mu{}_{i,t} $ and variance $ \sigma{}_{i,t} $ are stored.
     The distributions are ranked by the ratio $ \omega{}_{i,t} / \sigma{}_{i, t}$, since more narrow distributions are assumed to belong to a background classification.
     The distributions are checked in order of their rank to accept a pixel value when $ (I_t - \mu{}_{i,t})/\sigma{}_{i,t} > 2.5 $ holds, where $ I_t $ is the current pixel value.
     If $ \omega{}_{t} $ of the first accepting distribution is higher than a threshold, the pixel is considered background.
-    The distribution parameters are updated using a running calculation (as above) when a new pixel value is a accepted by it.
+    The distribution parameters are updated using a running calculation (as above) when a new pixel value is an accepted by it.
     If no distribution accepts the value, the distribution with the lowest ranked is replaced by a new distribution centered around the new value with a high variance.
     Improved forms of this algorithm exist, like \autocite[][]{chan2011background}, and are currently used.
     
 \end{itemize}
 
-Since video images can contain pixel level noise, it is useful convert color video to grey-scale and to blur the images before applying the background subtraction.
+Since video images can contain pixel level noise, it is useful to convert color video to grey-scale and to blur the images before applying the background subtraction.
 
 \subsubsection{Edge Detection}
 
-Edge detection is the process of finding edges of objects in an gray scale image.
+Edge detection is the process of finding edges of objects in a grey-scale image.
 An edge is present where ever there is a sharp change in luminosity along a curve in the image.
 It is important to note that edges can also occur within the are of an object and must not necessarily describe its outline.
 There are two major approaches to edge detection.
@@ -164,46 +164,40 @@ First the application of the \emph{Laplace filter kernel} (see $ D_{xy}^{2} $ in
 The second order derivative describes the divergence of the gradient of the image and therefore is capable of finding the \enquote{turning point} in the luminosity since the second order derivative in this points is zero. It is common to combine this operation with prior application of a Gaussian blur \autocite[][pp.~237f.]{szeliski2010algorithms}.
 
 The second approach is called the \emph{Canny algorithm} \autocite[][]{canny1986edge}.
-In order find edges, first two partial first order derivatives of the image are approximated by applying the Sobel kernel in X and Y direction respectively ($ G_x , G_y $ in figure \ref{fig:sota:kernels}). 
+In order find edges, first, two partial first-order derivatives of the image are approximated by applying the Sobel kernel in X and Y direction respectively ($ G_x , G_y $ in figure \ref{fig:sota:kernels}). 
 The sharpness (or strength) of the edge in each point can then be described as the element-wise euclidean norm $ G = \sqrt{G_x^2 + G_y^2} $.
 The angle of the normal of the edge curve in this point can be found by the element-wise two-argument inverse tangent of the two partial derivatives: $ \Theta = atan2(G_x, G_y) $.
 
 \subsubsection{Blob Detection}
 
-either connected components or just generally newr points
+A \emph{blob} is a collection of positively marked image points in a binary image, which are located near to each other and therefore form a coherent group.
+One can distinguish between two types of blobs:
+One is a fully connected blob, 
+where only those image points are considered to belong to the same blob, that are direct neighbors.
+The other is an area of image points which might only loosely be connected and connected areas, which are close to each other are considered to belong to the same blob.
 
-TODO
-A \emph{blob} in a binary mask image is an area that consists of 
+The method to find fully connected blobs is called \emph{connected component labeling}, and two fundamental methods exist to perform it: \emph{label propagation algorithms} and \emph{label equivalence solving} \autocite[][]{he2017connected}.
+In the label propagation approach, the image is each image point is scanned and labeled. When a new, unlabeled point, which is positively labeled in the binary image, is encountered, it is given a new label and all of its neighbors are given the same label.
+When an already labeled image point is encountered, the label is copied to each of the positively labeled neighbors.
+In the label equivalence solving approach, first, every image point, that is positively labeled in the binary image, is given a unique label. 
+In the next step, it is solved which labels are equivalent and belong to the same blob by unifying labels of neighboring image points.
+Both approaches yield an image with the same domain dimension as the binary image but have pixel values in $ \mathbb{N} $, where the value designates the number of the blob that a pixel belongs to.  
 
-what is a blob
+The method to find partially connected blobs is based on grouping connected blobs together that are close to each other. The algorithm used for this is the following \autocite[][]{opencv2018blob}\autocite[][]{mallick2015blob}:
 
-first explain contour (what are contours: outlines of connected areas in a binary mask) detection by border following \autocite[][]{suzuki1985border}
-
-
-
-TODO connected components
-TODO 
-\autocite[][]{he2017connected}
-finding connected pixels in a binary images, which is useful to tag different objects
-\autocite[][]{opencv2018blob}
-operates on binary masked image
 \begin{enumerate}
-    \item Find the contours present in the image and calculate their centers
-    \item Group these centers based on a threshold for the distance for their location
-    \item From these groups, find overall center and estimate area and radius of the blob
+    \item Find the contours present in the image and calculate their centers. The contours can be found by following the border (edge) of an area and thereby enclosing a local positively marked area of pixels \autocite[][]{suzuki1985border}.
+    \item Group these centers together based on a threshold for the distance for their location to form a loosely connected blob.
+    \item For each of these groups, find its overall centers and estimate area and radius of the blob.
 \end{enumerate}
 
-
-
-TODO
-
-
+The blobs can then be enumerated based on their centers and a unique label is given to each blob and the image point that belong to it.
 
 
 \subsection{3D Scene Reconstruction}
 
-By utilizing images from multiple perspectives of a single or multiple object and their surroundings
-it is possible to reconstruct the geometrical surface of these objects.
+By utilizing images from multiple perspectives of a single or multiple objects and their surroundings
+reconstructing the geometrical surface of these objects is possible.
 Depending on the number of images and perspectives, this can be performed with varying detail and completeness if the reconstructed scene.
 
 \subsubsection{Camera Projection and Calibration}
@@ -211,7 +205,7 @@ Depending on the number of images and perspectives, this can be performed with v
 Since camera lenses use a perspective projection to produce images, 
 there are several considerations needed when working with \ac{3D} scenes that are captured.
 The points in the 3D scene can be described as coordinates in the \emph{world space}.
-In the perspective projection these points are seen from a single point in the camera, 
+In the perspective projection, these points are seen from a single point in the camera, 
 which is the sensor in a real camera.
 To perform the projection the position of the point seen on the \emph{image plane} is calculated.
 The image plane is the section of the scene that is seen by the camera in the distance of the focal length.
@@ -281,15 +275,15 @@ The following list explains the mentioned coefficients:
 \end{samepage}
 
 The internal camera matrix $ A $ can be calculated from multiple images of an object with known structure and dimensions, called a \emph{calibration pattern} \textcite{opencv2018calibration}. 
-For example an chessboard can be used, which is photographed from different positions and angles. 
+For example, a chessboard can be used, which is photographed from different positions and angles. 
 The corners of the chessboard squares are used determine how a straight line is projected in the camera in order to approximate the internal camera matrix.
 
 The external parameter for rotation and translation can not be found from one camera alone.
-In a multi-camera setup they can be found by triangulation of multiple points in multiple images that show the same scene from different angles.
+In a multi-camera setup, they can be found by triangulation of multiple points in multiple images that show the same scene from different angles.
 If this triangulation is not possible because the points used for triangulation are not visible from all camera perspective, the rotation matrix an the translation vector can be found out by measuring the real world.
 The rotation matrix can be calculated by measuring the relative rotation angles of the cameras to each other.
-The equation in figure \ref{fig:sota:rotation} can be used to determine the combined rotation matrix when the rotation around the yaw, pitch and roll angles are known. 
-Yaw pitch and roll describe the rotation around the Z, Y and X axis respectively.
+The equation in figure \ref{fig:sota:rotation} can be used to determine the combined rotation matrix when the rotation around the yaw, pitch, and roll angles are known. 
+Yaw, pitch, and roll describe the rotation around the Z, Y and X axis respectively.
 The translation vector can be found by measuring the distance of the cameras to each other.
 
 \begin{figure}[h!]
@@ -319,7 +313,7 @@ The translation vector can be found by measuring the distance of the cameras to 
 \label{fig:sota:rotation}
 \end{figure}
 
-Furthermore real lenses introduce optical aberrations and 
+Furthermore, real lenses introduce optical aberrations and 
 there exists \emph{distortion} in camera images.
 Distortion is visible in the effect where straight lines appear curved in the image representation.
 There exists two kinds of distortion that can occur, namely radial and tangential distortion \autocite[][Fig.~2]{weng1992distortion}.
@@ -331,33 +325,42 @@ Just as the matrix of intrinsic parameters, the parameters for the distortion ca
 \autocite{opencv2018calibration}.
 
 \subsubsection{Single View Volume Estimation}
-When the geometric shape of an \ac{3D} object is roughly known beforehand and only its exact outline and scale varies, it is possible to estimate its volume from its outline in a single image.
+When the geometric shape of a \ac{3D} object is roughly known beforehand and only its exact outline and scale varies, it is possible to estimate its volume from its outline in a single image.
 The assumption here is that the volume scales with the area, that the object covers on the image \autocite{levine1989microwave} \autocite[][]{wang2017apple} \autocite[][]{sapkal2017volume} .
 Therefore a reference object with known dimensions is necessary to calculate the scale against.
 This approach avoids the need to multiple cameras and a \ac{3D} calibration
-However it does not generalize to \ac{3D} objects of unknown shape.
+However, it does not generalize to \ac{3D} objects of unknown shape.
 
-\subsubsection{Feature Based Scene Reconstruction} 
-TODO
-stereo vision
-of full \ac{3D} reconstruction of each point+match local features in multiple images to calculate the position in the room
-method: triangulation (see figure \ref{fig:sota:epipolar}) of correcponding image points
-these image points are \emph{local features} of the image
-this creates one depth map from two images
-combining them yields a complete scene
-the color can also be reconstructed
-see also
-\autocite[][]{dyer2001reconstruction}
-\autocite[][Chap.~3]{zhang2017imageunderstanding}
-does only yield limited depth information when not enough perspective
-can be enhanced with the usage of depth sensors
-see figure \ref{fig:sota:mulitviewtop}
+\newpage
+
+\subsubsection{Point-Based Scene Reconstruction} 
+
+Multiple images of the same scene from different perspectives enable the reconstruction of the \ac{3D} geometry of the scene. In order to do so, a \ac{3D} point in the scene needs to be found in multiple perspectives.
+The point is a local feature which can be recognized and matched across images.
+Using perspective projection and triangulation can then be used to find out the \ac{3D} position of this point.
+
+The simplest form of this kind of reconstruction is \emph{stereo vision}, where a scene is reconstructed from two images taken from known positions
+\autocite[][Chap.~2]{zhang2017imageunderstanding}.
+Figure \ref{fig:sota:epipolar} demonstrates how a \ac{3D} point $ P $  is perceived in two \ac{2D} images as points $ P_L $ and $ P_R $. 
+When the relative position of the cameras $ O_L $ and $ O_R $ are known, the relative position of the point $ P $ in \ac{3D} space can be found via triangulation.
+This triangulation is performed for every point that can be matched between the two images in order to create a \emph{depth map}.
 
 \begin{figure}[hbt]
 	\centering
 	\includegraphics[width=0.5\textwidth, keepaspectratio]{resources/Epipolar_Geometry}
 	\caption[Projection of a 3D Point into two 2D images of different perspective]{\label{fig:sota:epipolar} Projection of a 3D Point into two 2D images of different perspective. Reprinted from \textcite{wiki2009epipolar}}
 \end{figure}
+
+However, with stereo vision, it is not possible to fully reconstruct a scene, as for example the back side of objects can not possibly be seen from two perspectives that have points in common.
+It is required to take images from many more perspectives into consideration to fully reconstruct a scene at every angle.
+When the camera position for each of those images is known, it is possible to create a depth map for each adjacent perspective pair.
+The depth maps are then combined to reconstruct the full geometry of the scene.
+
+In order to enhance the capability to create the depth maps,
+cameras with integrated depth sensors can be used.
+Examples for such cameras are the (discontinued) Microsoft Kinect \autocite[][]{microsoft2018kinect} and Intel RealSense \autocite[][]{intel2018realsense}.
+Figure \ref{fig:sota:mulitviewtop} depicts which parts of an object are visible in a \ac{2D} situation, and of which parts the depth is actually reconstructable, depending on the perspective of the available cameras. 
+The concept is applicable to \ac{3D} scenes similarly.
 
 \begin{figure}[hbt]
 	\centering
@@ -366,9 +369,7 @@ see figure \ref{fig:sota:mulitviewtop}
 	Adapted from \textcite[][]{sonaten2011volume}}
 \end{figure}
 
-
-
-\subsubsection{Silhouette Based Volume Reconstruction}
+\subsubsection{Silhouette-Based Volume Reconstruction}
 
 The \emph{silhouette} of an object within an image is intuitively defined 
 as a binary mask describing the areas of the image in which the object is present. 
@@ -376,14 +377,14 @@ The edges of this areas describe the contours of the object.
 The silhouette can be obtained by image segmentation of the original image \autocite[][Chap.~2]{zhang2017imageanalysis}, such as by background subtraction.
 Depending on the camera perspective different portions of the object are visible.
 Only the outline of the object from this perspective is visible in the silhouette.
-This implies that is is not possible to capture concave parts of an object.
+This implies that is is not possible to capture any concave parts of an object.
 
 Silhouettes from multiple perspectives can be used to reconstruct the \ac{3D} shape of an object from \ac{2D} images of said object.
-The reconstructed \ac{3D} shape does not represent the real geometry of the object, but produces the same silhouettes as the real object when seen from the angles it was reconstructed from.
+The reconstructed \ac{3D} shape does not represent the real geometry of the object but produces the same silhouettes as the real object when seen from the angles it was reconstructed from.
 The shape that is constructed from the silhouettes is called \emph{visual hull}, a term introduced by \textcite[][]{laurentini1994hull}.
 Since the silhouette does not include information about concavities,
 the visual hull also is convex. 
-Furthermore the silhouette does not include information about parts of the object whose visibility is obstructed from a certain perspective.
+Furthermore, the silhouette does not include information about parts of the object whose visibility is obstructed from a certain perspective.
 Therefore the visual hull can not describe the shape of parts of the object, that are not visible in any silhouette.
 
 \begin{figure}[hbt]
@@ -400,8 +401,8 @@ The intersection of those cones creates the visual hull.
 There are several methods to implement silhouette based shape reconstruction:
 
 \begin{itemize}
-    \item \textbf{Standard Voxel Based Method} 
-    In this method, first the space too be modeled is described as a \ac{3D} grid of voxels at an constant resolution.
+    \item \textbf{Standard Voxel-Based Method} 
+    In this method, first, the space to be modeled is described as a \ac{3D} grid of voxels at a constant resolution.
     To find out which voxels belong to the reconstructed object,
     each voxel is projected into the viewport of each camera 
     and it is checked whether it lies in the silhouette from this perspective.
@@ -411,10 +412,10 @@ There are several methods to implement silhouette based shape reconstruction:
     This method, introduced by \textcite[][]{kutulakos1999spacecarving},
     is concerned not only with reconstructing the volume of an object, but also to color its surface consistently to the images it is reconstructed from.
     The method also begins with a scene full of voxels. 
-    However not all voxels need to be considered for the reconstruction.
-    Instead the method operates in iterations, where only the voxels on the surface of the volume are checked.
+    However, not all voxels need to be considered for the reconstruction.
+    Instead, the method operates in iterations, where only the voxels on the surface of the volume are checked.
     Each voxel on the surface is checked for \emph{photo-consistency} with each silhouette, which means that if it is visible from that perspective, it is correctly classified as background or foreground and has the correct color.
-    All surface pixels that are not consistent are removed iteratively, until the reconstructed volume converges.
+    All surface pixels that are not consistent are removed iteratively until the reconstructed volume converges.
 \end{itemize}
 
 Since the volume intersection method operates by projecting voxels into each perspective,
@@ -478,7 +479,7 @@ Therefore they can be classified in various dimensions.
 The first observation to make is the \textbf{number of shafts and cabins} in the system.
 The main difference comes in the scheduling complexity regarding single-cabin versus multi-cabin systems.
 Systems with multiple elevators need a group controller to decide which cabin serves which hall call.
-This decision can be non-trivial as laid out in section \vref{sec:sota:strategies}.
+This decision can be non-trivial as laid out in section \ref{sec:sota:strategies}.
 When only one cabin is used, the scheduling becomes more straightforward.
 In small residential buildings, a single cabin might be sufficient.
 However, in buildings with larger passenger amounts, such as office buildings, a multi-elevator setup can become necessary increase to the handling capacity.
@@ -708,7 +709,7 @@ These calculations can be based on theoretical consideration about the physical 
  
 When the group controller schedules the elevators in a system, the order of dispatches influences the metrics listed above.
 The elevator allocations are calculated by optimization of a cost function which takes the metrics into consideration.
-Usually, the waiting time is optimized, but also the ride time can be optimized in order to increase the handling capacity. \autocite[][p.~10]{siikonen1997models} 
+Usually, the waiting time is optimized, but also the ride time can be optimized in order to increase the handling capacity \autocite[][p.~10]{siikonen1997models}.
 
 \subsection{Optimization Approaches by Simulation}
 
