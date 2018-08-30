@@ -159,6 +159,8 @@ TODO
 
 \subsubsection{Blob Detection}
 
+either connected components or just generally newr points
+
 TODO
 A \emph{blob} in a binary mask image is an area that consists of 
 
@@ -166,12 +168,12 @@ what is a blob
 
 first explain contour (what are contours: outlines of connected areas in a binary mask) detection by border following \autocite[][]{suzuki1985border}
 
-\subsubsection{Connected Components}
+
+
+TODO connected components
 TODO 
 \autocite[][]{he2017connected}
 finding connected pixels in a binary images, which is useful to tag different objects
-
-
 \autocite[][]{opencv2018blob}
 operates on binary masked image
 \begin{enumerate}
@@ -180,26 +182,18 @@ operates on binary masked image
     \item From these groups, find overall center and estimate area and radius of the blob
 \end{enumerate}
 
-TODO connected components
-
-TODO
-
-\subsubsection{Cascade Classifier Method}
-TODO
-
-
 
 
 TODO
-edge detection, outline detection, silouettes, contours
-foreground background mask from video image
-background substraction
-cascade classifier
 
 
-\subsection{3D Volume Estimation}
 
-TODO describe what is ment by this
+
+\subsection{3D Scene Reconstruction}
+
+By utilizing images from multiple perspectives of a single or multiple object and their surroundings
+it is possible to reconstruct the geometrical surface of these objects.
+Depending on the number of images and perspectives, this can be performed with varying detail and completeness if the reconstructed scene.
 
 \subsubsection{Camera Projection and Calibration}
 
@@ -323,7 +317,7 @@ The amount and type of distortion is part of the internal camera parameters.
 Just as the matrix of intrinsic parameters, the parameters for the distortion can be calculated from images of structures with known dimensions
 \autocite{opencv2018calibration}.
 
-\subsubsection{Single View Estimation}
+\subsubsection{Single View Volume Estimation}
 When the geometric shape of an \ac{3D} object is roughly known beforehand and only its exact outline and scale varies, it is possible to estimate its volume from its outline in a single image.
 The assumption here is that the volume scales with the area, that the object covers on the image \autocite{levine1989microwave} \autocite[][]{wang2017apple} \autocite[][]{sapkal2017volume} .
 Therefore a reference object with known dimensions is necessary to calculate the scale against.
@@ -331,13 +325,26 @@ This approach avoids the need to multiple cameras and a \ac{3D} calibration
 However it does not generalize to \ac{3D} objects of unknown shape.
 
 \subsubsection{Feature Based Scene Reconstruction} 
+TODO
 stereo vision
 of full \ac{3D} reconstruction of each point+match local features in multiple images to calculate the position in the room
-TODO
+method: triangulation (see figure \ref{fig:sota:epipolar}) of correcponding image points
+these image points are \emph{local features} of the image
+this creates one depth map from two images
+combining them yields a complete scene
+the color can also be reconstructed
+see also
+\autocite[][]{dyer2001reconstruction}
+\autocite[][Chap.~3]{zhang2017imageunderstanding}
+does only yield limited depth information when not enough perspective
+can be enhanced with the usage of depth sensors
+see figure \ref{fig:sota:mulitviewtop}
 
-key concept: photoconsistency : a voxel is photoconsitent when 
-
-
+\begin{figure}[hbt]
+	\centering
+	\includegraphics[width=0.5\textwidth, keepaspectratio]{resources/Epipolar_Geometry}
+	\caption[]{\label{fig:sota:epipolar} Projection of a 3D Point into two 2D images of different perspective}
+\end{figure}
 
 \begin{figure}[hbt]
 	\centering
@@ -346,14 +353,16 @@ key concept: photoconsistency : a voxel is photoconsitent when
 	Adapted from \textcite[][]{sonaten2011volume}}
 \end{figure}
 
+
+
 \subsubsection{Silhouette Based Volume Reconstruction}
 
 The \emph{silhouette} of an object within an image is intuitively defined 
 as a binary mask describing the areas of the image in which the object is present. 
 The edges of this areas describe the contours of the object.
-The silhouette can be obtained by image segmentation of the original image \autocite[][Chap.~2]{zhang2017imageanalysis}, such as by background substraction.
+The silhouette can be obtained by image segmentation of the original image \autocite[][Chap.~2]{zhang2017imageanalysis}, such as by background subtraction.
 Depending on the camera perspective different portions of the object are visible.
-Only the outline of the object from this perspective is visible.
+Only the outline of the object from this perspective is visible in the silhouette.
 This implies that is is not possible to capture concave parts of an object.
 
 Silhouettes from multiple perspectives can be used to reconstruct the \ac{3D} shape of an object from \ac{2D} images of said object.
@@ -362,7 +371,7 @@ The shape that is constructed from the silhouettes is called \emph{visual hull},
 Since the silhouette does not include information about concavities,
 the visual hull also is convex. 
 Furthermore the silhouette does not include information about parts of the object whose visibility is obstructed from a certain perspective.
-Therefore the visual hull can not describe the shape of  part of the object, that are not visible in any silhouette.
+Therefore the visual hull can not describe the shape of parts of the object, that are not visible in any silhouette.
 
 \begin{figure}[hbt]
 	\centering
@@ -373,14 +382,14 @@ Therefore the visual hull can not describe the shape of  part of the object, tha
 
 Figure \ref{fig:sota:volumeintersection} visualizes how the visual hull is created from two silhouettes. 
 Since the cameras that capture the silhouette are perspective,
-cones are used for the projection of it into the object space.
+cones are used for its projection into the object space.
 The intersection of those cones creates the visual hull.
 There are several methods to implement silhouette based shape reconstruction:
 
 \begin{itemize}
     \item \textbf{Standard Voxel Based Method} 
     In this method, first the space too be modeled is described as a \ac{3D} grid of voxels at an constant resolution.
-    To find out which voxels belong to reconstructed object,
+    To find out which voxels belong to the reconstructed object,
     each voxel is projected into the viewport of each camera 
     and it is checked whether it lies in the silhouette from this perspective.
     Only if it lies inside of all silhouettes
@@ -395,14 +404,9 @@ There are several methods to implement silhouette based shape reconstruction:
     All surface pixels that are not consistent are removed iteratively, until the reconstructed volume converges.
 \end{itemize}
 
-TODO still needs a reference or calibration to determine the space of the modeled room / scaling factor
-
-TODO
-multiview, depth sensors
-interpolation of depth information by combinding views
-bounding / section box
-convex hull in 3d by mask
-
+Since the volume intersection method operates by projecting voxels into each perspective,
+the internal and external calibration parameters of the cameras for each perspective needs to be known.
+Furthermore, it is not possible to reconstruct the volume with absolute measures without determining the dimensions of the modeled room first and deriving a scaling factor out of it.
 
 \section{Elevator Control}
 
@@ -410,16 +414,16 @@ When looking at elevator systems that are installed in buildings
 one property that is noticeable to the passenger, except for the physical properties, is the way the elevators are moved in order to pick up and deliver the passengers to their destination.
 The algorithms used to control this movement influence how long the passenger needs to wait for a cabin and how long their journey takes.
 Therefore it affects the perceived quality of the system.
-However in buildings with an increased traffic demand, it is necessary to use elevator systems with multiple cabins and more complex control strategies.
-In this section the general principles about those control strategies are laid out.
+However, in buildings with an increased traffic demand, it is necessary to use elevator systems with multiple cabins and more complex control strategies.
+In this section, the general principles about those control strategies are laid out.
 
 \subsection{System Components}
 
 In order to gain an understanding of how an elevator system is controlled,
 it is useful to look at the components a general system includes.
 To do so, the mechanisms involved in a typical elevator ride 
-from a passenger perspective shall be outlined.
-Figure \ref{fig:sota:systemcomponents} gives an general overview over the involved logical components and their connections.
+from a passenger's perspective shall be outlined.
+Figure \ref{fig:sota:systemcomponents} gives a general overview over the involved logical components and their connections.
 
 \begin{figure}[hbt]
 	\centering
@@ -435,13 +439,13 @@ and capture information about the direction or destination of travel \autocite[]
 Even before the passenger presses the panel button, \emph{additional sensors} 
 on the floor can detect their intent to use the elevator and gather more information about them.
 This can include among others camera systems \autocite[][]{lin2011control}, badge scanners, or \enquote{smart home} installations \autocite[][]{kwon2014sensor}.
-In a multi-elevator system the hall call is registered by the \emph{group controller} and stays active until it is deleted when an cabin picks up the passenger.
+In a multi-elevator system, the hall call is registered by the \emph{group controller} and stays active until it is deleted when a cabin picks up the passenger.
 The group controller \emph{schedules and dispatches} an elevator move to the respective floor and serve the call.
-In case of a single-elevator system no group controller is necessary.
+In the case of a single-elevator system, no group controller is necessary.
 Different scheduling algorithms can be used to determine which cabin should serve which hall call next.
 The dispatch signal is picked up by the \emph{elevator controller} of the respective cabin, which then instructs the \emph{drive} system to move the elevator along the shaft to the respective floor by actuating the motors.
 
-Once a cabin stops at the floor, it opens its \emph{door} and the passenger enter the elevator.
+Once a cabin stops at the floor, it opens its \emph{door} and the passenger enters the elevator.
 To select their destination floor, they use the \emph{cabin call panel}.
 This \emph{car call} (or \emph{destination call}) \autocite[][pp.~6--10]{siikonen1997models} is passed to the group controller, 
 which schedules the elevator to move to the destination floor at some time.
@@ -450,12 +454,12 @@ Before the elevator starts to move, the door closes again, if no obstacle is det
 Until the elevator serves the destination floor, the car call stays active.
 \emph{Additional sensors} inside the cabin provide more information about the passengers inside.
 This can include among others a weight scale to measure the total weight utilization, or a kind of camera system \autocite[][]{xang2016trafficlist}.
-Further more the position of each elevator is known to the group controller.
+Furthermore, the position of each elevator is known to the group controller.
 
 \subsection{System Classifications}
 
 Elevator systems come in different configurations with different purposes.
-Depending on their use cases different technical implementations can chosen.
+Depending on their use cases, different technical implementations can be chosen.
 Therefore they can be classified in various dimensions.
 
 The first observation to make is the \textbf{number of shafts and cabins} in the system.
@@ -463,68 +467,57 @@ The main difference comes in the scheduling complexity regarding single-cabin ve
 Systems with multiple elevators need a group controller to decide which cabin serves which hall call.
 This decision can be non-trivial as laid out in section \vref{sec:sota:strategies}.
 When only one cabin is used, the scheduling becomes more straightforward.
-In small residential buildings an single cabin might be sufficient.
-However in buildings with larger passenger amounts, such as office buildings, a multi-elevator setup can become necessary increase the handling capacity.
+In small residential buildings, a single cabin might be sufficient.
+However, in buildings with larger passenger amounts, such as office buildings, a multi-elevator setup can become necessary increase to the handling capacity.
 
-Next is the classification by the \textbf{type of objects or people} that are transported in the system. Especially important is the distinction of the purpose of the elevator system regarding whether people and / or large objects can be conveyed.
+Next is the classification by the \textbf{type of objects or people} that are transported in the system. Especially important is the distinction regarding the purpose of the elevator system and whether people and/or large objects can be conveyed.
 \textcite[][pp.~141--158]{unger2015aufzuege} describes the properties of the most common types:
 
 \begin{itemize}
     \item Cabins that carry \textbf{only people} 
     typically have a premium interior decoration, such as glass, mirrors or stainless steel.
-    Usually also cargo can be transported, but large goods might damage the cabin.
+    Usually, also cargo can be transported, but large goods might damage the cabin.
     Examples for a building that uses such elevators are office buildings, residential buildings or hotels.
     
     \item Elevators for \textbf{large cargo and people} 
     have a more simple interior that is more resistant to damage by lifting carts. 
-    However security measures regarding the doors are taken, such that the elevator is also safe to use by people. 
+    However, security measures regarding the doors are taken, such that the elevator is also safe to use by people. 
     Typically a high payload weight and dimension can be moved.
     Examples for the usage of this type are factories, storage buildings or hospitals. 
     
     \item Lifts that carry \textbf{only small cargo} can be found for example in restaurant kitchens to transport dishes.
-    The cabin is not used by people and the system is controlled purely from outside call panels. 
-    Due to the size restriction only a smaller weight needs to be transported.
+    The cabin is not used by people, and the system is controlled purely from outside call panels. 
+    Due to the size restrictions, only a smaller weight can be transported.
     
     \item Cabins that convey \textbf{only large cargo} but no people can only be controlled from the outside call panel and have fewer safety restrictions, even though the cabin can be entered for loading and unloading. 
 \end{itemize}
 
 This excerpt of the list is far from complete and \textcite[][pp.~141--158]{unger2015aufzuege} lists even more types, 
-such as lifts for wheel chairs, the never-stopping paternoster or elevators on construction sites.
-However these are not in the scope of this thesis and are not further considered.
+such as lifts for wheelchairs, the never-stopping paternoster or elevators on construction sites.
+However, these are not in the scope of this thesis and are not further considered.
 
 Another interesting distinction to consider is the \textbf{amount of floors} that is served by an elevator system.
 The amount of floors influences the heeded handling capacity of the system.
-The more floors there are, the more people need to travel a potentially longer distance.
+The more floors there are, the more people need to travel potentially longer distances.
 While a building with only a few floors can be handled by a single elevator,
 buildings with up to 40 stories require the use of elevator groups.
 When more than 40 floors need to be served, 
 introducing a \emph{sky lobby} can be beneficial, 
 where a fast shuttle transports passengers between the main lobby and the sky lobby. Passengers can then switch the elevator to reach their final destination \autocite[][p.~9]{hakonen2003simulation}.
 
-%
-%TODO
-%- by type of sensory to haul the car
-%-- single button
-%-- direction button
-%-- destination control
-%-- camera system
-
-%TODO additional travel information: how many people inside and outside, up / down / floor %select inside / outside, everyone presses?, video? 
-%destination control system
-
 
 \subsection{Passenger Traffic Patterns}
 Passenger traffic patterns are typical streams of passengers going from one floor to another.
 Those patterns are reoccurring regularly based on the time of the day.
 The movement of passengers can be described with three directions: \emph{incoming}, \emph{outgoing}, and \emph{inter-floor} traffic.
-With those directions the traffic patterns can be described, as they focus on one of the directions, but also incorporates components of passengers heading in other directions \autocite[][p.~259]{siikonen1993simulation}.
+With those directions, the traffic patterns can be described, as they focus on one of the directions, but also incorporates components of passengers heading in other directions \autocite[][p.~259]{siikonen1993simulation}.
 According to multiple sources, three general patterns are present in office buildings \autocite[][pp.~1--2]{beers2015arrivals}
 \autocite[][pp.~6--7]{axelsson2013strategies}
 \autocite[][p.~194]{unger2015aufzuege}
 \autocite[][p.~14]{siikonen1997models}:
 
 \begin{itemize}
-    \item \textbf{Up-peak traffic} In the morning the majority of passengers in an office building constitutes to an incoming traffic.
+    \item \textbf{Up-peak traffic} In the morning the majority of passengers in an office building constitutes to incoming traffic.
     They arrive at the entrance lobby and travel to different upper floors to fill the building.
     The lift cars potentially need to stop at every level and return to the lobby without passengers to pick up new ones. 
     This reduces the utilized capacity and puts a high load on the elevator system to convoy all passengers in time.
@@ -532,7 +525,7 @@ According to multiple sources, three general patterns are present in office buil
     Most of the passengers constitute to outgoing traffic.
     The elevator system needs to pick up passengers at every level. 
     Reverse to the up-peak traffic, the cars are empty when returning from the lobby.
-    Similar to the up-peak traffic this situation induces a high stress on the system.
+    Similar to the up-peak traffic this situation induces high stress on the system.
     \item \textbf{Inter-floor traffic} All other traffic that is neither incoming nor outgoing can be considered inter-floor traffic. Passengers that travel from one floor to another but are not entering or leaving the building are the majority in this situation.
 \end{itemize}
 
@@ -546,7 +539,7 @@ According to multiple sources, three general patterns are present in office buil
 %Figure \ref{fig:sota:trafficpatterns} depicts the former mentioned traffic components.
 Figure \ref{fig:sota:traffictimes} shows an example of how the traffic components contribute to overall traffic in an office building. A clear peak of incoming traffic in the morning and outgoing traffic in the evening are visible.
 This information can be used to model simulations and predict traffic in various circumstances.
-It has significant impact on the scheduling principles employed for each situation in order to improve the efficiency of an elevator system.
+It has a significant impact on the scheduling principles employed for each situation in order to improve the efficiency of an elevator system.
 
 %\begin{figure}[hbt]
 %	\centering
@@ -555,16 +548,16 @@ It has significant impact on the scheduling principles employed for each situati
 %	Reprinted from \textcite[][p.~259]{siikonen1993simulation}}
 %\end{figure}
 
-% TODO or use \textcite[][p.~12]{sorsa2005destination} as broader image 
+% or use \textcite[][p.~12]{sorsa2005destination} as broader image 
 
 \subsection{Control Strategies}
 \label{sec:sota:strategies}
 
 Elevator control strategies deal with the assignment of hall calls and car calls to elevator rides in order to derive a stopping schedule for the cabins in the system.
-The way this schedule is set up affects
+The way this schedule is set up effects
 the performances regarding the criteria laid out in section \ref{sec:sota:perf}.
 An appropriate control algorithm must be chosen in order to optimize for performance criteria
-depending on the type of elevator system, it's use purpose and the current passenger traffic.
+depending on the type of elevator system, it's  purpose and the current passenger traffic.
 Depending on the type of elevator system different control strategies are used, some of which are listed below.
 
 \subsubsection{Sequential Control}
@@ -573,8 +566,8 @@ this strategy is only applicable to a single-lift system.
 The system answers hall calls in the order they arrive 
 and executes the car call with priority before moving on to serve the next hall call.
 This way only one ride is performed a time and the calls are executed in sequence. This method is also called \emph{single call automatic control} or \emph{non-collective control}.
-Drawbacks of this strategy are a increased passenger waiting time and an decreased handling capacity.
-However for cargo lifts, this can beneficial if only on cargo item can fit the cabin at a time
+Drawbacks of this strategy are an increased passenger waiting time and a decreased handling capacity.
+However, for cargo lifts, this can be beneficial if only one cargo item can fit the cabin at a time
 \autocite[][p.~238]{barney2016handbook}.
 
 \subsubsection{Collective Control}
@@ -582,7 +575,7 @@ This is the \enquote{most common form of automatic control} \autocite[][p.~237]{
 Hall calls are answered in the order of the floors they originate from rather than their temporal order.
 On the way up and down the cabin collects all the hall calls and deliver car calls also following the floor order.
 Different variations of this approach are available, where the direction of the hall call is ignored, only downward calls are collected only upwards calls are collected, or the call direction is considered for collection in both directions.
-This approach can be expended to a elevator system with group control, such that a hall call is answered by the first cabin to pass the floor in the desired direction \autocite[][p.~238]{barney2016handbook}.
+This approach can be expended to an elevator system with group control, such that a hall call is answered by the first cabin to pass the floor in the desired direction \autocite[][p.~238]{barney2016handbook}.
 When all cabins are idle, the nearest available is assigned to a call. Hence this strategy is also called \emph{nearest car}
 \autocite[][p.~244]{barney2016handbook}.
 
@@ -596,43 +589,45 @@ The order of serving of the hall calls is based on the collective control.
 A lift is currently outside of its zone, 
 the zone can be served by lifts from sectors above and below it.
 
-The distribution of zones can be chosen based by the amount of passengers on each floor.
-This approach is useful when the traffic is evenly distributed across the building, such as in interfloor traffic. It can be complemented with controls for special condition to react to peak-traffic \autocite[][p.~247]{barney2016handbook}.
+The distribution of zones can be chosen based on the amount of passengers on each floor.
+This approach is useful when the traffic is evenly distributed across the building, such as in inter-floor traffic. It can be complemented with controls for special condition to react to peak-traffic \autocite[][p.~247]{barney2016handbook}.
 The static zone approach can be extended to a dynamic sector approach where the sectors are not limited by static floor numbers but by the position of the elevators \autocite[][p.~250]{barney2016handbook}.
 
-\subsubsection{Cost-function based approches}
-TODO
-\autocite[][pp.~3--6]{axelsson2013strategies}
-- search based
-- rule based
-- genetic algorithm
+\subsubsection{Cost Function Based Approaches}
+Modern elevator systems come with a control system that includes a computer of some sort.
+This allows for more sophisticated scheduling which involves planning ahead of the time and optimizing the movement of every lift in the group.
+\autocite[][pp.261ff]{barney2016handbook}
+The optimization goal is described as a \emph{cost function}.
+This cost function can consider many of the performance criteria listed in section \ref{sec:sota:perf}.
+A basic cost function is only looking at the average total journey time of the passengers, which includes waiting time and ride time
+\autocite[][pp.278ff]{barney2016handbook}.
+The computer can evaluate this cost function and search for a scheduling configuration, which minimizes it 
+\autocite[][pp.~3--6]{axelsson2013strategies}.
+The accuracy of the cost function can be enhanced if 
+the destination of each passenger is known beforehand.
+This is the case when the passenger selects their destination on the floor call panel instead of only giving an up/down direction.
+The system can then allocate an explicit lift to this passenger based on the evaluation of the cost function.
 
 \subsubsection{Parking Policies}
-Another consideration in the design of a control strategy are the rules, where to park a cabin, when it is not in use and has no current hall calls.
+Another consideration in the design of a control strategy are the rules where to park a cabin when it is not in use and has no current hall calls.
 The place where a cabin is parked can greatly influence the response time to hall calls.
-Having an cabin in or near the floor, where the arrival of the next passenger is expected, 
+Having a cabin on or near the floor, where the arrival of the next passenger is expected, 
 makes it possible to instantly answer their hall call.
-In a single-lift scenario this position might be easy to be determine, 
+In a single-lift scenario, this position might be easy to determine, 
 however in an multi-lift group, the possibilities of parking become complex \autocite[][pp.~3]{beers2015arrivals}.
 The prediction of the next arrival can be based on a model of the current traffic pattern.
 \textcite{brand2004parking} showed that for down-peak traffic, a distribution of the lifts is sufficient, which matches the arrival rates for each floor.
-For up-peak traffic however, the problem is stated to be harder, 
+For up-peak traffic, however, the problem is stated to be harder, 
 so that dynamic programming is proposed to solve it.
 
 
 \subsection{Performance Criteria}
 \label{sec:sota:perf}
 
-In order to evaluate the performance of an elevator system some metrics about it are commonly considered.
+In order to evaluate the performance of an elevator system, some metrics about it are commonly considered.
 They are used to check if a planned system fulfills the requirements that the expected traffic poses. 
 The metrics are mostly perceived as part of the service quality by the passengers.
 Many of them are linked together and influence each other.
-
-% General cite:
-%\autocite[][p.~10]{beers2015arrivals}
-%\autocite[][p.~7]{hakonen2003simulation}
-%\autocite[][pp.8-9]{siikonen1997models}
-%\autocite[][p.~194]{unger2015aufzuege}
 
 \begin{itemize}
 
@@ -673,17 +668,17 @@ Many of them are linked together and influence each other.
         \autocite[][pp.8-9]{siikonen1997models}.
     
     \item The \textbf{hall call time} 
-        describes the time between the issuing of an hall call by a passenger and the cancellation of the call. 
+        describes the time between the issuing of a hall call by a passenger and the cancellation of the call. 
         The call is canceled when an elevator is scheduled to serve the call floor and hence decelerates to stop at the floor
         \autocite[][pp.8-9]{siikonen1997models}. 
     
     \item The number of \textbf{total stops}
-        necessary to serve an specified amount of passengers (or within a given time frame) is an indicator for the efficiency of the scheduling algorithm
+        necessary to serve a specified amount of passengers (or within a given time frame) is an indicator for the efficiency of the scheduling algorithm
         \autocite[][p.~194]{unger2015aufzuege}.
     
     \item The \textbf{energy consumption} 
-        per ride or per time interval is an measure of economic interest. 
-        However it does not influence the perceived service quality.
+        per ride or per time interval is a measure of economic interest. 
+        However, it does not influence the perceived service quality.
     
     \item The \textbf{capacity utilization} 
         of the cabins in spacial and weight dimensions is an interesting metric to observe, 
@@ -695,12 +690,12 @@ Many of them are linked together and influence each other.
         
 \end{itemize}
 
-For each of the metrics it is common to calculate statistical figures, such as average, mean, minimum, maximum and standard deviation, which also can differ depending on the traffic situation.
+For each of the metrics, it is common to calculate statistical figures, such as average, mean, minimum, maximum and standard deviation, which also can differ depending on the traffic situation.
 These calculations can be based on theoretical consideration about the physical parameters of the system \autocite[][p.~194]{unger2015aufzuege}, simulations or heuristical observations in real buildings.
  
 When the group controller schedules the elevators in a system, the order of dispatches influences the metrics listed above.
-The elevator allocations are calculated by optimization of a cost function which takes the metrics in consideration.
-Usually the waiting time is optimized, but also the ride time can be optimized in order to increase the handling capacity. \autocite[][p.~10]{siikonen1997models} 
+The elevator allocations are calculated by optimization of a cost function which takes the metrics into consideration.
+Usually, the waiting time is optimized, but also the ride time can be optimized in order to increase the handling capacity. \autocite[][p.~10]{siikonen1997models} 
 
 \subsection{Optimization Approaches by Simulation}
 
@@ -708,7 +703,7 @@ Active research goes into simulating elevator systems in order to test out new c
 There are approaches to model existing or planned elevator systems based on their physical properties
 and analyze them using either with closed mathematical formulations or to simulate their behavior using computers \autocite[][p.~6]{beers2015arrivals}. 
 When implementing a simulation it can be done as a deterministic or stochastic model, which operate on continuous or discrete data.
-For a computer simulation, the discrete stochastic model is favourable, 
+For a computer simulation, the discrete stochastic model is favorable, 
 since it can deal with discrete events, which deal with the interaction of entities in the simulation. 
 
 An industrial grade elevator simulator is developed by \emph{Peters Research Ltd} \autocite[][]{peters2018elevate}.
