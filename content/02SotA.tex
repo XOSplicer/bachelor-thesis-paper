@@ -178,30 +178,23 @@ The other is an area of image points which might only loosely be connected and c
 
 The method to find fully connected blobs is called \emph{connected component labeling}, and two fundamental methods exist to perform it: \emph{label propagation algorithms} and \emph{label equivalence solving} \autocite[][]{he2017connected}.
 In the label propagation approach, the image is each image point is scanned and labeled. When a new, unlabeled point, which is positively labeled in the binary image, is encountered, it is given a new label and all of its neighbours are given the same label.
+When an already labeled image point is encountered, the label is copied to each of the positively labeled neighbours.
+In the label equivalence solving approach, first every image point, that is positively labeled in the binary image, is given a unique label. 
+In the next step, it is solved which labels are equivalent and belong to the same blob by unifying labels of neighboring image points.
+Both approaches yield an image with the same domain dimension as the binary image, but have pixel values in $ \mathbb{N} $, where the value designates the number of the blob that a pixel belongs to.  
 
+The method to find partially connected blobs is based on grouping connected blobs together, which are close to each other. The algorithm used for this is the following \autocite[][]{opencv2018blob}:
 
-
-
-TODO
-first explain contour (what are contours: outlines of connected areas in a binary mask) detection by border following \autocite[][]{suzuki1985border}
-
-
-
-
-\autocite[][]{opencv2018blob}
-\autocite[][]{mallick2015blob}
-operates on binary masked image
 \begin{enumerate}
-    \item Find the contours present in the image and calculate their centers
-    \item Group these centers based on a threshold for the distance for their location
+    \item Find the contours present in the image and calculate their centers. The contours can be found 
+    \item Group these centers together based on a threshold for the distance for their location.
     \item From these groups, find overall center and estimate area and radius of the blob
 \end{enumerate}
 
-TODO connected components
-TODO 
-\autocite[][]{he2017connected}
-finding connected pixels in a binary images, which is useful to tag different objects: label propoagation or label eqivalence soving
 
+\autocite[][]{mallick2015blob}
+TODO
+first explain contour (what are contours: outlines of connected areas in a binary mask) detection by border following \autocite[][]{suzuki1985border}
 TODO
 
 
